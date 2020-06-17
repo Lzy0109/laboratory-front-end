@@ -1,9 +1,10 @@
 <template>
   <div class="login-container">
+
     <el-form ref="loginForm" :model="loginForm" :rules="loginRules" class="login-form" auto-complete="on" label-position="left">
 
       <div class="title-container">
-        <h3 class="title">Login Form</h3>
+        <h3 class="title">Template</h3>
       </div>
 
       <el-form-item prop="username">
@@ -185,11 +186,15 @@ $light_gray:#eee;
 
   .login-form {
     position: relative;
-    width: 520px;
+    width: 450px;
     max-width: 100%;
-    padding: 160px 35px 0;
-    margin: 0 auto;
+    margin: 160px 90px;
+    padding: 36px;
     overflow: hidden;
+    float: right;
+    border: 2px solid #f5f5f5;
+    border-radius: 20px;
+    box-shadow: inset 0 0 0 1px #cecece;
   }
 
   .tips {

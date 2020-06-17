@@ -159,6 +159,324 @@ export const constantRoutes = [
     ]
   },
 
+  /**
+   * @author: lzy
+   * @date: 2020/6/6
+   */
+  {
+    path: '/laboratory_1',
+    component: Layout,
+    redirect: '/laboratory_1/equipment',
+    name: 'Laboratory_1',
+    meta: {
+      title: '实验室模块第一部分',
+      icon: 'nested'
+    },
+    children: [
+      // 实验器材管理
+      {
+        path: 'equipment',
+        component: () => import('@/views/laboratory_1/equipment/equipment_information/information/index'),
+        name: 'Equipment',
+        meta: { title: '实验器材管理' },
+        children: [
+          // 器材信息管理
+          {
+            path: 'equipment_information',
+            component: () => import('@/views/laboratory_1/equipment/equipment_information/information/index'),
+            name: 'Equipment_information',
+            meta: { title: '实验器材' },
+            children: [
+              {
+                path: 'category',
+                component: () => import('@/views/laboratory_1/equipment/equipment_information/category/index'),
+                name: 'Category',
+                meta: { title: '器材分类管理' }
+              },
+              {
+                path: 'information',
+                component: () => import('@/views/laboratory_1/equipment/equipment_information/information/index'),
+                name: 'Information',
+                meta: { title: '器材信息管理' }
+              },
+              {
+                path: 'quantity',
+                component: () => import('@/views/laboratory_1/equipment/equipment_information/quantity/index'),
+                name: 'Quantity',
+                meta: { title: '器材数量管理' }
+              }
+            ]
+          },
+          // 器材使用(分布)
+          {
+            path: 'equipment_use',
+            component: () => import('@/views/laboratory_1/equipment/equipment_use/index'),
+            name: 'Equipment_use-3',
+            meta: { title: '器材使用' }
+          },
+          // 零部件管理
+          {
+            path: 'components',
+            component: () => import('@/views/laboratory_1/equipment/components/index'),
+            name: 'Components',
+            meta: { title: '器材零部件' },
+            children: [
+              // 零部件分类管理
+              {
+                path: 'category',
+                component: () => import('@/views/laboratory_1/equipment/components/category/index'),
+                name: 'Category',
+                meta: { title: '零部件分类管理' }
+              },
+              // 零部件信息管理
+              {
+                path: 'information',
+                component: () => import('@/views/laboratory_1/equipment/components/information/index'),
+                name: 'Information',
+                meta: { title: '零部件信息管理' }
+              },
+              // 零部件数量管理
+              {
+                path: 'quantity',
+                component: () => import('@/views/laboratory_1/equipment/components/quantity/index'),
+                name: 'Quantity',
+                meta: { title: '零部件数量管理' }
+              },
+              // 零部件使用(分布)
+              {
+                path: 'use',
+                component: () => import('@/views/laboratory_1/equipment/components/use/index'),
+                name: 'Use',
+                meta: { title: '零部件使用' }
+              }
+            ]
+          }
+        ]
+      },
+      // 实验软件管理
+      {
+        path: 'software',
+        component: () => import('@/views/laboratory_1/software/index'), // Parent router-view
+        name: 'Software',
+        meta: { title: '实验软件管理' },
+        children: [
+          {
+            path: 'software',
+            component: () => import('@/views/laboratory_1/software/software/index'),
+            name: 'Software',
+            meta: { title: '实验软件' },
+            children: [
+              // 软件分类管理
+              {
+                path: 'category',
+                component: () => import('@/views/laboratory_1/software/software/category/index'),
+                name: 'Category',
+                meta: { title: '软件类型管理' }
+              },
+              // 软件信息管理
+              {
+                path: 'information',
+                component: () => import('@/views/laboratory_1/software/software/information/index'),
+                name: 'Information',
+                meta: { title: '软件信息管理' }
+              },
+              // 软件数量管理
+              {
+                path: 'quantity',
+                component: () => import('@/views/laboratory_1/software/software/quantity/index'),
+                name: 'Quantity',
+                meta: { title: '软件数量管理' }
+              }
+            ]
+          },
+          {
+            path: 'area',
+            component: () => import('@/views/laboratory_1/software/area/index'),
+            name: 'Area',
+            meta: { title: '配备区域' },
+            children: [
+              // 软件配备区域信息管理
+              {
+                path: 'information',
+                component: () => import('@/views/laboratory_1/software/area/information/index'),
+                name: 'Information',
+                meta: { title: '配备区域信息管理' }
+              },
+              // 软件配备区域使用
+              {
+                path: 'allocate',
+                component: () => import('@/views/laboratory_1/software/area/allocate/index'),
+                name: 'Allocate',
+                meta: { title: '配备区域' }
+              }
+            ]
+          }
+        ]
+      },
+      // 实验室人员管理
+      {
+        path: 'personnel',
+        component: () => import('@/views/laboratory_1/personnel/index'),
+        name: 'Personnel',
+        meta: { title: '实验室人员管理' },
+        children: [
+          // 人员信息管理
+          {
+            path: 'personnel',
+            component: () => import('@/views/laboratory_1/personnel/personnel/index'),
+            name: 'Personnel',
+            meta: { title: '实验室人员' },
+            alwaysShow: true,
+            children: [
+              {
+                path: 'information',
+                component: () => import('@/views/laboratory_1/personnel/personnel/information/index'),
+                name: 'Information',
+                meta: { title: '人员信息管理' }
+              }
+            ]
+          },
+          // 人员调度
+          {
+            path: 'dispatch',
+            component: () => import('@/views/laboratory_1/personnel/dispatch/index'),
+            name: 'Dispatch',
+            meta: { title: '实验室人员调度' }
+          }
+        ]
+      },
+      // 实验耗材管理
+      {
+        path: 'consumable',
+        component: () => import('@/views/laboratory_1/consumable/index'),
+        name: 'Consumable',
+        meta: { title: '实验室耗材管理' },
+        children: [
+          // 耗材分类管理
+          {
+            path: 'category',
+            component: () => import('@/views/laboratory_1/consumable/category/index'),
+            name: 'Category',
+            meta: { title: '耗材分类管理' }
+          },
+          // 耗材信息管理
+          {
+            path: 'information',
+            component: () => import('@/views/laboratory_1/consumable/information/index'),
+            name: 'Information',
+            meta: { title: '耗材信息管理' }
+          },
+          // 耗材数量管理
+          {
+            path: 'quantity',
+            component: () => import('@/views/laboratory_1/consumable/quantity/index'),
+            name: 'Quantity',
+            meta: { title: '耗材数量管理' }
+          }
+        ]
+      },
+      // 实验室资产管理
+      {
+        path: 'property',
+        component: () => import('@/views/laboratory_1/property/property/index'),
+        name: 'Property',
+        meta: { title: '实验室资产管理' },
+        children: [
+          // 资产分类管理
+          {
+            path: 'category',
+            component: () => import('@/views/laboratory_1/property/property/category/index'),
+            name: 'Category',
+            meta: { title: '资产分类管理' }
+          },
+          // 资产信息管理
+          {
+            path: 'information',
+            component: () => import('@/views/laboratory_1/property/property/information/index'),
+            name: 'Information',
+            meta: { title: '资产信息管理' }
+          },
+          // 资产数量管理
+          {
+            path: 'quantity',
+            component: () => import('@/views/laboratory_1/property/property/quantity/index'),
+            name: 'Quantity',
+            meta: { title: '资产数量管理' }
+          }
+        ]
+      },
+      // 实验室管理
+      {
+        path: 'field',
+        component: () => import('@/views/laboratory_1/field/field/information/index'),
+        name: 'Field',
+        meta: { title: '实验室管理' },
+        children: [
+          // 实验室
+          {
+            path: 'field',
+            component: () => import('@/views/laboratory_1/field/field/information/index'),
+            name: 'Field',
+            meta: { title: '实验室' },
+            children: [
+              // 实验室分类管理
+              {
+                path: 'category',
+                component: () => import('@/views/laboratory_1/field/field/category/index'),
+                name: 'Category',
+                meta: { title: '实验室分类管理' }
+              },
+              // 实验室信息管理
+              {
+                path: 'information',
+                component: () => import('@/views/laboratory_1/field/field/information/index'),
+                name: 'Information',
+                meta: { title: '实验室信息管理' }
+              },
+              // 实验室数量管理
+              {
+                path: 'quantity',
+                component: () => import('@/views/laboratory_1/field/field/quantity/index'),
+                name: 'Quantity',
+                meta: { title: '实验室数量管理' }
+              }
+            ]
+          },
+          // 实验室设施
+          {
+            path: 'facility',
+            component: () => import('@/views/laboratory_1/field/facility/index'),
+            name: 'Facility',
+            meta: { title: '实验室设施' },
+            children: [
+              // 设施分类管理
+              {
+                path: 'category',
+                component: () => import('@/views/laboratory_1/field/facility/category/index'),
+                name: 'Category',
+                meta: { title: '设施分类管理' }
+              },
+              // 设施信息管理
+              {
+                path: 'information',
+                component: () => import('@/views/laboratory_1/field/facility/information/index'),
+                name: 'Information',
+                meta: { title: '设施信息管理' }
+              },
+              // 设施数量管理
+              {
+                path: 'quantity',
+                component: () => import('@/views/laboratory_1/field/facility/quantity/index'),
+                name: 'Quantity',
+                meta: { title: '设施数量管理' }
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+
   // 404 page must be placed at the end !!!
   { path: '*', redirect: '/404', hidden: true }
 ]
