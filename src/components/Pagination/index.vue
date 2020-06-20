@@ -91,11 +91,12 @@ export default {
 </script>
 
 <style scoped>
-.pagination-container {
-  background: #fff;
-  padding: 32px 16px;
-}
-.pagination-container.hidden {
-  display: none;
-}
+  .pagination-container {
+    background: #fff;
+    float: right;
+    padding: 12px 0px;
+  }
+  .pagination-container.hidden {
+    display: none;
+  }
 </style>
