@@ -1,15 +1,26 @@
 <template>
   <div class="app-container">
-    <!-- 搜索栏 + 功能栏 -->
+    <!-- 简单搜索 + 其他功能区域 -->
     <div class="filter-container">
       <div class="filter-container-conditions" style="margin: 2px">
-        <el-input v-model="listQuery.lab_num" placeholder="编号" style="width: 230px;" clearable>
-          <template slot="prepend">编号:</template>
+        <el-input v-model="listQuery.lab_num" placeholder="实验室编号" style="width: 230px;" clearable>
+          <template slot="prepend">实验室编号</template>
         </el-input>
-        <el-input v-model="listQuery.lab_name" placeholder="名称" style="width: 230px;" clearable>
-          <template slot="prepend">名称:</template>
+        <el-input v-model="listQuery.lab_name" placeholder="实验室名称" style="width: 230px;" clearable>
+          <template slot="prepend">实验室名称</template>
         </el-input>
-        <el-select v-model="listQuery.lab_owner" style="width: auto;" placeholder="负责人" filterable clearable @change="handleFilter">
+        <el-select v-model="listQuery.lab_owner" style="width: 160px;" placeholder="实验室分类" filterable clearable @change="handleFilter">
+          <!--获取数据库信息动态生成option-->
+          <!--
+          <el-option v-for="item in CategoryList" :key=item.id :label="item.name" :value="item.id" >
+            <span style="float: left">编号:{{ item.id }}</span>
+            <span style="float: right; color: #8492a6; font-size: 12px">名称:{{ item.name }}</span>
+          </el-option>
+          -->
+          <el-option key="1" label="类别1" value="1" />
+          <el-option key="0" label="类别2" value="0" />
+        </el-select>
+        <el-select v-model="listQuery.lab_owner" style="width: 160px;" placeholder="实验室负责人" filterable clearable @change="handleFilter">
           <!--获取数据库信息动态生成option-->
           <!--
           <el-option v-for="item in CategoryList" :key=item.id :label="item.name" :value="item.id" >
@@ -48,38 +59,28 @@
       </div>
     </div>
 
-    <!-- 浮动高级搜索栏 -->
-    <el-dialog title="高级搜索" :visible.sync="DetailSearchShow" width="95%" :show-close="false">
+    <!-- 浮动高级搜索区域 -->
+    <el-dialog :visible.sync="DetailSearchShow" width="95%" :show-close="false">
+      <span class="my-dialog-title" slot="title">
+        高级搜索
+      </span>
       <div class="DetailSearch_son">
         <el-row class="DetailSearch_son_row">
+          <!-- 实验室编号 -->
           <el-col :span="6">
-            <span>可用设备数:</span>
-            <el-input v-model="listQuery.other" placeholder="可用设备数" style="width: auto;" clearable />
+            <el-input v-model="listQuery.lab_num" placeholder="实验室编号" style="width: 300px;" clearable>
+              <template slot="prepend">实验室编号</template>
+            </el-input>
           </el-col>
+          <!-- 实验室名称 -->
           <el-col :span="6">
-            <span>楼:</span>
-            <el-input v-model="listQuery.other" placeholder="楼" style="width: auto;" clearable />
+            <el-input v-model="listQuery.lab_name" placeholder="实验室名称" style="width: 300px;" clearable>
+              <template slot="prepend">实验室名称</template>
+            </el-input>
           </el-col>
+          <!-- 实验室分类 -->
           <el-col :span="6">
-            <span>房间编号:</span>
-            <el-input v-model="listQuery.other" placeholder="房间编号" style="width: auto;" clearable />
-          </el-col>
-          <el-col :span="6">
-            <span>可容纳人数:</span>
-            <el-input v-model="listQuery.other" placeholder="可容纳人数" style="width: auto;" clearable />
-          </el-col>
-        </el-row>
-        <el-row class="DetailSearch_son_row">
-          <el-col :span="6">
-            <span>分类：</span>
-            <el-select
-              v-model="listQuery.other"
-              style="width: auto"
-              class="filter-item"
-              placeholder="实验室类别"
-              filterable
-              clearable
-            >
+            <el-select v-model="listQuery.lab_owner" style="width: 300px;" placeholder="实验室分类" filterable clearable @change="handleFilter">
               <!--获取数据库信息动态生成option-->
               <!--
               <el-option v-for="item in CategoryList" :key=item.id :label="item.name" :value="item.id" >
@@ -91,40 +92,70 @@
               <el-option key="0" label="类别2" value="0" />
             </el-select>
           </el-col>
+          <!-- 实验室负责人 -->
           <el-col :span="6">
-            <span>日期：</span>
-            <el-date-picker
-              v-model="listQuery.other"
-              type="date"
-              placeholder="（其他）日期"
-              value-format="yyyy-MM-dd"
-              style="width: auto;"
-              class="filter-item"
-            />
-          </el-col>
-          <el-col :span="6">
-            <span>可容纳人数:</span>
-            <el-input v-model="listQuery.other" placeholder="可容纳人数" style="width: auto;" clearable />
-          </el-col>
-          <el-col :span="6">
-            <el-input v-model="listQuery.other" placeholder="其他条件" style="width: auto;" clearable />
+            <el-select v-model="listQuery.lab_owner" style="width: 300px;" placeholder="实验室负责人" filterable clearable @change="handleFilter">
+              <el-option key="1" label="负责人1" value="1" />
+              <el-option key="0" label="负责人2" value="0" />
+            </el-select>
           </el-col>
         </el-row>
+        <el-row class="DetailSearch_son_row">
+          <el-col :span="6">
+            <el-input v-model="listQuery.other" placeholder="楼" style="width: 300px;" clearable>
+              <template slot="prepend">楼</template>
+            </el-input>
+          </el-col>
+          <el-col :span="6">
+            <el-input v-model="listQuery.other" placeholder="房间号" style="width: 300px;" clearable>
+              <template slot="prepend">房间号</template>
+            </el-input>
+          </el-col>
+          <el-col :span="6">
+            <el-input v-model="listQuery.other" placeholder="最大机位数" style="width: 300px;" clearable>
+              <template slot="prepend">最大机位数</template>
+            </el-input>
+          </el-col>
+          <el-col :span="6">
+            <el-input v-model="listQuery.other" placeholder="可容纳人数上限" style="width: 300px;" clearable>
+              <template slot="prepend">可容纳人数上限</template>
+            </el-input>
+          </el-col>
+        </el-row>
+        <el-row class="DetailSearch_son_row">
 
+          <el-col :span="6">
+            <el-input v-model="listQuery.other" placeholder="可用设备数" style="width: 300px;" clearable>
+              <template slot="prepend">可用设备数</template>
+            </el-input>
+          </el-col>
+<!--          <el-col :span="6">-->
+<!--            <span>日期：</span>-->
+<!--            <el-date-picker-->
+<!--              v-model="listQuery.other"-->
+<!--              type="date"-->
+<!--              placeholder="（其他）日期"-->
+<!--              value-format="yyyy-MM-dd"-->
+<!--              style="width: auto;"-->
+<!--              class="filter-item"-->
+<!--            />-->
+<!--          </el-col>-->
+        </el-row>
         <!--按钮定位-->
         <div class="DetailSearch_button">
-          <el-button class="filter-item" type="primary" round icon="el-icon-search" @click="handleFilter">
+          <el-button class="filter-item" type="primary" icon="el-icon-search" @click="handleFilter">
             搜索
           </el-button>
-          <el-button class="filter-item" type="primary" round icon="el-icon-close" @click="handleClose">
+          <el-button class="filter-item" type="primary" icon="el-icon-close" @click="handleClose">
             取消
           </el-button>
-
         </div>
 
       </div>
     </el-dialog>
+
     <!-- table区域 -->
+    <!-- 表格错位问题 设置全局样式 -->
     <el-table
       v-loading="listLoading"
       :data="tableData"
@@ -132,10 +163,11 @@
       border
       fit
       highlight-current-row
-      @row-dblclick="handleDetail"
+      @row-click="handleDetail"
+      :header-cell-style="{'font-size': '19px'}"
     >
       <el-table-column
-        label="序号"
+        label="#"
         type="index"
         width="70"
         align="center"
@@ -164,11 +196,11 @@
       />
     </el-table>
     <!-- 分页栏 -->
-    <pagination
-      v-show="total > 0"
-      :total="total"
-      :page.sync="pageNum"
-      :limit.sync="pageSize"
+    <pagination class="my-pagination"
+                v-show="total > 0"
+                :total="100"
+                :page.sync="pageNum"
+                :limit.sync="pageSize"
     />
   </div>
 </template>
@@ -181,141 +213,144 @@
     },
     data() {
       return {
-        /* 表格参数*/
+        /* 表格参数 */
         tableData: null,
         listLoading: true,
-        /* 分页参数 待修改*/
+        /* 分页参数 待修改 */
         total: 100,
         pageNum: 1,
         pageSize: 20,
-        /* 类别信息列表*/
+        /* 类别信息列表 */
         CategoryList: [],
-        /* 导出excel相关参数*/
+        /* 导出excel相关参数 */
         downloadLoading: false,
-        /* 查询条件*/
+        /* 查询条件 */
         listQuery: {
           lab_name: null,
           lab_num: null,
           lab_owner: null,
           other: null
         },
-        /* 是否显示高级搜索*/
+        /* 是否显示高级搜索 */
         DetailSearchShow: false,
-        /* 是否显示功能栏*/
+        /* 是否显示功能栏 */
         FunctionBtnShow: false,
-        /* 是否显示批量删除确认按钮*/
-        BatchDeleteBtnShow: false
       }
     },
     created() {
       this.getTableList()
     },
     methods: {
-      /* 获取列表信息*/
+      /* 获取列表信息 */
       getTableList() {
-        this.tableData = [{
+        this.tableData = [
+          {
           id: 1,
-          lab_num: 105,
-          lab_name: '测试实验室',
+          lab_num: 101,
+          lab_name: '测试实验室1',
           lab_category: '实验室类别',
           lab_equip_cur_num: '当前可用设备数',
           lab_owner: '负责人'
-        },
+          },
           {
             id: 2,
-            lab_num: 103,
-            lab_name: '测试实验室3',
-            lab_category: '实验室类别3',
+            lab_num: 102,
+            lab_name: '测试实验室2',
+            lab_category: '实验室类别',
             lab_equip_cur_num: '当前可用设备数',
             lab_owner: '负责人'
-          }]
+          },
+          {
+            id: 3,
+            lab_num: 103,
+            lab_name: '测试实验室3',
+            lab_category: '实验室类别',
+            lab_equip_cur_num: '当前可用设备数',
+            lab_owner: '负责人'
+          },
+          {
+            id: 4,
+            lab_num: 104,
+            lab_name: '测试实验室4',
+            lab_category: '实验室类别',
+            lab_equip_cur_num: '当前可用设备数',
+            lab_owner: '负责人'
+          },
+          {
+            id: 5,
+            lab_num: 105,
+            lab_name: '测试实验室5',
+            lab_category: '实验室类别',
+            lab_equip_cur_num: '当前可用设备数',
+            lab_owner: '负责人'
+          },
+          {
+            id: 6,
+            lab_num: 106,
+            lab_name: '测试实验室6',
+            lab_category: '实验室类别',
+            lab_equip_cur_num: '当前可用设备数',
+            lab_owner: '负责人'
+          },
+          {
+            id: 7,
+            lab_num: 107,
+            lab_name: '测试实验室7',
+            lab_category: '实验室类别',
+            lab_equip_cur_num: '当前可用设备数',
+            lab_owner: '负责人'
+          },
+          {
+            id: 8,
+            lab_num: 108,
+            lab_name: '测试实验室8',
+            lab_category: '实验室类别',
+            lab_equip_cur_num: '当前可用设备数',
+            lab_owner: '负责人'
+          },
+          {
+            id: 9,
+            lab_num: 109,
+            lab_name: '测试实验室9',
+            lab_category: '实验室类别',
+            lab_equip_cur_num: '当前可用设备数',
+            lab_owner: '负责人'
+          },
+          {
+            id: 10,
+            lab_num: 110,
+            lab_name: '测试实验室10',
+            lab_category: '实验室类别',
+            lab_equip_cur_num: '当前可用设备数',
+            lab_owner: '负责人'
+          }
+        ]
         this.listLoading = false
       },
 
-      /* 编辑*/
-      handleEdit(index, row) {
-
-      },
-      /* 删除一条*/
-      handleDelete(id) {
-        if (id) {
-          return true
-        } else {
-          return false
-        }
-      },
-      /* 删除一条信息确认弹窗*/
-      beforeHandleDelete(index, row) {
-        this.$confirm('此操作将永久删除该信息, 是否继续?', '提示', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
-          type: 'warning'
-        }).then(() => {
-          if (this.handleDelete(row.id)) {
-            this.$message({
-              type: 'success',
-              message: '删除成功!'
-            })
-          } else {
-            this.$message({
-              type: 'warning',
-              message: '删除失败!'
-            })
-          }
-        }).catch(() => {
-          this.$message({
-            type: 'info',
-            message: '已取消删除'
-          })
-        })
-      },
-      beforeHandleBatchDelete() {
-        this.$confirm('此操作将删除您选中的信息, 是否继续?', '提示', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
-          type: 'warning'
-        }).then(() => {
-          if (this.handleBatchDelete()) {
-            this.$message({
-              type: 'success',
-              message: '删除成功!'
-            })
-          } else {
-            this.$message({
-              type: 'warning',
-              message: '删除失败!'
-            })
-          }
-        }).catch(() => {
-          this.$message({
-            type: 'info',
-            message: '已取消删除'
-          })
-        })
-      },
-      /* 详情*/
+      /* 详情 */
       handleDetail(row, column, event) {
         console.log('handleDetail')
         this.$router.push({
-          path:'labdetail',
+          name: 'Field_Info_Detail',
           query:{
             id: row.id
           }
         })
       },
-      /* 查找*/
+      /* 查找 */
       handleFilter() {
 
       },
-      /* 导出Excel*/
+      /* 导出Excel */
       handleDownload() {
 
       },
-      /* 添加数据*/
+      /* 添加数据 */
       handleCreate() {
 
       },
-      /* 批量添加*/
+      /* 批量添加 */
       handleBatchCreate() {
 
       },
@@ -347,9 +382,22 @@
   }
 </style>
 
-<!--高级搜索样式-->
-<style scoped>
-  .DetailSearch{
+<!-- 分页样式 -->
+<!--<style scoped>-->
+<!--  .pagination-container /deep/ ul {-->
+<!--    display: none;-->
+<!--  }-->
+<!--  .pagination-container /deep/ .el-pagination__jump {-->
+<!--    display: none;-->
+<!--  }-->
+<!--</style>-->
+<!-- 高级搜索样式 -->
+<style>
+  .my-dialog-title{
+    font-size: 20px;
+    font-weight: 700;
+  }
+  .DetailSearch {
     overflow:hidden;
     margin-top: 10px;
     margin-bottom: 10px;
@@ -357,24 +405,23 @@
     -moz-box-shadow: #CCCCCC 0px 0px 5px;
     box-shadow: #CCCCCC 0px 0px 5px;
   }
-  .DetailSearch_son{
-    margin : 5px;
+  .DetailSearch_son {
+    margin : 10px;
   }
-  .DetailSearch_son_row{
-    margin-bottom: 5px;
+  .DetailSearch_son_row {
+    margin-bottom: 10px;
   }
-  .DetailSearch_button{
-    margin-right:20px;
-    margin-bottom: 5px;
+  .DetailSearch_button {
+    margin: 30px 10px 0px;
     text-align: right;
   }
 </style>
-<!--功能栏样式-->
+<!-- 功能栏样式 -->
 <style scoped>
   .filter-container {
     margin-bottom: 70px;
   }
-  .FunctionBtn{
+  .FunctionBtn {
     overflow:hidden;
     margin-top: 10px;
     margin-bottom: 10px;
@@ -382,17 +429,18 @@
     -moz-box-shadow: #CCCCCC 0px 0px 5px;
     box-shadow: #CCCCCC 0px 0px 5px;
   }
-  .FunctionBtn_Son{
+  .FunctionBtn_Son {
     display: inline-block;
     margin : 5px;
   }
-  .button-filter-container{
+  .button-filter-container {
     display: inline-block;
-    margin: 2px;
+    margin: 5px;
     float: right;
   }
-  .filter-container-conditions{
+  .filter-container-conditions {
     float: left;
     display: inline-block;
   }
 </style>
+

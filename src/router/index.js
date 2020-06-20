@@ -173,6 +173,83 @@ export const constantRoutes = [
       icon: 'nested'
     },
     children: [
+      // 实验室场地管理
+      {
+        path: 'field',
+        component: () => import('@/views/laboratory_1/field/field/information/index'),
+        name: 'Field',
+        meta: { title: '实验室管理' },
+        children: [
+          // 实验室
+          {
+            path: 'field',
+            component: () => import('@/views/laboratory_1/field/field/information/index'),
+            name: 'Field',
+            meta: { title: '实验室' },
+            children: [
+              // 实验室分类管理
+              {
+                path: 'category',
+                component: () => import('@/views/laboratory_1/field/field/category/index'),
+                name: 'Category',
+                meta: { title: '实验室分类管理' }
+              },
+              // 实验室信息管理
+              {
+                path: 'information',
+                component: () => import('@/views/laboratory_1/field/field/information/index'),
+                name: 'Information',
+                meta: { title: '实验室信息管理' },
+              },
+              // 实验室数量管理
+              {
+                path: 'quantity',
+                component: () => import('@/views/laboratory_1/field/field/quantity/index'),
+                name: 'Quantity',
+                meta: { title: '实验室数量管理' }
+              }
+            ]
+          },
+          // 实验室设施
+          {
+            path: 'facility',
+            component: () => import('@/views/laboratory_1/field/facility/index'),
+            name: 'Facility',
+            meta: { title: '实验室设施' },
+            children: [
+              // 设施分类管理
+              {
+                path: 'category',
+                component: () => import('@/views/laboratory_1/field/facility/category/index'),
+                name: 'Category',
+                meta: { title: '设施分类管理' }
+              },
+              // 设施信息管理
+              {
+                path: 'information',
+                component: () => import('@/views/laboratory_1/field/facility/information/index'),
+                name: 'Information',
+                meta: { title: '设施信息管理' }
+              },
+              // 设施数量管理
+              {
+                path: 'quantity',
+                component: () => import('@/views/laboratory_1/field/facility/quantity/index'),
+                name: 'Quantity',
+                meta: { title: '设施数量管理' }
+              }
+            ]
+          }
+        ]
+      },
+      // 实验室场地详情
+      {
+        path: 'field_info_detail',
+        component: () => import('@/views/laboratory_1/field/field/information/detail/index'),
+        name: 'Field_Info_Detail',
+        meta: { title: '实验室详情页' },
+        hidden: true
+      },
       // 实验器材管理
       {
         path: 'equipment',
@@ -402,75 +479,6 @@ export const constantRoutes = [
             component: () => import('@/views/laboratory_1/property/property/quantity/index'),
             name: 'Quantity',
             meta: { title: '资产数量管理' }
-          }
-        ]
-      },
-      // 实验室管理
-      {
-        path: 'field',
-        component: () => import('@/views/laboratory_1/field/field/information/index'),
-        name: 'Field',
-        meta: { title: '实验室管理' },
-        children: [
-          // 实验室
-          {
-            path: 'field',
-            component: () => import('@/views/laboratory_1/field/field/information/index'),
-            name: 'Field',
-            meta: { title: '实验室' },
-            children: [
-              // 实验室分类管理
-              {
-                path: 'category',
-                component: () => import('@/views/laboratory_1/field/field/category/index'),
-                name: 'Category',
-                meta: { title: '实验室分类管理' }
-              },
-              // 实验室信息管理
-              {
-                path: 'information',
-                component: () => import('@/views/laboratory_1/field/field/information/index'),
-                name: 'Information',
-                meta: { title: '实验室信息管理' }
-              },
-              // 实验室数量管理
-              {
-                path: 'quantity',
-                component: () => import('@/views/laboratory_1/field/field/quantity/index'),
-                name: 'Quantity',
-                meta: { title: '实验室数量管理' }
-              }
-            ]
-          },
-          // 实验室设施
-          {
-            path: 'facility',
-            component: () => import('@/views/laboratory_1/field/facility/index'),
-            name: 'Facility',
-            meta: { title: '实验室设施' },
-            children: [
-              // 设施分类管理
-              {
-                path: 'category',
-                component: () => import('@/views/laboratory_1/field/facility/category/index'),
-                name: 'Category',
-                meta: { title: '设施分类管理' }
-              },
-              // 设施信息管理
-              {
-                path: 'information',
-                component: () => import('@/views/laboratory_1/field/facility/information/index'),
-                name: 'Information',
-                meta: { title: '设施信息管理' }
-              },
-              // 设施数量管理
-              {
-                path: 'quantity',
-                component: () => import('@/views/laboratory_1/field/facility/quantity/index'),
-                name: 'Quantity',
-                meta: { title: '设施数量管理' }
-              }
-            ]
           }
         ]
       }
