@@ -194,11 +194,12 @@
       />
     </el-table>
     <!-- 分页栏 -->
-    <pagination class="my-pagination"
-                v-show="total > 0"
-                :total="100"
-                :page.sync="pageNum"
-                :limit.sync="pageSize"
+    <pagination
+      class="my-pagination"
+      v-show="total > 0"
+      :total="100"
+      :page.sync="pageNum"
+      :limit.sync="pageSize"
     />
   </div>
 </template>

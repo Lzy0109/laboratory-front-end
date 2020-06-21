@@ -199,7 +199,7 @@ export const constantRoutes = [
                 path: 'information',
                 component: () => import('@/views/laboratory_1/field/field/information/field-list'),
                 name: 'Information',
-                meta: { title: '实验室信息管理' },
+                meta: { title: '实验室信息管理' }
               },
               // 实验室数量管理
               {
@@ -242,6 +242,7 @@ export const constantRoutes = [
           }
         ]
       },
+
       // 实验室场地详情
       {
         path: 'field_detail',
@@ -279,7 +280,7 @@ export const constantRoutes = [
         path: 'field_equip_detail',
         component: () => import('@/views/laboratory_1/field/field/information/field-equip-detail'),
         name: 'Field_Equip_Detail',
-        meta: {title: '器材详情'},
+        meta: { title: '器材详情' },
         hidden: true
       },
       // 器材内置软件列表
@@ -298,6 +299,7 @@ export const constantRoutes = [
         meta: { title: '软件详情' },
         hidden: true
       },
+
       // 实验器材管理
       {
         path: 'equipment',
