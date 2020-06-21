@@ -176,14 +176,14 @@ export const constantRoutes = [
       // 实验室场地管理
       {
         path: 'field',
-        component: () => import('@/views/laboratory_1/field/field/information/index'),
+        component: () => import('@/views/laboratory_1/field/field/information/field-list'),
         name: 'Field',
         meta: { title: '实验室管理' },
         children: [
           // 实验室
           {
             path: 'field',
-            component: () => import('@/views/laboratory_1/field/field/information/index'),
+            component: () => import('@/views/laboratory_1/field/field/information/field-list'),
             name: 'Field',
             meta: { title: '实验室' },
             children: [
@@ -197,7 +197,7 @@ export const constantRoutes = [
               // 实验室信息管理
               {
                 path: 'information',
-                component: () => import('@/views/laboratory_1/field/field/information/index'),
+                component: () => import('@/views/laboratory_1/field/field/information/field-list'),
                 name: 'Information',
                 meta: { title: '实验室信息管理' },
               },
@@ -244,10 +244,58 @@ export const constantRoutes = [
       },
       // 实验室场地详情
       {
-        path: 'field_info_detail',
-        component: () => import('@/views/laboratory_1/field/field/information/detail/index'),
-        name: 'Field_Info_Detail',
+        path: 'field_detail',
+        component: () => import('@/views/laboratory_1/field/field/information/field-detail'),
+        name: 'Field_Detail',
         meta: { title: '实验室详情页' },
+        hidden: true
+      },
+      // 指定实验室内设施列表
+      {
+        path: 'field_fac_list',
+        component: () => import('@/views/laboratory_1/field/field/information/field-fac-list'),
+        name: 'Field_Fac_List',
+        meta: { title: '指定实验室内设施列表' },
+        hidden: true
+      },
+      // 设施详情
+      {
+        path: 'field_fac_detail',
+        component: () => import('@/views/laboratory_1/field/field/information/field-fac-detail'),
+        name: 'Field_Fac_Detail',
+        meta: { title: '设施详情' },
+        hidden: true
+      },
+      // 指定实验室内器材列表
+      {
+        path: 'field_equip_list',
+        component: () => import('@/views/laboratory_1/field/field/information/field-equip-list'),
+        name: 'Field_Equip_List',
+        meta: { title: '指定实验室器材列表' },
+        hidden: true
+      },
+      // 器材详情
+      {
+        path: 'field_equip_detail',
+        component: () => import('@/views/laboratory_1/field/field/information/field-equip-detail'),
+        name: 'Field_Equip_Detail',
+        meta: {title: '器材详情'},
+        hidden: true
+      },
+      // 器材内置软件列表
+      {
+        path: 'field_equip_sw_list',
+        component: () => import('@/views/laboratory_1/field/field/information/field-equip-sw-list'),
+        name: 'Field_Equip_Sw_List',
+        meta: { title: '器材内置软件列表' },
+        hidden: true
+      },
+      // 软件详情
+      {
+        path: 'field_equip_sw_detail',
+        component: () => import('@/views/laboratory_1/field/field/information/field-equip-sw-detail'),
+        name: 'Field_Equip_Sw_Detail',
+        meta: { title: '软件详情' },
         hidden: true
       },
       // 实验器材管理
@@ -261,7 +309,7 @@ export const constantRoutes = [
           {
             path: 'equipment_information',
             component: () => import('@/views/laboratory_1/equipment/equipment_information/information/index'),
-            name: 'Equipment_information',
+            name: 'Equipment_Information',
             meta: { title: '实验器材' },
             children: [
               {
@@ -273,7 +321,7 @@ export const constantRoutes = [
               {
                 path: 'information',
                 component: () => import('@/views/laboratory_1/equipment/equipment_information/information/index'),
-                name: 'Information',
+                name: 'Equipment_Information',
                 meta: { title: '器材信息管理' }
               },
               {
