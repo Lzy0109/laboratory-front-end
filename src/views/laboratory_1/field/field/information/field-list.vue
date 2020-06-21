@@ -9,7 +9,7 @@
         <el-input v-model="listQuery.lab_name" placeholder="实验室名称" style="width: 230px;" clearable>
           <template slot="prepend">实验室名称</template>
         </el-input>
-        <el-select v-model="listQuery.lab_owner" style="width: 160px;" placeholder="实验室分类" filterable clearable @change="handleFilter">
+        <el-select v-model="listQuery.lab_cate" style="width: 160px;" placeholder="实验室分类" filterable clearable @change="handleFilter">
           <!--获取数据库信息动态生成option-->
           <!--
           <el-option v-for="item in CategoryList" :key=item.id :label="item.name" :value="item.id" >
@@ -36,7 +36,6 @@
         </el-button-group>
       </div>
       <div class="button-filter-container">
-
         <el-button-group>
           <el-button type="primary"  size="medium" @click="DetailSearchShow = !DetailSearchShow">
             高级搜索
@@ -55,7 +54,6 @@
             导出
           </el-button>
         </el-button-group>
-
       </div>
     </div>
 
@@ -167,7 +165,7 @@
       :header-cell-style="{'font-size': '19px'}"
     >
       <el-table-column
-        label="#"
+        label="序号"
         type="index"
         width="70"
         align="center"
@@ -229,6 +227,7 @@
           lab_name: null,
           lab_num: null,
           lab_owner: null,
+          lab_cate: null,
           other: null
         },
         /* 是否显示高级搜索 */
@@ -332,7 +331,7 @@
       handleDetail(row, column, event) {
         console.log('handleDetail')
         this.$router.push({
-          name: 'Field_Info_Detail',
+          name: 'Field_Detail',
           query:{
             id: row.id
           }
