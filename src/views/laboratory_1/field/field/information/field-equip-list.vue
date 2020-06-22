@@ -305,7 +305,6 @@ export default {
 
 <style scoped>
   .filter-container {
-    margin-bottom: 70px;
     color: #5a5e66;
     background: #fff;
     box-shadow: 0 1px 4px rgba(0,21,41,.1);

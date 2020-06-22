@@ -117,7 +117,7 @@ export default {
     },
     handleBack() {
       this.$router.push({
-        path: 'labtable'
+        path: ''
       })
     }
   }
