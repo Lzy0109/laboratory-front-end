@@ -14,7 +14,7 @@
         <el-row type="flex" class="row-bg" justify="space-around">
           <el-col :span="8">
             <el-form-item label="实验室编号" label-width="100px" prop="number">
-              <el-input v-model="dataForm.lab_num" style="width: auto" :readonly="isRead"/>
+              <el-input v-model="dataForm.lab_num" style="width: auto" :readonly="isRead" />
             </el-form-item>
           </el-col>
           <el-col :span="8">
@@ -147,186 +147,186 @@
 </template>
 
 <script>
-  // 假数据
-  const fakeData = {
-    id: 1,
-    lab_num: 10041,
-    lab_name: '实验室',
-    lab_category: '分类',
-    labOtherInfo: '分类',
-    lab_facility_id: 1,
-    lab_owner: '负责人',
-    lab_building: '楼',
-    lab_telephone: '13412341234',
-    lab_indoor: '室内',
-    lab_height: '高度',
-    lab_width: '宽度',
-    lab_long: '长度',
-    lab_style: '类型',
-    lab_capacity: '容积',
-    equipment_max: '最大设备数',
-    equipment_num: '当前可用设备数',
-    lab_equipment_id: 1,
-    lab_description: '室内',
-    lab_room: 503
-  }
+// 假数据
+const fakeData = {
+  id: 1,
+  lab_num: 10041,
+  lab_name: '实验室',
+  lab_category: '分类',
+  labOtherInfo: '分类',
+  lab_facility_id: 1,
+  lab_owner: '负责人',
+  lab_building: '楼',
+  lab_telephone: '13412341234',
+  lab_indoor: '室内',
+  lab_height: '高度',
+  lab_width: '宽度',
+  lab_long: '长度',
+  lab_style: '类型',
+  lab_capacity: '容积',
+  equipment_max: '最大设备数',
+  equipment_num: '当前可用设备数',
+  lab_equipment_id: 1,
+  lab_description: '室内',
+  lab_room: 503
+}
 
-  export default {
-    name: 'Detail',
-    data() {
-      return {
-        dataForm: null,
-        tempData: null,
-        rules: {
-          lab_num: [
-            { type: 'number', message: '请输入数字', trigger: 'blur' }
-          ],
-          infoValidation: [
-            { type: 'string', message: '请输入', trigger: 'blur' }
-          ]
-        },
-        isRead: true,
-        isAble: false,
-        showSaveBtn: false
-      }
+export default {
+  name: 'Detail',
+  data() {
+    return {
+      dataForm: null,
+      tempData: null,
+      rules: {
+        lab_num: [
+          { type: 'number', message: '请输入数字', trigger: 'blur' }
+        ],
+        infoValidation: [
+          { type: 'string', message: '请输入', trigger: 'blur' }
+        ]
+      },
+      isRead: true,
+      isAble: false,
+      showSaveBtn: false
+    }
+  },
+  created() {
+    this.getOriginalData()
+  },
+  methods: {
+    /* 根据ID获取数据 */
+    getOriginalData() {
+      // 暂用假数据
+      this.dataForm = fakeData
+      const id = this.$route.query.id
+      console.log(id)
     },
-    created() {
-      this.getOriginalData()
+    /* 返回上一页 */
+    handleReturn() {
+      this.$router.go(-1)
     },
-    methods: {
-      /* 根据ID获取数据 */
-      getOriginalData() {
-        // 暂用假数据
-        this.dataForm = fakeData;
-        let id = this.$route.query.id;
-        console.log(id);
-      },
-      /* 返回上一页 */
-      handleReturn() {
-        this.$router.go(-1)
-      },
-      /* 编辑前 */
-      beforeEdit() {
-        this.showSaveBtn = !this.showSaveBtn
-        // 保存修改前数据
-        this.tempData = { ...this.dataForm }
-        console.log(this.tempData.lab_name)
-        // 使input为非readonly
-        this.isRead = false
-        // 显示保存信息按钮
-        this.showSaveBtn = true
-        // 设为不可用,防止暂存数据出错
-        this.isAble = true
-      },
-      /* 编辑后 */
-      afterEdit() {
-        // 还原修改前所有状态
-        this.tempData = null
-        this.isRead = true
-        this.showSaveBtn = false
-        this.isAble = false
-      },
-      /* 提交编辑的内容 */
-      submitEdit(formName) {
-        this.$refs[formName].validate((valid) => {
-          if (valid) {
-            this.$message({
-              message: '修改成功',
-              type: 'success'
-            })
-            // 根据返回信息重新复制dataForm
-            console.log('success submit!!')
-          } else {
-            console.log('error submit!!')
-            return false
-          }
-        })
-        // 修改后操作
-        this.afterEdit()
-      },
-      /* 取消编辑操作 */
-      cancelEdit() {
-        this.dataForm = { ...this.tempData }
-        console.log(this.tempData.lab_name)
-        this.afterEdit()
-      },
-      /* 取消 确认弹窗 */
-      beforeCancelEdit() {
-        this.$confirm('修改信息还没保存, 是否继续?', '提示', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
-          type: 'warning'
-        }).then(() => {
-          this.cancelEdit()
+    /* 编辑前 */
+    beforeEdit() {
+      this.showSaveBtn = !this.showSaveBtn
+      // 保存修改前数据
+      this.tempData = { ...this.dataForm }
+      console.log(this.tempData.lab_name)
+      // 使input为非readonly
+      this.isRead = false
+      // 显示保存信息按钮
+      this.showSaveBtn = true
+      // 设为不可用,防止暂存数据出错
+      this.isAble = true
+    },
+    /* 编辑后 */
+    afterEdit() {
+      // 还原修改前所有状态
+      this.tempData = null
+      this.isRead = true
+      this.showSaveBtn = false
+      this.isAble = false
+    },
+    /* 提交编辑的内容 */
+    submitEdit(formName) {
+      this.$refs[formName].validate((valid) => {
+        if (valid) {
           this.$message({
-            message: '已取消',
+            message: '修改成功',
             type: 'success'
-
           })
-        }).catch(() => {
-          console.log('已取消退出')
-        })
-      },
-      /* 删除 */
-      handleDelete() {
-        if (this.dataForm.id) {
-          return true
+          // 根据返回信息重新复制dataForm
+          console.log('success submit!!')
         } else {
+          console.log('error submit!!')
           return false
         }
-      },
-      /* 删除 确认弹窗 */
-      beforeHandleDelete() {
-        this.$confirm('此操作将删除该信息, 是否继续?', '提示', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
-          type: 'warning'
-        }).then(() => {
-          if (this.handleDelete()) {
-            this.$message({
-              type: 'success',
-              message: '删除成功'
-            })
-            this.$router.go(-1)
-          } else {
-            this.$message({
-              type: 'warning',
-              message: '删除失败'
-            })
-          }
-        }).catch(() => {
-          this.$message({
-            type: 'info',
-            message: '已取消'
-          })
+      })
+      // 修改后操作
+      this.afterEdit()
+    },
+    /* 取消编辑操作 */
+    cancelEdit() {
+      this.dataForm = { ...this.tempData }
+      console.log(this.tempData.lab_name)
+      this.afterEdit()
+    },
+    /* 取消 确认弹窗 */
+    beforeCancelEdit() {
+      this.$confirm('修改信息还没保存, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        this.cancelEdit()
+        this.$message({
+          message: '已取消',
+          type: 'success'
+
         })
-      },
-      /* 导出 */
-      handleDownload() {
-        console.log('导出')
-      },
-      /* 跳转到设施详情 */
-      handleFacilityDetail(id) {
-        console.log('facility id =' + id);
-        this.$router.push({
-          name: 'Field_Fac_List',
-          query: {
-            id: id
-          }
-        })
-      },
-      /* 跳转到器材详情 */
-      handleEquipmentDetail(id) {
-        console.log('equipment id =' + id);
-        this.$router.push({
-          name: 'Field_Equip_List',
-          query: {
-            id: id
-          }
-        })
+      }).catch(() => {
+        console.log('已取消退出')
+      })
+    },
+    /* 删除 */
+    handleDelete() {
+      if (this.dataForm.id) {
+        return true
+      } else {
+        return false
       }
+    },
+    /* 删除 确认弹窗 */
+    beforeHandleDelete() {
+      this.$confirm('此操作将删除该信息, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        if (this.handleDelete()) {
+          this.$message({
+            type: 'success',
+            message: '删除成功'
+          })
+          this.$router.go(-1)
+        } else {
+          this.$message({
+            type: 'warning',
+            message: '删除失败'
+          })
+        }
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '已取消'
+        })
+      })
+    },
+    /* 导出 */
+    handleDownload() {
+      console.log('导出')
+    },
+    /* 跳转到设施详情 */
+    handleFacilityDetail(id) {
+      console.log('facility id =' + id)
+      this.$router.push({
+        name: 'Field_Fac_List',
+        query: {
+          id: id
+        }
+      })
+    },
+    /* 跳转到器材详情 */
+    handleEquipmentDetail(id) {
+      console.log('equipment id =' + id)
+      this.$router.push({
+        name: 'Field_Equip_List',
+        query: {
+          id: id
+        }
+      })
     }
   }
+}
 </script>
 
 <!-- 悬浮input鼠标状态 -->

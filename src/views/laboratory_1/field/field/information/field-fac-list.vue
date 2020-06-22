@@ -2,7 +2,7 @@
   <div class="app-container">
     <!-- 简单搜索 + 其他功能区域 -->
     <div class="filter-container">
-      <el-button type="primary" :disabled="isAble" @click="handleReturn" size="small">返回</el-button>
+      <el-button type="primary" :disabled="isAble" size="small" @click="handleReturn">返回</el-button>
       <div class="button-filter-container">
         <div class="filter-container-conditions" style="margin: 2px">
           <el-input v-model="listQuery.equip_no" placeholder="设施编号" style="width: 230px;" clearable>
@@ -31,24 +31,24 @@
             <el-option key="0" label="状态2" value="0" />
           </el-select>
           <el-button-group>
-            <el-button type="primary"  size="medium" @click="handleFilter">搜索</el-button>
+            <el-button type="primary" size="medium" @click="handleFilter">搜索</el-button>
           </el-button-group>
         </div>
         <el-button-group>
-          <el-button type="primary"  size="medium" @click="DetailSearchShow = !DetailSearchShow">
+          <el-button type="primary" size="medium" @click="DetailSearchShow = !DetailSearchShow">
             高级搜索
           </el-button>
         </el-button-group>
         <el-button-group>
-          <el-button type="primary"  size="medium" @click="handleCreate">
+          <el-button type="primary" size="medium" @click="handleCreate">
             添加
           </el-button>
         </el-button-group>
         <el-button-group>
-          <el-button type="primary"  size="medium" @click="handleBatchCreate">
+          <el-button type="primary" size="medium" @click="handleBatchCreate">
             导入
           </el-button>
-          <el-button type="primary"  size="medium" :loading="downloadLoading" @click="handleDownload">
+          <el-button type="primary" size="medium" :loading="downloadLoading" @click="handleDownload">
             导出
           </el-button>
         </el-button-group>
@@ -57,7 +57,7 @@
 
     <!-- 浮动高级搜索区域 -->
     <el-dialog :visible.sync="DetailSearchShow" width="95%" :show-close="false">
-      <span class="my-dialog-title" slot="title">高级搜索</span>
+      <span slot="title" class="my-dialog-title">高级搜索</span>
       <div class="DetailSearch_son">
         <!--按钮定位-->
         <div class="DetailSearch_button">
@@ -81,8 +81,8 @@
         element-loading-text="Loading"
         fit
         highlight-current-row
-        @row-click="handleDetail"
         :header-cell-style="{'font-size': '17px'}"
+        @row-click="handleDetail"
       >
         <el-table-column
           label="序号"
@@ -109,91 +109,93 @@
       </el-table>
     </div>
     <!-- 分页栏 -->
-    <pagination v-show="total > 0"
-                :total="100"
-                :page.sync="pageNum"
-                :limit.sync="pageSize"/>
+    <pagination
+      v-show="total > 0"
+      :page.sync="pageNum"
+      :total="100"
+      :limit.sync="pageSize"
+    />
   </div>
 </template>
 
-
 <script>
-  import Pagination from '@/components/Pagination'
-  // 假数据
-  const fakeData = {
-    id: 1,
-    fac_name:"设施名称",
-    fac_category: "设施种类",
-    fac_status: "设施状态",
-    fac_quantity: "数量",
-    fac_owner: "负责人",
-    fac_storage: "存放地点",
-    fac_unit: "单位",
-    fac_unitPrice: "单价",
-    fac_specifications: "规格",
-    fac_code: "国码",
-    fac_produceDate: "出产日期",
-    fac_keepPeriod: "保修期",
-    fac_purchaseDate: "购置日期",
-    fac_purchaseWay: "购买方式",
-    fac_fundsSource: "经费来源",
-    fac_documentCode: "单据号",
-    fac_supplier: "供货商",
-    supplier_phone: "供货商电话",
-    fac_accessories: "其他附件"
-  }
-  //假数据列表
-  const fakeDataList = [ {...fakeData},{...fakeData},{...fakeData},{...fakeData},{...fakeData},{...fakeData},{...fakeData},{...fakeData},{...fakeData},{...fakeData} ]
-  export default {
-    components: {
-      Pagination
-    },
-    name: "LabFacilityList",
-    data(){
-      return{
-        listLoading:true,
-        tableData:null,
-        /* 分页参数 待修改 */
-        total: 100,
-        pageNum: 1,
-        pageSize: 20,
-        /* 查询条件 */
-        listQuery: {
-          equip_no: null,
-          equip_name: null,
-          equip_cate: null,
-          equip_quantity: null,
-          equip_location: null,
-        },
+import Pagination from '@/components/Pagination'
+// 假数据
+const fakeData = {
+  id: 1,
+  fac_name: '设施名称',
+  fac_category: '设施种类',
+  fac_status: '设施状态',
+  fac_quantity: '数量',
+  fac_owner: '负责人',
+  fac_storage: '存放地点',
+  fac_unit: '单位',
+  fac_unitPrice: '单价',
+  fac_specifications: '规格',
+  fac_code: '国码',
+  fac_produceDate: '出产日期',
+  fac_keepPeriod: '保修期',
+  fac_purchaseDate: '购置日期',
+  fac_purchaseWay: '购买方式',
+  fac_fundsSource: '经费来源',
+  fac_documentCode: '单据号',
+  fac_supplier: '供货商',
+  supplier_phone: '供货商电话',
+  fac_accessories: '其他附件'
+}
+// 假数据列表
+const fakeDataList = [{ ...fakeData }, { ...fakeData }, { ...fakeData }, { ...fakeData }, { ...fakeData }, { ...fakeData }, { ...fakeData }, { ...fakeData }, { ...fakeData }, { ...fakeData }]
+
+export default {
+  name: 'LabFacilityList',
+  components: {
+    Pagination
+  },
+  data() {
+    return {
+      listLoading: true,
+      tableData: null,
+      /* 分页参数 待修改 */
+      total: 100,
+      pageNum: 1,
+      pageSize: 20,
+      /* 查询条件 */
+      listQuery: {
+        equip_no: null,
+        equip_name: null,
+        equip_cate: null,
+        equip_quantity: null,
+        equip_location: null
       }
+    }
+  },
+  created() {
+    this.getList()
+  },
+  methods: {
+    getList() {
+      // fake data
+      this.tableData = fakeDataList
+      this.listLoading = false
+      // 根据传过来的实验室id获取对应的设施
+      console.log('实验室id获取对应的设施.lab id' + this.$route.query.id)
     },
-    methods:{
-      getList(){
-        //fake data
-        this.tableData = fakeDataList;
-        this.listLoading = false;
-        //根据传过来的实验室id获取对应的设施
-        console.log("实验室id获取对应的设施.lab id" +this.$route.query.id);
-      },
-      /* 返回上一页 */
-      handleReturn() {
-        this.$router.go(-1)
-      },
-      /* 详情 */
-      handleDetail(row, column, event) {
-        console.log('handleDetail id=' + row.id)
-        this.$router.push({
-          name: 'Field_Fac_Detail',
-          query: {
-            id: row.id
-          }
-        })
-      },
+    /* 返回上一页 */
+    handleReturn() {
+      this.$router.go(-1)
     },
-    created() {
-      this.getList();
+    /* 详情 */
+    handleDetail(row, column, event) {
+      console.log('handleDetail id=' + row.id)
+      this.$router.push({
+        name: 'Field_Fac_Detail',
+        query: {
+          id: row.id
+        }
+      })
     }
   }
+}
 </script>
 
 <style scoped>

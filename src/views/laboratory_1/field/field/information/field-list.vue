@@ -32,25 +32,25 @@
           <el-option key="0" label="负责人2" value="0" />
         </el-select>
         <el-button-group>
-          <el-button type="primary"  size="medium" @click="handleFilter">搜索</el-button>
+          <el-button type="primary" size="medium" @click="handleFilter">搜索</el-button>
         </el-button-group>
       </div>
       <div class="button-filter-container">
         <el-button-group>
-          <el-button type="primary"  size="medium" @click="DetailSearchShow = !DetailSearchShow">
+          <el-button type="primary" size="medium" @click="DetailSearchShow = !DetailSearchShow">
             高级搜索
           </el-button>
         </el-button-group>
         <el-button-group>
-          <el-button type="primary"  size="medium" @click="handleCreate">
+          <el-button type="primary" size="medium" @click="handleCreate">
             添加
           </el-button>
         </el-button-group>
         <el-button-group>
-          <el-button type="primary"  size="medium" @click="handleBatchCreate">
+          <el-button type="primary" size="medium" @click="handleBatchCreate">
             导入
           </el-button>
-          <el-button type="primary"  size="medium" :loading="downloadLoading" @click="handleDownload">
+          <el-button type="primary" size="medium" :loading="downloadLoading" @click="handleDownload">
             导出
           </el-button>
         </el-button-group>
@@ -59,7 +59,7 @@
 
     <!-- 浮动高级搜索区域 -->
     <el-dialog :visible.sync="DetailSearchShow" width="95%" :show-close="false">
-      <span class="my-dialog-title" slot="title">
+      <span slot="title" class="my-dialog-title">
         高级搜索
       </span>
       <div class="DetailSearch_son">
@@ -127,17 +127,17 @@
               <template slot="prepend">可用设备数</template>
             </el-input>
           </el-col>
-<!--          <el-col :span="6">-->
-<!--            <span>日期：</span>-->
-<!--            <el-date-picker-->
-<!--              v-model="listQuery.other"-->
-<!--              type="date"-->
-<!--              placeholder="（其他）日期"-->
-<!--              value-format="yyyy-MM-dd"-->
-<!--              style="width: auto;"-->
-<!--              class="filter-item"-->
-<!--            />-->
-<!--          </el-col>-->
+          <!--          <el-col :span="6">-->
+          <!--            <span>日期：</span>-->
+          <!--            <el-date-picker-->
+          <!--              v-model="listQuery.other"-->
+          <!--              type="date"-->
+          <!--              placeholder="（其他）日期"-->
+          <!--              value-format="yyyy-MM-dd"-->
+          <!--              style="width: auto;"-->
+          <!--              class="filter-item"-->
+          <!--            />-->
+          <!--          </el-col>-->
         </el-row>
         <!--按钮定位-->
         <div class="DetailSearch_button">
@@ -161,8 +161,8 @@
       border
       fit
       highlight-current-row
-      @row-click="handleDetail"
       :header-cell-style="{'font-size': '19px'}"
+      @row-click="handleDetail"
     >
       <el-table-column
         label="序号"
@@ -195,8 +195,8 @@
     </el-table>
     <!-- 分页栏 -->
     <pagination
-      class="my-pagination"
       v-show="total > 0"
+      class="my-pagination"
       :total="100"
       :page.sync="pageNum"
       :limit.sync="pageSize"
@@ -205,166 +205,166 @@
 </template>
 
 <script>
-  import Pagination from '@/components/Pagination'
-  export default {
-    components: {
-      Pagination
-    },
-    data() {
-      return {
-        /* 表格参数 */
-        tableData: null,
-        listLoading: true,
-        /* 分页参数 待修改 */
-        total: 100,
-        pageNum: 1,
-        pageSize: 20,
-        /* 类别信息列表 */
-        CategoryList: [],
-        /* 导出excel相关参数 */
-        downloadLoading: false,
-        /* 查询条件 */
-        listQuery: {
-          lab_name: null,
-          lab_num: null,
-          lab_owner: null,
-          lab_cate: null,
-          other: null
-        },
-        /* 是否显示高级搜索 */
-        DetailSearchShow: false,
-        /* 是否显示功能栏 */
-        FunctionBtnShow: false,
-      }
-    },
-    created() {
-      this.getTableList()
-    },
-    methods: {
-      /* 获取列表信息 */
-      getTableList() {
-        this.tableData = [
-          {
+import Pagination from '@/components/Pagination'
+export default {
+  components: {
+    Pagination
+  },
+  data() {
+    return {
+      /* 表格参数 */
+      tableData: null,
+      listLoading: true,
+      /* 分页参数 待修改 */
+      total: 100,
+      pageNum: 1,
+      pageSize: 20,
+      /* 类别信息列表 */
+      CategoryList: [],
+      /* 导出excel相关参数 */
+      downloadLoading: false,
+      /* 查询条件 */
+      listQuery: {
+        lab_name: null,
+        lab_num: null,
+        lab_owner: null,
+        lab_cate: null,
+        other: null
+      },
+      /* 是否显示高级搜索 */
+      DetailSearchShow: false,
+      /* 是否显示功能栏 */
+      FunctionBtnShow: false
+    }
+  },
+  created() {
+    this.getTableList()
+  },
+  methods: {
+    /* 获取列表信息 */
+    getTableList() {
+      this.tableData = [
+        {
           id: 1,
           lab_num: 101,
           lab_name: '测试实验室1',
           lab_category: '实验室类别',
           lab_equip_cur_num: '当前可用设备数',
           lab_owner: '负责人'
-          },
-          {
-            id: 2,
-            lab_num: 102,
-            lab_name: '测试实验室2',
-            lab_category: '实验室类别',
-            lab_equip_cur_num: '当前可用设备数',
-            lab_owner: '负责人'
-          },
-          {
-            id: 3,
-            lab_num: 103,
-            lab_name: '测试实验室3',
-            lab_category: '实验室类别',
-            lab_equip_cur_num: '当前可用设备数',
-            lab_owner: '负责人'
-          },
-          {
-            id: 4,
-            lab_num: 104,
-            lab_name: '测试实验室4',
-            lab_category: '实验室类别',
-            lab_equip_cur_num: '当前可用设备数',
-            lab_owner: '负责人'
-          },
-          {
-            id: 5,
-            lab_num: 105,
-            lab_name: '测试实验室5',
-            lab_category: '实验室类别',
-            lab_equip_cur_num: '当前可用设备数',
-            lab_owner: '负责人'
-          },
-          {
-            id: 6,
-            lab_num: 106,
-            lab_name: '测试实验室6',
-            lab_category: '实验室类别',
-            lab_equip_cur_num: '当前可用设备数',
-            lab_owner: '负责人'
-          },
-          {
-            id: 7,
-            lab_num: 107,
-            lab_name: '测试实验室7',
-            lab_category: '实验室类别',
-            lab_equip_cur_num: '当前可用设备数',
-            lab_owner: '负责人'
-          },
-          {
-            id: 8,
-            lab_num: 108,
-            lab_name: '测试实验室8',
-            lab_category: '实验室类别',
-            lab_equip_cur_num: '当前可用设备数',
-            lab_owner: '负责人'
-          },
-          {
-            id: 9,
-            lab_num: 109,
-            lab_name: '测试实验室9',
-            lab_category: '实验室类别',
-            lab_equip_cur_num: '当前可用设备数',
-            lab_owner: '负责人'
-          },
-          {
-            id: 10,
-            lab_num: 110,
-            lab_name: '测试实验室10',
-            lab_category: '实验室类别',
-            lab_equip_cur_num: '当前可用设备数',
-            lab_owner: '负责人'
-          }
-        ]
-        this.listLoading = false
-      },
-
-      /* 详情 */
-      handleDetail(row, column, event) {
-        console.log('handleDetail')
-        this.$router.push({
-          name: 'Field_Detail',
-          query:{
-            id: row.id
-          }
-        })
-      },
-      /* 查找 */
-      handleFilter() {
-
-      },
-      /* 导出Excel */
-      handleDownload() {
-
-      },
-      /* 添加数据 */
-      handleCreate() {
-
-      },
-      /* 批量添加 */
-      handleBatchCreate() {
-
-      },
-      /* 管理高级搜索 */
-      handleClose() {
-        // 清空旧数据
-        for (const key in this.listQuery) {
-          this.listQuery[key] = null
+        },
+        {
+          id: 2,
+          lab_num: 102,
+          lab_name: '测试实验室2',
+          lab_category: '实验室类别',
+          lab_equip_cur_num: '当前可用设备数',
+          lab_owner: '负责人'
+        },
+        {
+          id: 3,
+          lab_num: 103,
+          lab_name: '测试实验室3',
+          lab_category: '实验室类别',
+          lab_equip_cur_num: '当前可用设备数',
+          lab_owner: '负责人'
+        },
+        {
+          id: 4,
+          lab_num: 104,
+          lab_name: '测试实验室4',
+          lab_category: '实验室类别',
+          lab_equip_cur_num: '当前可用设备数',
+          lab_owner: '负责人'
+        },
+        {
+          id: 5,
+          lab_num: 105,
+          lab_name: '测试实验室5',
+          lab_category: '实验室类别',
+          lab_equip_cur_num: '当前可用设备数',
+          lab_owner: '负责人'
+        },
+        {
+          id: 6,
+          lab_num: 106,
+          lab_name: '测试实验室6',
+          lab_category: '实验室类别',
+          lab_equip_cur_num: '当前可用设备数',
+          lab_owner: '负责人'
+        },
+        {
+          id: 7,
+          lab_num: 107,
+          lab_name: '测试实验室7',
+          lab_category: '实验室类别',
+          lab_equip_cur_num: '当前可用设备数',
+          lab_owner: '负责人'
+        },
+        {
+          id: 8,
+          lab_num: 108,
+          lab_name: '测试实验室8',
+          lab_category: '实验室类别',
+          lab_equip_cur_num: '当前可用设备数',
+          lab_owner: '负责人'
+        },
+        {
+          id: 9,
+          lab_num: 109,
+          lab_name: '测试实验室9',
+          lab_category: '实验室类别',
+          lab_equip_cur_num: '当前可用设备数',
+          lab_owner: '负责人'
+        },
+        {
+          id: 10,
+          lab_num: 110,
+          lab_name: '测试实验室10',
+          lab_category: '实验室类别',
+          lab_equip_cur_num: '当前可用设备数',
+          lab_owner: '负责人'
         }
-        // 关闭
-        this.DetailSearchShow = false
+      ]
+      this.listLoading = false
+    },
+
+    /* 详情 */
+    handleDetail(row, column, event) {
+      console.log('handleDetail')
+      this.$router.push({
+        name: 'Field_Detail',
+        query: {
+          id: row.id
+        }
+      })
+    },
+    /* 查找 */
+    handleFilter() {
+
+    },
+    /* 导出Excel */
+    handleDownload() {
+
+    },
+    /* 添加数据 */
+    handleCreate() {
+
+    },
+    /* 批量添加 */
+    handleBatchCreate() {
+
+    },
+    /* 管理高级搜索 */
+    handleClose() {
+      // 清空旧数据
+      for (const key in this.listQuery) {
+        this.listQuery[key] = null
       }
+      // 关闭
+      this.DetailSearchShow = false
     }
   }
+}
 </script>
 
 <style scoped>

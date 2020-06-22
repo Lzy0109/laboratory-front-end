@@ -2,7 +2,7 @@
   <div class="app-container">
     <!-- 简单搜索 + 其他功能区域 -->
     <div class="filter-container">
-      <el-button type="primary" :disabled="isAble" @click="handleReturn" size="small">返回</el-button>
+      <el-button type="primary" :disabled="isAble" size="small" @click="handleReturn">返回</el-button>
       <div class="button-filter-container">
         <div class="filter-container-conditions" style="margin: 2px">
           <el-input v-model="listQuery.software_name" placeholder="软件名称" style="width: 230px;" clearable>
@@ -20,24 +20,24 @@
             <el-option key="0" label="类别2" value="0" />
           </el-select>
           <el-button-group>
-            <el-button type="primary"  size="medium" @click="handleFilter">搜索</el-button>
+            <el-button type="primary" size="medium" @click="handleFilter">搜索</el-button>
           </el-button-group>
         </div>
         <el-button-group>
-          <el-button type="primary"  size="medium" @click="DetailSearchShow = !DetailSearchShow">
+          <el-button type="primary" size="medium" @click="DetailSearchShow = !DetailSearchShow">
             高级搜索
           </el-button>
         </el-button-group>
         <el-button-group>
-          <el-button type="primary"  size="medium" @click="handleCreate">
+          <el-button type="primary" size="medium" @click="handleCreate">
             添加
           </el-button>
         </el-button-group>
         <el-button-group>
-          <el-button type="primary"  size="medium" @click="handleBatchCreate">
+          <el-button type="primary" size="medium" @click="handleBatchCreate">
             导入
           </el-button>
-          <el-button type="primary"  size="medium" :loading="downloadLoading" @click="handleDownload">
+          <el-button type="primary" size="medium" :loading="downloadLoading" @click="handleDownload">
             导出
           </el-button>
         </el-button-group>
@@ -46,7 +46,7 @@
 
     <!-- 浮动高级搜索区域 -->
     <el-dialog :visible.sync="DetailSearchShow" width="95%" :show-close="false">
-      <span class="my-dialog-title" slot="title">高级搜索</span>
+      <span slot="title" class="my-dialog-title">高级搜索</span>
       <div class="DetailSearch_son">
         <el-row class="DetailSearch_son_row">
           <!-- 实验室编号 -->
@@ -146,8 +146,8 @@
         element-loading-text="Loading"
         fit
         highlight-current-row
-        @row-click="handleDetail"
         :header-cell-style="{'font-size': '17px'}"
+        @row-click="handleDetail"
       >
         <el-table-column
           label="序号"
@@ -174,81 +174,81 @@
       </el-table>
     </div>
     <!-- 分页栏 -->
-    <pagination v-show="total > 0"
-                :total="100"
-                :page.sync="pageNum"
-                :limit.sync="pageSize"/>
+    <pagination
+      v-show="total > 0"
+      :total="100"
+      :page.sync="pageNum"
+      :limit.sync="pageSize"
+    />
   </div>
 </template>
 
 <script>
-  import Pagination from '@/components/Pagination'
-  const fakeData = {
-    id:1,
-    software_number:"器材编号",
-    equ_name: "器材名称",
-    software_name: "软件名称",
-    software_category:"软件种类",
-    software_applicable: "适用专业",
-    software_size: "软件大小",
-    software_version: "版本号",
-    software_Lab: "配置实验室",
-    software_issuer: "发行方",
-    software_systems: "适用系统",
-    software_price: "价格",
-    software_introduction: "使用说明（附件）",
-    software_path: "软件安装路径",
-  };
-  //假数据列表
-  const fakeDataList = [ {...fakeData},{...fakeData},{...fakeData},{...fakeData},{...fakeData},{...fakeData},{...fakeData},{...fakeData},{...fakeData},{...fakeData} ];
-  export default {
-    components: {
-      Pagination
-    },
-    name: "EquipmentSoftwareList",
-    data(){
-      return{
-        listLoading:true,
-        tableData:null,
-        /* 分页参数 待修改 */
-        total: 100,
-        pageNum: 1,
-        pageSize: 20,
-        listLoading:true,
-        tableData:null,
-        /* 查询条件 */
-        listQuery: {
-          software_name: null,
-          software_category: null
-        },
+import Pagination from '@/components/Pagination'
+const fakeData = {
+  id: 1,
+  software_number: '器材编号',
+  equ_name: '器材名称',
+  software_name: '软件名称',
+  software_category: '软件种类',
+  software_applicable: '适用专业',
+  software_size: '软件大小',
+  software_version: '版本号',
+  software_Lab: '配置实验室',
+  software_issuer: '发行方',
+  software_systems: '适用系统',
+  software_price: '价格',
+  software_introduction: '使用说明（附件）',
+  software_path: '软件安装路径'
+}
+// 假数据列表
+const fakeDataList = [{ ...fakeData }, { ...fakeData }, { ...fakeData }, { ...fakeData }, { ...fakeData }, { ...fakeData }, { ...fakeData }, { ...fakeData }, { ...fakeData }, { ...fakeData }]
+export default {
+  name: 'EquipmentSoftwareList',
+  components: {
+    Pagination
+  },
+  data() {
+    return {
+      listLoading: true,
+      tableData: null,
+      /* 分页参数 待修改 */
+      total: 100,
+      pageNum: 1,
+      pageSize: 20,
+      /* 查询条件 */
+      listQuery: {
+        software_name: null,
+        software_category: null
       }
+    }
+  },
+  created() {
+    this.getList()
+  },
+  methods: {
+    getList() {
+      // fake data
+      this.tableData = fakeDataList
+      this.listLoading = false
+      // 根据传过来的器材id获取对应的器材配置软件
+      // console.log("器材id获取对应的器材配置软件. equ id" +this.$route.query.id);
     },
-    methods:{
-      getList(){
-        //fake data
-        this.tableData = fakeDataList;
-        this.listLoading = false;
-        //根据传过来的器材id获取对应的器材配置软件
-        //console.log("器材id获取对应的器材配置软件. equ id" +this.$route.query.id);
-      },
-      handleReturn() {
-        this.$router.go(-1)
-      },
-      /* 详情 */
-      handleDetail(row, column, event) {
-        console.log('handleDetail id=' + row.id)
-        this.$router.push({
-          name: 'Field_Equip_Sw_Detail',
-          query: {
-            id: row.id
-          }
-        })
-      },
+    handleReturn() {
+      this.$router.go(-1)
     },
-    created() {
-      this.getList();
+    /* 详情 */
+    handleDetail(row, column, event) {
+      console.log('handleDetail id=' + row.id)
+      this.$router.push({
+        name: 'Field_Equip_Sw_Detail',
+        query: {
+          id: row.id
+        }
+      })
     }
   }
+}
 </script>
 
 <style scoped>

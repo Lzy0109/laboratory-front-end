@@ -98,168 +98,168 @@
 </template>
 
 <script>
-  // 假数据
-  const fakeData = {
-    id:1,
-    software_number:"器材编号",
-    equ_name: "器材名称",
-    software_name: "软件名称",
-    software_category:"软件种类",
-    software_applicable: "适用专业",
-    software_size: "软件大小",
-    software_version: "版本号",
-    software_Lab: "配置实验室",
-    software_issuer: "发行方",
-    software_systems: "适用系统",
-    software_price: "价格",
-    software_introduction: "使用说明（附件）",
-    software_path: "软件安装路径",
-  }
+// 假数据
+const fakeData = {
+  id: 1,
+  software_number: '器材编号',
+  equ_name: '器材名称',
+  software_name: '软件名称',
+  software_category: '软件种类',
+  software_applicable: '适用专业',
+  software_size: '软件大小',
+  software_version: '版本号',
+  software_Lab: '配置实验室',
+  software_issuer: '发行方',
+  software_systems: '适用系统',
+  software_price: '价格',
+  software_introduction: '使用说明（附件）',
+  software_path: '软件安装路径'
+}
 
-  export default {
-    name: "EquipmentDetail",
-    data() {
-      return {
-        dataForm: null,
-        tempData: null,
-        rules: {
-          number: [
-            { type: 'number', message: '请输入数字', trigger: 'blur' }
-          ],
-          info: [
-            { type: 'string', message: '请输入', trigger: 'blur' }
-          ]
-        },
-        isRead: true,
-        isAble: false,
-        showSaveBtn: false
-      }
+export default {
+  name: 'EquipmentDetail',
+  data() {
+    return {
+      dataForm: null,
+      tempData: null,
+      rules: {
+        number: [
+          { type: 'number', message: '请输入数字', trigger: 'blur' }
+        ],
+        info: [
+          { type: 'string', message: '请输入', trigger: 'blur' }
+        ]
+      },
+      isRead: true,
+      isAble: false,
+      showSaveBtn: false
+    }
+  },
+  created() {
+    this.getOriginalData()
+  },
+  methods: {
+    /* 返回上一页 */
+    handleReturn() {
+      this.$router.go(-1)
     },
-    created() {
-      this.getOriginalData()
+    /* 根据ID获取数据 */
+    getOriginalData() {
+      // 暂用假数据
+      this.dataForm = fakeData
+      const id = this.$route.query.id
+      console.log('detail id=' + id)
     },
-    methods: {
-      /* 返回上一页 */
-      handleReturn() {
-        this.$router.go(-1)
-      },
-      /* 根据ID获取数据 */
-      getOriginalData() {
-        // 暂用假数据
-        this.dataForm = fakeData;
-        let id = this.$route.query.id;
-        console.log("detail id=" + id);
-      },
-      /* 编辑前 */
-      beforeEdit() {
-        this.showSaveBtn = !this.showSaveBtn
-        // 保存修改前数据
-        this.tempData = { ...this.dataForm }
-        //console.log(this.tempData.fac_name)
-        // 使input为非readonly
-        this.isRead = false
-        // 显示保存信息按钮
-        this.showSaveBtn = true
-        // 设为不可用,防止暂存数据出错
-        this.isAble = true
-      },
-      /* 编辑后 */
-      afterEdit() {
-        // 还原修改前所有状态
-        this.tempData = null
-        this.isRead = true
-        this.showSaveBtn = false
-        this.isAble = false
-      },
-      /* 提交编辑的内容 */
-      submitEdit(formName) {
-        this.$refs[formName].validate((valid) => {
-          if (valid) {
-            this.$message({
-              message: '修改成功',
-              type: 'success'
-            })
-            // 根据返回信息重新复制dataForm
-            console.log('success submit!!')
-          } else {
-            console.log('error submit!!')
-            return false
-          }
-        })
-        // 修改后操作
-        this.afterEdit()
-      },
-      /* 取消编辑操作 */
-      cancelEdit() {
-        this.dataForm = { ...this.tempData }
-        //console.log(this.tempData.lab_name)
-        this.afterEdit()
-      },
-      /* 取消编辑 确认弹窗 */
-      beforeCancelEdit() {
-        this.$confirm('修改信息还没保存, 是否继续?', '提示', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
-          type: 'warning'
-        }).then(() => {
-          this.cancelEdit()
+    /* 编辑前 */
+    beforeEdit() {
+      this.showSaveBtn = !this.showSaveBtn
+      // 保存修改前数据
+      this.tempData = { ...this.dataForm }
+      // console.log(this.tempData.fac_name)
+      // 使input为非readonly
+      this.isRead = false
+      // 显示保存信息按钮
+      this.showSaveBtn = true
+      // 设为不可用,防止暂存数据出错
+      this.isAble = true
+    },
+    /* 编辑后 */
+    afterEdit() {
+      // 还原修改前所有状态
+      this.tempData = null
+      this.isRead = true
+      this.showSaveBtn = false
+      this.isAble = false
+    },
+    /* 提交编辑的内容 */
+    submitEdit(formName) {
+      this.$refs[formName].validate((valid) => {
+        if (valid) {
           this.$message({
-            type: 'success',
-            message: '已取消'
+            message: '修改成功',
+            type: 'success'
           })
-        }).catch(() => {
-          console.log('已取消')
-        })
-      },
-      /* 删除 */
-      handleDelete() {
-        if (this.dataForm.id) {
-          return true
+          // 根据返回信息重新复制dataForm
+          console.log('success submit!!')
         } else {
+          console.log('error submit!!')
           return false
         }
-      },
-      /* 删除 确认弹窗 */
-      beforeHandleDelete() {
-        this.$confirm('此操作将永久删除该信息, 是否继续?', '提示', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
-          type: 'warning'
-        }).then(() => {
-          if (this.handleDelete()) {
-            this.$message({
-              type: 'success',
-              message: '删除成功'
-            })
-            this.$router.go(-1)
-          } else {
-            this.$message({
-              type: 'warning',
-              message: '删除失败'
-            })
-          }
-        }).catch(() => {
-          this.$message({
-            type: 'info',
-            message: '已取消'
-          })
+      })
+      // 修改后操作
+      this.afterEdit()
+    },
+    /* 取消编辑操作 */
+    cancelEdit() {
+      this.dataForm = { ...this.tempData }
+      // console.log(this.tempData.lab_name)
+      this.afterEdit()
+    },
+    /* 取消编辑 确认弹窗 */
+    beforeCancelEdit() {
+      this.$confirm('修改信息还没保存, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        this.cancelEdit()
+        this.$message({
+          type: 'success',
+          message: '已取消'
         })
-      },
-      /* 导出 */
-      handleDownload() {
-        console.log('导出')
-      },
-      /* 器材内置软件列表 */
-      handleEquSoftwareList(id){
-        this.$router.push({
-          name: 'Field_Equip_SW_List',
-          query: {
-            id: id
-          }
-        })
+      }).catch(() => {
+        console.log('已取消')
+      })
+    },
+    /* 删除 */
+    handleDelete() {
+      if (this.dataForm.id) {
+        return true
+      } else {
+        return false
       }
+    },
+    /* 删除 确认弹窗 */
+    beforeHandleDelete() {
+      this.$confirm('此操作将永久删除该信息, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        if (this.handleDelete()) {
+          this.$message({
+            type: 'success',
+            message: '删除成功'
+          })
+          this.$router.go(-1)
+        } else {
+          this.$message({
+            type: 'warning',
+            message: '删除失败'
+          })
+        }
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '已取消'
+        })
+      })
+    },
+    /* 导出 */
+    handleDownload() {
+      console.log('导出')
+    },
+    /* 器材内置软件列表 */
+    handleEquSoftwareList(id) {
+      this.$router.push({
+        name: 'Field_Equip_SW_List',
+        query: {
+          id: id
+        }
+      })
     }
   }
+}
 </script>
 
 <!-- 悬浮input鼠标状态 -->
