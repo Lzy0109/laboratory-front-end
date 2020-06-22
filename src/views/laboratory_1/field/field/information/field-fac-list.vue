@@ -2,7 +2,7 @@
   <div class="app-container">
     <!-- 简单搜索 + 其他功能区域 -->
     <div class="filter-container">
-      <el-button type="primary" :disabled="isAble" @click="handleReturn" size="small">返回</el-button>
+      <el-button type="primary" :disabled="isAble" @click="handleReturn" size="medium">返回</el-button>
       <div class="button-filter-container">
         <div class="filter-container-conditions" style="margin: 2px">
           <el-input v-model="listQuery.equip_no" placeholder="设施编号" style="width: 230px;" clearable>
@@ -74,7 +74,6 @@
 
     <!-- 列表 -->
     <div class="form-style">
-      <h2>实验室设施</h2>
       <el-table
         v-loading="listLoading"
         :data="tableData"
@@ -202,12 +201,12 @@
     color: #5a5e66;
     background: #fff;
     box-shadow: 0 1px 4px rgba(0,21,41,.1);
-    padding: 20px;
+    padding: 10px;
     margin-bottom: 10px;
   }
   .button-filter-container {
     display: inline-block;
-    float: right;
+    margin-left: 120px;
   }
   .filter-container-conditions {
     display: inline-block;
@@ -216,8 +215,8 @@
     color: #5a5e66;
     background: #fff;
     box-shadow: 0 1px 4px rgba(0,21,41,.1);
-    padding: 10px 20px 20px;
-    margin-bottom: 10px;
+    padding: 5px 20px 15px;
+    margin-bottom: 5px;
   }
 </style>
 <!-- 高级搜索样式 -->

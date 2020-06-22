@@ -2,10 +2,11 @@
   <div class="app-container">
     <!-- 功能按钮 -->
     <div class="detail-button">
-      <el-button type="primary" :disabled="isAble" @click="handleReturn">返回</el-button>
-      <el-button type="primary" :disabled="isAble" @click="beforeEdit">编辑信息</el-button>
-      <el-button type="danger" @click="beforeHandleDelete">删除</el-button>
-      <el-button type="success" @click="handleDownload">导出信息</el-button>
+      <el-button type="primary" :disabled="isAble" @click="handleReturn" size="medium">返回</el-button>
+      <el-button type="primary" :disabled="isAble" @click="beforeEdit" size="medium">编辑信息</el-button>
+      <el-button type="danger" @click="beforeHandleDelete" size="medium">删除</el-button>
+      <el-button type="success" @click="handleDownload" size="medium">导出信息</el-button>
+      <el-button type="primary" @click="handleAttachment" size="medium">查看其他附件</el-button>
     </div>
     <!-- 详细信息展示 -->
     <div class="form-style">
@@ -116,7 +117,7 @@
             </el-form-item>
           </el-col>
         </el-row>
-        <el-row type="flex" class="row-bg" justify="space-around">
+        <el-row>
           <el-col :span="8">
             <el-form-item label="供货商" label-width="100px" prop="number">
               <el-input v-model="dataForm.fac_supplier" style="width: auto" :readonly="isRead" />
@@ -127,17 +128,12 @@
               <el-input v-model="dataForm.supplier_phone" style="width: auto" :readonly="isRead" />
             </el-form-item>
           </el-col>
-          <el-col :span="8">
-            <el-form-item label="其他附件" label-width="100px" prop="number">
-              <el-button type="text">查看详情</el-button>
-            </el-form-item>
-          </el-col>
         </el-row>
       </el-form>
       <el-collapse-transition>
         <div v-show="showSaveBtn" style="text-align: center">
-          <el-button type="success" @click="submitEdit('dataForm')">保存</el-button>
-          <el-button type="primary" @click="beforeCancelEdit">取消</el-button>
+          <el-button type="success" @click="submitEdit('dataForm')" size="medium">保存</el-button>
+          <el-button type="primary" @click="beforeCancelEdit" size="medium">取消</el-button>
         </div>
       </el-collapse-transition>
     </div>
@@ -320,6 +316,9 @@
       /* 导出 */
       handleDownload() {
         console.log('导出')
+      },
+      handleAttachment() {
+        console.log("查看其他附件")
       }
     }
   }
@@ -337,8 +336,7 @@
     color: #5a5e66;
     background: #fff;
     box-shadow: 0 1px 4px rgba(0,21,41,.1);
-    padding:20px;
-    margin-bottom: 49px;
+    padding: 10px 20px;
   }
   .detail-button{
     color: #5a5e66;

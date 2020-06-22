@@ -6,9 +6,6 @@
         <el-input v-model="listQuery.lab_num" placeholder="实验室编号" style="width: 230px;" clearable>
           <template slot="prepend">实验室编号</template>
         </el-input>
-        <el-input v-model="listQuery.lab_name" placeholder="实验室名称" style="width: 230px;" clearable>
-          <template slot="prepend">实验室名称</template>
-        </el-input>
         <el-select v-model="listQuery.lab_cate" style="width: 160px;" placeholder="实验室分类" filterable clearable @change="handleFilter">
           <!--获取数据库信息动态生成option-->
           <!--
@@ -162,7 +159,7 @@
       fit
       highlight-current-row
       @row-click="handleDetail"
-      :header-cell-style="{'font-size': '19px'}"
+      :header-cell-style="{'font-size': '17px'}"
     >
       <el-table-column
         label="序号"
