@@ -2,7 +2,7 @@
   <div class="app-container">
     <!-- 简单搜索 + 其他功能区域 -->
     <div class="filter-container">
-      <el-button type="primary" :disabled="isAble" @click="handleReturn" size="medium">返回</el-button>
+      <el-button type="primary" @click="handleReturn" size="medium">返回</el-button>
       <div class="button-filter-container">
         <div class="filter-container-conditions" style="margin: 2px">
           <el-input v-model="listQuery.lab_num" placeholder="器材编号" style="width: 230px;" clearable>
@@ -224,15 +224,15 @@
     components: {
       Pagination
     },
-    name: "LabEquipmentList",
+    name: "field-equip-list",
     data(){
       return{
         /* 分页参数 待修改 */
         total: 100,
         pageNum: 1,
         pageSize: 20,
-        listLoading:true,
-        tableData:null,
+        listLoading: true,
+        tableData: null,
         /* 查询条件 */
         listQuery: {
           equip_no: null,
@@ -302,7 +302,6 @@
 
 <style scoped>
   .filter-container {
-    margin-bottom: 70px;
     color: #5a5e66;
     background: #fff;
     box-shadow: 0 1px 4px rgba(0,21,41,.1);

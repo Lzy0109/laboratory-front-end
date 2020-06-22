@@ -2,7 +2,7 @@
   <div class="app-container">
     <!-- 功能按钮 -->
     <div class="detail-button">
-      <el-button type="primary" :disabled="isAble" @click="handleReturn" size="medium">返回</el-button>
+      <el-button type="primary" @click="handleReturn" size="medium">返回</el-button>
       <el-button type="primary" :disabled="isAble" @click="beforeEdit" size="medium">编辑信息</el-button>
       <el-button type="danger" @click="beforeHandleDelete" size="medium">删除</el-button>
       <el-button type="success" @click="handleDownload" size="medium">导出信息</el-button>
@@ -329,6 +329,6 @@
     background: #fff;
     box-shadow: 0 1px 4px rgba(0,21,41,.1);
     padding: 20px;
-    margin-bottom: 15px;
+    margin-bottom: 20px;
   }
 </style>
