@@ -11,9 +11,9 @@
         <el-row>
           <el-col :span="12">
             <el-form-item label="场地" label-width="100px" prop="infoValidation">
-              <el-select v-model="dataForm.field_id" placeholder="场地" clearable >
-                <el-option v-for="item in fieldList" :key="item.id" :label="item.name" :value="item.number" >
-                  <span>{{item.name}}</span>
+              <el-select v-model="dataForm.field_id" placeholder="场地" clearable>
+                <el-option v-for="item in fieldList" :key="item.id" :label="item.name" :value="item.number">
+                  <span>{{ item.name }}</span>
                 </el-option>
               </el-select>
             </el-form-item>
@@ -22,7 +22,7 @@
             <el-form-item label="实验室种类" label-width="100px" prop="infoValidation">
               <el-select v-model="dataForm.lab_category_id" clearable placeholder="实验室种类">
                 <el-option v-for="item in labCategoryList" :key="item.id" :label="item.name" :value="item.number">
-                  <span>{{item.name}}</span>
+                  <span>{{ item.name }}</span>
                 </el-option>
               </el-select>
             </el-form-item>
@@ -31,7 +31,7 @@
         <el-row>
           <el-col :span="12">
             <el-form-item label="实验室名称" label-width="100px" prop="infoValidation">
-              <el-input v-model="dataForm.lab_name" style="width: auto"  />
+              <el-input v-model="dataForm.lab_name" style="width: auto" />
             </el-form-item>
           </el-col>
           <el-col :span="12">
@@ -45,7 +45,7 @@
             <el-form-item label="负责人" label-width="100px" prop="infoValidation">
               <el-select v-model="dataForm.lab_owner" clearable placeholder="负责人">
                 <el-option v-for="item in labOwnerList" :key="item.id" :label="item.name" :value="item.number">
-                  <span>{{item.name}}</span>
+                  <span>{{ item.name }}</span>
                 </el-option>
               </el-select>
             </el-form-item>
@@ -97,6 +97,8 @@ export default {
       labOwnerList: fake_ownerList
     }
   },
+  created() {
+  },
   methods: {
     submitCreate(formName) {
       this.$refs[formName].validate((valid) => {
@@ -118,8 +120,6 @@ export default {
         path: 'labtable'
       })
     }
-  },
-  created() {
   }
 }
 </script>

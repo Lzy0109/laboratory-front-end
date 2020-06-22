@@ -2,10 +2,12 @@
   <div class="app-container">
     <!-- 功能按钮 -->
     <div class="detail-button">
-      <el-button type="primary" :disabled="isAble" @click="handleReturn">返回</el-button>
-      <el-button type="primary" :disabled="isAble" @click="beforeEdit">编辑信息</el-button>
-      <el-button type="danger" @click="beforeHandleDelete">删除</el-button>
-      <el-button type="success" @click="handleDownload">导出信息</el-button>
+      <el-button type="primary" :disabled="isAble" size="medium" @click="handleReturn">返回</el-button>
+      <el-button type="primary" :disabled="isAble" size="medium" @click="beforeEdit">编辑信息</el-button>
+      <el-button type="danger" size="medium" @click="beforeHandleDelete">删除</el-button>
+      <el-button type="success" size="medium" @click="handleDownload">导出信息</el-button>
+      <el-button type="primary" size="medium" @click="handleEquipSoftwareList">查看配置软件</el-button>
+      <el-button type="primary" size="medium" @click="handleAttachment">查看入库附件</el-button>
     </div>
     <!-- 详细信息展示 -->
     <div class="form-style">
@@ -116,17 +118,7 @@
           </el-col>
         </el-row>
         <el-row type="flex" class="row-bg" justify="space-around">
-          <el-col :span="8">
-            <el-form-item label="入库附件" label-width="100px" prop="info">
-              <el-button type="text">查看详情</el-button>
-            </el-form-item>
-          </el-col>
-          <el-col :span="8">
-            <el-form-item label="配置安装软件" label-width="100px" prop="info">
-              <el-button type="text" @click="handleEquSoftwareList(dataForm.id)">查看详情</el-button>
-            </el-form-item>
-          </el-col>
-          <el-col :span="8">
+          <el-col>
             <el-form-item label="使用方向" label-width="100px" prop="info">
               <el-input v-model="dataForm.equ_userDirection" style="width: auto" :readonly="isRead" />
             </el-form-item>
@@ -135,8 +127,8 @@
       </el-form>
       <el-collapse-transition>
         <div v-show="showSaveBtn" style="text-align: center">
-          <el-button type="success" @click="submitEdit('dataForm')">保存</el-button>
-          <el-button type="primary" @click="beforeCancelEdit">取消</el-button>
+          <el-button type="success" size="medium" @click="submitEdit('dataForm')">保存</el-button>
+          <el-button type="primary" size="medium" @click="beforeCancelEdit">取消</el-button>
         </div>
       </el-collapse-transition>
     </div>
@@ -302,13 +294,17 @@ export default {
       console.log('导出')
     },
     /* 跳转配置软件列表 */
-    handleEquSoftwareList(id) {
+    handleEquipSoftwareList(id) {
       this.$router.push({
         name: 'Field_Equip_Sw_List',
         query: {
           id: id
         }
       })
+    },
+    /* 查看附件 */
+    handleAttachment() {
+      console.log('查看入库附件')
     }
   }
 }
@@ -326,14 +322,13 @@ export default {
     color: #5a5e66;
     background: #fff;
     box-shadow: 0 1px 4px rgba(0,21,41,.1);
-    padding:20px;
-    margin-bottom: 49px;
+    padding: 10px 20px;
   }
   .detail-button{
     color: #5a5e66;
     background: #fff;
     box-shadow: 0 1px 4px rgba(0,21,41,.1);
-    padding:20px;
-    margin-bottom: 30px;
+    padding: 20px;
+    margin-bottom: 15px;
   }
 </style>

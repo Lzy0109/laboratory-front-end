@@ -2,7 +2,7 @@
   <div class="app-container">
     <!-- 简单搜索 + 其他功能区域 -->
     <div class="filter-container">
-      <el-button type="primary" :disabled="isAble" size="small" @click="handleReturn">返回</el-button>
+      <el-button type="primary" :disabled="isAble" @click="handleReturn" size="medium">返回</el-button>
       <div class="button-filter-container">
         <div class="filter-container-conditions" style="margin: 2px">
           <el-input v-model="listQuery.equip_no" placeholder="设施编号" style="width: 230px;" clearable>
@@ -31,24 +31,24 @@
             <el-option key="0" label="状态2" value="0" />
           </el-select>
           <el-button-group>
-            <el-button type="primary" size="medium" @click="handleFilter">搜索</el-button>
+            <el-button type="primary"  size="medium" @click="handleFilter">搜索</el-button>
           </el-button-group>
         </div>
         <el-button-group>
-          <el-button type="primary" size="medium" @click="DetailSearchShow = !DetailSearchShow">
+          <el-button type="primary"  size="medium" @click="DetailSearchShow = !DetailSearchShow">
             高级搜索
           </el-button>
         </el-button-group>
         <el-button-group>
-          <el-button type="primary" size="medium" @click="handleCreate">
+          <el-button type="primary"  size="medium" @click="handleCreate">
             添加
           </el-button>
         </el-button-group>
         <el-button-group>
-          <el-button type="primary" size="medium" @click="handleBatchCreate">
+          <el-button type="primary"  size="medium" @click="handleBatchCreate">
             导入
           </el-button>
-          <el-button type="primary" size="medium" :loading="downloadLoading" @click="handleDownload">
+          <el-button type="primary"  size="medium" :loading="downloadLoading" @click="handleDownload">
             导出
           </el-button>
         </el-button-group>
@@ -57,7 +57,7 @@
 
     <!-- 浮动高级搜索区域 -->
     <el-dialog :visible.sync="DetailSearchShow" width="95%" :show-close="false">
-      <span slot="title" class="my-dialog-title">高级搜索</span>
+      <span class="my-dialog-title" slot="title">高级搜索</span>
       <div class="DetailSearch_son">
         <!--按钮定位-->
         <div class="DetailSearch_button">
@@ -74,15 +74,14 @@
 
     <!-- 列表 -->
     <div class="form-style">
-      <h2>实验室设施</h2>
       <el-table
         v-loading="listLoading"
         :data="tableData"
         element-loading-text="Loading"
         fit
         highlight-current-row
-        :header-cell-style="{'font-size': '17px'}"
         @row-click="handleDetail"
+        :header-cell-style="{'font-size': '17px'}"
       >
         <el-table-column
           label="序号"
@@ -111,10 +110,9 @@
     <!-- 分页栏 -->
     <pagination
       v-show="total > 0"
-      :page.sync="pageNum"
       :total="100"
-      :limit.sync="pageSize"
-    />
+      :page.sync="pageNum"
+      :limit.sync="pageSize"/>
   </div>
 </template>
 
@@ -145,7 +143,6 @@ const fakeData = {
 }
 // 假数据列表
 const fakeDataList = [{ ...fakeData }, { ...fakeData }, { ...fakeData }, { ...fakeData }, { ...fakeData }, { ...fakeData }, { ...fakeData }, { ...fakeData }, { ...fakeData }, { ...fakeData }]
-
 export default {
   name: 'LabFacilityList',
   components: {
@@ -204,12 +201,12 @@ export default {
     color: #5a5e66;
     background: #fff;
     box-shadow: 0 1px 4px rgba(0,21,41,.1);
-    padding: 20px;
+    padding: 10px;
     margin-bottom: 10px;
   }
   .button-filter-container {
     display: inline-block;
-    float: right;
+    margin-left: 120px;
   }
   .filter-container-conditions {
     display: inline-block;
@@ -218,8 +215,8 @@ export default {
     color: #5a5e66;
     background: #fff;
     box-shadow: 0 1px 4px rgba(0,21,41,.1);
-    padding: 10px 20px 20px;
-    margin-bottom: 10px;
+    padding: 5px 20px 15px;
+    margin-bottom: 5px;
   }
 </style>
 <!-- 高级搜索样式 -->
