@@ -2,7 +2,7 @@
   <div class="app-container">
     <!-- 简单搜索 + 其他功能区域 -->
     <div class="filter-container">
-      <el-button type="primary" size="medium" @click="handleReturn">返回</el-button>
+      <el-button type="primary" @click="handleReturn" size="medium">返回</el-button>
       <div class="button-filter-container">
             <div class="filter-container-conditions" style="margin: 2px">
               <el-input v-model="listQuery.equip_no" placeholder="设施编号" style="width: 230px;" clearable>
@@ -118,55 +118,55 @@
 </template>
 
 <script>
-import Pagination from '@/components/Pagination'
-// 假数据
-const fakeData = {
-  id: 1,
-  fac_name: '设施名称',
-  fac_category: '设施种类',
-  fac_status: '设施状态',
-  fac_quantity: '数量',
-  fac_owner: '负责人',
-  fac_storage: '存放地点',
-  fac_unit: '单位',
-  fac_unitPrice: '单价',
-  fac_specifications: '规格',
-  fac_code: '国码',
-  fac_produceDate: '出产日期',
-  fac_keepPeriod: '保修期',
-  fac_purchaseDate: '购置日期',
-  fac_purchaseWay: '购买方式',
-  fac_fundsSource: '经费来源',
-  fac_documentCode: '单据号',
-  fac_supplier: '供货商',
-  supplier_phone: '供货商电话',
-  fac_accessories: '其他附件'
-}
-// 假数据列表
-const fakeDataList = [{ ...fakeData }, { ...fakeData }, { ...fakeData }, { ...fakeData }, { ...fakeData }, { ...fakeData }, { ...fakeData }, { ...fakeData }, { ...fakeData }, { ...fakeData }]
-export default {
-  name: 'LabFacilityList',
-  components: {
-    Pagination
-  },
-  data() {
-    return {
-      listLoading: true,
-      tableData: null,
-      /* 分页参数 待修改 */
-      total: 100,
-      pageNum: 1,
-      pageSize: 20,
-      /* 查询条件 */
-      listQuery: {
-        equip_no: null,
-        equip_name: null,
-        equip_cate: null,
-        equip_quantity: null,
-        equip_location: null
+  import Pagination from '@/components/Pagination'
+  // 假数据
+  const fakeData = {
+    id: 1,
+    fac_name:"设施名称",
+    fac_category: "设施种类",
+    fac_status: "设施状态",
+    fac_quantity: "数量",
+    fac_owner: "负责人",
+    fac_storage: "存放地点",
+    fac_unit: "单位",
+    fac_unitPrice: "单价",
+    fac_specifications: "规格",
+    fac_code: "国码",
+    fac_produceDate: "出产日期",
+    fac_keepPeriod: "保修期",
+    fac_purchaseDate: "购置日期",
+    fac_purchaseWay: "购买方式",
+    fac_fundsSource: "经费来源",
+    fac_documentCode: "单据号",
+    fac_supplier: "供货商",
+    supplier_phone: "供货商电话",
+    fac_accessories: "其他附件"
+  }
+  //假数据列表
+  const fakeDataList = [ {...fakeData},{...fakeData},{...fakeData},{...fakeData},{...fakeData},{...fakeData},{...fakeData},{...fakeData},{...fakeData},{...fakeData} ]
+  export default {
+    name: "field-fac-list",
+    components: {
+      Pagination
+    },
+    data(){
+      return{
+        listLoading: true,
+        tableData: null,
+        /* 分页参数 待修改 */
+        total: 100,
+        pageNum: 1,
+        pageSize: 20,
+        /* 查询条件 */
+        listQuery: {
+          equip_no: null,
+          equip_name: null,
+          equip_cate: null,
+          equip_quantity: null,
+          equip_location: null,
+        }
       }
-    }
-  },
+    },
   created() {
     this.getList()
   },

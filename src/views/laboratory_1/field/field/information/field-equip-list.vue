@@ -2,7 +2,7 @@
   <div class="app-container">
     <!-- 简单搜索 + 其他功能区域 -->
     <div class="filter-container">
-      <el-button type="primary" :disabled="isAble" size="medium" @click="handleReturn">返回</el-button>
+      <el-button type="primary" @click="handleReturn" size="medium">返回</el-button>
       <div class="button-filter-container">
         <div class="filter-container-conditions" style="margin: 2px">
           <el-input v-model="listQuery.lab_num" placeholder="器材编号" style="width: 230px;" clearable>
@@ -224,12 +224,12 @@ const fakeData = {
 const fakeDataList = [{ ...fakeData }, { ...fakeData }, { ...fakeData }, { ...fakeData }, { ...fakeData }, { ...fakeData }, { ...fakeData }, { ...fakeData }, { ...fakeData }, { ...fakeData }]
 
 export default {
-  name: 'LabEquipmentList',
-  components: {
+  name: "field-equip-list",
+  components:{
     Pagination
   },
-  data() {
-    return {
+  data(){
+    return{
       /* 分页参数 待修改 */
       total: 100,
       pageNum: 1,
@@ -242,12 +242,12 @@ export default {
         equip_name: null,
         equip_cate: null,
         equip_quantity: null,
-        equip_location: null
+        equip_location: null,
       },
       /* 是否显示高级搜索 */
       DetailSearchShow: false,
       /* 是否显示功能栏 */
-      FunctionBtnShow: false
+      FunctionBtnShow: false,
     }
   },
   created() {

@@ -2,12 +2,12 @@
   <div class="app-container">
     <!-- 功能按钮 -->
     <div class="detail-button">
-      <el-button type="primary" :disabled="isAble" size="medium" @click="handleReturn">返回</el-button>
-      <el-button type="primary" :disabled="isAble" size="medium" @click="beforeEdit">编辑信息</el-button>
-      <el-button type="danger" size="medium" @click="beforeHandleDelete">删除</el-button>
-      <el-button type="success" size="medium" @click="handleDownload">导出信息</el-button>
-      <el-button type="primary" size="medium" @click="handleEquipmentDetail">查看器材</el-button>
-      <el-button type="primary" size="medium" @click="handleFacilityDetail">查看设施</el-button>
+      <el-button type="primary" @click="handleReturn" size="medium">返回</el-button>
+      <el-button type="primary" :disabled="isAble" @click="beforeEdit" size="medium">编辑信息</el-button>
+      <el-button type="danger" @click="beforeHandleDelete" size="medium">删除</el-button>
+      <el-button type="success" @click="handleDownload" size="medium">导出信息</el-button>
+      <el-button type="primary" @click="handleEquipmentDetail" size="medium">查看器材</el-button>
+      <el-button type="primary" @click="handleFacilityDetail" size="medium">查看设施</el-button>
     </div>
     <!-- 详细信息展示 -->
     <div class="form-style">

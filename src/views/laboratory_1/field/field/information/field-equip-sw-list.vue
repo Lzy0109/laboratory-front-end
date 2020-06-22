@@ -2,7 +2,7 @@
   <div class="app-container">
     <!-- 简单搜索 + 其他功能区域 -->
     <div class="filter-container">
-      <el-button type="primary" :disabled="isAble" size="medium" @click="handleReturn">返回</el-button>
+      <el-button type="primary" @click="handleReturn" size="medium">返回</el-button>
       <div class="button-filter-container">
         <div class="filter-container-conditions" style="margin: 2px">
           <el-input v-model="listQuery.software_name" placeholder="软件名称" style="width: 230px;" clearable>
@@ -183,47 +183,46 @@
 </template>
 
 <script>
-import Pagination from '@/components/Pagination'
-
-const fakeData = {
-  id: 1,
-  software_number: '器材编号',
-  equ_name: '器材名称',
-  software_name: '软件名称',
-  software_category: '软件种类',
-  software_applicable: '适用专业',
-  software_size: '软件大小',
-  software_version: '版本号',
-  software_Lab: '配置实验室',
-  software_issuer: '发行方',
-  software_systems: '适用系统',
-  software_price: '价格',
-  software_introduction: '使用说明（附件）',
-  software_path: '软件安装路径'
-}
-// 假数据列表
-const fakeDataList = [{ ...fakeData }, { ...fakeData }, { ...fakeData }, { ...fakeData }, { ...fakeData }, { ...fakeData }, { ...fakeData }, { ...fakeData }, { ...fakeData }, { ...fakeData }]
-export default {
-  name: 'EquipmentSoftwareList',
-  components: {
-    Pagination
-  },
-  data() {
-    return {
-      listLoading: true,
-      tableData: null,
-      /* 分页参数 待修改 */
-      total: 100,
-      pageNum: 1,
-      pageSize: 20,
-      /* 查询条件 */
-      listQuery: {
-        software_name: null,
-        software_category: null
+  import Pagination from '@/components/Pagination'
+  const fakeData = {
+    id:1,
+    software_number:"器材编号",
+    equ_name: "器材名称",
+    software_name: "软件名称",
+    software_category:"软件种类",
+    software_applicable: "适用专业",
+    software_size: "软件大小",
+    software_version: "版本号",
+    software_Lab: "配置实验室",
+    software_issuer: "发行方",
+    software_systems: "适用系统",
+    software_price: "价格",
+    software_introduction: "使用说明（附件）",
+    software_path: "软件安装路径",
+  };
+  //假数据列表
+  const fakeDataList = [ {...fakeData},{...fakeData},{...fakeData},{...fakeData},{...fakeData},{...fakeData},{...fakeData},{...fakeData},{...fakeData},{...fakeData} ];
+  export default {
+    components: {
+      Pagination
+    },
+    name: "field-equip-sw-list",
+    data(){
+      return{
+        listLoading: true,
+        tableData: null,
+        /* 分页参数 待修改 */
+        total: 100,
+        pageNum: 1,
+        pageSize: 20,
+        /* 查询条件 */
+        listQuery: {
+          software_name: null,
+          software_category: null
+        }
       }
-    }
-  },
-  created() {
+    },
+    created() {
     this.getList()
   },
   methods: {
