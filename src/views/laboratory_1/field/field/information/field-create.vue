@@ -1,9 +1,12 @@
 <template>
+  <div>
+    field-create
+  </div>
 </template>
 
 <script>
   export default {
-    name: 'create'
+    name: 'field-create'
   }
 </script>
 

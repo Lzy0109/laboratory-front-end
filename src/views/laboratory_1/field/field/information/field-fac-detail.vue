@@ -141,26 +141,6 @@
 </template>
 
 <script>
-  //实验室设施：
-  // fac_name 设施名称、
-  // fac_category 设施种类 、
-  // fac_status 设施状态、
-  // fac_quantity 数量、
-  // fac_owner 负责人、
-  // fac_storage 存放地点、
-  // fac_unit 单位、
-  // fac_unitPrice 单价、
-  // fac_purchaseDate 购置日期、
-  // fac_specifications 规格、
-  // fac_code 国码、
-  // fac_produceDate 出产日期、
-  // fac_fundsSource 经费来源、
-  // fac_purchaseWay 购买方式、
-  // fac_keepPeriod 保修期、
-  // fac_documentCode 单据号、
-  // fac_supplier 供货商、
-  // supplier_phone 供货商电话、
-  // fac_accessories 其他附件
   // 假数据
   const fakeData = {
     id: 1,
@@ -213,7 +193,7 @@
       },
       /* 根据ID获取数据 */
       getOriginalData() {
-        // 暂用假数据
+        /* 暂用假数据 */
         this.dataForm = fakeData;
         let id = this.$route.query.id;
         console.log("detail id=" + id);
@@ -317,6 +297,7 @@
       handleDownload() {
         console.log('导出')
       },
+      /* 查看附件 */
       handleAttachment() {
         console.log("查看其他附件")
       }

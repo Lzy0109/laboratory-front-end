@@ -1,14 +1,15 @@
 <template>
   <div class="app-container">
-    <!-- 简单搜索 + 其他功能区域 -->
+    <!-- 功能区域 -->
     <div class="filter-container">
       <el-button type="primary" @click="handleReturn" size="medium">返回</el-button>
       <div class="button-filter-container">
+        <!-- 简单搜索 -->
         <div class="filter-container-conditions" style="margin: 2px">
-          <el-input v-model="listQuery.software_name" placeholder="软件名称" style="width: 230px;" clearable>
+          <el-input v-model="queryList.software_name" placeholder="软件名称" style="width: 230px;" clearable>
             <template slot="prepend">软件名称</template>
           </el-input>
-          <el-select v-model="listQuery.software_category" style="width: 160px;" placeholder="软件分类" filterable clearable @change="handleFilter">
+          <el-select v-model="queryList.software_category" style="width: 160px;" placeholder="软件分类" filterable clearable @change="handleFilter">
             <!--获取数据库信息动态生成option-->
             <!--
             <el-option v-for="item in CategoryList" :key=item.id :label="item.name" :value="item.id" >
@@ -23,8 +24,9 @@
             <el-button type="primary"  size="medium" @click="handleFilter">搜索</el-button>
           </el-button-group>
         </div>
+        <!-- 功能按钮 -->
         <el-button-group>
-          <el-button type="primary"  size="medium" @click="DetailSearchShow = !DetailSearchShow">
+          <el-button type="primary"  size="medium" @click="showDetailSearchBtn = !showDetailSearchBtn">
             高级搜索
           </el-button>
         </el-button-group>
@@ -45,25 +47,26 @@
     </div>
 
     <!-- 浮动高级搜索区域 -->
-    <el-dialog :visible.sync="DetailSearchShow" width="95%" :show-close="false">
+    <el-dialog :visible.sync="showDetailSearchBtn" width="95%" :show-close="false">
       <span class="my-dialog-title" slot="title">高级搜索</span>
       <div class="DetailSearch_son">
+        <!-- el-row内容需要替换 -->
         <el-row class="DetailSearch_son_row">
           <!-- 实验室编号 -->
           <el-col :span="6">
-            <el-input v-model="listQuery.lab_num" placeholder="实验室编号" style="width: 300px;" clearable>
+            <el-input v-model="queryList.lab_num" placeholder="实验室编号" style="width: 300px;" clearable>
               <template slot="prepend">实验室编号</template>
             </el-input>
           </el-col>
           <!-- 实验室名称 -->
           <el-col :span="6">
-            <el-input v-model="listQuery.lab_name" placeholder="实验室名称" style="width: 300px;" clearable>
+            <el-input v-model="queryList.lab_name" placeholder="实验室名称" style="width: 300px;" clearable>
               <template slot="prepend">实验室名称</template>
             </el-input>
           </el-col>
           <!-- 实验室分类 -->
           <el-col :span="6">
-            <el-select v-model="listQuery.lab_owner" style="width: 300px;" placeholder="实验室分类" filterable clearable @change="handleFilter">
+            <el-select v-model="queryList.lab_owner" style="width: 300px;" placeholder="实验室分类" filterable clearable @change="handleFilter">
               <!--获取数据库信息动态生成option-->
               <!--
               <el-option v-for="item in CategoryList" :key=item.id :label="item.name" :value="item.id" >
@@ -77,7 +80,7 @@
           </el-col>
           <!-- 实验室负责人 -->
           <el-col :span="6">
-            <el-select v-model="listQuery.lab_owner" style="width: 300px;" placeholder="实验室负责人" filterable clearable @change="handleFilter">
+            <el-select v-model="queryList.lab_owner" style="width: 300px;" placeholder="实验室负责人" filterable clearable @change="handleFilter">
               <el-option key="1" label="负责人1" value="1" />
               <el-option key="0" label="负责人2" value="0" />
             </el-select>
@@ -85,22 +88,22 @@
         </el-row>
         <el-row class="DetailSearch_son_row">
           <el-col :span="6">
-            <el-input v-model="listQuery.other" placeholder="楼" style="width: 300px;" clearable>
+            <el-input v-model="queryList.other" placeholder="楼" style="width: 300px;" clearable>
               <template slot="prepend">楼</template>
             </el-input>
           </el-col>
           <el-col :span="6">
-            <el-input v-model="listQuery.other" placeholder="房间号" style="width: 300px;" clearable>
+            <el-input v-model="queryList.other" placeholder="房间号" style="width: 300px;" clearable>
               <template slot="prepend">房间号</template>
             </el-input>
           </el-col>
           <el-col :span="6">
-            <el-input v-model="listQuery.other" placeholder="最大机位数" style="width: 300px;" clearable>
+            <el-input v-model="queryList.other" placeholder="最大机位数" style="width: 300px;" clearable>
               <template slot="prepend">最大机位数</template>
             </el-input>
           </el-col>
           <el-col :span="6">
-            <el-input v-model="listQuery.other" placeholder="可容纳人数上限" style="width: 300px;" clearable>
+            <el-input v-model="queryList.other" placeholder="可容纳人数上限" style="width: 300px;" clearable>
               <template slot="prepend">可容纳人数上限</template>
             </el-input>
           </el-col>
@@ -108,14 +111,14 @@
         <el-row class="DetailSearch_son_row">
 
           <el-col :span="6">
-            <el-input v-model="listQuery.other" placeholder="可用设备数" style="width: 300px;" clearable>
+            <el-input v-model="queryList.other" placeholder="可用设备数" style="width: 300px;" clearable>
               <template slot="prepend">可用设备数</template>
             </el-input>
           </el-col>
           <!--          <el-col :span="6">-->
           <!--            <span>日期：</span>-->
           <!--            <el-date-picker-->
-          <!--              v-model="listQuery.other"-->
+          <!--              v-model="queryList.other"-->
           <!--              type="date"-->
           <!--              placeholder="（其他）日期"-->
           <!--              value-format="yyyy-MM-dd"-->
@@ -124,7 +127,7 @@
           <!--            />-->
           <!--          </el-col>-->
         </el-row>
-        <!--按钮定位-->
+        <!-- 按钮定位 -->
         <div class="DetailSearch_button">
           <el-button class="filter-item" type="primary" icon="el-icon-search" @click="handleFilter">
             搜索
@@ -204,7 +207,7 @@
     components: {
       Pagination
     },
-    name: "field-equip-sw-list",
+    name: 'field-equip-sw-list',
     data(){
       return{
         listLoading: true,
@@ -213,13 +216,13 @@
         total: 100,
         pageNum: 1,
         pageSize: 20,
-        listLoading:true,
-        tableData:null,
         /* 查询条件 */
-        listQuery: {
+        queryList: {
+          // 需要修改
           software_name: null,
           software_category: null
         },
+        showDetailSearchBtn: false
       }
     },
     methods:{
@@ -230,6 +233,7 @@
         //根据传过来的器材id获取对应的器材配置软件
         //console.log("器材id获取对应的器材配置软件. equ id" +this.$route.query.id);
       },
+      /* 返回上一级 */
       handleReturn() {
         this.$router.go(-1)
       },

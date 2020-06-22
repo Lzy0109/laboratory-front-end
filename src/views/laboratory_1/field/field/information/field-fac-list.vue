@@ -1,14 +1,15 @@
 <template>
   <div class="app-container">
-    <!-- 简单搜索 + 其他功能区域 -->
+    <!-- 功能区域 -->
     <div class="filter-container">
       <el-button type="primary" @click="handleReturn" size="medium">返回</el-button>
+      <!-- 简单搜索 -->
       <div class="button-filter-container">
         <div class="filter-container-conditions" style="margin: 2px">
-          <el-input v-model="listQuery.equip_no" placeholder="设施编号" style="width: 230px;" clearable>
+          <el-input v-model="queryList.equip_no" placeholder="设施编号" style="width: 230px;" clearable>
             <template slot="prepend">设施编号</template>
           </el-input>
-          <el-select v-model="listQuery.equip_cate" style="width: 160px;" placeholder="设施分类" filterable clearable @change="handleFilter">
+          <el-select v-model="queryList.equip_cate" style="width: 160px;" placeholder="设施分类" filterable clearable @change="handleFilter">
             <!--获取数据库信息动态生成option-->
             <!--
             <el-option v-for="item in CategoryList" :key=item.id :label="item.name" :value="item.id" >
@@ -19,7 +20,7 @@
             <el-option key="1" label="类别1" value="1" />
             <el-option key="0" label="类别2" value="0" />
           </el-select>
-          <el-select v-model="listQuery.equip_cate" style="width: 160px;" placeholder="设施状态" filterable clearable @change="handleFilter">
+          <el-select v-model="queryList.equip_cate" style="width: 160px;" placeholder="设施状态" filterable clearable @change="handleFilter">
             <!--获取数据库信息动态生成option-->
             <!--
             <el-option v-for="item in CategoryList" :key=item.id :label="item.name" :value="item.id" >
@@ -34,8 +35,9 @@
             <el-button type="primary"  size="medium" @click="handleFilter">搜索</el-button>
           </el-button-group>
         </div>
+        <!-- 功能按钮 -->
         <el-button-group>
-          <el-button type="primary"  size="medium" @click="DetailSearchShow = !DetailSearchShow">
+          <el-button type="primary"  size="medium" @click="showDetailSearchBtn = !showDetailSearchBtn">
             高级搜索
           </el-button>
         </el-button-group>
@@ -56,10 +58,10 @@
     </div>
 
     <!-- 浮动高级搜索区域 -->
-    <el-dialog :visible.sync="DetailSearchShow" width="95%" :show-close="false">
+    <el-dialog :visible.sync="showDetailSearchBtn" width="95%" :show-close="false">
       <span class="my-dialog-title" slot="title">高级搜索</span>
       <div class="DetailSearch_son">
-        <!--按钮定位-->
+        <!-- 按钮定位 -->
         <div class="DetailSearch_button">
           <el-button class="filter-item" type="primary" icon="el-icon-search" @click="handleFilter">
             搜索
@@ -68,7 +70,6 @@
             取消
           </el-button>
         </div>
-
       </div>
     </el-dialog>
 
@@ -147,7 +148,7 @@
     components: {
       Pagination
     },
-    name: "field-fac-list",
+    name: 'field-fac-list',
     data(){
       return{
         listLoading: true,
@@ -157,21 +158,24 @@
         pageNum: 1,
         pageSize: 20,
         /* 查询条件 */
-        listQuery: {
+        queryList: {
+          // 需要修改
           equip_no: null,
           equip_name: null,
           equip_cate: null,
           equip_quantity: null,
           equip_location: null,
         },
+        /* 是否显示高级搜索 */
+        showDetailSearchBtn: false
       }
     },
     methods:{
       getList(){
-        //fake data
+        /* fake data */
         this.tableData = fakeDataList;
         this.listLoading = false;
-        //根据传过来的实验室id获取对应的设施
+        /* 根据传过来的实验室id获取对应的设施 */
         console.log("实验室id获取对应的设施.lab id" +this.$route.query.id);
       },
       /* 返回上一页 */

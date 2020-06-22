@@ -242,6 +242,14 @@ export const constantRoutes = [
           }
         ]
       },
+      // 新增实验室
+      {
+        path: 'field_create',
+        component: () => import('@/views/laboratory_1/field/field/information/field-create'),
+        name: 'Field_Create',
+        meta: { title: '新增实验室' },
+        hidden: true
+      },
       // 实验室场地详情
       {
         path: 'field_detail',

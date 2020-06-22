@@ -134,7 +134,6 @@
         </div>
       </el-collapse-transition>
     </div>
-
   </div>
 </template>
 

@@ -163,7 +163,7 @@
   }
 
   export default {
-    name: "field-equip-detail",
+    name: 'field-equip-detail',
     data() {
       return {
         dataForm: null,
@@ -298,7 +298,7 @@
         this.$router.push({
           name: 'Field_Equip_Sw_List',
           query: {
-            id:id
+            id: id
           }
         })
       },

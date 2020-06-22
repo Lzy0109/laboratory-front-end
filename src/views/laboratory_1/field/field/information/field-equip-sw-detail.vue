@@ -111,7 +111,7 @@
   }
 
   export default {
-    name: "field-equip-sw-detail",
+    name: 'field-equip-sw-detail',
     data() {
       return {
         dataForm: null,

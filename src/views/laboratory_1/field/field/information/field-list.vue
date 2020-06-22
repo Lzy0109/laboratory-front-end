@@ -1,12 +1,13 @@
 <template>
   <div class="app-container">
-    <!-- 简单搜索 + 其他功能区域 -->
+    <!-- 功能区域 -->
     <div class="filter-container">
+      <!-- 简单搜索 -->
       <div class="filter-container-conditions" style="margin: 2px">
-        <el-input v-model="listQuery.lab_num" placeholder="实验室编号" style="width: 230px;" clearable>
+        <el-input v-model="queryList.lab_num" placeholder="实验室编号" style="width: 230px;" clearable>
           <template slot="prepend">实验室编号</template>
         </el-input>
-        <el-select v-model="listQuery.lab_cate" style="width: 160px;" placeholder="实验室分类" filterable clearable @change="handleFilter">
+        <el-select v-model="queryList.lab_cate" style="width: 160px;" placeholder="实验室分类" filterable clearable @change="handleFilter">
           <!--获取数据库信息动态生成option-->
           <!--
           <el-option v-for="item in CategoryList" :key=item.id :label="item.name" :value="item.id" >
@@ -17,7 +18,7 @@
           <el-option key="1" label="类别1" value="1" />
           <el-option key="0" label="类别2" value="0" />
         </el-select>
-        <el-select v-model="listQuery.lab_owner" style="width: 160px;" placeholder="实验室负责人" filterable clearable @change="handleFilter">
+        <el-select v-model="queryList.lab_owner" style="width: 160px;" placeholder="实验室负责人" filterable clearable @change="handleFilter">
           <!--获取数据库信息动态生成option-->
           <!--
           <el-option v-for="item in CategoryList" :key=item.id :label="item.name" :value="item.id" >
@@ -32,9 +33,10 @@
           <el-button type="primary"  size="medium" @click="handleFilter">搜索</el-button>
         </el-button-group>
       </div>
+      <!-- 功能按钮 -->
       <div class="button-filter-container">
         <el-button-group>
-          <el-button type="primary"  size="medium" @click="DetailSearchShow = !DetailSearchShow">
+          <el-button type="primary"  size="medium" @click="showDetailSearchBtn = !showDetailSearchBtn">
             高级搜索
           </el-button>
         </el-button-group>
@@ -53,29 +55,26 @@
         </el-button-group>
       </div>
     </div>
-
     <!-- 浮动高级搜索区域 -->
-    <el-dialog :visible.sync="DetailSearchShow" width="95%" :show-close="false">
-      <span class="my-dialog-title" slot="title">
-        高级搜索
-      </span>
+    <el-dialog :visible.sync="showDetailSearchBtn" width="95%" :show-close="false">
+      <span class="my-dialog-title" slot="title">高级搜索</span>
       <div class="DetailSearch_son">
         <el-row class="DetailSearch_son_row">
           <!-- 实验室编号 -->
           <el-col :span="6">
-            <el-input v-model="listQuery.lab_num" placeholder="实验室编号" style="width: 300px;" clearable>
+            <el-input v-model="queryList.lab_num" placeholder="实验室编号" style="width: 300px;" clearable>
               <template slot="prepend">实验室编号</template>
             </el-input>
           </el-col>
           <!-- 实验室名称 -->
           <el-col :span="6">
-            <el-input v-model="listQuery.lab_name" placeholder="实验室名称" style="width: 300px;" clearable>
+            <el-input v-model="queryList.lab_name" placeholder="实验室名称" style="width: 300px;" clearable>
               <template slot="prepend">实验室名称</template>
             </el-input>
           </el-col>
           <!-- 实验室分类 -->
           <el-col :span="6">
-            <el-select v-model="listQuery.lab_owner" style="width: 300px;" placeholder="实验室分类" filterable clearable @change="handleFilter">
+            <el-select v-model="queryList.lab_owner" style="width: 300px;" placeholder="实验室分类" filterable clearable @change="handleFilter">
               <!--获取数据库信息动态生成option-->
               <!--
               <el-option v-for="item in CategoryList" :key=item.id :label="item.name" :value="item.id" >
@@ -89,7 +88,7 @@
           </el-col>
           <!-- 实验室负责人 -->
           <el-col :span="6">
-            <el-select v-model="listQuery.lab_owner" style="width: 300px;" placeholder="实验室负责人" filterable clearable @change="handleFilter">
+            <el-select v-model="queryList.lab_owner" style="width: 300px;" placeholder="实验室负责人" filterable clearable @change="handleFilter">
               <el-option key="1" label="负责人1" value="1" />
               <el-option key="0" label="负责人2" value="0" />
             </el-select>
@@ -97,37 +96,36 @@
         </el-row>
         <el-row class="DetailSearch_son_row">
           <el-col :span="6">
-            <el-input v-model="listQuery.other" placeholder="楼" style="width: 300px;" clearable>
+            <el-input v-model="queryList.other" placeholder="楼" style="width: 300px;" clearable>
               <template slot="prepend">楼</template>
             </el-input>
           </el-col>
           <el-col :span="6">
-            <el-input v-model="listQuery.other" placeholder="房间号" style="width: 300px;" clearable>
+            <el-input v-model="queryList.other" placeholder="房间号" style="width: 300px;" clearable>
               <template slot="prepend">房间号</template>
             </el-input>
           </el-col>
           <el-col :span="6">
-            <el-input v-model="listQuery.other" placeholder="最大机位数" style="width: 300px;" clearable>
+            <el-input v-model="queryList.other" placeholder="最大机位数" style="width: 300px;" clearable>
               <template slot="prepend">最大机位数</template>
             </el-input>
           </el-col>
           <el-col :span="6">
-            <el-input v-model="listQuery.other" placeholder="可容纳人数上限" style="width: 300px;" clearable>
+            <el-input v-model="queryList.other" placeholder="可容纳人数上限" style="width: 300px;" clearable>
               <template slot="prepend">可容纳人数上限</template>
             </el-input>
           </el-col>
         </el-row>
         <el-row class="DetailSearch_son_row">
-
           <el-col :span="6">
-            <el-input v-model="listQuery.other" placeholder="可用设备数" style="width: 300px;" clearable>
+            <el-input v-model="queryList.other" placeholder="可用设备数" style="width: 300px;" clearable>
               <template slot="prepend">可用设备数</template>
             </el-input>
           </el-col>
 <!--          <el-col :span="6">-->
 <!--            <span>日期：</span>-->
 <!--            <el-date-picker-->
-<!--              v-model="listQuery.other"-->
+<!--              v-model="queryList.other"-->
 <!--              type="date"-->
 <!--              placeholder="（其他）日期"-->
 <!--              value-format="yyyy-MM-dd"-->
@@ -136,7 +134,7 @@
 <!--            />-->
 <!--          </el-col>-->
         </el-row>
-        <!--按钮定位-->
+        <!-- 按钮定位 -->
         <div class="DetailSearch_button">
           <el-button class="filter-item" type="primary" icon="el-icon-search" @click="handleFilter">
             搜索
@@ -148,7 +146,6 @@
 
       </div>
     </el-dialog>
-
     <!-- table区域 -->
     <!-- 表格错位问题 设置全局样式 -->
     <el-table
@@ -191,8 +188,7 @@
       />
     </el-table>
     <!-- 分页栏 -->
-    <pagination class="my-pagination"
-                v-show="total > 0"
+    <pagination v-show="total > 0"
                 :total="100"
                 :page.sync="pageNum"
                 :limit.sync="pageSize"
@@ -220,7 +216,8 @@
         /* 导出excel相关参数 */
         downloadLoading: false,
         /* 查询条件 */
-        listQuery: {
+        queryList: {
+          // 需要修改
           lab_name: null,
           lab_num: null,
           lab_owner: null,
@@ -228,9 +225,7 @@
           other: null
         },
         /* 是否显示高级搜索 */
-        DetailSearchShow: false,
-        /* 是否显示功能栏 */
-        FunctionBtnShow: false,
+        showDetailSearchBtn: false
       }
     },
     created() {
@@ -323,7 +318,6 @@
         ]
         this.listLoading = false
       },
-
       /* 详情 */
       handleDetail(row, column, event) {
         console.log('handleDetail')
@@ -342,9 +336,12 @@
       handleDownload() {
 
       },
-      /* 添加数据 */
+      /* 跳转添加实验室页面 */
       handleCreate() {
-
+        console.log('handleCreate')
+        this.$router.push({
+          name: 'Field_Create'
+        })
       },
       /* 批量添加 */
       handleBatchCreate() {
@@ -353,11 +350,11 @@
       /* 管理高级搜索 */
       handleClose() {
         // 清空旧数据
-        for (const key in this.listQuery) {
-          this.listQuery[key] = null
+        for (const key in this.queryList) {
+          this.queryList[key] = null
         }
         // 关闭
-        this.DetailSearchShow = false
+        this.showDetailSearchBtn = false
       }
     }
   }
@@ -378,15 +375,6 @@
   }
 </style>
 
-<!-- 分页样式 -->
-<!--<style scoped>-->
-<!--  .pagination-container /deep/ ul {-->
-<!--    display: none;-->
-<!--  }-->
-<!--  .pagination-container /deep/ .el-pagination__jump {-->
-<!--    display: none;-->
-<!--  }-->
-<!--</style>-->
 <!-- 高级搜索样式 -->
 <style>
   .my-dialog-title{
