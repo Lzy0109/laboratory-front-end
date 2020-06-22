@@ -2,62 +2,62 @@
   <div class="app-container">
     <!-- 简单搜索 + 其他功能区域 -->
     <div class="filter-container">
-      <el-button type="primary" :disabled="isAble" @click="handleReturn" size="medium">返回</el-button>
+      <el-button type="primary" size="medium" @click="handleReturn">返回</el-button>
       <div class="button-filter-container">
-        <div class="filter-container-conditions" style="margin: 2px">
-          <el-input v-model="listQuery.equip_no" placeholder="设施编号" style="width: 230px;" clearable>
-            <template slot="prepend">设施编号</template>
-          </el-input>
-          <el-select v-model="listQuery.equip_cate" style="width: 160px;" placeholder="设施分类" filterable clearable @change="handleFilter">
-            <!--获取数据库信息动态生成option-->
-            <!--
-            <el-option v-for="item in CategoryList" :key=item.id :label="item.name" :value="item.id" >
-              <span style="float: left">编号:{{ item.id }}</span>
-              <span style="float: right; color: #8492a6; font-size: 12px">名称:{{ item.name }}</span>
-            </el-option>
-            -->
-            <el-option key="1" label="类别1" value="1" />
-            <el-option key="0" label="类别2" value="0" />
-          </el-select>
-          <el-select v-model="listQuery.equip_cate" style="width: 160px;" placeholder="设施状态" filterable clearable @change="handleFilter">
-            <!--获取数据库信息动态生成option-->
-            <!--
-            <el-option v-for="item in CategoryList" :key=item.id :label="item.name" :value="item.id" >
-              <span style="float: left">编号:{{ item.id }}</span>
-              <span style="float: right; color: #8492a6; font-size: 12px">名称:{{ item.name }}</span>
-            </el-option>
-            -->
-            <el-option key="1" label="状态1" value="1" />
-            <el-option key="0" label="状态2" value="0" />
-          </el-select>
-          <el-button-group>
-            <el-button type="primary"  size="medium" @click="handleFilter">搜索</el-button>
-          </el-button-group>
-        </div>
-        <el-button-group>
-          <el-button type="primary"  size="medium" @click="DetailSearchShow = !DetailSearchShow">
-            高级搜索
-          </el-button>
-        </el-button-group>
-        <el-button-group>
-          <el-button type="primary"  size="medium" @click="handleCreate">
-            添加
-          </el-button>
-        </el-button-group>
-        <el-button-group>
-          <el-button type="primary"  size="medium" @click="handleBatchCreate">
-            导入
-          </el-button>
-          <el-button type="primary"  size="medium" :loading="downloadLoading" @click="handleDownload">
-            导出
-          </el-button>
-        </el-button-group>
-      </div>
+            <div class="filter-container-conditions" style="margin: 2px">
+              <el-input v-model="listQuery.equip_no" placeholder="设施编号" style="width: 230px;" clearable>
+                <template slot="prepend">设施编号</template>
+              </el-input>
+              <el-select v-model="listQuery.equip_cate" style="width: 160px;" placeholder="设施分类" filterable clearable @change="handleFilter">
+                <!--获取数据库信息动态生成option-->
+                <!--
+                <el-option v-for="item in CategoryList" :key=item.id :label="item.name" :value="item.id" >
+                  <span style="float: left">编号:{{ item.id }}</span>
+                  <span style="float: right; color: #8492a6; font-size: 12px">名称:{{ item.name }}</span>
+                </el-option>
+                -->
+                <el-option key="1" label="类别1" value="1" />
+                <el-option key="0" label="类别2" value="0" />
+              </el-select>
+              <el-select v-model="listQuery.equip_cate" style="width: 160px;" placeholder="设施状态" filterable clearable @change="handleFilter">
+                <!--获取数据库信息动态生成option-->
+                <!--
+                <el-option v-for="item in CategoryList" :key=item.id :label="item.name" :value="item.id" >
+                  <span style="float: left">编号:{{ item.id }}</span>
+                  <span style="float: right; color: #8492a6; font-size: 12px">名称:{{ item.name }}</span>
+                </el-option>
+                -->
+                <el-option key="1" label="状态1" value="1" />
+                <el-option key="0" label="状态2" value="0" />
+              </el-select>
+              <el-button-group>
+                <el-button type="primary" size="medium" @click="handleFilter">搜索</el-button>
+              </el-button-group>
+            </div>
+            <el-button-group>
+              <el-button type="primary" size="medium" @click="DetailSearchShow = !DetailSearchShow">
+                高级搜索
+              </el-button>
+            </el-button-group>
+            <el-button-group>
+              <el-button type="primary" size="medium" @click="handleCreate">
+                添加
+              </el-button>
+            </el-button-group>
+            <el-button-group>
+              <el-button type="primary" size="medium" @click="handleBatchCreate">
+                导入
+              </el-button>
+              <el-button type="primary" size="medium" :loading="downloadLoading" @click="handleDownload">
+                导出
+              </el-button>
+            </el-button-group>
+          </div>
     </div>
 
     <!-- 浮动高级搜索区域 -->
     <el-dialog :visible.sync="DetailSearchShow" width="95%" :show-close="false">
-      <span class="my-dialog-title" slot="title">高级搜索</span>
+      <span slot="title" class="my-dialog-title">高级搜索</span>
       <div class="DetailSearch_son">
         <!--按钮定位-->
         <div class="DetailSearch_button">
@@ -80,8 +80,8 @@
         element-loading-text="Loading"
         fit
         highlight-current-row
-        @row-click="handleDetail"
         :header-cell-style="{'font-size': '17px'}"
+        @row-click="handleDetail"
       >
         <el-table-column
           label="序号"
@@ -112,7 +112,8 @@
       v-show="total > 0"
       :total="100"
       :page.sync="pageNum"
-      :limit.sync="pageSize"/>
+      :limit.sync="pageSize"
+    />
   </div>
 </template>
 
@@ -197,12 +198,11 @@ export default {
 
 <style scoped>
   .filter-container {
-    margin-bottom: 70px;
     color: #5a5e66;
     background: #fff;
     box-shadow: 0 1px 4px rgba(0,21,41,.1);
     padding: 10px;
-    margin-bottom: 10px;
+    margin-bottom: 70px;
   }
   .button-filter-container {
     display: inline-block;
