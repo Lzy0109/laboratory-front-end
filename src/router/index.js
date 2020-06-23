@@ -166,7 +166,7 @@ export const constantRoutes = [
   {
     path: '/laboratory_1',
     component: Layout,
-    redirect: '/laboratory_1/equipment',
+    redirect: '/laboratory_1/field',
     name: 'Laboratory_1',
     meta: {
       title: '实验室模块第一部分',
@@ -176,14 +176,14 @@ export const constantRoutes = [
       // 实验室场地管理
       {
         path: 'field',
-        component: () => import('@/views/laboratory_1/field/field/information/field-list'),
+        component: () => import('@/views/laboratory_1/field/index'),
         name: 'Field',
         meta: { title: '实验室管理' },
         children: [
           // 实验室
           {
             path: 'field',
-            component: () => import('@/views/laboratory_1/field/field/information/field-list'),
+            component: () => import('@/views/laboratory_1/field/field/index'),
             name: 'Field',
             meta: { title: '实验室' },
             children: [
@@ -226,9 +226,9 @@ export const constantRoutes = [
               },
               // 设施信息管理
               {
-                path: 'information',
-                component: () => import('@/views/laboratory_1/field/facility/information/index'),
-                name: 'Information',
+                path: 'facility-information',
+                component: () => import('@/views/laboratory_1/field/facility/information/facility-list'),
+                name: 'Facility-Information',
                 meta: { title: '设施信息管理' }
               },
               // 设施数量管理
@@ -242,7 +242,7 @@ export const constantRoutes = [
           }
         ]
       },
-      // 新增实验室
+      // 创建实验室
       {
         path: 'field_create',
         component: () => import('@/views/laboratory_1/field/field/information/field-create'),
@@ -309,14 +309,14 @@ export const constantRoutes = [
       // 实验器材管理
       {
         path: 'equipment',
-        component: () => import('@/views/laboratory_1/equipment/equipment_information/information/index'),
+        component: () => import('@/views/laboratory_1/equipment/index'),
         name: 'Equipment',
         meta: { title: '实验器材管理' },
         children: [
           // 器材信息管理
           {
             path: 'equipment_information',
-            component: () => import('@/views/laboratory_1/equipment/equipment_information/information/index'),
+            component: () => import('@/views/laboratory_1/equipment/equipment_information/index'),
             name: 'Equipment_Information',
             meta: { title: '实验器材' },
             children: [
@@ -389,7 +389,7 @@ export const constantRoutes = [
       // 实验软件管理
       {
         path: 'software',
-        component: () => import('@/views/laboratory_1/software/index'), // Parent router-view
+        component: () => import('@/views/laboratory_1/software/index'),
         name: 'Software',
         meta: { title: '实验软件管理' },
         children: [

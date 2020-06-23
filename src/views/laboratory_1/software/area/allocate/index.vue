@@ -1,6 +1,6 @@
 <template>
   <div style="padding:30px;">
-    <el-alert :closable="false" title="allocate" type="success">
+    <el-alert :closable="false" title="software-allocate" type="success">
       <router-view />
     </el-alert>
   </div>

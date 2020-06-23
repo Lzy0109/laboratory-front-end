@@ -1,7 +1,6 @@
 <template>
-  <div style="padding:30px;">
-    <el-alert :closable="false" title="property">
-      <router-view />
-    </el-alert>
+  <div>
+    <!-- 嵌套路由 -->
+    <router-view />
   </div>
 </template>

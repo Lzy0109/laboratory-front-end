@@ -4,10 +4,10 @@
     <div class="filter-container">
       <!-- 简单搜索 -->
       <div class="filter-container-conditions" style="margin: 2px">
-        <el-input v-model="queryList.lab_num" placeholder="实验室编号" style="width: 230px;" clearable>
-          <template slot="prepend">实验室编号</template>
+        <el-input v-model="queryList.lab_num" placeholder="设施编号" style="width: 230px;" clearable>
+          <template slot="prepend">设施编号</template>
         </el-input>
-        <el-select v-model="queryList.lab_cate" style="width: 160px;" placeholder="实验室分类" filterable clearable @change="handleFilter">
+        <el-select v-model="queryList.lab_cate" style="width: 160px;" placeholder="设施分类" filterable clearable @change="handleFilter">
           <!--获取数据库信息动态生成option-->
           <!--
           <el-option v-for="item in CategoryList" :key=item.id :label="item.name" :value="item.id" >
@@ -18,7 +18,7 @@
           <el-option key="1" label="类别1" value="1" />
           <el-option key="0" label="类别2" value="0" />
         </el-select>
-        <el-select v-model="queryList.lab_owner" style="width: 160px;" placeholder="实验室负责人" filterable clearable @change="handleFilter">
+        <el-select v-model="queryList.lab_owner" style="width: 160px;" placeholder="设施负责人" filterable clearable @change="handleFilter">
           <!--获取数据库信息动态生成option-->
           <!--
           <el-option v-for="item in CategoryList" :key=item.id :label="item.name" :value="item.id" >
@@ -122,17 +122,17 @@
               <template slot="prepend">可用设备数</template>
             </el-input>
           </el-col>
-<!--          <el-col :span="6">-->
-<!--            <span>日期：</span>-->
-<!--            <el-date-picker-->
-<!--              v-model="queryList.other"-->
-<!--              type="date"-->
-<!--              placeholder="（其他）日期"-->
-<!--              value-format="yyyy-MM-dd"-->
-<!--              style="width: auto;"-->
-<!--              class="filter-item"-->
-<!--            />-->
-<!--          </el-col>-->
+          <!--          <el-col :span="6">-->
+          <!--            <span>日期：</span>-->
+          <!--            <el-date-picker-->
+          <!--              v-model="queryList.other"-->
+          <!--              type="date"-->
+          <!--              placeholder="（其他）日期"-->
+          <!--              value-format="yyyy-MM-dd"-->
+          <!--              style="width: auto;"-->
+          <!--              class="filter-item"-->
+          <!--            />-->
+          <!--          </el-col>-->
         </el-row>
         <!-- 按钮定位 -->
         <div class="DetailSearch_button">
@@ -180,7 +180,7 @@
       />
       <el-table-column
         prop="lab_equip_cur_num"
-        label="可用设备数"
+        label="设施状态"
       />
       <el-table-column
         prop="lab_owner"
@@ -202,7 +202,7 @@
     components: {
       Pagination
     },
-    name: 'field-list',
+    name: 'facility-list',
     data() {
       return {
         /* 表格参数 */
@@ -237,12 +237,12 @@
       getTableList() {
         this.tableData = [
           {
-          id: 1,
-          lab_num: 101,
-          lab_name: '测试实验室1',
-          lab_category: '实验室类别',
-          lab_equip_cur_num: '当前可用设备数',
-          lab_owner: '负责人'
+            id: 1,
+            lab_num: 101,
+            lab_name: '测试实验室1',
+            lab_category: '实验室类别',
+            lab_equip_cur_num: '当前可用设备数',
+            lab_owner: '负责人'
           },
           {
             id: 2,
@@ -427,4 +427,3 @@
     display: inline-block;
   }
 </style>
-
