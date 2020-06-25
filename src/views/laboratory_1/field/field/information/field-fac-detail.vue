@@ -196,7 +196,7 @@
         /* 暂用假数据 */
         this.dataForm = fakeData;
         let id = this.$route.query.id;
-        console.log("detail id=" + id);
+        console.log("software-detail id=" + id);
       },
       /* 编辑前 */
       beforeEdit() {

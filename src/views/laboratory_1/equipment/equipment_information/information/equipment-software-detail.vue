@@ -95,7 +95,7 @@
   // 假数据
   const fakeData = {
     id:1,
-    software_number:"器材编号",
+    software_number:"软件编号",
     equ_name: "器材名称",
     software_name: "软件名称",
     software_category:"软件种类",
@@ -142,7 +142,7 @@
         // 暂用假数据
         this.dataForm = fakeData;
         let id = this.$route.query.id;
-        console.log("detail id=" + id);
+        console.log("software-detail id=" + id);
       },
       /* 编辑前 */
       beforeEdit() {

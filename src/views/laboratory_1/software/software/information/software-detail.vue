@@ -224,7 +224,7 @@ export default {
     },
     /* 跳转到设施详情 */
     handleFacilityDetail(id) {
-      console.log('facility id =' + id)
+      console.log('facility-modules id =' + id)
       this.$router.push({
         name: 'Field_Fac_List',
         query: {
@@ -234,7 +234,7 @@ export default {
     },
     /* 跳转到器材详情 */
     handleEquipmentDetail(id) {
-      console.log('equipment id =' + id)
+      console.log('modules id =' + id)
       this.$router.push({
         name: 'Field_Equip_List',
         query: {
