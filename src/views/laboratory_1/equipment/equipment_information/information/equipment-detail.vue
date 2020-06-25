@@ -6,149 +6,135 @@
       <el-button type="primary" :disabled="isAble" @click="beforeEdit" size="medium">编辑信息</el-button>
       <el-button type="danger" @click="beforeHandleDelete" size="medium">删除</el-button>
       <el-button type="success" @click="handleDownload" size="medium">导出信息</el-button>
-      <el-button type="primary" @click="handleAttachment" size="medium">查看附件</el-button>
+      <el-button type="primary" @click="handleEquipSoftwareList" size="medium">查看配置软件</el-button>
+      <el-button type="primary" @click="handleAttachment" size="medium">查看入库附件</el-button>
     </div>
     <!-- 详细信息展示 -->
     <div class="form-style">
-      <h2>设施详细信息</h2>
+      <h2>器材详细信息</h2>
       <el-form ref="dataForm" :model="dataForm" :rules="rules">
         <el-row type="flex" class="row-bg" justify="space-around">
           <el-col :span="8">
-            <el-form-item label="设施编号" label-width="100px" prop="number">
-              <el-input v-model="dataForm.fac_num" style="width: auto" :readonly="isRead"/>
+            <el-form-item label="器材编号" label-width="100px" prop="number">
+              <el-input v-model="dataForm.equip_num" style="width: auto" :readonly="isRead" />
             </el-form-item>
           </el-col>
           <el-col :span="8">
-            <el-form-item label="设施名称" label-width="100px" prop="number">
-              <el-input v-model="dataForm.fac_name" style="width: auto" :readonly="isRead"/>
+            <el-form-item label="器材名称" label-width="100px" prop="info">
+              <el-input v-model="dataForm.equip_name" style="width: auto" :readonly="isRead" />
             </el-form-item>
           </el-col>
           <el-col :span="8">
-            <el-form-item label="设施状态" label-width="100px" prop="name">
-              <el-input v-model="dataForm.fac_status" style="width: auto" :readonly="isRead" />
+            <el-form-item label="器材状态" label-width="100px" prop="info">
+              <el-input v-model="dataForm.equip_status" style="width: auto" :readonly="isRead" />
             </el-form-item>
           </el-col>
         </el-row>
         <el-row type="flex" class="row-bg" justify="space-around">
           <el-col :span="8">
-            <el-form-item label="设施分类" label-width="100px" prop="number">
-              <el-select style="width: 160px;" placeholder="设施分类" filterable clearable @change="handleFilter">
-                <!--获取数据库信息动态生成option-->
-                <!--
-                <el-option v-for="item in CategoryList" :key=item.id :label="item.name" :value="item.id" >
-                  <span style="float: left">编号:{{ item.id }}</span>
-                  <span style="float: right; color: #8492a6; font-size: 12px">名称:{{ item.name }}</span>
-                </el-option>
-                -->
-                <el-option key="1" label="类别1" value="1" />
-                <el-option key="0" label="类别2" value="0" />
-              </el-select>
+            <el-form-item label="器材种类" label-width="100px" prop="info">
+              <el-input v-model="dataForm.equip_category" style="width: auto" :readonly="isRead" />
             </el-form-item>
           </el-col>
           <el-col :span="8">
-            <el-form-item label="数量" label-width="100px" prop="number">
-              <el-input v-model="dataForm.fac_quantity" style="width: auto" :readonly="isRead" />
+            <el-form-item label="数量" label-width="100px" prop="info">
+              <el-input v-model="dataForm.equip_quantity" style="width: auto" :readonly="isRead" />
             </el-form-item>
           </el-col>
           <el-col :span="8">
-            <el-form-item label="负责人" label-width="100px" prop="name">
-              <el-select style="width: 160px;" placeholder="负责人" filterable clearable @change="handleFilter">
-                <!--获取数据库信息动态生成option-->
-                <!--
-                <el-option v-for="item in CategoryList" :key=item.id :label="item.name" :value="item.id" >
-                  <span style="float: left">编号:{{ item.id }}</span>
-                  <span style="float: right; color: #8492a6; font-size: 12px">名称:{{ item.name }}</span>
-                </el-option>
-                -->
-                <el-option key="1" label="类别1" value="1" />
-                <el-option key="0" label="类别2" value="0" />
-              </el-select>
+            <el-form-item label="负责人" label-width="100px" prop="info">
+              <el-input v-model="dataForm.equip_inCharge" style="width: auto" :readonly="isRead" />
             </el-form-item>
           </el-col>
         </el-row>
         <el-row type="flex" class="row-bg" justify="space-around">
           <el-col :span="8">
-            <el-form-item label="购置日期" label-width="100px" prop="name">
-              <el-input v-model="dataForm.fac_purchaseDate" style="width: auto" :readonly="isRead" />
+            <el-form-item label="购置日期" label-width="100px" prop="info">
+              <el-input v-model="dataForm.equip_purchaseDate" style="width: auto" :readonly="isRead" v-show="isRead" />
+              <el-date-picker type="date" v-model="dataForm.equip_purchaseDate" value-format="yyyy-MM-dd" clearable v-show="!isRead"></el-date-picker>
             </el-form-item>
           </el-col>
           <el-col :span="8">
-            <el-form-item label="购买方式" label-width="100px" prop="number">
-              <el-input v-model="dataForm.fac_purchaseMethod" style="width: auto" :readonly="isRead" />
+            <el-form-item label="购买方式" label-width="100px" prop="info">
+              <el-input v-model="dataForm.equip_purchaseMethod" style="width: auto" :readonly="isRead" />
             </el-form-item>
           </el-col>
           <el-col :span="8">
-            <el-form-item label="经费来源" label-width="100px" prop="number">
-              <el-input v-model="dataForm.fac_expenditure" style="width: auto" :readonly="isRead" />
+            <el-form-item label="经费来源" label-width="100px" prop="info">
+              <el-input v-model="dataForm.equip_expenditure" style="width: auto" :readonly="isRead" />
             </el-form-item>
           </el-col>
         </el-row>
         <el-row type="flex" class="row-bg" justify="space-around">
           <el-col :span="8">
-            <el-form-item label="单位" label-width="100px" prop="name">
-              <el-input v-model="dataForm.fac_unit" style="width: auto" :readonly="isRead" />
+            <el-form-item label="单位" label-width="100px" prop="info">
+              <el-input v-model="dataForm.equip_unit" style="width: auto" :readonly="isRead" />
             </el-form-item>
           </el-col>
           <el-col :span="8">
-            <el-form-item label="单价" label-width="100px" prop="number">
-              <el-input v-model="dataForm.fac_unitPrice" style="width: auto" :readonly="isRead" />
+            <el-form-item label="单价" label-width="100px" prop="info">
+              <el-input v-model="dataForm.equip_unitPrice" style="width: auto" :readonly="isRead" />
             </el-form-item>
           </el-col>
           <el-col :span="8">
-            <el-form-item label="总价" label-width="100px" prop="name">
-              <el-input v-model="dataForm.fac_totalPrice" style="width: auto" :readonly="isRead" />
+            <el-form-item label="总价" label-width="100px" prop="info">
+              <el-input v-model="dataForm.equip_totalPrice" style="width: auto" :readonly="isRead" />
             </el-form-item>
           </el-col>
         </el-row>
         <el-row type="flex" class="row-bg" justify="space-around">
           <el-col :span="8">
-            <el-form-item label="规格" label-width="100px" prop="name">
-              <el-input v-model="dataForm.fac_specification" style="width: auto" :readonly="isRead" />
+            <el-form-item label="规格" label-width="100px" prop="info">
+              <el-input v-model="dataForm.equip_specification" style="width: auto" :readonly="isRead" />
             </el-form-item>
           </el-col>
           <el-col :span="8">
-            <el-form-item label="国码" label-width="100px" prop="name">
-              <el-input v-model="dataForm.fac_countryCode" style="width: auto" :readonly="isRead" />
+            <el-form-item label="国码" label-width="100px" prop="info">
+              <el-input v-model="dataForm.equip_countryCode" style="width: auto" :readonly="isRead" />
             </el-form-item>
           </el-col>
           <el-col :span="8">
-            <el-form-item label="单据号" label-width="100px" prop="number">
-              <el-input v-model="dataForm.fac_billsNumber" style="width: auto" :readonly="isRead" />
+            <el-form-item label="使用方向" label-width="100px" prop="info">
+              <el-input v-model="dataForm.equip_useDirection" style="width: auto" :readonly="isRead" />
             </el-form-item>
           </el-col>
         </el-row>
         <el-row type="flex" class="row-bg" justify="space-around">
           <el-col :span="8">
-            <el-form-item label="出产日期" label-width="100px" prop="number">
-              <el-input v-model="dataForm.fac_produceDate" style="width: auto" :readonly="isRead" />
+            <el-form-item label="出产日期" label-width="100px" prop="info">
+              <el-input v-model="dataForm.equip_produceDate" style="width: auto" :readonly="isRead" v-show="isRead" />
+              <el-date-picker type="date" v-model="dataForm.equ_produceDate" value-format="yyyy-MM-dd" clearable v-show="!isRead"></el-date-picker>
             </el-form-item>
           </el-col>
           <el-col :span="8">
-            <el-form-item label="设施型号" label-width="100px" prop="name">
-              <el-input v-model="dataForm.fac_model" style="width: auto" :readonly="isRead" />
+            <el-form-item label="器材型号" label-width="100px" prop="info">
+              <el-input v-model="dataForm.equip_model" style="width: auto" :readonly="isRead" />
             </el-form-item>
           </el-col>
           <el-col :span="8">
-            <el-form-item label="保修期" label-width="100px" prop="name">
-              <el-input v-model="dataForm.fac_warranty" style="width: auto" :readonly="isRead" />
+            <el-form-item label="单据号" label-width="100px" prop="info">
+              <el-input v-model="dataForm.equip_billsNumber" style="width: auto" :readonly="isRead" />
             </el-form-item>
           </el-col>
         </el-row>
         <el-row type="flex" class="row-bg" justify="space-around">
           <el-col :span="8">
-            <el-form-item label="供应商" label-width="100px" prop="number">
-              <el-input v-model="dataForm.fac_supplier" style="width: auto" :readonly="isRead" />
+            <el-form-item label="保修期" label-width="100px" prop="info">
+              <el-input v-model="dataForm.equip_warranty" style="width: auto" :readonly="isRead" />
             </el-form-item>
           </el-col>
           <el-col :span="8">
-            <el-form-item label="供应商电话" label-width="100px" prop="name">
-              <el-input v-model="dataForm.fac_supplierTel" style="width: auto" :readonly="isRead" />
+            <el-form-item label="供货商" label-width="100px" prop="info">
+              <el-input v-model="dataForm.equip_supplier" style="width: auto" :readonly="isRead" />
             </el-form-item>
           </el-col>
-          <el-col :span="8" />
+          <el-col :span="8">
+            <el-form-item label="供货商电话" label-width="100px" prop="info">
+              <el-input v-model="dataForm.equip_supplierTel" style="width: auto" :readonly="isRead" />
+            </el-form-item>
+          </el-col>
         </el-row>
       </el-form>
-
       <el-collapse-transition>
         <div v-show="showSaveBtn" style="text-align: center">
           <el-button type="success" @click="submitEdit('dataForm')" size="medium">保存</el-button>
@@ -163,31 +149,32 @@
   // 假数据
   const fakeData = {
     id: 1, // 主键id
-    fac_num: '设施编号', // 设施编号
-    fac_name: '设施名称', // 设施名称
-    fac_model: '设施型号', // 设施型号
-    fac_category: '设施分类', // 设施分类
-    fac_status: '设施状态', // 设施状态
-    fac_quantity: '设施数量', // 设施数量
-    fac_unit: '单位', // 单位
-    fac_unitPrice: '单价', // 单价
-    fac_totalPrice: '总价', // 总价
-    fac_purchaseDate: '购置日期', // 购置日期
-    fac_specification: '规格', // 规格
-    fac_countryCode: '国码', // 国码
-    fac_produceDate: '出产日期', // 出产日期
-    fac_expenditure: '经费来源', // 经费来源
-    fac_purchaseMethod: '购买方式', // 购买方式
-    fac_billsNumber: '单据号', // 单据号
-    fac_attachment: '附件', // 附件
-    fac_warranty: '保修期', // 保修期
-    fac_inCharge: '负责人', // 负责人
-    fac_supplier: '供货商', // 供货商
-    fac_supplierTel: '供货商联系电话', // 供货商联系电话
+    equip_num: '器材编号', // 器材编号
+    equip_name: '器材名称', // 器材名称
+    equip_model: '器材型号', // 器材型号
+    equip_category: '器材分类', // 器材分类
+    equip_status: '器材状态', // 器材状态
+    equip_useDirection: '使用方向', // 器材使用方向
+    equip_quantity: '器材数量', // 器材数量
+    equip_unit: '单位', // 单位
+    equip_unitPrice: '单价', // 单价
+    equip_totalPrice: '总价', // 总价
+    equip_purchaseDate: '购置日期', // 购置日期
+    equip_specification: '规格', // 规格
+    equip_countryCode: '国码', // 国码
+    equip_produceDate: '出产日期', // 出产日期
+    equip_expenditure: '经费来源', // 经费来源
+    equip_purchaseMethod: '购买方式', // 购买方式
+    equip_billsNumber: '单据号', // 单据号
+    equip_attachment: '附件', // 附件
+    equip_warranty: '保修期', // 保修期
+    equip_inCharge: '负责人', // 负责人
+    equip_supplier: '供货商', // 供货商
+    equip_supplierTel: '供货商联系电话', // 供货商联系电话
   }
 
   export default {
-    name: 'facility-detail',
+    name: 'equipment-detail',
     data() {
       return {
         dataForm: null,
@@ -222,10 +209,8 @@
       },
       /* 编辑前 */
       beforeEdit() {
-        this.showSaveBtn = !this.showSaveBtn
         // 保存修改前数据
         this.tempData = { ...this.dataForm }
-        console.log(this.tempData.lab_name)
         // 使input为非readonly
         this.isRead = false
         // 显示保存信息按钮
@@ -250,9 +235,9 @@
               type: 'success'
             })
             // 根据返回信息重新复制dataForm
-            console.log('success submit!!')
+            console.log('success submit!!');
           } else {
-            console.log('error submit!!')
+            console.log('error submit!!');
             return false
           }
         })
@@ -261,8 +246,7 @@
       },
       /* 取消编辑操作 */
       cancelEdit() {
-        this.dataForm = { ...this.tempData }
-        console.log(this.tempData.lab_name)
+        this.dataForm = { ...this.tempData };
         this.afterEdit()
       },
       /* 取消 确认弹窗 */
@@ -279,7 +263,7 @@
 
           })
         }).catch(() => {
-          console.log('已取消退出')
+          console.log('已取消')
         })
       },
       /* 删除 */
@@ -292,7 +276,7 @@
       },
       /* 删除 确认弹窗 */
       beforeHandleDelete() {
-        this.$confirm('此操作将删除该信息, 是否继续?', '提示', {
+        this.$confirm('此操作将永久删除该信息, 是否继续?', '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
           type: 'warning'
@@ -311,8 +295,8 @@
           }
         }).catch(() => {
           this.$message({
-            type: 'info',
-            message: '已取消'
+            message: '已取消',
+            type: 'info'
           })
         })
       },
@@ -320,9 +304,18 @@
       handleDownload() {
         console.log('导出')
       },
+      /* 跳转配置软件列表 */
+      handleEquipSoftwareList(id){
+        this.$router.push({
+          name: 'Equip_Software_List',
+          query: {
+            id: id
+          }
+        })
+      },
       /* 查看附件 */
       handleAttachment() {
-        console.log('查看附件')
+        console.log("查看入库附件")
       }
     }
   }
@@ -346,7 +339,7 @@
     color: #5a5e66;
     background: #fff;
     box-shadow: 0 1px 4px rgba(0,21,41,.1);
-    padding:20px;
+    padding: 20px;
     margin-bottom: 20px;
   }
 </style>

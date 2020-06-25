@@ -6,6 +6,7 @@
       <el-button type="primary" :disabled="isAble" size="medium" @click="beforeEdit">编辑信息</el-button>
       <el-button type="danger" size="medium" @click="beforeHandleDelete">删除</el-button>
       <el-button type="success" size="medium" @click="handleDownload">导出信息</el-button>
+      <el-button type="primary" size="medium" @click="handleAttachment">查看使用说明</el-button>
     </div>
     <!-- 详细信息展示 -->
     <div class="form-style">

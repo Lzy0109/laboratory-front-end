@@ -2,40 +2,39 @@
   <div class="app-container">
     <!-- 功能区域 -->
     <div class="filter-container">
-      <el-button type="primary" @click="handleReturn" size="medium">返回</el-button>
+      <!-- 简单搜索 -->
+      <div class="filter-container-conditions" style="margin: 2px">
+        <el-input v-model="queryList.lab_num" placeholder="器材编号" style="width: 230px;" clearable>
+          <template slot="prepend">器材编号</template>
+        </el-input>
+        <el-select v-model="queryList.lab_cate" style="width: 160px;" placeholder="器材分类" filterable clearable @change="handleFilter">
+          <!--获取数据库信息动态生成option-->
+          <!--
+          <el-option v-for="item in CategoryList" :key=item.id :label="item.name" :value="item.id" >
+            <span style="float: left">编号:{{ item.id }}</span>
+            <span style="float: right; color: #8492a6; font-size: 12px">名称:{{ item.name }}</span>
+          </el-option>
+          -->
+          <el-option key="1" label="类别1" value="1" />
+          <el-option key="0" label="类别2" value="0" />
+        </el-select>
+        <el-select v-model="queryList.lab_owner" style="width: 160px;" placeholder="器材负责人" filterable clearable @change="handleFilter">
+          <!--获取数据库信息动态生成option-->
+          <!--
+          <el-option v-for="item in CategoryList" :key=item.id :label="item.name" :value="item.id" >
+            <span style="float: left">编号:{{ item.id }}</span>
+            <span style="float: right; color: #8492a6; font-size: 12px">名称:{{ item.name }}</span>
+          </el-option>
+          -->
+          <el-option key="1" label="负责人1" value="1" />
+          <el-option key="0" label="负责人2" value="0" />
+        </el-select>
+        <el-button-group>
+          <el-button type="primary"  size="medium" @click="handleFilter">搜索</el-button>
+        </el-button-group>
+      </div>
+      <!-- 功能按钮 -->
       <div class="button-filter-container">
-        <!-- 简单搜索 -->
-        <div class="filter-container-conditions" style="margin: 2px">
-          <el-input v-model="queryList.lab_num" placeholder="器材编号" style="width: 230px;" clearable>
-            <template slot="prepend">器材编号</template>
-          </el-input>
-          <el-select v-model="queryList.equip_cate" style="width: 160px;" placeholder="器材分类" filterable clearable @change="handleFilter">
-            <!--获取数据库信息动态生成option-->
-            <!--
-            <el-option v-for="item in CategoryList" :key=item.id :label="item.name" :value="item.id" >
-              <span style="float: left">编号:{{ item.id }}</span>
-              <span style="float: right; color: #8492a6; font-size: 12px">名称:{{ item.name }}</span>
-            </el-option>
-            -->
-            <el-option key="1" label="类别1" value="1" />
-            <el-option key="0" label="类别2" value="0" />
-          </el-select>
-          <el-select v-model="queryList.equip_cate" style="width: 160px;" placeholder="实验室负责人" filterable clearable @change="handleFilter">
-            <!--获取数据库信息动态生成option-->
-            <!--
-            <el-option v-for="item in CategoryList" :key=item.id :label="item.name" :value="item.id" >
-              <span style="float: left">编号:{{ item.id }}</span>
-              <span style="float: right; color: #8492a6; font-size: 12px">名称:{{ item.name }}</span>
-            </el-option>
-            -->
-            <el-option key="1" label="负责人1" value="1" />
-            <el-option key="0" label="负责人2" value="0" />
-          </el-select>
-          <el-button-group>
-            <el-button type="primary"  size="medium" @click="handleFilter">搜索</el-button>
-          </el-button-group>
-        </div>
-        <!-- 功能按钮 -->
         <el-button-group>
           <el-button type="primary"  size="medium" @click="showDetailSearchBtn = !showDetailSearchBtn">
             高级搜索
@@ -50,7 +49,7 @@
           <el-button type="primary"  size="medium" @click="handleBatchCreate">
             导入
           </el-button>
-          <el-button type="primary"  size="medium" @click="handleDownload">
+          <el-button type="primary"  size="medium" :loading="downloadLoading" @click="handleDownload">
             导出
           </el-button>
         </el-button-group>
@@ -60,7 +59,6 @@
     <el-dialog :visible.sync="showDetailSearchBtn" width="95%" :show-close="false">
       <span class="my-dialog-title" slot="title">高级搜索</span>
       <div class="DetailSearch_son">
-        <!-- el-row内容需要替换 -->
         <el-row class="DetailSearch_son_row">
           <!-- 实验室编号 -->
           <el-col :span="6">
@@ -119,7 +117,6 @@
           </el-col>
         </el-row>
         <el-row class="DetailSearch_son_row">
-
           <el-col :span="6">
             <el-input v-model="queryList.other" placeholder="可用设备数" style="width: 300px;" clearable>
               <template slot="prepend">可用设备数</template>
@@ -149,46 +146,53 @@
 
       </div>
     </el-dialog>
-    <!-- 列表 -->
-    <div class="form-style">
-      <el-table
-        v-loading="listLoading"
-        :data="tableData"
-        element-loading-text="Loading"
-        fit
-        highlight-current-row
-        @row-click="handleDetail"
-        :header-cell-style="{'font-size': '17px'}"
-      >
-        <el-table-column
-          label="序号"
-          type="index"
-          width="70"
-          align="center"
-        />
-        <el-table-column
-          label="编号"
-          prop="equ_number"
-        />
-        <el-table-column
-          label="名称"
-          prop="equ_name"
-        />
-        <el-table-column
-          label="种类"
-          prop="equ_category"
-        />
-        <el-table-column
-          label="负责人"
-          prop="equ_owner"
-        />
-      </el-table>
-    </div>
+    <!-- table区域 -->
+    <!-- 表格错位问题 设置全局样式 -->
+    <el-table
+      v-loading="listLoading"
+      :data="tableData"
+      element-loading-text="Loading"
+      border
+      fit
+      highlight-current-row
+      @row-click="handleDetail"
+      :header-cell-style="{'font-size': '17px'}"
+    >
+      <el-table-column
+        label="序号"
+        type="index"
+        width="70"
+        align="center"
+      />
+      <el-table-column
+        prop="equip_num"
+        label="器材编号"
+        width="auto"
+      />
+      <el-table-column
+        prop="equip_name"
+        label="器材名称"
+        width="auto"
+      />
+      <el-table-column
+        prop="equip_category"
+        label="器材分类"
+      />
+      <el-table-column
+        prop="equip_status"
+        label="器材状态"
+      />
+      <el-table-column
+        prop="equip_inCharge"
+        label="器材负责人"
+      />
+    </el-table>
     <!-- 分页栏 -->
     <pagination v-show="total > 0"
                 :total="100"
                 :page.sync="pageNum"
-                :limit.sync="pageSize"/>
+                :limit.sync="pageSize"
+    />
   </div>
 </template>
 
@@ -196,28 +200,29 @@
   import Pagination from '@/components/Pagination'
   // 假数据
   const fakeData = {
-    id: 1,
-    equ_number: "器材编号",
-    equ_name: "器材名称",
-    equ_category: "器材种类",
-    equ_quantity: "数量",
-    equ_storage: "存放地点",
-    equ_owner: "负责人",
-    equ_userDirection: "使用方向",
-    equ_unit: "单位",
-    equ_unitPrice: "单价",
-    equ_purchaseDate: "购置日期",
-    equ_specifications: "规格",
-    equ_code: "国码",
-    equ_produceDate: "出产日期",
-    equ_fundsSource: "经费来源",
-    equ_purchaseWay: "购买方式",
-    equ_keepPeriod: "保修期",
-    equ_documentCode: "单据号",
-    equ_supplier: "供货商",
-    supplier_phone: "供货商电话",
-    equ_accessories: "器材入库附件",
-    equ_software: "器材配置安装软件",
+    id: 1, // 主键id
+    equip_num: '器材编号', // 器材编号
+    equip_name: '器材名称', // 器材名称
+    equip_model: '器材型号', // 器材型号
+    equip_category: '器材分类', // 器材分类
+    equip_status: '器材状态', // 器材状态
+    equip_useDirection: '使用方向', // 器材使用方向
+    equip_quantity: '器材数量', // 器材数量
+    equip_unit: '单位', // 单位
+    equip_unitPrice: '单价', // 单价
+    equip_totalPrice: '总价', // 总价
+    equip_purchaseDate: '购置日期', // 购置日期
+    equip_specification: '规格', // 规格
+    equip_countryCode: '国码', // 国码
+    equip_produceDate: '生产日期', // 生产日期
+    equip_expenditure: '经费来源', // 经费来源
+    equip_purchaseMethod: '购买方式', // 购买方式
+    equip_billsNumber: '单据号', // 单据号
+    equip_attachment: '附件', // 附件
+    equip_warranty: '保修期', // 保修期
+    equip_inCharge: '负责人', // 负责人
+    equip_supplier: '供货商', // 供货商
+    equip_supplierTel: '供货商联系电话', // 供货商联系电话
   }
   //假数据列表
   const fakeDataList = [ {...fakeData},{...fakeData},{...fakeData},{...fakeData},{...fakeData},{...fakeData},{...fakeData},{...fakeData},{...fakeData},{...fakeData} ]
@@ -225,45 +230,46 @@
     components: {
       Pagination
     },
-    name: 'field-equip-list',
-    data(){
-      return{
+    name: 'equipment-list',
+    data() {
+      return {
+        /* 表格参数 */
+        tableData: null,
+        listLoading: true,
         /* 分页参数 待修改 */
         total: 100,
         pageNum: 1,
         pageSize: 20,
-        listLoading: true,
-        tableData: null,
+        /* 类别信息列表 */
+        CategoryList: [],
+        /* 导出excel相关参数 */
+        downloadLoading: false,
         /* 查询条件 */
         queryList: {
-          // 需求修改
-          equip_no: null,
-          equip_name: null,
-          equip_cate: null,
-          equip_quantity: null,
-          equip_location: null,
+          // 需要修改
+          lab_name: null,
+          lab_num: null,
+          lab_owner: null,
+          lab_cate: null,
+          other: null
         },
         /* 是否显示高级搜索 */
         showDetailSearchBtn: false
       }
     },
-    methods:{
+    methods: {
+      /* 获取列表信息 */
       getList(){
         /* fake data */
-        this.tableData = fakeDataList;
-        this.listLoading = false;
-        /* 根据传过来的实验室id获取对应的器材 */
-        console.log("实验室id获取对应的器材. lab id" +this.$route.query.id);
-      },
-      handleReturn() {
-        this.$router.go(-1)
+        this.tableData = fakeDataList
+        this.listLoading = false
       },
       /* 详情 */
       handleDetail(row, column, event) {
-        console.log('handleDetail id=' + row.id)
+        console.log('handleDetail')
         this.$router.push({
           name: 'Equipment_Detail',
-          query: {
+          query:{
             id: row.id
           }
         })
@@ -276,9 +282,12 @@
       handleDownload() {
 
       },
-      /* 添加数据 */
+      /* 跳转添加器材页面 */
       handleCreate() {
-
+        console.log('handleCreate')
+        this.$router.push({
+          name: 'Equipment_Create'
+        })
       },
       /* 批量添加 */
       handleBatchCreate() {
@@ -286,42 +295,33 @@
       },
       /* 管理高级搜索 */
       handleClose() {
-        /* 清空旧数据 */
+        // 清空旧数据
         for (const key in this.queryList) {
           this.queryList[key] = null
         }
-        /* 关闭 */
+        // 关闭
         this.showDetailSearchBtn = false
       }
     },
+    /* 页面创建时，加载数据 */
     created() {
       this.getList();
     }
   }
 </script>
 
-<!-- 功能栏样式 -->
 <style scoped>
-  .filter-container {
-    color: #5a5e66;
-    background: #fff;
-    box-shadow: 0 1px 4px rgba(0,21,41,.1);
-    padding: 10px;
-    margin-bottom: 10px;
+  .demo-table-expand {
+    font-size: 0;
   }
-  .button-filter-container {
-    display: inline-block;
-    margin-left: 120px;
+  .demo-table-expand label {
+    width: 90px;
+    color: #99a9bf;
   }
-  .filter-container-conditions {
-    display: inline-block;
-  }
-  .form-style{
-    color: #5a5e66;
-    background: #fff;
-    box-shadow: 0 1px 4px rgba(0,21,41,.1);
-    padding: 5px 20px 15px;
-    margin-bottom: 5px;
+  .demo-table-expand .el-form-item {
+    margin-right: 0;
+    margin-bottom: 0;
+    width: 50%;
   }
 </style>
 <!-- 高级搜索样式 -->
@@ -347,5 +347,32 @@
   .DetailSearch_button {
     margin: 30px 10px 0px;
     text-align: right;
+  }
+</style>
+<!-- 功能栏样式 -->
+<style scoped>
+  .filter-container {
+    margin-bottom: 70px;
+  }
+  .FunctionBtn {
+    overflow:hidden;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    -webkit-box-shadow: #CCCCCC 0px 0px 5px;
+    -moz-box-shadow: #CCCCCC 0px 0px 5px;
+    box-shadow: #CCCCCC 0px 0px 5px;
+  }
+  .FunctionBtn_Son {
+    display: inline-block;
+    margin : 5px;
+  }
+  .button-filter-container {
+    display: inline-block;
+    margin: 5px;
+    float: right;
+  }
+  .filter-container-conditions {
+    float: left;
+    display: inline-block;
   }
 </style>

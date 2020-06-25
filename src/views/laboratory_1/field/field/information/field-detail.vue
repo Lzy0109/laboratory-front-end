@@ -146,7 +146,7 @@
     lab_category: '分类',
     labOtherInfo: '分类',
     lab_facility_id: 1,
-    lab_owner: '负责人',
+    lab_inCharge: '负责人',
     lab_building: '楼',
     lab_telephone: '13412341234',
     lab_indoor: '室内',

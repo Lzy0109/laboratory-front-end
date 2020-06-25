@@ -104,7 +104,7 @@
         />
         <el-table-column
           label="负责人"
-          prop="fac_owner"
+          prop="fac_inCharge"
         />
       </el-table>
     </div>
@@ -122,11 +122,12 @@
   // 假数据
   const fakeData = {
     id: 1,
-    fac_name:"设施名称",
+    fac_number: "设施编号",
+    fac_name: "设施名称",
     fac_category: "设施种类",
     fac_status: "设施状态",
     fac_quantity: "数量",
-    fac_owner: "负责人",
+    fac_inCharge: "负责人",
     fac_storage: "存放地点",
     fac_unit: "单位",
     fac_unitPrice: "单价",
@@ -186,7 +187,7 @@
       handleDetail(row, column, event) {
         console.log('handleDetail id=' + row.id)
         this.$router.push({
-          name: 'Field_Fac_Detail',
+          name: 'Facility_Detail',
           query: {
             id: row.id
           }

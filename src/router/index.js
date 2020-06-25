@@ -268,10 +268,18 @@ export const constantRoutes = [
       },
       // 设施详情
       {
-        path: 'field_fac_detail',
-        component: () => import('@/views/laboratory_1/field/field/information/field-fac-detail'),
-        name: 'Field_Fac_Detail',
+        path: 'facility_detail',
+        component: () => import('@/views/laboratory_1/field/facility/information/facility-detail'),
+        name: 'Facility_Detail',
         meta: { title: '设施详情' },
+        hidden: true
+      },
+      // 新增设施
+      {
+        path: 'facility_create',
+        component:() => import('@/views/laboratory_1/field/facility/information/facility-create'),
+        name: 'Facility_Create',
+        meta: { title: '新增设施' },
         hidden: true
       },
       // 指定实验室内器材列表
@@ -282,28 +290,20 @@ export const constantRoutes = [
         meta: { title: '指定实验室器材列表' },
         hidden: true
       },
-      // 器材详情
-      {
-        path: 'field_equip_detail',
-        component: () => import('@/views/laboratory_1/field/field/information/field-equip-detail'),
-        name: 'Field_Equip_Detail',
-        meta: { title: '器材详情' },
-        hidden: true
-      },
       // 器材内置软件列表
       {
-        path: 'field_equip_sw_list',
-        component: () => import('@/views/laboratory_1/field/field/information/field-equip-sw-list'),
-        name: 'Field_Equip_Sw_List',
+        path: 'equip_software_list',
+        component: () => import('@/views/laboratory_1/equipment/equipment_information/information/equipment-software-list'),
+        name: 'Equip_Software_List',
         meta: { title: '器材内置软件列表' },
         hidden: true
       },
-      // 软件详情
+      // 器材内置软件详情
       {
-        path: 'field_equip_sw_detail',
-        component: () => import('@/views/laboratory_1/field/field/information/field-equip-sw-detail'),
-        name: 'Field_Equip_Sw_Detail',
-        meta: { title: '软件详情' },
+        path: 'equip_software_detail',
+        component: () => import('@/views/laboratory_1/equipment/equipment_information/information/equipment-software-detail'),
+        name: 'Equip_Software_Detail',
+        meta: { title: '器材内置软件详情' },
         hidden: true
       },
       // 实验器材管理
@@ -328,7 +328,7 @@ export const constantRoutes = [
               },
               {
                 path: 'information',
-                component: () => import('@/views/laboratory_1/equipment/equipment_information/information/index'),
+                component: () => import('@/views/laboratory_1/equipment/equipment_information/information/equipment-list'),
                 name: 'Equipment_Information',
                 meta: { title: '器材信息管理' }
               },
@@ -385,6 +385,14 @@ export const constantRoutes = [
             ]
           }
         ]
+      },
+      // 器材详情
+      {
+        path: 'equipment_detail',
+        component: () => import('@/views/laboratory_1/equipment/equipment_information/information/equipment-detail'),
+        name: 'Equipment_Detail',
+        meta: { title: '器材详情' },
+        hidden: true
       },
       // 实验软件管理
       {
@@ -459,7 +467,7 @@ export const constantRoutes = [
         path: 'software_detail',
         component: () => import('@/views/laboratory_1/software/software/information/software-detail'),
         name: 'Software_Detail',
-        meta: { title: '新增软件信息' },
+        meta: { title: '软件信息详情' },
         hidden: true
       },
       // 实验室人员管理

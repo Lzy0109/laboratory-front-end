@@ -165,26 +165,26 @@
         align="center"
       />
       <el-table-column
-        prop="lab_num"
-        label="编号"
+      prop="fac_num"
+      label="设施编号"
+      width="auto"
+      />
+      <el-table-column
+        prop="fac_name"
+        label="设施名称"
         width="auto"
       />
       <el-table-column
-        prop="lab_name"
-        label="名称"
-        width="auto"
+        prop="fac_category"
+        label="设施分类"
       />
       <el-table-column
-        prop="lab_category"
-        label="分类"
-      />
-      <el-table-column
-        prop="lab_equip_cur_num"
+        prop="fac_status"
         label="设施状态"
       />
       <el-table-column
-        prop="lab_owner"
-        label="负责人"
+        prop="fac_inCharge"
+        label="设施负责人"
       />
     </el-table>
     <!-- 分页栏 -->
@@ -198,6 +198,33 @@
 
 <script>
   import Pagination from '@/components/Pagination'
+  // 假数据
+  const fakeData = {
+    id: 1, // 主键id
+    fac_num: '设施编号', // 设施编号
+    fac_name: '设施名称', // 设施名称
+    fac_model: '设施型号', // 设施型号
+    fac_category: '设施分类', // 设施分类
+    fac_status: '设施状态', // 设施状态
+    fac_quantity: '设施数量', // 设施数量
+    fac_unit: '单位', // 单位
+    fac_unitPrice: '单价', // 单价
+    fac_totalPrice: '总价', // 总价
+    fac_purchaseDate: '购置日期', // 购置日期
+    fac_specification: '规格', // 规格
+    fac_countryCode: '国码', // 国码
+    fac_produceDate: '生产日期', // 生产日期
+    fac_expenditure: '经费来源', // 经费来源
+    fac_purchaseMethod: '购买方式', // 购买方式
+    fac_billsNumber: '单据号', // 单据号
+    fac_attachment: '附件', // 附件
+    fac_warranty: '保修期', // 保修期
+    fac_inCharge: '负责人', // 负责人
+    fac_supplier: '供货商', // 供货商
+    fac_supplierTel: '供货商联系电话', // 供货商联系电话
+  }
+  //假数据列表
+  const fakeDataList = [ {...fakeData},{...fakeData},{...fakeData},{...fakeData},{...fakeData},{...fakeData},{...fakeData},{...fakeData},{...fakeData},{...fakeData} ]
   export default {
     components: {
       Pagination
@@ -229,101 +256,18 @@
         showDetailSearchBtn: false
       }
     },
-    created() {
-      this.getTableList()
-    },
     methods: {
       /* 获取列表信息 */
-      getTableList() {
-        this.tableData = [
-          {
-            id: 1,
-            lab_num: 101,
-            lab_name: '测试实验室1',
-            lab_category: '实验室类别',
-            lab_equip_cur_num: '当前可用设备数',
-            lab_owner: '负责人'
-          },
-          {
-            id: 2,
-            lab_num: 102,
-            lab_name: '测试实验室2',
-            lab_category: '实验室类别',
-            lab_equip_cur_num: '当前可用设备数',
-            lab_owner: '负责人'
-          },
-          {
-            id: 3,
-            lab_num: 103,
-            lab_name: '测试实验室3',
-            lab_category: '实验室类别',
-            lab_equip_cur_num: '当前可用设备数',
-            lab_owner: '负责人'
-          },
-          {
-            id: 4,
-            lab_num: 104,
-            lab_name: '测试实验室4',
-            lab_category: '实验室类别',
-            lab_equip_cur_num: '当前可用设备数',
-            lab_owner: '负责人'
-          },
-          {
-            id: 5,
-            lab_num: 105,
-            lab_name: '测试实验室5',
-            lab_category: '实验室类别',
-            lab_equip_cur_num: '当前可用设备数',
-            lab_owner: '负责人'
-          },
-          {
-            id: 6,
-            lab_num: 106,
-            lab_name: '测试实验室6',
-            lab_category: '实验室类别',
-            lab_equip_cur_num: '当前可用设备数',
-            lab_owner: '负责人'
-          },
-          {
-            id: 7,
-            lab_num: 107,
-            lab_name: '测试实验室7',
-            lab_category: '实验室类别',
-            lab_equip_cur_num: '当前可用设备数',
-            lab_owner: '负责人'
-          },
-          {
-            id: 8,
-            lab_num: 108,
-            lab_name: '测试实验室8',
-            lab_category: '实验室类别',
-            lab_equip_cur_num: '当前可用设备数',
-            lab_owner: '负责人'
-          },
-          {
-            id: 9,
-            lab_num: 109,
-            lab_name: '测试实验室9',
-            lab_category: '实验室类别',
-            lab_equip_cur_num: '当前可用设备数',
-            lab_owner: '负责人'
-          },
-          {
-            id: 10,
-            lab_num: 110,
-            lab_name: '测试实验室10',
-            lab_category: '实验室类别',
-            lab_equip_cur_num: '当前可用设备数',
-            lab_owner: '负责人'
-          }
-        ]
+      getList(){
+        /* fake data */
+        this.tableData = fakeDataList
         this.listLoading = false
       },
       /* 详情 */
       handleDetail(row, column, event) {
         console.log('handleDetail')
         this.$router.push({
-          name: 'Field_Detail',
+          name: 'Facility_Detail',
           query:{
             id: row.id
           }
@@ -337,11 +281,11 @@
       handleDownload() {
 
       },
-      /* 跳转添加实验室页面 */
+      /* 跳转添加设施页面 */
       handleCreate() {
         console.log('handleCreate')
         this.$router.push({
-          name: 'Field_Create'
+          name: 'Facility_Create'
         })
       },
       /* 批量添加 */
@@ -357,6 +301,10 @@
         // 关闭
         this.showDetailSearchBtn = false
       }
+    },
+    /* 页面创建时，加载数据 */
+    created() {
+      this.getList();
     }
   }
 </script>
