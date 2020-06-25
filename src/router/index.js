@@ -199,7 +199,7 @@ export const constantRoutes = [
                 path: 'information',
                 component: () => import('@/views/laboratory_1/field/field/information/field-list'),
                 name: 'Information',
-                meta: { title: '实验室信息管理' },
+                meta: { title: '实验室信息管理' }
               },
               // 实验室数量管理
               {
@@ -287,7 +287,7 @@ export const constantRoutes = [
         path: 'field_equip_detail',
         component: () => import('@/views/laboratory_1/field/field/information/field-equip-detail'),
         name: 'Field_Equip_Detail',
-        meta: {title: '器材详情'},
+        meta: { title: '器材详情' },
         hidden: true
       },
       // 器材内置软件列表
@@ -409,7 +409,7 @@ export const constantRoutes = [
               // 软件信息管理
               {
                 path: 'information',
-                component: () => import('@/views/laboratory_1/software/software/information/index'),
+                component: () => import('@/views/laboratory_1/software/software/information/software-list'),
                 name: 'Information',
                 meta: { title: '软件信息管理' }
               },
@@ -445,6 +445,22 @@ export const constantRoutes = [
             ]
           }
         ]
+      },
+      // 创建软件信息
+      {
+        path: 'software_create',
+        component: () => import('@/views/laboratory_1/software/software/information/software-create'),
+        name: 'Software_Create',
+        meta: { title: '新增软件信息' },
+        hidden: true
+      },
+      // 软件详细信息
+      {
+        path: 'software_detail',
+        component: () => import('@/views/laboratory_1/software/software/information/software-detail'),
+        name: 'Software_Detail',
+        meta: { title: '新增软件信息' },
+        hidden: true
       },
       // 实验室人员管理
       {
