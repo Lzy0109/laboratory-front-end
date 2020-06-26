@@ -7,6 +7,7 @@
     </div>
     <!-- 添加信息表单 -->
     <div class="form-style">
+      <h2>新增实验室</h2>
       <el-form ref="dataForm" :model="dataForm" :rules="rules">
         <el-row>
           <el-col :span="8">

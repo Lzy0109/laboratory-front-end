@@ -6,126 +6,77 @@
       <el-button type="primary" :disabled="isAble" @click="beforeEdit" size="medium">编辑信息</el-button>
       <el-button type="danger" @click="beforeHandleDelete" size="medium">删除</el-button>
       <el-button type="success" @click="handleDownload" size="medium">导出信息</el-button>
-      <el-button type="primary" @click="handleAttachment" size="medium">查看其他附件</el-button>
+      <el-button type="primary" @click="handleAttachment" size="medium">查看使用说明</el-button>
     </div>
     <!-- 详细信息展示 -->
     <div class="form-style">
-      <h2>详细信息</h2>
+      <h2>软件详细信息</h2>
       <el-form ref="dataForm" :model="dataForm" :rules="rules">
         <el-row type="flex" class="row-bg" justify="space-around">
           <el-col :span="8">
-            <el-form-item label="设施名称" label-width="100px" prop="number">
-              <el-input v-model="dataForm.fac_name" style="width: auto" :readonly="isRead" />
+            <el-form-item label="器材编号" label-width="100px" prop="infoValidation">
+              <el-input v-model="dataForm.software_number" style="width: auto" :readonly="isRead" />
             </el-form-item>
           </el-col>
           <el-col :span="8">
-            <el-form-item label="设施种类" label-width="100px" prop="name">
-              <el-input v-model="dataForm.fac_category" style="width: auto" :readonly="isRead" />
+            <el-form-item label="器材名称" label-width="100px" prop="infoValidation">
+              <el-input v-model="dataForm.equ_name" style="width: auto" :readonly="isRead" />
             </el-form-item>
           </el-col>
           <el-col :span="8">
-            <el-form-item label="设施状态" label-width="100px" prop="number">
-              <el-input v-model="dataForm.fac_status" style="width: auto" :readonly="isRead" />
-            </el-form-item>
-          </el-col>
-        </el-row>
-        <el-row type="flex" class="row-bg" justify="space-around">
-          <el-col :span="8">
-            <el-form-item label="数量" label-width="100px" prop="name">
-              <el-input v-model="dataForm.fac_quantity" style="width: auto" :readonly="isRead" />
-            </el-form-item>
-          </el-col>
-          <el-col :span="8">
-            <el-form-item label="负责人" label-width="100px" prop="number">
-              <el-input v-model="dataForm.fac_owner" style="width: auto" :readonly="isRead" />
-            </el-form-item>
-          </el-col>
-          <el-col :span="8">
-            <el-form-item label="存放地点" label-width="100px" prop="name">
-              <el-input v-model="dataForm.fac_storage" style="width: auto" :readonly="isRead" />
+            <el-form-item label="软件名称" label-width="100px" prop="infoValidation">
+              <el-input v-model="dataForm.software_name" style="width: auto" :readonly="isRead" />
             </el-form-item>
           </el-col>
         </el-row>
         <el-row type="flex" class="row-bg" justify="space-around">
           <el-col :span="8">
-            <el-form-item label="单位" label-width="100px" prop="number">
-              <el-input v-model="dataForm.fac_unit" style="width: auto" :readonly="isRead" />
+            <el-form-item label="软件种类" label-width="100px" prop="infoValidation">
+              <el-input v-model="dataForm.software_category" style="width: auto" :readonly="isRead" />
             </el-form-item>
           </el-col>
           <el-col :span="8">
-            <el-form-item label="单价" label-width="100px" prop="name">
-              <el-input v-model="dataForm.fac_unitPrice" style="width: auto" :readonly="isRead" />
+            <el-form-item label="适用专业" label-width="100px" prop="infoValidation">
+              <el-input v-model="dataForm.software_applicable" style="width: auto" :readonly="isRead" />
             </el-form-item>
           </el-col>
           <el-col :span="8">
-            <el-form-item label="规格" label-width="100px" prop="number">
-              <el-input v-model="dataForm.fac_specifications" style="width: auto" :readonly="isRead" />
-            </el-form-item>
-          </el-col>
-        </el-row>
-        <el-row type="flex" class="row-bg" justify="space-around">
-          <el-col :span="8">
-            <el-form-item label="规格" label-width="100px" prop="number">
-              <el-input v-model="dataForm.fac_specifications" style="width: auto" :readonly="isRead" />
-            </el-form-item>
-          </el-col>
-          <el-col :span="8">
-            <el-form-item label="国码" label-width="100px" prop="name">
-              <el-input v-model="dataForm.fac_code" style="width: auto" :readonly="isRead" />
-            </el-form-item>
-          </el-col>
-          <el-col :span="8">
-            <el-form-item label="出产日期" label-width="100px" prop="number">
-              <el-input v-model="dataForm.fac_produceDate" style="width: auto" :readonly="isRead" v-show="isRead" />
-              <el-date-picker type="date" v-model="dataForm.fac_produceDate" value-format="yyyy-MM-dd" clearable v-show="!isRead"></el-date-picker>
+            <el-form-item label="软件大小" label-width="100px" prop="infoValidation">
+              <el-input v-model="dataForm.software_size" style="width: auto" :readonly="isRead" />
             </el-form-item>
           </el-col>
         </el-row>
         <el-row type="flex" class="row-bg" justify="space-around">
           <el-col :span="8">
-            <el-form-item label="出产日期" label-width="100px" prop="number">
-              <el-input v-model="dataForm.fac_produceDate" style="width: auto" :readonly="isRead" v-show="isRead" />
-              <el-date-picker type="date" v-model="dataForm.fac_produceDate" value-format="yyyy-MM-dd" clearable v-show="!isRead"></el-date-picker>
+            <el-form-item label="版本号" label-width="100px" prop="infoValidation">
+              <el-input v-model="dataForm.software_version" style="width: auto" :readonly="isRead" />
             </el-form-item>
           </el-col>
           <el-col :span="8">
-            <el-form-item label="保修期" label-width="100px" prop="name">
-              <el-input v-model="dataForm.fac_keepPeriod" style="width: auto" :readonly="isRead" />
+            <el-form-item label="配置实验室" label-width="100px" prop="infoValidation">
+              <el-input v-model="dataForm.software_Lab" style="width: auto" :readonly="isRead" />
             </el-form-item>
           </el-col>
           <el-col :span="8">
-            <el-form-item label="购置日期" label-width="100px" prop="number">
-              <el-input v-model="dataForm.fac_purchaseDate" style="width: auto" :readonly="isRead" v-show="isRead" />
-              <el-date-picker type="date" v-model="dataForm.fac_purchaseDate" value-format="yyyy-MM-dd" clearable v-show="!isRead"></el-date-picker>
+            <el-form-item label="发行方" label-width="100px" prop="infoValidation">
+              <el-input v-model="dataForm.software_issuer" style="width: auto" :readonly="isRead" />
             </el-form-item>
           </el-col>
         </el-row>
         <el-row type="flex" class="row-bg" justify="space-around">
           <el-col :span="8">
-            <el-form-item label="购买方式" label-width="100px" prop="name">
-              <el-input v-model="dataForm.fac_purchaseWay" style="width: auto" :readonly="isRead" />
+            <el-form-item label="适用系统" label-width="100px" prop="infoValidation">
+              <el-input v-model="dataForm.software_systems" style="width: auto" :readonly="isRead" />
             </el-form-item>
           </el-col>
           <el-col :span="8">
-            <el-form-item label="经费来源" label-width="100px" prop="number">
-              <el-input v-model="dataForm.fac_fundsSource" style="width: auto" :readonly="isRead" />
+            <el-form-item label="价格" label-width="100px" prop="infoValidation">
+              <el-input v-model="dataForm.software_price" style="width: auto" :readonly="isRead" />
             </el-form-item>
           </el-col>
           <el-col :span="8">
-            <el-form-item label="单据号" label-width="100px" prop="name">
-              <el-input v-model="dataForm.fac_documentCode" style="width: auto" :readonly="isRead" />
-            </el-form-item>
-          </el-col>
-        </el-row>
-        <el-row>
-          <el-col :span="8">
-            <el-form-item label="供货商" label-width="100px" prop="number">
-              <el-input v-model="dataForm.fac_supplier" style="width: auto" :readonly="isRead" />
-            </el-form-item>
-          </el-col>
-          <el-col :span="8">
-            <el-form-item label="供货商电话" label-width="100px" prop="name">
-              <el-input v-model="dataForm.supplier_phone" style="width: auto" :readonly="isRead" />
+            <el-form-item label="软件安装路径" label-width="100px" prop="infoValidation">
+              <el-input v-model="dataForm.software_path" style="width: auto" :readonly="isRead" />
             </el-form-item>
           </el-col>
         </el-row>
@@ -143,38 +94,33 @@
 <script>
   // 假数据
   const fakeData = {
-    id: 1,
-    fac_name:"设施名称",
-    fac_category: "设施种类",
-    fac_status: "设施状态",
-    fac_quantity: "数量",
-    fac_owner: "负责人",
-    fac_storage: "存放地点",
-    fac_unit: "单位",
-    fac_unitPrice: "单价",
-    fac_specifications: "规格",
-    fac_code: "国码",
-    fac_produceDate: "2020-06-18",
-    fac_keepPeriod: "保修期",
-    fac_purchaseDate: "2020-06-18",
-    fac_purchaseWay: "购买方式",
-    fac_fundsSource: "经费来源",
-    fac_documentCode: "单据号",
-    fac_supplier: "供货商",
-    supplier_phone: "供货商电话",
-    fac_accessories: "其他附件"
+    id:1,
+    software_number:"软件编号",
+    equ_name: "器材名称",
+    software_name: "软件名称",
+    software_category:"软件种类",
+    software_applicable: "适用专业",
+    software_size: "软件大小",
+    software_version: "版本号",
+    software_Lab: "配置实验室",
+    software_issuer: "发行方",
+    software_systems: "适用系统",
+    software_price: "价格",
+    software_introduction: "使用说明（附件）",
+    software_path: "软件安装路径",
   }
+
   export default {
-    name: 'field-fac-detail',
+    name: 'equipment-software-detail',
     data() {
       return {
         dataForm: null,
         tempData: null,
         rules: {
-          lab_num: [
+          number: [
             { type: 'number', message: '请输入数字', trigger: 'blur' }
           ],
-          infoValidation: [
+          info: [
             { type: 'string', message: '请输入', trigger: 'blur' }
           ]
         },
@@ -193,7 +139,7 @@
       },
       /* 根据ID获取数据 */
       getOriginalData() {
-        /* 暂用假数据 */
+        // 暂用假数据
         this.dataForm = fakeData;
         let id = this.$route.query.id;
         console.log("software-detail id=" + id);
@@ -297,9 +243,18 @@
       handleDownload() {
         console.log('导出')
       },
-      /* 查看附件 */
+      /* 器材内置软件列表 */
+      handleEquipSoftwareList(id){
+        this.$router.push({
+          name: 'Field_Equip_SW_List',
+          query: {
+            id: id
+          }
+        })
+      },
+      /* 查看使用说明 */
       handleAttachment() {
-        console.log("查看其他附件")
+        console.log("查看使用说明")
       }
     }
   }

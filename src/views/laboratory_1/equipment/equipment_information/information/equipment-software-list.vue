@@ -6,10 +6,10 @@
       <div class="button-filter-container">
         <!-- 简单搜索 -->
         <div class="filter-container-conditions" style="margin: 2px">
-          <el-input v-model="queryList.lab_num" placeholder="器材编号" style="width: 230px;" clearable>
-            <template slot="prepend">器材编号</template>
+          <el-input v-model="queryList.software_name" placeholder="软件名称" style="width: 230px;" clearable>
+            <template slot="prepend">软件名称</template>
           </el-input>
-          <el-select v-model="queryList.equip_cate" style="width: 160px;" placeholder="器材分类" filterable clearable @change="handleFilter">
+          <el-select v-model="queryList.software_category" style="width: 160px;" placeholder="软件分类" filterable clearable @change="handleFilter">
             <!--获取数据库信息动态生成option-->
             <!--
             <el-option v-for="item in CategoryList" :key=item.id :label="item.name" :value="item.id" >
@@ -19,17 +19,6 @@
             -->
             <el-option key="1" label="类别1" value="1" />
             <el-option key="0" label="类别2" value="0" />
-          </el-select>
-          <el-select v-model="queryList.equip_cate" style="width: 160px;" placeholder="实验室负责人" filterable clearable @change="handleFilter">
-            <!--获取数据库信息动态生成option-->
-            <!--
-            <el-option v-for="item in CategoryList" :key=item.id :label="item.name" :value="item.id" >
-              <span style="float: left">编号:{{ item.id }}</span>
-              <span style="float: right; color: #8492a6; font-size: 12px">名称:{{ item.name }}</span>
-            </el-option>
-            -->
-            <el-option key="1" label="负责人1" value="1" />
-            <el-option key="0" label="负责人2" value="0" />
           </el-select>
           <el-button-group>
             <el-button type="primary"  size="medium" @click="handleFilter">搜索</el-button>
@@ -50,12 +39,13 @@
           <el-button type="primary"  size="medium" @click="handleBatchCreate">
             导入
           </el-button>
-          <el-button type="primary"  size="medium" @click="handleDownload">
+          <el-button type="primary"  size="medium" :loading="downloadLoading" @click="handleDownload">
             导出
           </el-button>
         </el-button-group>
       </div>
     </div>
+
     <!-- 浮动高级搜索区域 -->
     <el-dialog :visible.sync="showDetailSearchBtn" width="95%" :show-close="false">
       <span class="my-dialog-title" slot="title">高级搜索</span>
@@ -149,7 +139,8 @@
 
       </div>
     </el-dialog>
-    <!-- 列表 -->
+
+    <!-- 列表   -->
     <div class="form-style">
       <el-table
         v-loading="listLoading"
@@ -167,20 +158,20 @@
           align="center"
         />
         <el-table-column
-          label="编号"
-          prop="equ_number"
+          label="软件名称"
+          prop="software_name"
         />
         <el-table-column
-          label="名称"
-          prop="equ_name"
+          label="软件种类"
+          prop="software_category"
         />
         <el-table-column
-          label="种类"
-          prop="equ_category"
+          label="软件大小"
+          prop="software_size"
         />
         <el-table-column
-          label="负责人"
-          prop="equ_owner"
+          label="软件版本号"
+          prop="software_version"
         />
       </el-table>
     </div>
@@ -194,67 +185,55 @@
 
 <script>
   import Pagination from '@/components/Pagination'
-  // 假数据
   const fakeData = {
-    id: 1,
-    equ_number: "器材编号",
+    id:1,
+    software_number:"器材编号",
     equ_name: "器材名称",
-    equ_category: "器材种类",
-    equ_quantity: "数量",
-    equ_storage: "存放地点",
-    equ_owner: "负责人",
-    equ_userDirection: "使用方向",
-    equ_unit: "单位",
-    equ_unitPrice: "单价",
-    equ_purchaseDate: "购置日期",
-    equ_specifications: "规格",
-    equ_code: "国码",
-    equ_produceDate: "出产日期",
-    equ_fundsSource: "经费来源",
-    equ_purchaseWay: "购买方式",
-    equ_keepPeriod: "保修期",
-    equ_documentCode: "单据号",
-    equ_supplier: "供货商",
-    supplier_phone: "供货商电话",
-    equ_accessories: "器材入库附件",
-    equ_software: "器材配置安装软件",
-  }
+    software_name: "软件名称",
+    software_category:"软件种类",
+    software_applicable: "适用专业",
+    software_size: "软件大小",
+    software_version: "版本号",
+    software_Lab: "配置实验室",
+    software_issuer: "发行方",
+    software_systems: "适用系统",
+    software_price: "价格",
+    software_introduction: "使用说明（附件）",
+    software_path: "软件安装路径",
+  };
   //假数据列表
-  const fakeDataList = [ {...fakeData},{...fakeData},{...fakeData},{...fakeData},{...fakeData},{...fakeData},{...fakeData},{...fakeData},{...fakeData},{...fakeData} ]
+  const fakeDataList = [ {...fakeData},{...fakeData},{...fakeData},{...fakeData},{...fakeData},{...fakeData},{...fakeData},{...fakeData},{...fakeData},{...fakeData} ];
   export default {
     components: {
       Pagination
     },
-    name: 'field-equip-list',
+    name: 'equipment-software-list',
     data(){
       return{
+        listLoading: true,
+        tableData: null,
         /* 分页参数 待修改 */
         total: 100,
         pageNum: 1,
         pageSize: 20,
-        listLoading: true,
-        tableData: null,
         /* 查询条件 */
         queryList: {
-          // 需求修改
-          equip_no: null,
-          equip_name: null,
-          equip_cate: null,
-          equip_quantity: null,
-          equip_location: null,
+          // 需要修改
+          software_name: null,
+          software_category: null
         },
-        /* 是否显示高级搜索 */
         showDetailSearchBtn: false
       }
     },
     methods:{
       getList(){
-        /* fake data */
+        //fake data
         this.tableData = fakeDataList;
         this.listLoading = false;
-        /* 根据传过来的实验室id获取对应的器材 */
-        console.log("实验室id获取对应的器材. lab id" +this.$route.query.id);
+        //根据传过来的器材id获取对应的器材配置软件
+        //console.log("器材id获取对应的器材配置软件. equ id" +this.$route.query.id);
       },
+      /* 返回上一级 */
       handleReturn() {
         this.$router.go(-1)
       },
@@ -262,37 +241,12 @@
       handleDetail(row, column, event) {
         console.log('handleDetail id=' + row.id)
         this.$router.push({
-          name: 'Equipment_Detail',
+          name: 'Equip_Software_Detail',
           query: {
             id: row.id
           }
         })
       },
-      /* 查找 */
-      handleFilter() {
-
-      },
-      /* 导出Excel */
-      handleDownload() {
-
-      },
-      /* 添加数据 */
-      handleCreate() {
-
-      },
-      /* 批量添加 */
-      handleBatchCreate() {
-
-      },
-      /* 管理高级搜索 */
-      handleClose() {
-        /* 清空旧数据 */
-        for (const key in this.queryList) {
-          this.queryList[key] = null
-        }
-        /* 关闭 */
-        this.showDetailSearchBtn = false
-      }
     },
     created() {
       this.getList();
@@ -300,7 +254,6 @@
   }
 </script>
 
-<!-- 功能栏样式 -->
 <style scoped>
   .filter-container {
     color: #5a5e66;
@@ -311,12 +264,12 @@
   }
   .button-filter-container {
     display: inline-block;
-    margin-left: 120px;
+    margin-left: 285px;
   }
   .filter-container-conditions {
     display: inline-block;
   }
-  .form-style{
+  .form-style {
     color: #5a5e66;
     background: #fff;
     box-shadow: 0 1px 4px rgba(0,21,41,.1);

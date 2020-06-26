@@ -88,7 +88,7 @@
           </el-col>
           <!-- 实验室负责人 -->
           <el-col :span="6">
-            <el-select v-model="queryList.lab_owner" style="width: 300px;" placeholder="实验室负责人" filterable clearable @change="handleFilter">
+            <el-select v-model="queryList.lab_inCharge" style="width: 300px;" placeholder="实验室负责人" filterable clearable @change="handleFilter">
               <el-option key="1" label="负责人1" value="1" />
               <el-option key="0" label="负责人2" value="0" />
             </el-select>
@@ -166,25 +166,25 @@
       />
       <el-table-column
         prop="lab_num"
-        label="编号"
+        label="实验室编号"
         width="auto"
       />
       <el-table-column
         prop="lab_name"
-        label="名称"
+        label="实验室名称"
         width="auto"
       />
       <el-table-column
         prop="lab_category"
-        label="分类"
+        label="实验室分类"
       />
       <el-table-column
-        prop="lab_equip_cur_num"
+        prop="lab_cur_equip_num"
         label="可用设备数"
       />
       <el-table-column
-        prop="lab_owner"
-        label="负责人"
+        prop="lab_inCharge"
+        label="实验室负责人"
       />
     </el-table>
     <!-- 分页栏 -->
@@ -198,6 +198,16 @@
 
 <script>
   import Pagination from '@/components/Pagination'
+  const fakeData = {
+    id: 1,
+    lab_num: 101,
+    lab_name: '测试实验室1',
+    lab_category: '实验室类别',
+    lab_cur_equip_num: '当前可用设备数',
+    lab_inCharge: '负责人'
+  }
+  //假数据列表
+  const fakeDataList = [ {...fakeData},{...fakeData},{...fakeData},{...fakeData},{...fakeData},{...fakeData},{...fakeData},{...fakeData},{...fakeData},{...fakeData} ]
   export default {
     components: {
       Pagination
@@ -229,94 +239,10 @@
         showDetailSearchBtn: false
       }
     },
-    created() {
-      this.getTableList()
-    },
     methods: {
       /* 获取列表信息 */
       getTableList() {
-        this.tableData = [
-          {
-          id: 1,
-          lab_num: 101,
-          lab_name: '测试实验室1',
-          lab_category: '实验室类别',
-          lab_equip_cur_num: '当前可用设备数',
-          lab_owner: '负责人'
-          },
-          {
-            id: 2,
-            lab_num: 102,
-            lab_name: '测试实验室2',
-            lab_category: '实验室类别',
-            lab_equip_cur_num: '当前可用设备数',
-            lab_owner: '负责人'
-          },
-          {
-            id: 3,
-            lab_num: 103,
-            lab_name: '测试实验室3',
-            lab_category: '实验室类别',
-            lab_equip_cur_num: '当前可用设备数',
-            lab_owner: '负责人'
-          },
-          {
-            id: 4,
-            lab_num: 104,
-            lab_name: '测试实验室4',
-            lab_category: '实验室类别',
-            lab_equip_cur_num: '当前可用设备数',
-            lab_owner: '负责人'
-          },
-          {
-            id: 5,
-            lab_num: 105,
-            lab_name: '测试实验室5',
-            lab_category: '实验室类别',
-            lab_equip_cur_num: '当前可用设备数',
-            lab_owner: '负责人'
-          },
-          {
-            id: 6,
-            lab_num: 106,
-            lab_name: '测试实验室6',
-            lab_category: '实验室类别',
-            lab_equip_cur_num: '当前可用设备数',
-            lab_owner: '负责人'
-          },
-          {
-            id: 7,
-            lab_num: 107,
-            lab_name: '测试实验室7',
-            lab_category: '实验室类别',
-            lab_equip_cur_num: '当前可用设备数',
-            lab_owner: '负责人'
-          },
-          {
-            id: 8,
-            lab_num: 108,
-            lab_name: '测试实验室8',
-            lab_category: '实验室类别',
-            lab_equip_cur_num: '当前可用设备数',
-            lab_owner: '负责人'
-          },
-          {
-            id: 9,
-            lab_num: 109,
-            lab_name: '测试实验室9',
-            lab_category: '实验室类别',
-            lab_equip_cur_num: '当前可用设备数',
-            lab_owner: '负责人'
-          },
-          {
-            id: 10,
-            lab_num: 110,
-            lab_name: '测试实验室10',
-            lab_category: '实验室类别',
-            lab_equip_cur_num: '当前可用设备数',
-            lab_owner: '负责人'
-          }
-        ]
+        this.tableData = fakeDataList
         this.listLoading = false
       },
       /* 详情 */
@@ -357,6 +283,10 @@
         // 关闭
         this.showDetailSearchBtn = false
       }
+    },
+    /* 页面创建时，加载数据 */
+    created() {
+      this.getTableList()
     }
   }
 </script>

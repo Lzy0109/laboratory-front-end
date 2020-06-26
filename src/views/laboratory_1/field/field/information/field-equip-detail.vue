@@ -296,7 +296,7 @@
       /* 跳转配置软件列表 */
       handleEquipSoftwareList(id){
         this.$router.push({
-          name: 'Field_Equip_Sw_List',
+          name: 'Equip_Software_List',
           query: {
             id: id
           }

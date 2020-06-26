@@ -6,6 +6,7 @@
       <el-button type="primary" :disabled="isAble" size="medium" @click="beforeEdit">编辑信息</el-button>
       <el-button type="danger" size="medium" @click="beforeHandleDelete">删除</el-button>
       <el-button type="success" size="medium" @click="handleDownload">导出信息</el-button>
+      <el-button type="primary" size="medium" @click="handleAttachment">查看使用说明</el-button>
     </div>
     <!-- 详细信息展示 -->
     <div class="form-style">
@@ -223,7 +224,7 @@ export default {
     },
     /* 跳转到设施详情 */
     handleFacilityDetail(id) {
-      console.log('facility id =' + id)
+      console.log('facility-modules id =' + id)
       this.$router.push({
         name: 'Field_Fac_List',
         query: {
@@ -233,7 +234,7 @@ export default {
     },
     /* 跳转到器材详情 */
     handleEquipmentDetail(id) {
-      console.log('equipment id =' + id)
+      console.log('modules id =' + id)
       this.$router.push({
         name: 'Field_Equip_List',
         query: {

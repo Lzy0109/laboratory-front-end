@@ -146,7 +146,7 @@
     lab_category: '分类',
     labOtherInfo: '分类',
     lab_facility_id: 1,
-    lab_owner: '负责人',
+    lab_inCharge: '负责人',
     lab_building: '楼',
     lab_telephone: '13412341234',
     lab_indoor: '室内',
@@ -298,7 +298,7 @@
       },
       /* 跳转到设施详情 */
       handleFacilityDetail(id) {
-        console.log('facility id =' + id);
+        console.log('facility-modules id =' + id);
         this.$router.push({
           name: 'Field_Fac_List',
           query: {
@@ -308,7 +308,7 @@
       },
       /* 跳转到器材详情 */
       handleEquipmentDetail(id) {
-        console.log('equipment id =' + id);
+        console.log('modules id =' + id);
         this.$router.push({
           name: 'Field_Equip_List',
           query: {
