@@ -9,47 +9,39 @@
         </el-input>
         <el-select v-model="queryList.lab_software_category_id" style="width: 160px;" placeholder="软件种类" filterable clearable @change="handleFilter">
           <!--获取数据库信息动态生成option-->
-          <!--
-          <el-option v-for="item in CategoryList" :key=item.id :label="item.name" :value="item.id" >
+          <el-option v-for="item in softwareCategoryList" :key="item.id" :label="item.name" :value="item.id">
             <span style="float: left">编号:{{ item.id }}</span>
             <span style="float: right; color: #8492a6; font-size: 12px">名称:{{ item.name }}</span>
           </el-option>
-          -->
-          <el-option key="1" label="类别1" value="1" />
-          <el-option key="0" label="类别2" value="0" />
         </el-select>
         <el-select v-model="queryList.applicable_system" style="width: 160px;" placeholder="适用系统" filterable clearable @change="handleFilter">
           <!--获取数据库信息动态生成option-->
-          <!--
-          <el-option v-for="item in CategoryList" :key=item.id :label="item.name" :value="item.id" >
+          <el-option v-for="item in oSystemList" :key="item.id" :label="item.name" :value="item.id" >
             <span style="float: left">编号:{{ item.id }}</span>
             <span style="float: right; color: #8492a6; font-size: 12px">名称:{{ item.name }}</span>
           </el-option>
-          -->
-          <el-option key="1" label="Windows" value="Windows" />
-          <el-option key="0" label="Linux" value="Linux" />
         </el-select>
         <el-button-group>
-          <el-button type="primary"  size="medium" @click="handleFilter">搜索</el-button>
+          <el-button type="primary" size="medium" @click="handleFilter">搜索</el-button>
         </el-button-group>
       </div>
       <!-- 功能按钮 -->
       <div class="button-filter-container">
         <el-button-group>
-          <el-button type="primary"  size="medium" @click="showDetailSearchBtn = !showDetailSearchBtn">
+          <el-button type="primary" size="medium" @click="showDetailSearchBtn = !showDetailSearchBtn">
             高级搜索
           </el-button>
         </el-button-group>
         <el-button-group>
-          <el-button type="primary"  size="medium" @click="handleCreate">
+          <el-button type="primary" size="medium" @click="handleCreate">
             添加
           </el-button>
         </el-button-group>
         <el-button-group>
-          <el-button type="primary"  size="medium" @click="handleBatchCreate">
+          <el-button type="primary" size="medium" @click="handleBatchCreate">
             导入
           </el-button>
-          <el-button type="primary"  size="medium" :loading="downloadLoading" @click="handleDownload">
+          <el-button type="primary" size="medium" :loading="downloadLoading" @click="handleDownload">
             导出
           </el-button>
         </el-button-group>
@@ -70,21 +62,20 @@
           <el-col :span="6">
             <el-select v-model="queryList.lab_software_category_id" style="width: 300px;" placeholder="软件种类" filterable clearable @change="handleFilter">
               <!--获取数据库信息动态生成option-->
-              <!--
-              <el-option v-for="item in CategoryList" :key=item.id :label="item.name" :value="item.id" >
+              <el-option v-for="item in softwareCategoryList" :key="item.id" :label="item.name" :value="item.id">
                 <span style="float: left">编号:{{ item.id }}</span>
                 <span style="float: right; color: #8492a6; font-size: 12px">名称:{{ item.name }}</span>
               </el-option>
-              -->
-              <el-option key="1" label="类别1" value="1" />
-              <el-option key="0" label="类别2" value="0" />
             </el-select>
           </el-col>
           <!-- 适用系统 -->
           <el-col :span="6">
             <el-select v-model="queryList.applicable_system" style="width: 300px;" placeholder="适用系统" filterable clearable @change="handleFilter">
-              <el-option key="1" label="Windows" value="1" />
-              <el-option key="0" label="Linux" value="0" />
+              <!--获取数据库信息动态生成option-->
+              <el-option v-for="item in oSystemList" :key="item.id" :label="item.name" :value="item.id" >
+                <span style="float: left">编号:{{ item.id }}</span>
+                <span style="float: right; color: #8492a6; font-size: 12px">名称:{{ item.name }}</span>
+              </el-option>
             </el-select>
           </el-col>
           <!-- 发行方名称 -->
@@ -212,7 +203,9 @@ export default {
       pageNum: 1,
       pageSize: 20,
       /* 类别信息列表 */
-      CategoryList: [],
+      softwareCategoryList: [],
+      /* 通用系统信息列表 */
+      oSystemList: [],
       /* 导出excel相关参数 */
       downloadLoading: false,
       /* 查询条件 */
@@ -232,12 +225,28 @@ export default {
   },
   created() {
     this.getTableList()
+    this.getSoftwareCategoryList()
+    this.getOSystemList()
   },
   methods: {
     /* 获取列表信息 */
     getTableList() {
       this.tableData = fake_data
       this.listLoading = false
+    },
+    /* 获取软件分类列表信息 */
+    getSoftwareCategoryList() {
+      // 调用接口
+      console.log('调用获取软件分类列表信息接口')
+      // 暂用假数据
+      this.softwareCategoryList.push({ id: 1, name: '分类1' }, { id: 2, name: 'cate2' })
+    },
+    /* 获取软件适用系统列表信息 */
+    getOSystemList() {
+      // 调用接口
+      console.log('调用获取软件适用系统列表信息')
+      // 暂用假数据
+      this.oSystemList.push({ id: 1, name: 'window' }, { id: 2, name: 'linux' })
     },
     /* 详情 */
     handleDetail(row, column, event) {
