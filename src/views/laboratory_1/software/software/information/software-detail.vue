@@ -14,58 +14,49 @@
       <el-form ref="dataForm" :model="dataForm" :rules="rules">
         <el-row type="flex" class="row-bg" justify="space-around">
           <el-col :span="8">
-            <el-form-item label="软件名称" label-width="100px" prop="name">
+            <el-form-item label="软件名称" label-width="100px" prop="infoValidation">
               <el-input v-model="dataForm.name" style="width: auto" :readonly="isRead" />
             </el-form-item>
           </el-col>
           <el-col :span="8">
-            <el-form-item label="软件大小" label-width="100px" prop="name">
+            <el-form-item label="软件大小" label-width="100px" prop="infoValidation">
               <el-input v-model="dataForm.size" style="width: auto" :readonly="isRead" />
             </el-form-item>
           </el-col>
           <el-col :span="8">
-            <el-form-item label="软件种类" label-width="100px" prop="number">
+            <el-form-item label="软件种类" label-width="100px" prop="infoValidation">
               <el-input v-show="isRead" v-model="dataForm.lab_software_category_id" style="width: auto" :readonly="isRead" />
               <el-select v-show="!isRead" v-model="dataForm.lab_software_category_id" style="width: 160px;" placeholder="软件种类">
                 <!--获取数据库信息动态生成option-->
-                <!--
-                <el-option v-for="item in CategoryList" :key=item.id :label="item.name" :value="item.id" >
+                <el-option v-for="item in softwareCategoryList" :key="item.id" :label="item.name" :value="item.id">
                   <span style="float: left">编号:{{ item.id }}</span>
                   <span style="float: right; color: #8492a6; font-size: 12px">名称:{{ item.name }}</span>
                 </el-option>
-                -->
-                <el-option key="1" label="类别1" value="1" />
-                <el-option key="0" label="类别2" value="0" />
               </el-select>
             </el-form-item>
           </el-col>
         </el-row>
         <el-row type="flex" class="row-bg" justify="space-around">
           <el-col :span="8">
-            <el-form-item label="适用系统" label-width="100px" prop="name">
+            <el-form-item label="适用系统" label-width="100px" prop="infoValidation">
               <el-input v-model="dataForm.applicable_system" style="width: auto" :readonly="isRead" />
             </el-form-item>
           </el-col>
           <el-col :span="8">
-            <el-form-item label="软件版本号" label-width="100px" prop="number">
+            <el-form-item label="软件版本号" label-width="100px" prop="infoValidation">
               <el-input v-model="dataForm.version" style="width: auto" :readonly="isRead" />
             </el-form-item>
           </el-col>
           <el-col :span="8">
-            <el-form-item label="价格" label-width="100px" prop="name">
+            <el-form-item label="价格" label-width="100px" prop="infoValidation">
               <el-input v-model="dataForm.price" style="width: auto" :readonly="isRead" />
             </el-form-item>
           </el-col>
         </el-row>
         <el-row type="flex" class="row-bg">
           <el-col :span="8">
-            <el-form-item label="发行方名称" label-width="100px" prop="number">
+            <el-form-item label="发行方名称" label-width="100px" prop="infoValidation">
               <el-input v-model="dataForm.publisher_name" style="width: auto" :readonly="isRead" />
-            </el-form-item>
-          </el-col>
-          <el-col :span="8">
-            <el-form-item label="使用说明" label-width="100px" prop="name">
-              <el-input v-model="dataForm.attachment_id" style="width: auto" :readonly="isRead" />
             </el-form-item>
           </el-col>
         </el-row>
@@ -94,13 +85,14 @@ export default {
       dataForm: null,
       tempData: null,
       rules: {
-        lab_num: [
+        number: [
           { type: 'number', message: '请输入数字', trigger: 'blur' }
         ],
         infoValidation: [
           { type: 'string', message: '请输入', trigger: 'blur' }
         ]
       },
+      softwareCategoryList: [],
       isRead: true,
       isAble: false,
       showSaveBtn: false
@@ -108,6 +100,7 @@ export default {
   },
   created() {
     this.getOriginalData()
+    this.getSoftwareCategoryList()
   },
   methods: {
     /* 根据ID获取数据 */
@@ -116,6 +109,13 @@ export default {
       this.dataForm = fakeData
       const id = this.$route.query.id
       console.log(id)
+    },
+    /* 获取软件分类列表信息 */
+    getSoftwareCategoryList() {
+      // 调用接口
+      console.log('调用获取软件分类列表信息接口')
+      // 暂用假数据
+      this.softwareCategoryList.push({ id: 1, name: '分类1' }, { id: 2, name: 'cate2' })
     },
     /* 返回上一页 */
     handleReturn() {
@@ -222,23 +222,12 @@ export default {
     handleDownload() {
       console.log('导出')
     },
-    /* 跳转到设施详情 */
-    handleFacilityDetail(id) {
-      console.log('facility-modules id =' + id)
+    /* 跳转到使用说明 */
+    handleAttachment() {
       this.$router.push({
-        name: 'Field_Fac_List',
-        query: {
-          id: id
-        }
-      })
-    },
-    /* 跳转到器材详情 */
-    handleEquipmentDetail(id) {
-      console.log('modules id =' + id)
-      this.$router.push({
-        name: 'Field_Equip_List',
-        query: {
-          id: id
+        name: '',
+        params: {
+          id: this.dataForm.attachment_id
         }
       })
     }
