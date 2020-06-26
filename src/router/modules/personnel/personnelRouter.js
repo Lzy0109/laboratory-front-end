@@ -1,4 +1,8 @@
 // 实验室人员管理
+import personnelListRouter from '@/router/modules/personnel/modules/information/personnel-list'
+import personnelDetailRouter from '@/router/modules/personnel/modules/information/personnel-detail'
+import personnelDispatchRouter from '@/router/modules/personnel/modules/dispatch/personnel-dispatch'
+
 const personnelRouter = {
   path: 'personnel',
     component: () => import('@/views/laboratory_1/personnel/index'),
@@ -13,21 +17,14 @@ const personnelRouter = {
       meta: { title: '实验室人员' },
       alwaysShow: true,
       children: [
-        {
-          path: 'information',
-          component: () => import('@/views/laboratory_1/personnel/personnel/information/index'),
-          name: 'Information',
-          meta: { title: '人员信息管理' }
-        }
+        // 人员信息管理
+        personnelListRouter,
+        // 人员信息详情
+        personnelDetailRouter
       ]
     },
     // 人员调度
-    {
-      path: 'dispatch',
-      component: () => import('@/views/laboratory_1/personnel/dispatch/index'),
-      name: 'Dispatch',
-      meta: { title: '实验室人员调度' }
-    }
+    personnelDispatchRouter
   ]
 }
 

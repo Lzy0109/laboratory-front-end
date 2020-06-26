@@ -13,7 +13,7 @@ const data = Mock.mock({
 
 module.exports = [
   {
-    url: '/vue-admin-template/table/field-modules-list',
+    url: '/vue-admin-template/table/field-components-modules-list',
     type: 'get',
     response: config => {
       const items = data.items

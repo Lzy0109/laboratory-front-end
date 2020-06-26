@@ -21,7 +21,7 @@ import Layout from '@/layout'
     title: 'title'               the name show in sidebar and breadcrumb (recommend set)
     icon: 'svg-name'/'el-icon-x' the icon show in the sidebar
     breadcrumb: false            if set false, the item will hidden in breadcrumb(default is true)
-    activeMenu: '/example/field-modules-list'  if set path, the sidebar will highlight the path you set
+    activeMenu: '/example/field-components-modules-list'  if set path, the sidebar will highlight the path you set
   }
  */
 import fieldRouter from '@/router/modules/field/fieldRouter'
@@ -58,6 +58,35 @@ export const constantRoutes = [
       component: () => import('@/views/dashboard/index'),
       meta: { title: 'Dashboard', icon: 'dashboard' }
     }]
+  },
+
+  /**
+   * @author: lzy
+   * @date: 2020/6/6
+   */
+  {
+    path: '/laboratory_1',
+    component: Layout,
+    redirect: '/laboratory_1/field-components-modules',
+    name: 'Laboratory_1',
+    meta: {
+      title: '实验室模块第一部分',
+      icon: 'nested'
+    },
+    children: [
+      // 实验室管理
+      fieldRouter,
+      // 实验器材管理
+      equipmentRouter,
+      // 实验软件管理
+      softwareRouter,
+      // 实验室人员管理
+      personnelRouter,
+      // 实验耗材管理
+      consumableRouter,
+      // 实验室资产管理
+      propertyRouter
+    ]
   },
 
   {
@@ -161,35 +190,6 @@ export const constantRoutes = [
         path: 'https://panjiachen.github.io/vue-element-admin-site/#/',
         meta: { title: 'External Link', icon: 'link' }
       }
-    ]
-  },
-
-  /**
-   * @author: lzy
-   * @date: 2020/6/6
-   */
-  {
-    path: '/laboratory_1',
-    component: Layout,
-    redirect: '/laboratory_1/field-modules',
-    name: 'Laboratory_1',
-    meta: {
-      title: '实验室模块第一部分',
-      icon: 'nested'
-    },
-    children: [
-      // 实验室管理
-      fieldRouter,
-      // 实验器材管理
-      equipmentRouter,
-      // 实验软件管理
-      softwareRouter,
-      // 实验室人员管理
-      personnelRouter,
-      // 实验耗材管理
-      consumableRouter,
-      // 实验室资产管理
-      propertyRouter
     ]
   },
 

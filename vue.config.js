@@ -39,7 +39,7 @@ module.exports = {
     before: require('./mock/mock-server.js')
   },
   configureWebpack: {
-    // provide the app's title in webpack's name field-modules, so that
+    // provide the app's title in webpack's name field-components-modules, so that
     // it can be accessed in index.html to inject the correct title.
     name: name,
     resolve: {
