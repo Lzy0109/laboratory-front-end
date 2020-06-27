@@ -2,7 +2,7 @@
 
 module.exports = {
   'plugins': {
-    // to edit target browsers: use "browserslist" field-modules in package.json
+    // to edit target browsers: use "browserslist" field-components-modules in package.json
     'autoprefixer': {}
   }
 }

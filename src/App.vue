@@ -12,7 +12,7 @@ export default {
 
 <style>
   .el-table th.gutter{
-    display: table-cell!important;
+    display: table-cell !important;
   }
   .el-table__row {
     cursor: pointer;
