@@ -8,7 +8,7 @@ import softwareListRouter from '@/router/modules/software/modules/information/so
 
 const softwareRouter = {
   path: 'software',
-    component: () => import('@/views/laboratory_1/software/index'),
+  component: () => import('@/views/laboratory_1/software/index'),
   name: 'Software',
   meta: { title: '实验软件管理' },
   children: [
