@@ -16,7 +16,7 @@ const softwareRouter = {
     {
       path: 'software',
       component: () => import('@/views/laboratory_1/software/software/index'),
-      name: 'Software',
+      name: '_Software',
       meta: { title: '实验软件' },
       children: [
         // 软件分类管理

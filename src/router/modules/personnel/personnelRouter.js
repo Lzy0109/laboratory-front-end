@@ -5,7 +5,7 @@ import personnelDispatchRouter from '@/router/modules/personnel/modules/dispatch
 
 const personnelRouter = {
   path: 'personnel',
-    component: () => import('@/views/laboratory_1/personnel/index'),
+  component: () => import('@/views/laboratory_1/personnel/index'),
   name: 'Personnel',
   meta: { title: '实验室人员管理' },
   children: [
@@ -13,7 +13,7 @@ const personnelRouter = {
     {
       path: 'personnel',
       component: () => import('@/views/laboratory_1/personnel/personnel/index'),
-      name: 'Personnel',
+      name: '_Personnel',
       meta: { title: '实验室人员' },
       alwaysShow: true,
       children: [

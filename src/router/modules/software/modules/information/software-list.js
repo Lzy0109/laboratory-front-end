@@ -2,7 +2,7 @@
 const softwareListRouter = {
   path: 'information',
   component: () => import('@/views/laboratory_1/software/software/information/software-list'),
-  name: 'Information',
+  name: 'Software_Information',
   meta: { title: '软件信息管理' }
 }
 

@@ -2,7 +2,7 @@
 const equipCategoryListRouter = {
   path: 'category',
   component: () => import('@/views/laboratory_1/equipment/equipment_information/category/category-list'),
-  name: 'Category',
+  name: 'Equipment_Category',
   meta: { title: '器材分类管理' }
 }
 
