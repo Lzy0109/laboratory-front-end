@@ -6,7 +6,7 @@ import propertyReturnRouter from '@/router/modules/property/modules/return/prope
 
 const propertyRouter = {
   path: 'property',
-    component: () => import('@/views/laboratory_1/property/property/index'),
+  component: () => import('@/views/laboratory_1/property/property/index'),
   name: 'Property',
   meta: { title: '实验室资产管理' },
   children: [

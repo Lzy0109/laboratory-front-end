@@ -24,7 +24,7 @@ const fieldRouter = {
     {
       path: 'field',
       component: () => import('@/views/laboratory_1/field/field/index'),
-      name: 'Field',
+      name: '_Field',
       meta: { title: '实验室' },
       children: [
         // 实验室分类管理

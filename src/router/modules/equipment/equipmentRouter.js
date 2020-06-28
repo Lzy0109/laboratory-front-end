@@ -16,7 +16,7 @@ import componentsCategoryDetailRouter from '@/router/modules/equipment/component
 
 const equipmentRouter = {
   path: 'modules',
-    component: () => import('@/views/laboratory_1/equipment/index'),
+  component: () => import('@/views/laboratory_1/equipment/index'),
   name: 'Equipment',
   meta: { title: '实验器材管理' },
   children: [
@@ -24,7 +24,7 @@ const equipmentRouter = {
     {
       path: 'equipment_information',
       component: () => import('@/views/laboratory_1/equipment/equipment_information/index'),
-      name: 'Equipment_Information',
+      name: '_Equipment',
       meta: { title: '实验器材' },
       children: [
         // 器材分类管理

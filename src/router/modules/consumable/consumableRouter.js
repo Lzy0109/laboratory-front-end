@@ -8,7 +8,7 @@ import consumableCategoryCreateRouter from '@/router/modules/consumable/modules/
 
 const consumableRouter = {
   path: 'consumable',
-    component: () => import('@/views/laboratory_1/consumable/index'),
+  component: () => import('@/views/laboratory_1/consumable/index'),
   name: 'Consumable',
   meta: { title: '实验室耗材管理' },
   children: [
