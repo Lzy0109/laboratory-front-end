@@ -210,7 +210,7 @@
   }
   .button-filter-container {
     display: inline-block;
-    margin-left: 120px;
+    margin-left: 45px;
   }
   .filter-container-conditions {
     display: inline-block;
