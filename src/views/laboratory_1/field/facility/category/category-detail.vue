@@ -37,145 +37,145 @@
 </template>
 
 <script>
-  const fake_data =
-    {
-      id: 1, name: '设施分类名称', description: '设施分类描述'
+const fake_data =
+  {
+    id: 1, name: '设施分类名称', description: '设施分类描述'
+  }
+export default {
+  name: 'category-detail',
+  data() {
+    return {
+      dataForm: null,
+      tempData: null,
+      rules: {
+        infoValidation: [
+          { type: 'string', message: '请输入', trigger: 'blur' }
+        ]
+      },
+      isRead: true,
+      isAble: false,
+      showSaveBtn: false
     }
-  export default {
-    name: 'category-detail',
-    data() {
-      return {
-        dataForm: null,
-        tempData: null,
-        rules: {
-          infoValidation: [
-            { type: 'string', message: '请输入', trigger: 'blur' }
-          ]
-        },
-        isRead: true,
-        isAble: false,
-        showSaveBtn: false
-      }
+  },
+  created() {
+    this.getOriginalData()
+  },
+  methods: {
+    /* 根据ID获取数据 */
+    getOriginalData() {
+      // 暂用假数据
+      this.dataForm = fake_data
+      const id = this.$route.query.id
+      console.log(id)
+      // 调用获取信息接口
     },
-    created() {
-      this.getOriginalData()
+    /* 返回上一页 */
+    handleReturn() {
+      this.$router.go(-1)
     },
-    methods: {
-      /* 根据ID获取数据 */
-      getOriginalData() {
-        // 暂用假数据
-        this.dataForm = fake_data
-        const id = this.$route.query.id
-        console.log(id)
-        // 调用获取信息接口
-      },
-      /* 返回上一页 */
-      handleReturn() {
-        this.$router.go(-1)
-      },
-      /* 编辑前 */
-      beforeEdit() {
-        this.showSaveBtn = !this.showSaveBtn
-        // 保存修改前数据
-        this.tempData = { ...this.dataForm }
-        // 使input为非readonly
-        this.isRead = false
-        // 显示保存信息按钮
-        this.showSaveBtn = true
-        // 设为不可用,防止暂存数据出错
-        this.isAble = true
-      },
-      /* 编辑后 */
-      afterEdit() {
-        // 还原修改前所有状态
-        this.tempData = null
-        this.isRead = true
-        this.showSaveBtn = false
-        this.isAble = false
-      },
-      /* 提交编辑的内容 */
-      submitEdit(formName) {
-        this.$refs[formName].validate((valid) => {
-          if (valid) {
-            // 调用编辑信息接口
-            this.$message({
-              message: '修改成功',
-              type: 'success'
-            })
-            // 根据返回信息重新复制dataForm
-            console.log('success submit!!')
-          } else {
-            console.log('error submit!!')
-            return false
-          }
-        })
-        // 修改后操作
-        this.afterEdit()
-      },
-      /* 取消编辑操作 */
-      cancelEdit() {
-        this.dataForm = { ...this.tempData }
-        this.afterEdit()
-      },
-      /* 取消 确认弹窗 */
-      beforeCancelEdit() {
-        this.$confirm('修改信息还没保存, 是否继续?', '提示', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
-          type: 'warning'
-        }).then(() => {
-          this.cancelEdit()
+    /* 编辑前 */
+    beforeEdit() {
+      this.showSaveBtn = !this.showSaveBtn
+      // 保存修改前数据
+      this.tempData = { ...this.dataForm }
+      // 使input为非readonly
+      this.isRead = false
+      // 显示保存信息按钮
+      this.showSaveBtn = true
+      // 设为不可用,防止暂存数据出错
+      this.isAble = true
+    },
+    /* 编辑后 */
+    afterEdit() {
+      // 还原修改前所有状态
+      this.tempData = null
+      this.isRead = true
+      this.showSaveBtn = false
+      this.isAble = false
+    },
+    /* 提交编辑的内容 */
+    submitEdit(formName) {
+      this.$refs[formName].validate((valid) => {
+        if (valid) {
+          // 调用编辑信息接口
           this.$message({
-            message: '已取消',
+            message: '修改成功',
             type: 'success'
-
           })
-        }).catch(() => {
-          console.log('已取消退出')
-        })
-      },
-      /* 删除 */
-      handleDelete() {
-        if (this.dataForm.id) {
-          // 调用删除信息接口
-          console.log(this.dataForm.id)
-          return true
+          // 根据返回信息重新复制dataForm
+          console.log('success submit!!')
         } else {
+          console.log('error submit!!')
           return false
         }
-      },
-      /* 删除 确认弹窗 */
-      beforeHandleDelete() {
-        this.$confirm('此操作将删除该信息, 是否继续?', '提示', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
-          type: 'warning'
-        }).then(() => {
-          if (this.handleDelete()) {
-            this.$message({
-              type: 'success',
-              message: '删除成功'
-            })
-            this.$router.go(-1)
-          } else {
-            this.$message({
-              type: 'warning',
-              message: '删除失败'
-            })
-          }
-        }).catch(() => {
-          this.$message({
-            type: 'info',
-            message: '已取消'
-          })
+      })
+      // 修改后操作
+      this.afterEdit()
+    },
+    /* 取消编辑操作 */
+    cancelEdit() {
+      this.dataForm = { ...this.tempData }
+      this.afterEdit()
+    },
+    /* 取消 确认弹窗 */
+    beforeCancelEdit() {
+      this.$confirm('修改信息还没保存, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        this.cancelEdit()
+        this.$message({
+          message: '已取消',
+          type: 'success'
+
         })
-      },
-      /* 导出 */
-      handleDownload() {
-        console.log('导出')
+      }).catch(() => {
+        console.log('已取消退出')
+      })
+    },
+    /* 删除 */
+    handleDelete() {
+      if (this.dataForm.id) {
+        // 调用删除信息接口
+        console.log(this.dataForm.id)
+        return true
+      } else {
+        return false
       }
+    },
+    /* 删除 确认弹窗 */
+    beforeHandleDelete() {
+      this.$confirm('此操作将删除该信息, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        if (this.handleDelete()) {
+          this.$message({
+            type: 'success',
+            message: '删除成功'
+          })
+          this.$router.go(-1)
+        } else {
+          this.$message({
+            type: 'warning',
+            message: '删除失败'
+          })
+        }
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '已取消'
+        })
+      })
+    },
+    /* 导出 */
+    handleDownload() {
+      console.log('导出')
     }
   }
+}
 </script>
 
 <style scoped>

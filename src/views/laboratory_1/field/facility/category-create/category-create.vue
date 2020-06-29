@@ -29,44 +29,44 @@
 </template>
 
 <script>
-  export default {
-    name: 'category-create',
-    data() {
-      return {
-        rules: {
-          infoValidation: [
-            { type: 'string', message: '请输入', trigger: 'blur' }
-          ]
-        },
-        dataForm: {
-          name: '',
-          description: ''
-        }
-      }
-    },
-    methods: {
-      submitCreate(formName) {
-        this.$refs[formName].validate((valid) => {
-          if (valid) {
-            // 调用接口
-            this.$message({
-              message: '添加成功!',
-              type: 'success'
-            })
-            console.log('success submit!!')
-            this.$router.go(-1)
-          } else {
-            console.log('error submit!!')
-            return false
-          }
-        })
+export default {
+  name: 'category-create',
+  data() {
+    return {
+      rules: {
+        infoValidation: [
+          { type: 'string', message: '请输入', trigger: 'blur' }
+        ]
       },
-      /* 返回上一页 */
-      handleReturn() {
-        this.$router.go(-1)
+      dataForm: {
+        name: '',
+        description: ''
       }
     }
+  },
+  methods: {
+    submitCreate(formName) {
+      this.$refs[formName].validate((valid) => {
+        if (valid) {
+          // 调用接口
+          this.$message({
+            message: '添加成功!',
+            type: 'success'
+          })
+          console.log('success submit!!')
+          this.$router.go(-1)
+        } else {
+          console.log('error submit!!')
+          return false
+        }
+      })
+    },
+    /* 返回上一页 */
+    handleReturn() {
+      this.$router.go(-1)
+    }
   }
+}
 </script>
 
 <style scoped>
