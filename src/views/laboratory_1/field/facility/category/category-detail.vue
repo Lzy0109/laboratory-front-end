@@ -9,7 +9,7 @@
     </div>
     <!-- 详细信息展示 -->
     <div class="form-style">
-      <h2>实验室设施种类详细信息</h2>
+      <h2>设施分类详细信息</h2>
       <el-form ref="dataForm" :model="dataForm" :rules="rules">
         <el-row type="flex" class="row-bg" justify="space-around">
           <el-col>
@@ -20,7 +20,7 @@
         </el-row>
         <el-row type="flex" class="row-bg" justify="space-around">
           <el-col>
-            <el-form-item label="种类描述" label-width="100px" prop="infoValidation">
+            <el-form-item label="分类描述" label-width="100px" prop="infoValidation">
               <el-input v-model="dataForm.description" type="textarea" :autosize="{ minRows:2,maxRows:5 }" style="width: 600px" :readonly="isRead" />
             </el-form-item>
           </el-col>
@@ -37,9 +37,10 @@
 </template>
 
 <script>
-const fake_data = {
-  id: 1, name: '设施种类名称', description: '设施种类描述'
-}
+const fake_data =
+  {
+    id: 1, name: '设施分类名称', description: '设施分类描述'
+  }
 export default {
   name: 'category-detail',
   data() {
