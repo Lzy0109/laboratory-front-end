@@ -6,6 +6,7 @@
       <el-button type="primary" :disabled="isAble" @click="beforeEdit" size="medium">编辑信息</el-button>
       <el-button type="danger" @click="beforeHandleDelete" size="medium">删除</el-button>
       <el-button type="success" @click="handleDownload" size="medium">导出信息</el-button>
+      <el-button type="primary" @click="handleEquipComponentsList" size="medium">查看配置零部件</el-button>
       <el-button type="primary" @click="handleEquipSoftwareList" size="medium">查看配置软件</el-button>
       <el-button type="primary" @click="handleAttachment" size="medium">查看入库附件</el-button>
     </div>
@@ -308,6 +309,15 @@
       handleEquipSoftwareList(id){
         this.$router.push({
           name: 'Equip_Software_List',
+          query: {
+            id: id
+          }
+        })
+      },
+      /* 跳转到配置零部件列表 */
+      handleEquipComponentsList(id) {
+        this.$router.push({
+          name: 'Equip_Components_List',
           query: {
             id: id
           }
