@@ -13,6 +13,9 @@ import componentsCreateRouter from '@/router/modules/equipment/components-module
 import componentsDetailRouter from '@/router/modules/equipment/components-modules/information/components-detail'
 import componentsCategoryCreateRouter from '@/router/modules/equipment/components-modules/category/category-create'
 import componentsCategoryDetailRouter from '@/router/modules/equipment/components-modules/category/category-detail'
+import equipComponentsListRouter from '@/router/modules/equipment/equip-modules/information/equipment-components-list'
+import equipComponentsDetailRouter
+  from '@/router/modules/equipment/equip-modules/information/equipment-components-detail'
 
 const equipmentRouter = {
   path: 'modules',
@@ -39,6 +42,10 @@ const equipmentRouter = {
         equipCreateRouter,
         // 器材详情
         equipDetailRouter,
+        // 器材内置零部件列表
+        equipComponentsListRouter,
+        // 器材内置零部件详情
+        equipComponentsDetailRouter,
         // 器材内置软件列表
         equipSoftwareListRouter,
         // 器材内置软件详情

@@ -4,8 +4,8 @@
     <div class="filter-container">
       <!-- 简单搜索 -->
       <div class="filter-container-conditions" style="margin: 2px">
-        <el-input v-model="queryList.name" placeholder="种类名称" style="width: 230px;" clearable>
-          <template slot="prepend">种类名称</template>
+        <el-input v-model="queryList.name" placeholder="分类名称" style="width: 230px;" clearable>
+          <template slot="prepend">分类名称</template>
         </el-input>
         <el-button-group>
           <el-button type="primary" size="medium" @click="handleFilter">搜索</el-button>
@@ -48,12 +48,12 @@
       />
       <el-table-column
         prop="name"
-        label="种类名称"
+        label="分类名称"
         width="auto"
       />
       <el-table-column
         prop="description"
-        label="种类描述"
+        label="分类描述"
         width="auto"
       />
     </el-table>
@@ -70,7 +70,7 @@
 <script>
 const fake_data = [
   {
-    id: 1, name: '设施种类名称', description: '设施种类描述'
+    id: 1, name: '设施分类名称', description: '设施分类描述'
   }
 ]
 import Pagination from '@/components/Pagination'
@@ -108,7 +108,7 @@ export default {
       this.listLoading = false
     },
     /* 跳转到详情页面 */
-    handleDetail(row) {
+    handleDetail(row, column, event) {
       console.log('handleDetail')
       this.$router.push({
         name: 'Facility_Category_Detail',
@@ -140,9 +140,22 @@ export default {
 }
 </script>
 
+<!-- 功能栏样式 -->
 <style scoped>
   .filter-container {
     margin-bottom: 70px;
+  }
+  .FunctionBtn {
+    overflow:hidden;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    -webkit-box-shadow: #CCCCCC 0px 0px 5px;
+    -moz-box-shadow: #CCCCCC 0px 0px 5px;
+    box-shadow: #CCCCCC 0px 0px 5px;
+  }
+  .FunctionBtn_Son {
+    display: inline-block;
+    margin : 5px;
   }
   .button-filter-container {
     display: inline-block;
