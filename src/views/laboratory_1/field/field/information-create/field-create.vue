@@ -9,110 +9,90 @@
     <div class="form-style">
       <h2>新增实验室</h2>
       <el-form ref="dataForm" :model="dataForm" :rules="rules">
-        <el-row>
+        <el-row type="flex" class="row-bg" justify="space-around">
           <el-col :span="8">
-            <el-form-item label="实验室种类" label-width="100px" prop="infoValidation">
-              <el-select v-model="dataForm.lab_category_id" clearable placeholder="实验室种类">
-                <el-option v-for="item in labCategoryList" :key="item.id" :label="item.name" :value="item.number">
-                  <span>{{ item.name }}</span>
+            <el-form-item label="英文名称" label-width="100px" prop="number">
+              <el-input v-model="dataForm.english_name" style="width: auto" />
+            </el-form-item>
+          </el-col>
+          <el-col :span="8">
+            <el-form-item label="中文名称" label-width="100px" prop="name">
+              <el-input v-model="dataForm.name" style="width: auto" />
+            </el-form-item>
+          </el-col>
+          <el-col :span="8">
+            <el-form-item label="实验室分类" label-width="100px" prop="number">
+              <el-select v-model="dataForm.lab_category_id" style="width: 160px;" placeholder="实验室分类" filterable clearable>
+                <!--获取数据库信息动态生成option-->
+                <el-option v-for="item in labCategoryList" :key="item.id" :label="item.name" :value="item.id">
+                  <span style="float: left">编号:{{ item.id }}</span>
+                  <span style="float: right; color: #8492a6; font-size: 12px">名称:{{ item.name }}</span>
+                </el-option>
+              </el-select>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row type="flex" class="row-bg" justify="space-around">
+          <el-col :span="8">
+            <el-form-item label="最大机位数" label-width="100px" prop="name">
+              <el-input v-model="dataForm.max_seat" style="width: auto" />
+            </el-form-item>
+          </el-col>
+          <el-col :span="8">
+            <el-form-item label="场地" label-width="100px" prop="name">
+              <el-select v-model="dataForm.field_id" style="width: 160px;" placeholder="场地" filterable clearable @change="showFieldData(dataForm.field_id)">
+                <!--获取数据库信息动态生成option-->
+                <el-option v-for="item in fieldList" :key="item.id" :label="item.name" :value="item.id">
+                  <span style="float: left">编号:{{ item.id }}</span>
+                  <span style="float: right; color: #8492a6; font-size: 12px">名称:{{ item.name }}</span>
                 </el-option>
               </el-select>
             </el-form-item>
           </el-col>
           <el-col :span="8">
-            <el-form-item label="实验室名称" label-width="100px" prop="infoValidation">
-              <el-input v-model="dataForm.lab_name" style="width: auto" />
-            </el-form-item>
-          </el-col>
-          <el-col :span="8">
-            <el-form-item label="实验室编号" label-width="100px" prop="infoValidation">
-              <el-input v-model="dataForm.lab_num" style="width: auto" />
+            <el-form-item label="楼层" label-width="100px" prop="number">
+              <el-input v-model="dataForm.field_floor" style="width: auto" readonly />
             </el-form-item>
           </el-col>
         </el-row>
-
-        <el-row>
+        <el-row type="flex" class="row-bg" justify="space-around">
           <el-col :span="8">
-            <el-form-item label="负责人" label-width="100px" prop="infoValidation">
-              <el-select v-model="dataForm.lab_owner" clearable placeholder="负责人">
-                <el-option v-for="item in labOwnerList" :key="item.id" :label="item.name" :value="item.number">
-                  <span>{{ item.name }}</span>
-                </el-option>
-              </el-select>
+            <el-form-item label="房间编号" label-width="100px" prop="name">
+              <el-input v-model="dataForm.field_room" style="width: auto" readonly />
             </el-form-item>
           </el-col>
           <el-col :span="8">
-            <el-form-item label="可用设备数" label-width="100px" prop="infoValidation">
-              <el-input v-model="dataForm.lab_equ_use" style="width: auto" />
+            <el-form-item label="场地负责人" label-width="100px" prop="name">
+              <el-input v-model="dataForm.field_manager" style="width: auto" readonly />
             </el-form-item>
           </el-col>
           <el-col :span="8">
-            <el-form-item label="最大机位数" label-width="100px" prop="infoValidation">
-              <el-input v-model="dataForm.lab_equ_max" style="width: auto" />
+            <el-form-item label="可容纳人数" label-width="100px" prop="number">
+              <el-input v-model="dataForm.field_volumn" style="width: auto" readonly />
             </el-form-item>
           </el-col>
         </el-row>
-        <el-row>
-          <!-- 场地 -->
+        <el-row type="flex" class="row-bg" justify="space-around">
           <el-col :span="8">
-            <el-form-item label="场地" label-width="100px" prop="infoValidation">
-              <el-select v-model="dataForm.lab_field_number" placeholder="场地" clearable @change="showFieldData(dataForm.lab_field_number)">
-                <el-option v-for="item in fieldList" :key="item.id" :label="item.name" :value="item.number">
-                  <span>{{ item.name }}</span>
-                </el-option>
-              </el-select>
+            <el-form-item label="场地长度" label-width="100px" prop="number">
+              <el-input v-model="dataForm.field_long" style="width: auto" readonly />
             </el-form-item>
           </el-col>
           <el-col :span="8">
-            <el-form-item label="楼栋" label-width="100px" prop="infoValidation">
-              <el-input v-model="dataForm.lab_building" readonly style="width: auto" />
+            <el-form-item label="场地宽度" label-width="100px" prop="name">
+              <el-input v-model="dataForm.field_width" style="width: auto" readonly />
             </el-form-item>
           </el-col>
           <el-col :span="8">
-            <el-form-item label="房号" label-width="100px" prop="infoValidation">
-              <el-input v-model="dataForm.lab_room" readonly style="width: auto" />
+            <el-form-item label="场地高度" label-width="100px" prop="number">
+              <el-input v-model="dataForm.field_height" style="width: auto" readonly />
             </el-form-item>
           </el-col>
         </el-row>
-        <!-- 场地内容 -->
-        <el-row>
-          <el-col :span="8">
-            <el-form-item label="场地长度" label-width="100px" prop="infoValidation">
-              <el-input v-model="dataForm.lab_long" readonly style="width: auto" />
-            </el-form-item>
-          </el-col>
-          <el-col :span="8">
-            <el-form-item label="场地宽度" label-width="100px" prop="infoValidation">
-              <el-input v-model="dataForm.lab_width" readonly style="width: auto" />
-            </el-form-item>
-          </el-col>
-          <el-col :span="8">
-            <el-form-item label="场地高度" label-width="100px" prop="infoValidation">
-              <el-input v-model="dataForm.lab_height" readonly style="width: auto" />
-            </el-form-item>
-          </el-col>
-        </el-row>
-        <el-row>
-          <el-col :span="8">
-            <el-form-item label="场地类型" label-width="100px" prop="infoValidation">
-              <el-input v-model="dataForm.lab_field_type" readonly style="width: auto" />
-            </el-form-item>
-          </el-col>
-          <el-col :span="8">
-            <el-form-item label="室内/室外" label-width="100px" prop="infoValidation">
-              <el-input v-model="dataForm.lab_isIndoor" readonly style="width: auto" />
-            </el-form-item>
-          </el-col>
-        </el-row>
-        <el-row>
+        <el-row type="flex" class="row-bg" justify="space-around">
           <el-col>
-            <el-form-item label="实验室描述" label-width="100px" prop="infoValidation" style="width: 91.8%">
-              <el-input
-                v-model="dataForm.lab_description"
-                type="textarea"
-                :autosize="{ minRows: 2, maxRows: 4}"
-                placeholder="请输入内容"
-              />
+            <el-form-item label="室内/室外" label-width="100px" prop="name">
+              <el-input v-model="dataForm.field_isIndoor" style="width: auto" readonly />
             </el-form-item>
           </el-col>
         </el-row>
@@ -123,143 +103,141 @@
 </template>
 
 <script>
-  const fake_fieldList = [
-    {
-      id: 1,
-      name: '场地1',
-      number: 'CD01',
-      building_id: '1',
-      room_id: '1',
-      long: '10',
-      width: '10',
-      height: '10',
-      isIndoor: '室外',
-      type: '类型1'
-    },
-    {
-      id: 2,
-      name: '场地2',
-      number: 'CD02',
-      building_id: '2',
-      room_id: '2',
-      long: '20',
-      width: '20',
-      height: '20',
-      isIndoor: '室外',
-      type: '类型2'
-    },
-    {
-      id: 3,
-      name: '场地3',
-      number: 'CD03',
-      building_id: '3',
-      room_id: '3',
-      long: '30',
-      width: '30',
-      height: '30',
-      isIndoor: '室外',
-      type: '类型3'
+const fake_fieldList = [
+  {
+    id: 1,
+    name: '场地1名称',
+    field_manager_id: 1,
+    field_manager: '负责人1',
+    floor: '楼层',
+    room: '房间号',
+    isIndoor: '室内/室外',
+    height: '高度',
+    width: '宽度',
+    long: '长度',
+    volumn: '最大容纳人数'
+  },
+  {
+    id: 2,
+    name: '场地2名称',
+    field_manager_id: 2,
+    field_manager: '负责人2',
+    floor: '楼层',
+    room: '房间号',
+    isIndoor: '室内/室外',
+    height: '高度',
+    width: '宽度',
+    long: '长度',
+    volumn: '最大容纳人数'
+  },
+  {
+    id: 3,
+    name: '场地3名称',
+    field_manager_id: 3,
+    field_manager: '负责人3',
+    floor: '楼层',
+    room: '房间号',
+    isIndoor: '室内/室外',
+    height: '高度',
+    width: '宽度',
+    long: '长度',
+    volumn: '最大容纳人数'
+  }
+]
+const fake_labCategoryList = [
+  { id: 1, name: '种类1', number: 'ZL01' },
+  { id: 2, name: '种类2', number: 'ZL02' },
+  { id: 3, name: '种类3', number: 'ZL03' }
+]
+const fake_ownerList = [
+  { id: 1, name: '负责人1', number: 'FZ01' },
+  { id: 2, name: '负责人2', number: 'FZ02' },
+  { id: 3, name: '负责人3', number: 'FZ03' }
+]
+// 存储要改变的key
+const keyList = []
+
+export default {
+  name: 'field-create',
+  data() {
+    return {
+      rules: {
+        number: [
+          { type: 'number', message: '请输入数字', trigger: 'blur' }
+        ],
+        infoValidation: [
+          { type: 'string', message: '请输入', trigger: 'blur' }
+        ]
+      },
+      dataForm: {
+        id: null,
+        college_id: null,
+        college_name: null,
+        english_name: null,
+        name: null,
+        lab_category_id: null,
+        lab_category_name: null,
+        lab_equipment_id: null, // 实验室器材
+        max_seat: null,
+        lab_facility_id: null,
+        field_id: null
+      },
+      fieldList: fake_fieldList,
+      labCategoryList: fake_labCategoryList,
+      labOwnerList: fake_ownerList
     }
-  ]
-  const fake_labCategoryList = [
-    { id: 1, name: '种类1', number: 'ZL01' },
-    { id: 2, name: '种类2', number: 'ZL02' },
-    { id: 3, name: '种类3', number: 'ZL03' }
-  ]
-  const fake_ownerList = [
-    { id: 1, name: '负责人1', number: 'FZ01' },
-    { id: 2, name: '负责人2', number: 'FZ02' },
-    { id: 3, name: '负责人3', number: 'FZ03' }
-  ]
-  // 存储要改变的key
-  const keyList = []
+  },
+  created() {
 
-  export default {
-    name: 'field-create',
-    data() {
-      return {
-        rules: {
-          number: [
-            { type: 'number', message: '请输入数字', trigger: 'blur' }
-          ],
-          infoValidation: [
-            { type: 'string', message: '请输入', trigger: 'blur' }
-          ]
-        },
-        dataForm: {
-          lab_isIndoor: '',
-          lab_height: '',
-          lab_width: '',
-          lab_long: '',
-          lab_field_type: '',
-          lab_building: '',
-          lab_room: '',
-          lab_field_number: '',
-          lab_category_id: '',
-          lab_num: '',
-          lab_name: '',
-          lab_owner_id: '',
-          lab_description: '',
-          lab_equ_use: '',
-          lab_equ_max: ''
-        },
-        fieldList: fake_fieldList,
-        labCategoryList: fake_labCategoryList,
-        labOwnerList: fake_ownerList
+  },
+  methods: {
+    submitCreate(formName) {
+      this.$refs[formName].validate((valid) => {
+        if (valid) {
+          // 调用接口
+          this.$message({
+            message: '添加成功!',
+            type: 'success'
+          })
+          console.log('success submit!!')
+          console.log(this.dataForm)
+        } else {
+          console.log('error submit!!')
+          return false
+        }
+      })
+    },
+    /* 返回上一页 */
+    handleReturn() {
+      this.$router.go(-1)
+    },
+    showFieldData(number) {
+      console.log('number=' + number)
+      if (!number) {
+        for (const key in keyList) {
+          if (!keyList.hasOwnProperty(key)) continue
+          this.dataForm[keyList[key]] = ''
+        }
       }
-    },
-    created() {
-
-    },
-    methods: {
-      submitCreate(formName) {
-        this.$refs[formName].validate((valid) => {
-          if (valid) {
-            // 调用接口
-            this.$message({
-              message: '添加成功!',
-              type: 'success'
-            })
-            console.log('success submit!!')
-            console.log(this.dataForm)
-          } else {
-            console.log('error submit!!')
-            return false
-          }
-        })
-      },
-      /* 返回上一页 */
-      handleReturn() {
-        // this.$router.push({
-        //   path: '' // 跳转到lab list页面
-        // })
-        this.$router.go(-1)
-      },
-      showFieldData(number) {
-        console.log('number=' + number)
-        if (!number) {
-          for (const key in keyList) {
-            if (!keyList.hasOwnProperty(key)) continue
-            this.dataForm[keyList[key]] = ''
-          }
-        }
-        const temp = fake_fieldList.filter(m => m.number === number).map(m => ({
-          lab_field_number: m.number,
-          lab_isIndoor: m.isIndoor,
-          lab_height: m.height,
-          lab_width: m.width,
-          lab_long: m.long,
-          lab_field_type: m.type,
-          lab_building: m.building_id,
-          lab_room: m.room_id
-        })).pop()
-        for (const key in temp) {
-          this.dataForm[key] = temp[key]
-          keyList.push(key)
-        }
+      const temp = fake_fieldList.filter(m => m.id === number).map(m => ({
+        field_name: m.name,
+        field_manager_id: m.field_manager_id,
+        field_manager: m.field_manager,
+        field_floor: m.floor,
+        field_room: m.room,
+        field_isIndoor: m.isIndoor,
+        field_height: m.height,
+        field_width: m.width,
+        field_long: m.long,
+        field_volumn: m.volumn
+      })).pop()
+      for (const key in temp) {
+        this.dataForm[key] = temp[key]
+        keyList.push(key)
       }
     }
   }
+}
 </script>
 
 <style scoped>
