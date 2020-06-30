@@ -53,35 +53,37 @@ const fieldRouter = {
         // }
       ]
     },
-    // 实验室设施
-    {
-      path: 'facility-components-modules',
-      component: () => import('@/views/laboratory_1/field/facility/index'),
-      name: 'Facility',
-      meta: { title: '实验室设施' },
-      children: [
-        // 设施分类管理
-        facCategoryListRouter,
-        // 新增设施分类
-        facCategoryCreateRouter,
-        // 设施分类详情
-        facCategoryDetailRouter,
-        // 设施信息管理
-        facilityListRouter,
-        // 设施详情
-        facilityDetailRouter,
-        // 新增设施
-        facilityCreateRouter
 
-        // 设施数量管理
-        // {
-        //   path: 'quantity',
-        //   component: () => import('@/views/laboratory_1/field/facility/quantity/index'),
-        //   name: 'Quantity',
-        //   meta: { title: '设施数量管理' }
-        // }
-      ]
-    }
+    // 设施部分暂不实现
+    // 实验室设施
+    // {
+    //   path: 'facility-components-modules',
+    //   component: () => import('@/views/laboratory_1/field/facility/index'),
+    //   name: 'Facility',
+    //   meta: { title: '实验室设施' },
+    //   children: [
+    //     // 设施分类管理
+    //     facCategoryListRouter,
+    //     // 新增设施分类
+    //     facCategoryCreateRouter,
+    //     // 设施分类详情
+    //     facCategoryDetailRouter,
+    //     // 设施信息管理
+    //     facilityListRouter,
+    //     // 设施详情
+    //     facilityDetailRouter,
+    //     // 新增设施
+    //     facilityCreateRouter
+    //
+    //     // 设施数量管理
+    //     // {
+    //     //   path: 'quantity',
+    //     //   component: () => import('@/views/laboratory_1/field/facility/quantity/index'),
+    //     //   name: 'Quantity',
+    //     //   meta: { title: '设施数量管理' }
+    //     // }
+    //   ]
+    // }
   ]
 }
 

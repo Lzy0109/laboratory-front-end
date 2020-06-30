@@ -13,7 +13,7 @@
       <el-form ref="dataForm" :model="dataForm" :rules="rules">
         <el-row type="flex" class="row-bg" justify="space-around">
           <el-col>
-            <el-form-item label="名称" label-width="100px" prop="infoValidation">
+            <el-form-item label="分类名称" label-width="100px" prop="infoValidation">
               <el-input v-model="dataForm.name" style="width: auto" :readonly="isRead" />
             </el-form-item>
           </el-col>
@@ -39,7 +39,9 @@
 <script>
   const fake_data =
     {
-      id: 1, name: '器材分类名称', description: '器材分类描述'
+      id: 1,
+      name: '器材分类名称',
+      description: '器材分类描述'
     }
   export default {
     name: 'category-detail',

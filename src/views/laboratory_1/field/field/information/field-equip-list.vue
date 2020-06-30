@@ -373,7 +373,7 @@ export default {
   }
   .button-filter-container {
     display: inline-block;
-    margin-left: 210px;
+    margin-left: 270px;
   }
   .filter-container-conditions {
     display: inline-block;

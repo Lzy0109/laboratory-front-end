@@ -217,7 +217,7 @@ const fakeData = {
   production_date: '出产日期',
 
   bills_number: '单据号',
-  purchase_date: '购置日',
+  purchase_date: '购置日期',
   field_id: 1,
   field_name: '存放场所',
   expenditure: '经费来源',

@@ -52,6 +52,11 @@
         width="auto"
       />
       <el-table-column
+        prop="english_name"
+        label="英文名称"
+        width="auto"
+      />
+      <el-table-column
         prop="description"
         label="分类描述"
         width="auto"
@@ -70,7 +75,10 @@
 <script>
 const fake_data = [
   {
-    id: 1, name: '实验室分类名称', description: '实验室分类描述'
+    id: 1,
+    name: '实验室分类名称',
+    english_name: 'test_lab_category',
+    description: '实验室分类描述'
   }
 ]
 import Pagination from '@/components/Pagination'

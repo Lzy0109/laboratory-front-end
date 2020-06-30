@@ -7,18 +7,18 @@
     </div>
     <!-- 添加信息表单 -->
     <div class="form-style">
-      <h2>新建耗材种类信息</h2>
+      <h2>新建耗材分类信息</h2>
       <el-form ref="dataForm" :model="dataForm" :rules="rules">
         <el-row type="flex" class="row-bg" justify="space-around">
           <el-col>
-            <el-form-item label="种类名称" label-width="100px" prop="infoValidation">
+            <el-form-item label="分类名称" label-width="100px" prop="infoValidation">
               <el-input v-model="dataForm.name" style="width: auto" />
             </el-form-item>
           </el-col>
         </el-row>
         <el-row type="flex" class="row-bg" justify="space-around">
           <el-col>
-            <el-form-item label="种类描述" label-width="100px" prop="infoValidation">
+            <el-form-item label="分类描述" label-width="100px" prop="infoValidation">
               <el-input v-model="dataForm.description" type="textarea" :autosize="{ minRows:2,maxRows:5 }" style="width: 600px" />
             </el-form-item>
           </el-col>
@@ -29,44 +29,44 @@
 </template>
 
 <script>
-export default {
-  name: 'ConsumableCategoryCreate',
-  data() {
-    return {
-      rules: {
-        infoValidation: [
-          { type: 'string', message: '请输入', trigger: 'blur', required: true }
-        ]
+  export default {
+    name: 'category-create',
+    data() {
+      return {
+        rules: {
+          infoValidation: [
+            { type: 'string', message: '请输入', trigger: 'blur' }
+          ]
+        },
+        dataForm: {
+          name: '',
+          description: ''
+        }
+      }
+    },
+    methods: {
+      submitCreate(formName) {
+        this.$refs[formName].validate((valid) => {
+          if (valid) {
+            // 调用接口
+            this.$message({
+              message: '添加成功!',
+              type: 'success'
+            })
+            console.log('success submit!!')
+            this.$router.go(-1)
+          } else {
+            console.log('error submit!!')
+            return false
+          }
+        })
       },
-      dataForm: {
-        name: '',
-        description: ''
+      /* 返回上一页 */
+      handleReturn() {
+        this.$router.go(-1)
       }
     }
-  },
-  methods: {
-    submitCreate(formName) {
-      this.$refs[formName].validate((valid) => {
-        if (valid) {
-          // 调用接口
-          this.$message({
-            message: '添加成功!',
-            type: 'success'
-          })
-          console.log('success submit!!')
-          this.$router.go(-1)
-        } else {
-          console.log('error submit!!')
-          return false
-        }
-      })
-    },
-    /* 返回上一页 */
-    handleReturn() {
-      this.$router.go(-1)
-    }
   }
-}
 </script>
 
 <style scoped>
