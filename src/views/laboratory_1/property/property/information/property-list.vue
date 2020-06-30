@@ -4,10 +4,10 @@
     <div class="filter-container">
       <!-- 简单搜索 -->
       <div class="filter-container-conditions" style="margin: 2px">
-        <el-input v-model="queryList.lab_num" placeholder="资产编号" style="width: 230px;" clearable>
-          <template slot="prepend">资产编号</template>
+        <el-input v-model="queryList.property_name" placeholder="资产名称" style="width: 230px;" clearable>
+          <template slot="prepend">资产名称</template>
         </el-input>
-        <el-select v-model="queryList.lab_owner" style="width: 160px;" placeholder="出借人" filterable clearable @change="handleFilter">
+        <el-select v-model="queryList.user_id" style="width: 160px;" placeholder="出借人" filterable clearable @change="handleFilter">
           <!--获取数据库信息动态生成option-->
           <!--
           <el-option v-for="item in CategoryList" :key=item.id :label="item.name" :value="item.id" >
@@ -17,6 +17,24 @@
           -->
           <el-option key="1" label="出借人1" value="1" />
           <el-option key="0" label="出借人2" value="0" />
+        </el-select>
+        <el-date-picker
+          v-model="queryList.start_date"
+          type="date"
+          placeholder="出借日期"
+          style="width: 150px">
+        </el-date-picker>
+        <el-select v-model="queryList.status" style="width: 120px;" placeholder="出借状态" filterable clearable @change="handleFilter">
+          <!--获取数据库信息动态生成option-->
+          <!--
+          <el-option v-for="item in CategoryList" :key=item.id :label="item.name" :value="item.id" >
+            <span style="float: left">编号:{{ item.id }}</span>
+            <span style="float: right; color: #8492a6; font-size: 12px">名称:{{ item.name }}</span>
+          </el-option>
+          -->
+          <el-option key="0" label="正在出借" value="0" />
+          <el-option key="1" label="已归还" value="1" />
+          <el-option key="2" label="丢失" value="2" />
         </el-select>
         <el-button-group>
           <el-button type="primary"  size="medium" @click="handleFilter">搜索</el-button>
@@ -48,6 +66,92 @@
     <el-dialog :visible.sync="showDetailSearchBtn" width="95%" :show-close="false">
       <span class="my-dialog-title" slot="title">高级搜索</span>
       <div class="DetailSearch_son">
+        <el-row class="DetailSearch_son_row">
+          <!-- 资产名称 -->
+          <el-col :span="6">
+            <el-input v-model="queryList.property_name" placeholder="资产名称" style="width: 300px;" clearable>
+              <template slot="prepend">资产名称</template>
+            </el-input>
+          </el-col>
+          <!-- 出借人 -->
+          <el-col :span="6">
+            <el-select v-model="queryList.user_id" style="width: 300px;" placeholder="出借人" filterable clearable @change="handleFilter">
+              <!--获取数据库信息动态生成option-->
+              <!--
+              <el-option v-for="item in CategoryList" :key=item.id :label="item.name" :value="item.id" >
+                <span style="float: left">编号:{{ item.id }}</span>
+                <span style="float: right; color: #8492a6; font-size: 12px">名称:{{ item.name }}</span>
+              </el-option>
+              -->
+              <el-option key="1" label="出借人1" value="1" />
+              <el-option key="0" label="出借人2" value="0" />
+            </el-select>
+          </el-col>
+          <!-- 出借开始日期 -->
+          <el-col :span="6">
+            <el-date-picker
+              v-model="queryList.start_date"
+              type="date"
+              placeholder="出借开始日期"
+              style="width: 300px">
+            </el-date-picker>
+          </el-col>
+          <!-- 出借截止日期 -->
+          <el-col :span="6">
+            <el-date-picker
+              v-model="queryList.end_date"
+              type="date"
+              placeholder="出借截止日期"
+              style="width: 300px">
+            </el-date-picker>
+          </el-col>
+        </el-row>
+        <el-row class="DetailSearch_son_row">
+          <!-- 出借归还日期-->
+          <el-col :span="6">
+            <el-date-picker
+              v-model="queryList.return_date"
+              type="date"
+              placeholder="归还日期"
+              style="width: 300px">
+            </el-date-picker>
+          </el-col>
+          <!-- 出借状态 -->
+          <el-col :span="6">
+            <el-select v-model="queryList.status" style="width: 300px;" placeholder="出借状态" filterable clearable @change="handleFilter">
+              <!--获取数据库信息动态生成option-->
+              <!--
+              <el-option v-for="item in CategoryList" :key=item.id :label="item.name" :value="item.id" >
+                <span style="float: left">编号:{{ item.id }}</span>
+                <span style="float: right; color: #8492a6; font-size: 12px">名称:{{ item.name }}</span>
+              </el-option>
+              -->
+              <el-option key="0" label="正在出借" value="0" />
+              <el-option key="1" label="已归还" value="1" />
+              <el-option key="2" label="丢失" value="2" />
+            </el-select>
+          </el-col>
+          <!-- 资产种类 -->
+          <el-col :span="6">
+            <el-select v-model="queryList.lab_property_category_id" style="width: 300px;" placeholder="资产种类" filterable clearable @change="handleFilter">
+              <!--获取数据库信息动态生成option-->
+              <!--
+              <el-option v-for="item in CategoryList" :key=item.id :label="item.name" :value="item.id" >
+                <span style="float: left">编号:{{ item.id }}</span>
+                <span style="float: right; color: #8492a6; font-size: 12px">名称:{{ item.name }}</span>
+              </el-option>
+              -->
+              <el-option key="1" label="种类1" value="1" />
+              <el-option key="0" label="种类2" value="0" />
+            </el-select>
+          </el-col>
+          <!-- 出借数量 -->
+          <el-col :span="6">
+            <el-input v-model="queryList.quantity" placeholder="出借数量" style="width: 300px;" clearable>
+              <template slot="prepend">出借数量</template>
+            </el-input>
+          </el-col>
+        </el-row>
         <!-- 按钮定位 -->
         <div class="DetailSearch_button">
           <el-button class="filter-item" type="primary" icon="el-icon-search" @click="handleFilter">
@@ -90,7 +194,7 @@
       />
       <el-table-column
         prop="lab_category"
-        label="出借数量"
+        label="资产状态"
       />
       <el-table-column
         prop="lab_cur_equip_num"
@@ -137,12 +241,16 @@
         downloadLoading: false,
         /* 查询条件 */
         queryList: {
-          // 需要修改
-          lab_name: null,
-          lab_num: null,
-          lab_owner: null,
-          lab_cate: null,
-          other: null
+          id: null,
+          lab_property_id: null,
+          lab_property_category_id: null,
+          property_name: null,
+          user_id: null,
+          status: null,
+          quantity: null,
+          start_date: null,
+          end_date: null,
+          return_date: null
         },
         /* 是否显示高级搜索 */
         showDetailSearchBtn: false
@@ -158,7 +266,7 @@
       handleDetail(row, column, event) {
         console.log('handleDetail')
         this.$router.push({
-          name: 'Field_Detail',
+          name: 'Property_Detail',
           query:{
             id: row.id
           }
@@ -172,11 +280,11 @@
       handleDownload() {
 
       },
-      /* 跳转添加实验室页面 */
+      /* 跳转添加资产出借信息页面 */
       handleCreate() {
         console.log('handleCreate')
         this.$router.push({
-          name: 'Field_Create'
+          name: ''
         })
       },
       /* 批量添加 */
