@@ -7,13 +7,17 @@
         <el-input v-model="queryList.name" placeholder="实验室名称" style="width: 230px;" clearable>
           <template slot="prepend">实验室名称</template>
         </el-input>
-        <el-select v-model="queryList.lab_category_id" style="width: 160px;" placeholder="实验室分类" filterable clearable @change="handleFilter">
-          <!--获取数据库信息动态生成option-->
+        <el-input v-model="queryList.lab_category_name" placeholder="分类名称" style="width: 230px;" clearable>
+          <template slot="prepend">分类名称</template>
+        </el-input>
+        <!-- 旧版 -->
+        <!--<el-select v-model="queryList.lab_category_id" style="width: 160px;" placeholder="实验室分类" filterable clearable @change="handleFilter">
+          &lt;!&ndash;获取数据库信息动态生成option&ndash;&gt;
           <el-option v-for="item in labCategoryList" :key="item.id" :label="item.name" :value="item.id">
             <span style="float: left">编号:{{ item.id }}</span>
             <span style="float: right; color: #8492a6; font-size: 12px">名称:{{ item.name }}</span>
           </el-option>
-        </el-select>
+        </el-select>-->
         <el-button-group>
           <el-button type="primary" size="medium" @click="handleFilter">搜索</el-button>
         </el-button-group>
@@ -65,16 +69,20 @@
           </el-col>
           <!-- 实验室分类 -->
           <el-col :span="6">
-            <div class="detail-search-prepend">实验室分类</div>
+            <el-input v-model="queryList.lab_category_name" placeholder="分类名称" style="width: 300px;" clearable>
+              <template slot="prepend">分类名称</template>
+            </el-input>
+            <!-- 旧版 -->
+            <!--<div class="detail-search-prepend">实验室分类</div>
             <div style="display: table-cell">
               <el-select v-model="queryList.lab_category_id" style="width: 189px;" placeholder="实验室分类" filterable clearable @change="handleFilter">
-                <!--获取数据库信息动态生成option-->
+                &lt;!&ndash;获取数据库信息动态生成option&ndash;&gt;
                 <el-option v-for="item in labCategoryList" :key="item.id" :label="item.name" :value="item.id">
                   <span style="float: left">编号:{{ item.id }}</span>
                   <span style="float: right; color: #8492a6; font-size: 12px">名称:{{ item.name }}</span>
                 </el-option>
               </el-select>
-            </div>
+            </div>-->
           </el-col>
         </el-row>
         <el-row class="DetailSearch_son_row">
@@ -218,6 +226,7 @@ export default {
         name: null,
         english_name: null,
         max_seat: null,
+        lab_category_name: null,
         lab_category_id: null,
         college_id: null,
         school_id: null,

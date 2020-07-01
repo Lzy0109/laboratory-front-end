@@ -6,16 +6,20 @@
       <div class="button-filter-container">
         <!-- 简单搜索 -->
         <div class="filter-container-conditions" style="margin: 2px">
-          <el-input v-model="queryList.equ_number" placeholder="器材编号" style="width: 230px;" clearable>
+          <el-input v-model="queryList.number" placeholder="器材编号" style="width: 230px;" clearable>
             <template slot="prepend">器材编号</template>
           </el-input>
-          <el-select v-model="queryList.lab_equipment_category_id" style="width: 160px;" placeholder="器材分类" filterable clearable>
-            <!--获取数据库信息动态生成option-->
+          <el-input v-model="queryList.lab_equipment_category_name" placeholder="器材分类" style="width: 230px;" clearable>
+            <template slot="prepend">器材分类</template>
+          </el-input>
+          <!-- 旧版 -->
+          <!--<el-select v-model="queryList.lab_equipment_category_id" style="width: 160px;" placeholder="器材分类" filterable clearable>
+            &lt;!&ndash;获取数据库信息动态生成option&ndash;&gt;
             <el-option v-for="item in equCategoryList" :key="item.id" :label="item.name" :value="item.id">
               <span style="float: left">编号:{{ item.id }}</span>
               <span style="float: right; color: #8492a6; font-size: 12px">名称:{{ item.name }}</span>
             </el-option>
-          </el-select>
+          </el-select>-->
           <el-button-group>
             <el-button type="primary" size="medium" @click="handleFilter">搜索</el-button>
           </el-button-group>
@@ -55,16 +59,20 @@
           </el-col>
           <!-- 器材种类 -->
           <el-col :span="6">
-            <div class="detail-search-prepend">器材种类</div>
+            <el-input v-model="queryList.lab_equipment_category_name" placeholder="器材分类" style="width: 300px;" clearable>
+              <template slot="prepend">器材分类</template>
+            </el-input>
+            <!-- 旧版 -->
+            <!--<div class="detail-search-prepend">器材种类</div>
             <div style="display: table-cell">
               <el-select v-model="queryList.lab_equipment_category_id" style="width: 203px;" placeholder="器材种类" filterable clearable @change="handleFilter">
-                <!--获取数据库信息动态生成option-->
+                &lt;!&ndash;获取数据库信息动态生成option&ndash;&gt;
                 <el-option v-for="item in equCategoryList" :key="item.id" :label="item.name" :value="item.id">
                   <span style="float: left">编号:{{ item.id }}</span>
                   <span style="float: right; color: #8492a6; font-size: 12px">名称:{{ item.name }}</span>
                 </el-option>
               </el-select>
-            </div>
+            </div>-->
           </el-col>
           <el-col :span="6">
             <el-input v-model="queryList.equip_name" placeholder="器材名称" style="width: 300px;" clearable>
@@ -72,16 +80,20 @@
             </el-input>
           </el-col>
           <el-col :span="6">
-            <div class="detail-search-prepend">器材种类</div>
+            <el-input v-model="queryList.field_name" placeholder="存放场所" style="width: 300px;" clearable>
+              <template slot="prepend">存放场所</template>
+            </el-input>
+            <!-- 旧版 -->
+            <!--<div class="detail-search-prepend">存放场所</div>
             <div style="display: table-cell">
               <el-select v-model="queryList.field_id" style="width: 203px;" placeholder="存放场所" filterable clearable @change="handleFilter">
-                <!--获取数据库信息动态生成option-->
+                &lt;!&ndash;获取数据库信息动态生成option&ndash;&gt;
                 <el-option v-for="item in fieldList" :key="item.id" :label="item.name" :value="item.id">
                   <span style="float: left">编号:{{ item.id }}</span>
                   <span style="float: right; color: #8492a6; font-size: 12px">名称:{{ item.name }}</span>
                 </el-option>
               </el-select>
-            </div>
+            </div>-->
           </el-col>
         </el-row>
         <el-row class="DetailSearch_son_row">
@@ -276,9 +288,11 @@ export default {
         // 需求修改
         number: null,
         name: null,
+        lab_equipment_category_name: null,
         lab_equipment_category_id: null,
         quantity: null,
         field_id: null,
+        field_name: null,
         brand_id: null,
         model_id: null,
         lab_unit_id: null,
@@ -373,7 +387,7 @@ export default {
   }
   .button-filter-container {
     display: inline-block;
-    margin-left: 270px;
+    margin-left: 140px;
   }
   .filter-container-conditions {
     display: inline-block;
