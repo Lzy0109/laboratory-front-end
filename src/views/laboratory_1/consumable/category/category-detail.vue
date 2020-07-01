@@ -9,18 +9,18 @@
     </div>
     <!-- 详细信息展示 -->
     <div class="form-style">
-      <h2>耗材种类详细信息</h2>
+      <h2>耗材分类详细信息</h2>
       <el-form ref="dataForm" :model="dataForm" :rules="rules">
         <el-row type="flex" class="row-bg" justify="space-around">
           <el-col>
-            <el-form-item label="名称" label-width="100px" prop="infoValidation">
+            <el-form-item label="分类名称" label-width="100px" prop="infoValidation">
               <el-input v-model="dataForm.name" style="width: auto" :readonly="isRead" />
             </el-form-item>
           </el-col>
         </el-row>
         <el-row type="flex" class="row-bg" justify="space-around">
           <el-col>
-            <el-form-item label="种类描述" label-width="100px" prop="infoValidation">
+            <el-form-item label="分类描述" label-width="100px" prop="infoValidation">
               <el-input v-model="dataForm.description" type="textarea" :autosize="{ minRows:2,maxRows:5 }" style="width: 600px" :readonly="isRead" />
             </el-form-item>
           </el-col>
@@ -39,7 +39,9 @@
 <script>
 const fake_data =
   {
-    id: 1, name: '耗材种类名称', description: '耗材种类描述'
+    id: 1,
+    name: '分类名称',
+    description: '耗材分类描述'
   }
 export default {
   name: 'ConsumableCategoryDetail',

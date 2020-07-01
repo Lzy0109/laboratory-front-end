@@ -7,7 +7,7 @@
     </div>
     <!-- 添加信息表单 -->
     <div class="form-style">
-      <h2>新建实验室分类信息</h2>
+      <h2>新建软件分类信息</h2>
       <el-form ref="dataForm" :model="dataForm" :rules="rules">
         <el-row type="flex" class="row-bg" justify="space-around">
           <el-col>

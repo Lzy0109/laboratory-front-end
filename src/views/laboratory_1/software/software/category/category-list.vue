@@ -4,8 +4,8 @@
     <div class="filter-container">
       <!-- 简单搜索 -->
       <div class="filter-container-conditions" style="margin: 2px">
-        <el-input v-model="queryList.name" placeholder="种类名称" style="width: 230px;" clearable>
-          <template slot="prepend">种类名称</template>
+        <el-input v-model="queryList.name" placeholder="分类名称" style="width: 230px;" clearable>
+          <template slot="prepend">分类名称</template>
         </el-input>
         <el-button-group>
           <el-button type="primary" size="medium" @click="handleFilter">搜索</el-button>
@@ -48,12 +48,12 @@
       />
       <el-table-column
         prop="name"
-        label="种类名称"
+        label="分类名称"
         width="auto"
       />
       <el-table-column
         prop="description"
-        label="种类描述"
+        label="分类描述"
         width="auto"
       />
     </el-table>
@@ -70,7 +70,9 @@
 <script>
 const fake_data = [
   {
-    id: 1, name: '软件名称', description: '软件种类描述'
+    id: 1,
+    name: '软件分类名称',
+    description: '软件分类描述'
   }
 ]
 import Pagination from '@/components/Pagination'

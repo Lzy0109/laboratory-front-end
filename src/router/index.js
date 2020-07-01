@@ -80,12 +80,14 @@ export const constantRoutes = [
       equipmentRouter,
       // 实验软件管理
       softwareRouter,
+      // 暂不实现
       // 实验室人员管理
-      personnelRouter,
+      // personnelRouter,
       // 实验耗材管理
       consumableRouter,
+      // 暂不实现
       // 实验室资产管理
-      propertyRouter
+      // propertyRouter
     ]
   },
 

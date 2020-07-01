@@ -48,12 +48,12 @@
       />
       <el-table-column
         prop="name"
-        label="种类名称"
+        label="分类名称"
         width="auto"
       />
       <el-table-column
         prop="description"
-        label="种类描述"
+        label="分类描述"
         width="auto"
       />
     </el-table>
@@ -70,7 +70,9 @@
 <script>
 const fake_data = [
   {
-    id: 1, name: '耗材种类名称', description: '耗材种类描述'
+    id: 1,
+    name: '耗材分类名称',
+    description: '耗材分类描述'
   }
 ]
 import Pagination from '@/components/Pagination'

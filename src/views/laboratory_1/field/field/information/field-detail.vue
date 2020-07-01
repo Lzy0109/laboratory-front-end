@@ -15,13 +15,13 @@
       <el-form ref="dataForm" :model="dataForm" :rules="rules">
         <el-row type="flex" class="row-bg" justify="space-around">
           <el-col :span="8">
-            <el-form-item label="实验室编号" label-width="100px" prop="number">
-              <el-input v-model="dataForm.lab_num" style="width: auto" :readonly="isRead" />
+            <el-form-item label="英文名称" label-width="100px" prop="number">
+              <el-input v-model="dataForm.english_name" style="width: auto" :readonly="isRead" />
             </el-form-item>
           </el-col>
           <el-col :span="8">
-            <el-form-item label="实验室名称" label-width="100px" prop="name">
-              <el-input v-model="dataForm.lab_name" style="width: auto" :readonly="isRead" />
+            <el-form-item label="中文名称" label-width="100px" prop="name">
+              <el-input v-model="dataForm.name" style="width: auto" :readonly="isRead" />
             </el-form-item>
           </el-col>
           <el-col :span="8">
@@ -39,11 +39,16 @@
         </el-row>
         <el-row type="flex" class="row-bg" justify="space-around">
           <el-col :span="8">
-            <el-form-item label="负责人" label-width="100px" prop="name">
-              <el-input v-show="isRead" v-model="dataForm.lab_owner_name" style="width: auto" :readonly="isRead" />
-              <el-select v-show="!isRead" v-model="dataForm.lab_owner_id" style="width: 160px;" placeholder="负责人" filterable clearable>
+            <el-form-item label="最大机位数" label-width="100px" prop="name">
+              <el-input v-model="dataForm.max_seat" style="width: auto" :readonly="isRead" />
+            </el-form-item>
+          </el-col>
+          <el-col :span="8">
+            <el-form-item label="场地" label-width="100px" prop="name">
+              <el-input v-show="isRead" v-model="dataForm.field_name" style="width: auto" :readonly="isRead" />
+              <el-select v-show="!isRead" v-model="dataForm.field_id" style="width: 160px;" placeholder="场地" filterable clearable @change="getFieldDataById">
                 <!--获取数据库信息动态生成option-->
-                <el-option v-for="item in labOwnerList" :key="item.id" :label="item.name" :value="item.id">
+                <el-option v-for="item in fieldList" :key="item.id" :label="item.name" :value="item.id">
                   <span style="float: left">编号:{{ item.id }}</span>
                   <span style="float: right; color: #8492a6; font-size: 12px">名称:{{ item.name }}</span>
                 </el-option>
@@ -52,75 +57,52 @@
           </el-col>
           <el-col :span="8">
             <el-form-item label="楼层" label-width="100px" prop="number">
-              <el-input v-model="dataForm.lab_building" style="width: auto" :readonly="isRead" />
+              <el-input v-model="dataForm.field_floor" style="width: auto" readonly />
             </el-form-item>
           </el-col>
+        </el-row>
+        <el-row type="flex" class="row-bg" justify="space-around">
           <el-col :span="8">
             <el-form-item label="房间编号" label-width="100px" prop="name">
-              <el-input v-model="dataForm.lab_room" style="width: auto" :readonly="isRead" />
-            </el-form-item>
-          </el-col>
-        </el-row>
-        <el-row type="flex" class="row-bg" justify="space-around">
-          <el-col :span="8">
-            <el-form-item label="联系电话" label-width="100px" prop="number">
-              <el-input v-model="dataForm.lab_telephone" style="width: auto" :readonly="isRead" />
+              <el-input v-model="dataForm.field_room" style="width: auto" readonly />
             </el-form-item>
           </el-col>
           <el-col :span="8">
-            <el-form-item label="描述" label-width="100px" prop="name">
-              <el-input v-model="dataForm.lab_description" style="width: auto" :readonly="isRead" />
-            </el-form-item>
-          </el-col>
-          <el-col :span="8">
-            <el-form-item label="最大机位数" label-width="100px" prop="name">
-              <el-input v-model="dataForm.equipment_max" style="width: auto" :readonly="isRead" />
-            </el-form-item>
-          </el-col>
-        </el-row>
-        <el-row type="flex" class="row-bg" justify="space-around">
-          <el-col :span="8">
-            <el-form-item label="可用设备数" label-width="100px" prop="number">
-              <el-input v-model="dataForm.equipment_num" style="width: auto" :readonly="isRead" />
+            <el-form-item label="场地负责人" label-width="100px" prop="name">
+              <el-input v-model="dataForm.field_manager" style="width: auto" readonly />
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="可容纳人数" label-width="100px" prop="number">
-              <el-input v-model="dataForm.lab_capacity" style="width: auto" :readonly="isRead" />
-            </el-form-item>
-          </el-col>
-          <el-col :span="8">
-            <el-form-item label="场地类型" label-width="100px" prop="name">
-              <el-input v-model="dataForm.lab_style" style="width: auto" :readonly="isRead" />
+              <el-input v-model="dataForm.field_volumn" style="width: auto" readonly />
             </el-form-item>
           </el-col>
         </el-row>
         <el-row type="flex" class="row-bg" justify="space-around">
           <el-col :span="8">
             <el-form-item label="场地长度" label-width="100px" prop="number">
-              <el-input v-model="dataForm.lab_long" style="width: auto" :readonly="isRead" />
+              <el-input v-model="dataForm.field_long" style="width: auto" readonly />
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="场地宽度" label-width="100px" prop="name">
-              <el-input v-model="dataForm.lab_width" style="width: auto" :readonly="isRead" />
+              <el-input v-model="dataForm.field_width" style="width: auto" readonly />
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="场地高度" label-width="100px" prop="number">
-              <el-input v-model="dataForm.lab_height" style="width: auto" :readonly="isRead" />
+              <el-input v-model="dataForm.field_height" style="width: auto" readonly />
             </el-form-item>
           </el-col>
         </el-row>
         <el-row type="flex" class="row-bg" justify="space-around">
           <el-col>
             <el-form-item label="室内/室外" label-width="100px" prop="name">
-              <el-input v-model="dataForm.lab_indoor" style="width: auto" :readonly="isRead" />
+              <el-input v-model="dataForm.field_isIndoor" style="width: auto" readonly />
             </el-form-item>
           </el-col>
         </el-row>
       </el-form>
-
       <el-collapse-transition>
         <div v-show="showSaveBtn" style="text-align: center">
           <el-button type="success" size="medium" @click="submitEdit('dataForm')">保存</el-button>
@@ -135,36 +117,62 @@
 // 假数据
 const fakeData = {
   id: 1,
-  lab_num: 10041,
-  lab_name: '实验室',
+  college_id: '1',
+  college_name: '学校名称',
+  english_name: 'test-en',
+  name: '实验室',
   lab_category_id: 1,
   lab_category_name: '类别1',
+  lab_equipment_id: 1, // 实验室器材
+  max_seat: '最大设备数',
   lab_facility_id: 1,
-  lab_owner_id: 1,
-  lab_owner_name: '负责人1',
-  lab_building: '楼',
-  lab_telephone: '13412341234',
-  lab_indoor: '室内',
-  lab_height: '高度',
-  lab_width: '宽度',
-  lab_long: '长度',
-  lab_style: '类型',
-  lab_capacity: '容积',
-  equipment_max: '最大设备数',
-  equipment_num: '当前可用设备数',
-  lab_equipment_id: 1,
-  lab_description: '室内',
-  lab_room: 503
+  field_id: 1
 }
 const fake_labCategoryList = [
   { id: 1, name: '实验室类别1' },
   { id: 2, name: '实验室类别2' },
   { id: 3, name: '实验室类别3' }
 ]
-const fake_labOwnerList = [
-  { id: 1, name: '实验室负责人1' },
-  { id: 2, name: '实验室负责人2' },
-  { id: 3, name: '实验室负责人3' }
+const fake_fieldList = [
+  {
+    id: 1,
+    name: '场地1名称',
+    field_manager_id: 1,
+    field_manager: '负责人1',
+    floor: '楼层',
+    room: '房间号',
+    isIndoor: '室内/室外',
+    height: '高度',
+    width: '宽度',
+    long: '长度',
+    volumn: '最大容纳人数'
+  },
+  {
+    id: 2,
+    name: '场地2名称',
+    field_manager_id: 2,
+    field_manager: '负责人2',
+    floor: '楼层',
+    room: '房间号',
+    isIndoor: '室内/室外',
+    height: '高度',
+    width: '宽度',
+    long: '长度',
+    volumn: '最大容纳人数'
+  },
+  {
+    id: 3,
+    name: '场地3名称',
+    field_manager_id: 3,
+    field_manager: '负责人3',
+    floor: '楼层',
+    room: '房间号',
+    isIndoor: '室内/室外',
+    height: '高度',
+    width: '宽度',
+    long: '长度',
+    volumn: '最大容纳人数'
+  }
 ]
 export default {
   name: 'FieldDetail',
@@ -184,13 +192,14 @@ export default {
       isAble: false,
       showSaveBtn: false,
       labCategoryList: [],
-      labOwnerList: []
+      fieldList: []
     }
   },
   created() {
     this.getOriginalData()
     this.getLabCategoryList()
-    this.getLabOwnerList()
+    this.getFieldList()
+    this.getFieldDataById()
   },
   methods: {
     /* 根据ID获取数据 */
@@ -206,11 +215,38 @@ export default {
       this.labCategoryList = fake_labCategoryList
       // 调用获取类别信息的接口
     },
-    /* 获取实验室类别信息 */
-    getLabOwnerList() {
+    /* 获取场地信息 */
+    getFieldList() {
       // 暂用假数据
-      this.labOwnerList = fake_labOwnerList
+      this.fieldList = fake_fieldList
       // 调用获取类别信息的接口
+    },
+    getFieldDataById() {
+      // 方法一 根据已获取全部列表信息查找
+      const tempData = this.fieldList
+        .filter(m => m.id === this.dataForm.field_id)
+        .map(m => ({
+          field_name: m.name,
+          field_manager_id: m.field_manager_id,
+          field_manager: m.field_manager,
+          field_floor: m.floor,
+          field_room: m.room,
+          field_isIndoor: m.isIndoor,
+          field_height: m.height,
+          field_width: m.width,
+          field_long: m.long,
+          field_volumn: m.volumn
+        }))
+        .pop()
+      console.log(tempData)
+      for (const key in tempData) {
+        if (this.dataForm.hasOwnProperty(key)) {
+          console.log(key)
+        }
+        this.dataForm[key] = tempData[key]
+      }
+      console.log(this.dataForm)
+      // 方法二 根据id查找
     },
     /* 返回上一页 */
     handleReturn() {
@@ -236,10 +272,10 @@ export default {
       this.showSaveBtn = false
       this.isAble = false
     },
-    /* 同步耗材种类id 和 名称 */
+    /* 同步信息 id 和 名称 */
     synchronizeData() {
-      this.dataForm.lab_owner_name = this.labOwnerList
-        .filter(m => m.id === this.dataForm.lab_owner_id)
+      this.dataForm.field_name = this.fieldList
+        .filter(m => m.id === this.dataForm.field_id)
         .map(m => m.name)
         .pop()
       this.dataForm.lab_category_name = this.labCategoryList
