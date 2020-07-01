@@ -28,21 +28,21 @@
           </el-col>
           <el-col :span="6">
             <el-form-item label="实验室分类" label-width="100px" prop="lab_category_name">
-              <!-- 新版 -->
               <span v-show="isRead">{{ dataForm.lab_category_name }}</span>
-              <el-input v-show="!isRead" v-model="dataForm.lab_category_name" style="width: auto" :readonly="isRead" @blur="checkLabCategory(dataForm.lab_category_name)" />
-              <div v-show="showCategoryCheckingSuccessMessage" class="check_message_success"><span>{{ categoryCheckingMessage }}</span></div>
-              <div v-show="showCategoryCheckingErrorMessage" class="check_message_error"><span>{{ categoryCheckingMessage }}</span></div>
+              <!-- 新版 -->
+<!--              <el-input v-show="!isRead" v-model="dataForm.lab_category_name" style="width: auto" :readonly="isRead" @blur="checkLabCategory(dataForm.lab_category_name)" />-->
+<!--              <div v-show="showCategoryCheckingSuccessMessage" class="check_message_success"><span>{{ categoryCheckingMessage }}</span></div>-->
+<!--              <div v-show="showCategoryCheckingErrorMessage" class="check_message_error"><span>{{ categoryCheckingMessage }}</span></div>-->
               <!-- 旧版 -->
-              <!--
-              <el-input v-show="isRead" v-model="dataForm.lab_category_name" style="width: auto" :readonly="isRead" />
-              <el-select v-show="!isRead" v-model="dataForm.lab_category_id" style="width: 179px;" placeholder="实验室分类" filterable clearable>
-                &lt;!&ndash;获取数据库信息动态生成option&ndash;&gt;
+
+<!--              <el-input v-show="isRead" v-model="dataForm.lab_category_name" style="width: auto" :readonly="isRead" />-->
+              <el-select v-show="!isRead" v-model="dataForm.lab_category_id" style="width: 179px;" placeholder="实验室分类" filterable>
+                <!-- 获取数据库信息动态生成option -->
                 <el-option v-for="item in labCategoryList" :key="item.id" :label="item.name" :value="item.id">
                   <span style="float: left">编号:{{ item.id }}</span>
                   <span style="float: right; color: #8492a6; font-size: 12px">名称:{{ item.name }}</span>
                 </el-option>
-              </el-select>-->
+              </el-select>
             </el-form-item>
           </el-col>
           <el-col :span="6">
@@ -55,19 +55,19 @@
         <el-row>
           <el-col :span="6">
             <el-form-item label="场地" label-width="100px" prop="field_name">
-              <!-- 新版 -->
               <span v-show="isRead">{{ dataForm.field_name }}</span>
-              <el-input v-show="!isRead" v-model="dataForm.field_name" style="width: auto" :readonly="isRead" @blur="checkField(dataForm.field_name)" />
-              <div v-show="showFieldCheckingSuccessMessage" class="check_message_success"><span>{{ fieldCheckingMessage }}</span></div>
-              <div v-show="showFieldCheckingErrorMessage" class="check_message_error"><span>{{ fieldCheckingMessage }}</span></div>
+              <!-- 新版 -->
+<!--              <el-input v-show="!isRead" v-model="dataForm.field_name" style="width: auto" :readonly="isRead" @blur="checkField(dataForm.field_name)" />-->
+<!--              <div v-show="showFieldCheckingSuccessMessage" class="check_message_success"><span>{{ fieldCheckingMessage }}</span></div>-->
+<!--              <div v-show="showFieldCheckingErrorMessage" class="check_message_error"><span>{{ fieldCheckingMessage }}</span></div>-->
               <!-- 旧版 -->
-              <!-- <el-input v-show="isRead" v-model="dataForm.field_name" style="width: auto" :readonly="isRead" />
-              <el-select v-show="!isRead" v-model="dataForm.field_id" style="width: 179px;" placeholder="场地" filterable clearable @change="getFieldDataById">
-                &lt;!&ndash;获取数据库信息动态生成option&ndash;&gt;
+<!--              <el-input v-show="isRead" v-model="dataForm.field_name" style="width: auto" :readonly="isRead" />-->
+              <el-select v-show="!isRead" v-model="dataForm.field_id" style="width: 179px;" placeholder="场地" filterable @change="getFieldDataById">
+                <!-- 获取数据库信息动态生成option -->
                 <el-option v-for="item in fieldList" :key="item.id" :label="item.name" :value="item.id">
                   <span style="float: right; color: #8492a6; font-size: 12px">名称:{{ item.name }}</span>
                 </el-option>
-              </el-select>-->
+              </el-select>
             </el-form-item>
           </el-col>
           <el-col :span="6">
@@ -77,7 +77,7 @@
             </el-form-item>
           </el-col>
           <el-col :span="6">
-            <el-form-item label="房间编号" label-width="100px" prop="infoValidation">
+            <el-form-item label="房间号" label-width="100px" prop="infoValidation">
               <span>{{ dataForm.field_room }}</span>
               <!--<el-input v-model="dataForm.field_room" style="width: auto" readonly />-->
             </el-form-item>

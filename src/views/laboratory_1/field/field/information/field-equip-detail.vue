@@ -14,91 +14,63 @@
       <h2>器材详细信息</h2>
       <el-form ref="dataForm" :model="dataForm" :rules="rules">
         <el-row type="flex" class="row-bg" justify="space-around">
-          <el-col :span="8">
+          <el-col :span="6">
             <el-form-item label="编号" label-width="100px" prop="infoValidation">
               <span v-show="isRead">{{ dataForm.number }}</span>
               <el-input v-show="!isRead" v-model="dataForm.number" style="width: auto" :readonly="isRead" />
             </el-form-item>
           </el-col>
-          <el-col :span="8">
+          <el-col :span="6">
             <el-form-item label="名称" label-width="100px" prop="infoValidation">
               <span v-show="isRead">{{ dataForm.name }}</span>
               <el-input v-show="!isRead" v-model="dataForm.name" style="width: auto" :readonly="isRead" />
             </el-form-item>
           </el-col>
-          <el-col :span="8">
+          <el-col :span="6">
             <el-form-item label="种类" label-width="100px" prop="infoValidation">
               <!-- 新版 -->
               <span v-show="isRead">{{ dataForm.lab_equipment_category_name }}</span>
-              <el-input v-show="!isRead" v-model="dataForm.lab_equipment_category_name" style="width: auto" :readonly="isRead" @blur="checkLabCategory(dataForm.lab_equipment_category_name)" />
-              <div v-show="showCategoryCheckingSuccessMessage" class="check_message_success"><span>{{ categoryCheckingMessage }}</span></div>
-              <div v-show="showCategoryCheckingErrorMessage" class="check_message_error"><span>{{ categoryCheckingMessage }}</span></div>
+<!--              <el-input v-show="!isRead" v-model="dataForm.lab_equipment_category_name" style="width: auto" :readonly="isRead" @blur="checkLabCategory(dataForm.lab_equipment_category_name)" />-->
+<!--              <div v-show="showCategoryCheckingSuccessMessage" class="check_message_success"><span>{{ categoryCheckingMessage }}</span></div>-->
+<!--              <div v-show="showCategoryCheckingErrorMessage" class="check_message_error"><span>{{ categoryCheckingMessage }}</span></div>-->
               <!-- 旧版 -->
-              <!--<el-input v-show="isRead" v-model="dataForm.lab_equipment_category_name" style="width: auto" :readonly="isRead" />
-              <el-select v-show="!isRead" v-model="dataForm.lab_equipment_category_id" style="width: 203px;" placeholder="器材种类" filterable clearable>
-                &lt;!&ndash;获取数据库信息动态生成option&ndash;&gt;
+<!--              <el-input v-show="isRead" v-model="dataForm.lab_equipment_category_name" style="width: auto" :readonly="isRead" />-->
+              <el-select v-show="!isRead" v-model="dataForm.lab_equipment_category_id" style="width: 185px;" placeholder="器材种类" filterable>
+                <!-- 获取数据库信息动态生成option -->
                 <el-option v-for="item in equCategoryList" :key="item.id" :label="item.name" :value="item.id">
                   <span style="float: left">编号:{{ item.id }}</span>
                   <span style="float: right; color: #8492a6; font-size: 12px">名称:{{ item.name }}</span>
                 </el-option>
-              </el-select>-->
+              </el-select>
             </el-form-item>
           </el-col>
-        </el-row>
-        <el-row type="flex" class="row-bg" justify="space-around">
-          <el-col :span="8">
+          <el-col :span="6">
             <el-form-item label="品牌" label-width="100px" prop="infoValidation">
               <span v-show="isRead">{{ dataForm.brand_name }}</span>
               <el-input v-show="!isRead" v-model="dataForm.brand_name" style="width: auto" :readonly="isRead" />
             </el-form-item>
           </el-col>
-          <el-col :span="8">
+        </el-row>
+        <el-row type="flex" class="row-bg" justify="space-around">
+          <el-col :span="6">
             <el-form-item label="型号" label-width="100px" prop="infoValidation">
               <span v-show="isRead">{{ dataForm.model_name }}</span>
               <el-input v-show="!isRead" v-model="dataForm.model_name" style="width: auto" :readonly="isRead" />
             </el-form-item>
           </el-col>
-          <el-col :span="8">
+          <el-col :span="6">
             <el-form-item label="单位" label-width="100px" prop="infoValidation">
               <span v-show="isRead">{{ dataForm.lab_unit_id }}</span>
               <el-input v-show="!isRead" v-model="dataForm.lab_unit_id" style="width: auto" :readonly="isRead" />
             </el-form-item>
           </el-col>
-        </el-row>
-        <el-row type="flex" class="row-bg" justify="space-around">
-          <el-col :span="8">
-            <el-form-item label="生产商" label-width="100px" prop="infoValidation">
-              <span v-show="isRead">{{ dataForm.manufacturer }}</span>
-              <el-input v-show="!isRead" v-model="dataForm.manufacturer" style="width: auto" :readonly="isRead" />
-            </el-form-item>
-          </el-col>
-          <el-col :span="8">
-            <el-form-item label="生产商电话" label-width="100px" prop="infoValidation">
-              <span v-show="isRead">{{ dataForm.manufacturer_telephone }}</span>
-              <el-input v-show="!isRead" v-model="dataForm.manufacturer_telephone" style="width: auto" :readonly="isRead" />
-            </el-form-item>
-          </el-col>
-          <el-col :span="8">
-            <el-form-item label="供货商" label-width="100px" prop="infoValidation">
-              <span v-show="isRead">{{ dataForm.supplier }}</span>
-              <el-input v-show="!isRead" v-model="dataForm.supplier" style="width: auto" :readonly="isRead" />
-            </el-form-item>
-          </el-col>
-        </el-row>
-        <el-row type="flex" class="row-bg" justify="space-around">
-          <el-col :span="8">
-            <el-form-item label="供货商电话" label-width="100px" prop="infoValidation">
-              <span v-show="isRead">{{ dataForm.supplier_telephone }}</span>
-              <el-input v-show="!isRead" v-model="dataForm.supplier_telephone" style="width: auto" :readonly="isRead" />
-            </el-form-item>
-          </el-col>
-          <el-col :span="8">
+          <el-col :span="6">
             <el-form-item label="数量" label-width="100px" prop="infoValidation">
               <span v-show="isRead">{{ dataForm.quantity }}</span>
               <el-input v-show="!isRead" v-model="dataForm.quantity" style="width: auto" :readonly="isRead" />
             </el-form-item>
           </el-col>
-          <el-col :span="8">
+          <el-col :span="6">
             <el-form-item label="单价" label-width="100px" prop="infoValidation">
               <span v-show="isRead">{{ dataForm.unit_price }}</span>
               <el-input v-show="!isRead" v-model="dataForm.unit_price" style="width: auto" :readonly="isRead" />
@@ -106,61 +78,52 @@
           </el-col>
         </el-row>
         <el-row type="flex" class="row-bg" justify="space-around">
-          <el-col :span="8">
+          <el-col :span="6">
+            <el-form-item label="生产商" label-width="100px" prop="infoValidation">
+              <span v-show="isRead">{{ dataForm.manufacturer }}</span>
+              <el-input v-show="!isRead" v-model="dataForm.manufacturer" style="width: auto" :readonly="isRead" />
+            </el-form-item>
+          </el-col>
+          <el-col :span="6">
+            <el-form-item label="生产商电话" label-width="100px" prop="infoValidation">
+              <span v-show="isRead">{{ dataForm.manufacturer_telephone }}</span>
+              <el-input v-show="!isRead" v-model="dataForm.manufacturer_telephone" style="width: auto" :readonly="isRead" />
+            </el-form-item>
+          </el-col>
+          <el-col :span="6">
+            <el-form-item label="供货商" label-width="100px" prop="infoValidation">
+              <span v-show="isRead">{{ dataForm.supplier }}</span>
+              <el-input v-show="!isRead" v-model="dataForm.supplier" style="width: auto" :readonly="isRead" />
+            </el-form-item>
+          </el-col>
+          <el-col :span="6">
+            <el-form-item label="供货商电话" label-width="100px" prop="infoValidation">
+              <span v-show="isRead">{{ dataForm.supplier_telephone }}</span>
+              <el-input v-show="!isRead" v-model="dataForm.supplier_telephone" style="width: auto" :readonly="isRead" />
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row type="flex" class="row-bg" justify="space-around">
+          <el-col :span="6">
             <el-form-item label="总价" label-width="100px" prop="infoValidation">
               <span v-show="isRead">{{ dataForm.total_price }}</span>
               <el-input v-show="!isRead" v-model="dataForm.total_price" style="width: auto" :readonly="isRead" />
             </el-form-item>
           </el-col>
-          <el-col :span="8">
+          <el-col :span="6">
             <el-form-item label="国码" label-width="100px" prop="infoValidation">
               <span v-show="isRead">{{ dataForm.country_code }}</span>
               <el-input v-show="!isRead" v-model="dataForm.country_code" style="width: auto" :readonly="isRead" />
             </el-form-item>
           </el-col>
-          <el-col :span="8">
+          <el-col :span="6">
             <el-form-item label="出产日期" label-width="100px" prop="infoValidation">
               <span v-show="isRead">{{ dataForm.production_date }}</span>
              <!-- <el-input v-show="isRead" v-model="dataForm.production_date" style="width: auto" :readonly="isRead" />-->
               <el-date-picker v-show="!isRead" v-model="dataForm.production_date" type="date" style="width: 185px" value-format="yyyy-MM-dd" clearable />
             </el-form-item>
           </el-col>
-        </el-row>
-        <el-row type="flex" class="row-bg" justify="space-around">
-          <el-col :span="8">
-            <el-form-item label="单据号" label-width="100px" prop="infoValidation">
-              <span v-show="isRead">{{ dataForm.bills_number }}</span>
-              <el-input v-show="!isRead" v-model="dataForm.bills_number" style="width: auto" :readonly="isRead" />
-            </el-form-item>
-          </el-col>
-          <el-col :span="8">
-            <el-form-item label="购置日期" label-width="100px" prop="infoValidation">
-              <span v-show="isRead">{{ dataForm.purchase_date }}</span>
-              <!--<el-input v-show="isRead" v-model="dataForm.purchase_date" style="width: auto" :readonly="isRead" />-->
-              <el-date-picker v-show="!isRead" v-model="dataForm.purchase_date" style="width: 185px" type="date" value-format="yyyy-MM-dd" clearable />
-            </el-form-item>
-          </el-col>
-          <el-col :span="8">
-            <el-form-item label="存放地点" label-width="100px" prop="infoValidation">
-              <span v-show="isRead">{{ dataForm.field_name }}</span>
-              <el-input v-show="!isRead" v-model="dataForm.field_name" style="width: auto" :readonly="isRead" />
-            </el-form-item>
-          </el-col>
-        </el-row>
-        <el-row type="flex" class="row-bg" justify="space-around">
-          <el-col :span="8">
-            <el-form-item label="经费来源" label-width="100px" prop="infoValidation">
-              <span v-show="isRead">{{ dataForm.expenditure }}</span>
-              <el-input v-show="!isRead" v-model="dataForm.expenditure" style="width: auto" :readonly="isRead" />
-            </el-form-item>
-          </el-col>
-          <el-col :span="8">
-            <el-form-item label="购买方式" label-width="100px" prop="infoValidation">
-              <span v-show="isRead">{{ dataForm.purchase_method }}</span>
-              <el-input v-show="!isRead" v-model="dataForm.purchase_method" style="width: auto" :readonly="isRead" />
-            </el-form-item>
-          </el-col>
-          <el-col :span="8">
+          <el-col :span="6">
             <el-form-item label="保修期" label-width="100px" prop="infoValidation">
               <span v-show="isRead">{{ dataForm.warranty }}</span>
               <el-input v-show="!isRead" v-model="dataForm.warranty" style="width: auto" :readonly="isRead" />
@@ -168,19 +131,40 @@
           </el-col>
         </el-row>
         <el-row type="flex" class="row-bg" justify="space-around">
-          <el-col :span="8">
-            <el-form-item label="附件URL" label-width="100px" prop="infoValidation">
-              <span v-show="isRead">{{ dataForm.URL }}</span>
-              <el-input v-show="!isRead" v-model="dataForm.URL" style="width: auto" :readonly="isRead" />
+          <el-col :span="6">
+            <el-form-item label="单据号" label-width="100px" prop="infoValidation">
+              <span v-show="isRead">{{ dataForm.bills_number }}</span>
+              <el-input v-show="!isRead" v-model="dataForm.bills_number" style="width: auto" :readonly="isRead" />
             </el-form-item>
           </el-col>
-          <el-col :span="8">
-            <el-form-item label="附件IP" label-width="100px" prop="infoValidation">
-              <span v-show="isRead">{{ dataForm.IP }}</span>
-              <el-input v-show="!isRead" v-model="dataForm.IP" style="width: auto" :readonly="isRead" />
+          <el-col :span="6">
+            <el-form-item label="购置日期" label-width="100px" prop="infoValidation">
+              <span v-show="isRead">{{ dataForm.purchase_date }}</span>
+              <!--<el-input v-show="isRead" v-model="dataForm.purchase_date" style="width: auto" :readonly="isRead" />-->
+              <el-date-picker v-show="!isRead" v-model="dataForm.purchase_date" style="width: 185px" type="date" value-format="yyyy-MM-dd" clearable />
             </el-form-item>
           </el-col>
-          <el-col :span="8">
+          <el-col :span="6">
+            <el-form-item label="存放地点" label-width="100px" prop="infoValidation">
+              <span v-show="isRead">{{ dataForm.field_name }}</span>
+              <el-input v-show="!isRead" v-model="dataForm.field_name" style="width: auto" :readonly="isRead" />
+            </el-form-item>
+          </el-col>
+          <el-col :span="6">
+            <el-form-item label="购买方式" label-width="100px" prop="infoValidation">
+              <span v-show="isRead">{{ dataForm.purchase_method }}</span>
+              <el-input v-show="!isRead" v-model="dataForm.purchase_method" style="width: auto" :readonly="isRead" />
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row type="flex" class="row-bg" justify="space-around">
+          <el-col :span="6">
+            <el-form-item label="经费来源" label-width="100px" prop="infoValidation">
+              <span v-show="isRead">{{ dataForm.expenditure }}</span>
+              <el-input v-show="!isRead" v-model="dataForm.expenditure" style="width: auto" :readonly="isRead" />
+            </el-form-item>
+          </el-col>
+          <el-col :span="6">
             <el-form-item label="状态" label-width="100px" prop="infoValidation">
               <span v-show="isRead">{{ dataForm.status_name }}</span>
               <!--<el-input v-show="isRead" v-model="dataForm.status_name" style="width: auto" :readonly="isRead" />-->
@@ -190,12 +174,24 @@
               </el-select>
             </el-form-item>
           </el-col>
-        </el-row>
-        <el-row>
-          <el-col :span="8">
+          <el-col :span="6">
             <el-form-item label="用途" label-width="100px" prop="infoValidation">
               <span v-show="isRead">{{ dataForm.usage }}</span>
               <el-input v-show="!isRead" v-model="dataForm.usage" style="width: auto" :readonly="isRead" />
+            </el-form-item>
+          </el-col>
+          <el-col :span="6">
+            <el-form-item label="附件URL" label-width="100px" prop="infoValidation">
+              <span v-show="isRead">{{ dataForm.URL }}</span>
+              <el-input v-show="!isRead" v-model="dataForm.URL" style="width: auto" :readonly="isRead" />
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row type="flex" class="row-bg" justify="space-around">
+          <el-col>
+            <el-form-item label="附件IP" label-width="100px" prop="infoValidation">
+              <span v-show="isRead">{{ dataForm.IP }}</span>
+              <el-input v-show="!isRead" v-model="dataForm.IP" style="width: auto" :readonly="isRead" />
             </el-form-item>
           </el-col>
         </el-row>
