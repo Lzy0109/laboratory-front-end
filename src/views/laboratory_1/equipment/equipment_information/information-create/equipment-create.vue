@@ -21,8 +21,8 @@
             </el-form-item>
           </el-col>
           <el-col :span="6">
-            <el-form-item label="种类" label-width="100px" prop="lab_equipment_category_name">
-              <el-select v-model="dataForm.lab_equipment_category_id" style="width: 165px;" filterable>
+            <el-form-item label="种类" label-width="100px" prop="lab_equipment_category_id">
+              <el-select v-model.number="dataForm.lab_equipment_category_id" style="width: 165px;" filterable>
                 <!-- 获取数据库信息动态生成option -->
                 <el-option v-for="item in equCategoryList" :key="item.id" :label="item.name" :value="item.id">
                   <span style="float: left">编号:{{ item.id }}</span>
@@ -132,7 +132,7 @@
             </el-form-item>
           </el-col>
           <el-col :span="6">
-            <el-form-item label="状态" label-width="100px" prop="status_name">
+            <el-form-item label="状态" label-width="100px" prop="status">
               <el-select v-model="dataForm.status" style="width: 165px;">
                 <!--获取数据库信息动态生成option-->
                 <el-option v-for="item in statusList" :key="item.id" :label="item.name" :value="item.id" />
@@ -198,7 +198,7 @@ export default {
           { required: true, type: 'string', message: '请输入', trigger: 'blur' }
         ],
         lab_equipment_category_id: [
-          { required: true, type: 'string', message: '请输入数字', trigger: 'blur' }
+          { required: true, type: 'number', message: '请输入数字', trigger: 'change' }
         ],
         brand_name: [
           { required: true, type: 'string', message: '请输入', trigger: 'blur' }
@@ -258,7 +258,7 @@ export default {
           { required: true, type: 'string', message: '请输入', trigger: 'blur' }
         ],
         status: [
-          { required: true, type: 'string', message: '请输入', trigger: 'blur' }
+          { required: true, type: 'number', message: '请输入', trigger: 'change' }
         ],
         status_name: [
           { required: true, type: 'string', message: '请输入', trigger: 'blur' }
