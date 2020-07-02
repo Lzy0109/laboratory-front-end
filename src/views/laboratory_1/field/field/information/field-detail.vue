@@ -12,23 +12,32 @@
     <!-- 详细信息展示 -->
     <div class="form-style">
       <h2>实验室详细信息</h2>
-      <el-form ref="dataForm" :model="dataForm" :rules="rules">
+      <el-form ref="dataForm" :model="dataForm" :rules="rules" hide-required-asterisk>
         <el-row type="flex" class="row-bg" justify="space-around">
-          <el-col :span="8">
-            <el-form-item label="英文名称" label-width="100px" prop="number">
-              <el-input v-model="dataForm.english_name" style="width: auto" :readonly="isRead" />
+          <el-col :span="6">
+            <el-form-item label="英文名称" label-width="100px" prop="english_name">
+              <span v-show="isRead">{{ dataForm.english_name }}</span>
+              <el-input v-show="!isRead" v-model="dataForm.english_name" style="width: auto;" :readonly="isRead" />
             </el-form-item>
           </el-col>
-          <el-col :span="8">
+          <el-col :span="6">
             <el-form-item label="中文名称" label-width="100px" prop="name">
-              <el-input v-model="dataForm.name" style="width: auto" :readonly="isRead" />
+              <span v-show="isRead">{{ dataForm.name }}</span>
+              <el-input v-show="!isRead" v-model="dataForm.name" style="width: auto" :readonly="isRead" />
             </el-form-item>
           </el-col>
-          <el-col :span="8">
-            <el-form-item label="实验室分类" label-width="100px" prop="number">
-              <el-input v-show="isRead" v-model="dataForm.lab_category_name" style="width: auto" :readonly="isRead" />
-              <el-select v-show="!isRead" v-model="dataForm.lab_category_id" style="width: 160px;" placeholder="实验室分类" filterable clearable>
-                <!--获取数据库信息动态生成option-->
+          <el-col :span="6">
+            <el-form-item label="实验室分类" label-width="100px" prop="lab_category_name">
+              <span v-show="isRead">{{ dataForm.lab_category_name }}</span>
+              <!-- 新版 -->
+<!--              <el-input v-show="!isRead" v-model="dataForm.lab_category_name" style="width: auto" :readonly="isRead" @blur="checkLabCategory(dataForm.lab_category_name)" />-->
+<!--              <div v-show="showCategoryCheckingSuccessMessage" class="check_message_success"><span>{{ categoryCheckingMessage }}</span></div>-->
+<!--              <div v-show="showCategoryCheckingErrorMessage" class="check_message_error"><span>{{ categoryCheckingMessage }}</span></div>-->
+              <!-- 旧版 -->
+
+<!--              <el-input v-show="isRead" v-model="dataForm.lab_category_name" style="width: auto" :readonly="isRead" />-->
+              <el-select v-show="!isRead" v-model="dataForm.lab_category_id" style="width: 179px;" placeholder="实验室分类" filterable>
+                <!-- 获取数据库信息动态生成option -->
                 <el-option v-for="item in labCategoryList" :key="item.id" :label="item.name" :value="item.id">
                   <span style="float: left">编号:{{ item.id }}</span>
                   <span style="float: right; color: #8492a6; font-size: 12px">名称:{{ item.name }}</span>
@@ -36,71 +45,85 @@
               </el-select>
             </el-form-item>
           </el-col>
-        </el-row>
-        <el-row type="flex" class="row-bg" justify="space-around">
-          <el-col :span="8">
-            <el-form-item label="最大机位数" label-width="100px" prop="name">
-              <el-input v-model="dataForm.max_seat" style="width: auto" :readonly="isRead" />
+          <el-col :span="6">
+            <el-form-item label="最大机位数" label-width="100px" prop="max_seat">
+              <span v-show="isRead">{{ dataForm.max_seat }}</span>
+              <el-input v-show="!isRead" v-model.number="dataForm.max_seat" style="width: auto" :readonly="isRead" />
             </el-form-item>
           </el-col>
-          <el-col :span="8">
-            <el-form-item label="场地" label-width="100px" prop="name">
-              <el-input v-show="isRead" v-model="dataForm.field_name" style="width: auto" :readonly="isRead" />
-              <el-select v-show="!isRead" v-model="dataForm.field_id" style="width: 160px;" placeholder="场地" filterable clearable @change="getFieldDataById">
-                <!--获取数据库信息动态生成option-->
+        </el-row>
+        <el-row>
+          <el-col :span="6">
+            <el-form-item label="场地" label-width="100px" prop="field_name">
+              <span v-show="isRead">{{ dataForm.field_name }}</span>
+              <!-- 新版 -->
+<!--              <el-input v-show="!isRead" v-model="dataForm.field_name" style="width: auto" :readonly="isRead" @blur="checkField(dataForm.field_name)" />-->
+<!--              <div v-show="showFieldCheckingSuccessMessage" class="check_message_success"><span>{{ fieldCheckingMessage }}</span></div>-->
+<!--              <div v-show="showFieldCheckingErrorMessage" class="check_message_error"><span>{{ fieldCheckingMessage }}</span></div>-->
+              <!-- 旧版 -->
+<!--              <el-input v-show="isRead" v-model="dataForm.field_name" style="width: auto" :readonly="isRead" />-->
+              <el-select v-show="!isRead" v-model="dataForm.field_id" style="width: 179px;" placeholder="场地" filterable @change="getFieldDataById">
+                <!-- 获取数据库信息动态生成option -->
                 <el-option v-for="item in fieldList" :key="item.id" :label="item.name" :value="item.id">
-                  <span style="float: left">编号:{{ item.id }}</span>
                   <span style="float: right; color: #8492a6; font-size: 12px">名称:{{ item.name }}</span>
                 </el-option>
               </el-select>
             </el-form-item>
           </el-col>
-          <el-col :span="8">
-            <el-form-item label="楼层" label-width="100px" prop="number">
-              <el-input v-model="dataForm.field_floor" style="width: auto" readonly />
+          <el-col :span="6">
+            <el-form-item label="楼层" label-width="100px" prop="infoValidation">
+              <span>{{ dataForm.field_floor }}</span>
+              <!--<el-input v-model="dataForm.field_floor" style="width: auto" readonly />-->
+            </el-form-item>
+          </el-col>
+          <el-col :span="6">
+            <el-form-item label="房间号" label-width="100px" prop="infoValidation">
+              <span>{{ dataForm.field_room }}</span>
+              <!--<el-input v-model="dataForm.field_room" style="width: auto" readonly />-->
+            </el-form-item>
+          </el-col>
+          <el-col :span="6">
+            <el-form-item label="场地负责人" label-width="100px" prop="infoValidation">
+              <span>{{ dataForm.field_manager }}</span>
+              <!--<el-input v-model="dataForm.field_manager" style="width: auto" readonly />-->
             </el-form-item>
           </el-col>
         </el-row>
-        <el-row type="flex" class="row-bg" justify="space-around">
-          <el-col :span="8">
-            <el-form-item label="房间编号" label-width="100px" prop="name">
-              <el-input v-model="dataForm.field_room" style="width: auto" readonly />
+        <el-row>
+          <el-col :span="6">
+            <el-form-item label="可容纳人数" label-width="100px" prop="infoValidation">
+              <span>{{ dataForm.field_volumn }}</span>
+              <!--<el-input v-model="dataForm.field_volumn" style="width: auto" readonly />-->
             </el-form-item>
           </el-col>
-          <el-col :span="8">
-            <el-form-item label="场地负责人" label-width="100px" prop="name">
-              <el-input v-model="dataForm.field_manager" style="width: auto" readonly />
+          <el-col :span="6">
+            <el-form-item label="场地长度" label-width="100px" prop="infoValidation">
+              <span>{{ dataForm.field_long }}</span>
+              <!--<el-input v-model="dataForm.field_long" style="width: auto" readonly />-->
             </el-form-item>
           </el-col>
-          <el-col :span="8">
-            <el-form-item label="可容纳人数" label-width="100px" prop="number">
-              <el-input v-model="dataForm.field_volumn" style="width: auto" readonly />
+          <el-col :span="6">
+            <el-form-item label="场地宽度" label-width="100px" prop="infoValidation">
+              <span>{{ dataForm.field_width }}</span>
+              <!--<el-input v-model="dataForm.field_width" style="width: auto" readonly />-->
             </el-form-item>
           </el-col>
-        </el-row>
-        <el-row type="flex" class="row-bg" justify="space-around">
-          <el-col :span="8">
-            <el-form-item label="场地长度" label-width="100px" prop="number">
-              <el-input v-model="dataForm.field_long" style="width: auto" readonly />
-            </el-form-item>
-          </el-col>
-          <el-col :span="8">
-            <el-form-item label="场地宽度" label-width="100px" prop="name">
-              <el-input v-model="dataForm.field_width" style="width: auto" readonly />
-            </el-form-item>
-          </el-col>
-          <el-col :span="8">
-            <el-form-item label="场地高度" label-width="100px" prop="number">
-              <el-input v-model="dataForm.field_height" style="width: auto" readonly />
+          <el-col :span="6">
+            <el-form-item label="场地高度" label-width="100px" prop="infoValidation">
+              <span>{{ dataForm.field_height }}</span>
+              <!--<el-input v-model="dataForm.field_height" style="width: auto" readonly />-->
             </el-form-item>
           </el-col>
         </el-row>
-        <el-row type="flex" class="row-bg" justify="space-around">
-          <el-col>
-            <el-form-item label="室内/室外" label-width="100px" prop="name">
-              <el-input v-model="dataForm.field_isIndoor" style="width: auto" readonly />
+        <el-row>
+          <el-col :span="6">
+            <el-form-item label="室内/室外" label-width="100px" prop="infoValidation">
+              <span>{{ dataForm.field_isIndoor }}</span>
+              <!--<el-input v-model="dataForm.field_isIndoor" style="width: auto" readonly />-->
             </el-form-item>
           </el-col>
+        </el-row>
+        <el-row>
         </el-row>
       </el-form>
       <el-collapse-transition>
@@ -119,14 +142,15 @@ const fakeData = {
   id: 1,
   college_id: '1',
   college_name: '学校名称',
-  english_name: 'test-en',
+  english_name: 'testen',
   name: '实验室',
   lab_category_id: 1,
-  lab_category_name: '类别1',
+  lab_category_name: '实验室类别1',
   lab_equipment_id: 1, // 实验室器材
-  max_seat: '最大设备数',
+  max_seat: 100,
   lab_facility_id: 1,
-  field_id: 1
+  field_id: 1,
+  field_name: '场地1名称'
 }
 const fake_labCategoryList = [
   { id: 1, name: '实验室类别1' },
@@ -152,45 +176,83 @@ const fake_fieldList = [
     name: '场地2名称',
     field_manager_id: 2,
     field_manager: '负责人2',
-    floor: '楼层',
-    room: '房间号',
-    isIndoor: '室内/室外',
-    height: '高度',
-    width: '宽度',
-    long: '长度',
-    volumn: '最大容纳人数'
+    floor: '楼层2',
+    room: '房间号2',
+    isIndoor: '室内/室外2',
+    height: '高度2',
+    width: '宽度2',
+    long: '长度2',
+    volumn: '最大容纳人数2'
   },
   {
     id: 3,
     name: '场地3名称',
     field_manager_id: 3,
     field_manager: '负责人3',
-    floor: '楼层',
-    room: '房间号',
-    isIndoor: '室内/室外',
-    height: '高度',
-    width: '宽度',
-    long: '长度',
-    volumn: '最大容纳人数'
+    floor: '楼层3',
+    room: '房间号3',
+    isIndoor: '室内/室外3',
+    height: '高度3',
+    width: '宽度3',
+    long: '长度3',
+    volumn: '最大容纳人数3'
   }
 ]
+
+import { isChinese, isEnglish } from '@/utils/fieldValidate'
+
 export default {
   name: 'FieldDetail',
   data() {
+    const validateIsChinese = (rule, value, callback) => {
+      if (!isChinese(value)) {
+        callback(new Error('请输入中文'))
+      } else {
+        callback()
+      }
+    }
+    const validateIsEnglish = (rule, value, callback) => {
+      if (!isEnglish(value)) {
+        callback(new Error('请输入英文'))
+      } else {
+        callback()
+      }
+    }
     return {
       dataForm: null,
       tempData: null,
       rules: {
-        number: [
-          { type: 'number', message: '请输入数字', trigger: 'blur' }
-        ],
         infoValidation: [
           { type: 'string', message: '请输入', trigger: 'blur' }
+        ],
+        english_name: [
+          { required: true, trigger: 'blur', validator: validateIsEnglish }
+        ],
+        name: [
+          { required: true, trigger: 'blur', validator: validateIsChinese }
+        ],
+        lab_category_name: [
+          { type: 'string', message: '请输入', trigger: 'blur', required: true }
+        ],
+        field_name: [
+          { type: 'string', message: '请输入', trigger: 'blur', required: true }
+        ],
+        max_seat: [
+          { type: 'number', message: '请输入', trigger: 'blur', required: true }
         ]
       },
       isRead: true,
       isAble: false,
       showSaveBtn: false,
+
+      showCategoryCheckingSuccessMessage: false,
+      showCategoryCheckingErrorMessage: false,
+      categoryCheckingMessage: null,
+
+      showFieldCheckingSuccessMessage: false,
+      showFieldCheckingErrorMessage: false,
+      fieldCheckingMessage: null,
+
       labCategoryList: [],
       fieldList: []
     }
@@ -222,6 +284,7 @@ export default {
       // 调用获取类别信息的接口
     },
     getFieldDataById() {
+      console.log('方法一 根据已获取全部列表信息查找')
       // 方法一 根据已获取全部列表信息查找
       const tempData = this.fieldList
         .filter(m => m.id === this.dataForm.field_id)
@@ -271,27 +334,40 @@ export default {
       this.isRead = true
       this.showSaveBtn = false
       this.isAble = false
+
+      this.showCategoryCheckingSuccessMessage = false
+      this.showCategoryCheckingErrorMessage = false
+
+      this.showFieldCheckingSuccessMessage = false
+      this.showFieldCheckingErrorMessage = false
     },
     /* 同步信息 id 和 名称 */
-    synchronizeData() {
-      this.dataForm.field_name = this.fieldList
-        .filter(m => m.id === this.dataForm.field_id)
-        .map(m => m.name)
-        .pop()
-      this.dataForm.lab_category_name = this.labCategoryList
-        .filter(m => m.id === this.dataForm.lab_category_id)
-        .map(m => m.name)
-        .pop()
-    },
+    // synchronizeData() {
+    //   this.dataForm.field_name = this.fieldList
+    //     .filter(m => m.id === this.dataForm.field_id)
+    //     .map(m => m.name)
+    //     .pop()
+    //   this.dataForm.lab_category_name = this.labCategoryList
+    //     .filter(m => m.id === this.dataForm.lab_category_id)
+    //     .map(m => m.name)
+    //     .pop()
+    // },
     /* 提交编辑的内容 */
     submitEdit(formName) {
+      if (this.showCategoryCheckingErrorMessage || this.showFieldCheckingErrorMessage) {
+        this.$message({
+          message: '修改的内容存在错误，请修改后再保存，否则请取消编辑',
+          type: 'error'
+        })
+        return false
+      }
       this.$refs[formName].validate((valid) => {
         if (valid) {
           this.$message({
             message: '修改成功',
             type: 'success'
           })
-          this.synchronizeData()
+          // this.synchronizeData()
           // 根据返回信息重新复制dataForm
           console.log('success submit!!')
         } else {
@@ -382,6 +458,49 @@ export default {
           id: id
         }
       })
+    },
+    /* 检查实验室分类信息是否存在 */
+    checkLabCategory(value) {
+      console.log('check lab category ' + value)
+      // 检查输入的内容是否存在
+      if (!value) {
+        this.showCategoryCheckingSuccessMessage = false
+        this.showCategoryCheckingErrorMessage = false
+        return
+      }
+      const flag = this.labCategoryList.filter(m => m.name === value).pop()
+      if (flag) {
+        this.showCategoryCheckingErrorMessage = false
+        this.showCategoryCheckingSuccessMessage = true
+        this.categoryCheckingMessage = '该分类存在，可选择'
+        this.dataForm.lab_category_name = flag.name
+        this.dataForm.lab_category_id = flag.id
+      } else {
+        this.showCategoryCheckingSuccessMessage = false
+        this.showCategoryCheckingErrorMessage = true
+        this.categoryCheckingMessage = '该分类不存在，不可选用'
+      }
+    },
+    checkField(value) {
+      console.log('check Field')
+      // 检查输入的内容是否存在
+      if (!value) {
+        this.showFieldCheckingSuccessMessage = false
+        this.showFieldCheckingErrorMessage = false
+        return
+      }
+      const flag = this.fieldList.filter(m => m.name === value).pop()
+      if (flag) {
+        this.showFieldCheckingErrorMessage = false
+        this.showFieldCheckingSuccessMessage = true
+        this.fieldCheckingMessage = '该场地存在，可选择'
+        this.dataForm.field_id = flag.id
+        this.getFieldDataById()
+      } else {
+        this.showFieldCheckingSuccessMessage = false
+        this.showFieldCheckingErrorMessage = true
+        this.fieldCheckingMessage = '该场地不存在，不可选用'
+      }
     }
   }
 }
@@ -408,4 +527,25 @@ export default {
     padding:20px;
     margin-bottom: 20px;
   }
+  .check_message_success{
+    display: inline-block;
+    color: #67C23A;
+    font-size: 12px;
+    line-height: 1;
+    padding-top: 4px;
+    position: absolute;
+    top: 100%;
+    left:0
+  }
+  .check_message_error{
+    display: inline-block;
+    color: #F56C6C;
+    font-size: 12px;
+    line-height: 1;
+    padding-top: 4px;
+    position: absolute;
+    top: 100%;
+    left:0
+  }
 </style>
+
