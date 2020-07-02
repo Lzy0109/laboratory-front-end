@@ -65,7 +65,7 @@
               <el-select v-show="!isRead" v-model="dataForm.field_id" style="width: 179px;" placeholder="场地" filterable @change="getFieldDataById">
                 <!-- 获取数据库信息动态生成option -->
                 <el-option v-for="item in fieldList" :key="item.id" :label="item.name" :value="item.id">
-                  <span style="float: right; color: #8492a6; font-size: 12px">名称:{{ item.name }}</span>
+                  <span style="color: #8492a6; font-size: 14px">名称:{{ item.name }}</span>
                 </el-option>
               </el-select>
             </el-form-item>
@@ -123,13 +123,11 @@
             </el-form-item>
           </el-col>
         </el-row>
-        <el-row>
-        </el-row>
       </el-form>
       <el-collapse-transition>
         <div v-show="showSaveBtn" style="text-align: center">
           <el-button type="success" size="medium" @click="submitEdit('dataForm')">保存</el-button>
-          <el-button type="primary" size="medium" @click="beforeCancelEdit">取消</el-button>
+          <el-button type="primary" size="medium" @click="beforeCancelEdit('dataForm')">取消</el-button>
         </div>
       </el-collapse-transition>
     </div>
@@ -342,16 +340,16 @@ export default {
       this.showFieldCheckingErrorMessage = false
     },
     /* 同步信息 id 和 名称 */
-    // synchronizeData() {
-    //   this.dataForm.field_name = this.fieldList
-    //     .filter(m => m.id === this.dataForm.field_id)
-    //     .map(m => m.name)
-    //     .pop()
-    //   this.dataForm.lab_category_name = this.labCategoryList
-    //     .filter(m => m.id === this.dataForm.lab_category_id)
-    //     .map(m => m.name)
-    //     .pop()
-    // },
+    synchronizeData() {
+      this.dataForm.field_name = this.fieldList
+        .filter(m => m.id === this.dataForm.field_id)
+        .map(m => m.name)
+        .pop()
+      this.dataForm.lab_category_name = this.labCategoryList
+        .filter(m => m.id === this.dataForm.lab_category_id)
+        .map(m => m.name)
+        .pop()
+    },
     /* 提交编辑的内容 */
     submitEdit(formName) {
       if (this.showCategoryCheckingErrorMessage || this.showFieldCheckingErrorMessage) {
@@ -367,34 +365,38 @@ export default {
             message: '修改成功',
             type: 'success'
           })
-          // this.synchronizeData()
+          this.synchronizeData()
           // 根据返回信息重新复制dataForm
           console.log('success submit!!')
+          // 修改成功后操作
+          this.afterEdit()
         } else {
+          this.$message({
+            message: '修改的内容存在错误，请修改后再保存，否则请取消编辑',
+            type: 'error'
+          })
           console.log('error submit!!')
           return false
         }
       })
-      // 修改后操作
-      this.afterEdit()
     },
     /* 取消编辑操作 */
-    cancelEdit() {
+    cancelEdit(formName) {
       this.dataForm = { ...this.tempData }
+      this.$refs[formName].clearValidate()
       this.afterEdit()
     },
-    /* 取消 确认弹窗 */
-    beforeCancelEdit() {
+    /* 取消 */
+    beforeCancelEdit(formName) {
       this.$confirm('修改信息还没保存, 是否继续?', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
-        this.cancelEdit()
+        this.cancelEdit(formName)
         this.$message({
           message: '已取消',
           type: 'success'
-
         })
       }).catch(() => {
         console.log('已取消退出')

@@ -17,5 +17,5 @@ export function isChinese(str) {
  * @returns {Boolean}
  */
 export function isEnglish(str) {
-  return /^[a-zA-Z ]+$/.test(str)
+  return /^[a-zA-Z- ]+$/.test(str)
 }
