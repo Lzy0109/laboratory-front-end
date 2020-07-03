@@ -12,22 +12,22 @@
     <!-- 详细信息展示 -->
     <div class="form-style">
       <h2>器材详细信息</h2>
-      <el-form ref="dataForm" :model="dataForm" :rules="rules">
+      <el-form ref="dataForm" :model="dataForm" :rules="rules" hide-required-asterisk>
         <el-row type="flex" class="row-bg" justify="space-around">
           <el-col :span="6">
-            <el-form-item label="编号" label-width="100px" prop="infoValidation">
+            <el-form-item label="编号" label-width="100px" prop="number">
               <span v-show="isRead">{{ dataForm.number }}</span>
               <el-input v-show="!isRead" v-model="dataForm.number" style="width: auto" :readonly="isRead" />
             </el-form-item>
           </el-col>
           <el-col :span="6">
-            <el-form-item label="名称" label-width="100px" prop="infoValidation">
+            <el-form-item label="名称" label-width="100px" prop="name">
               <span v-show="isRead">{{ dataForm.name }}</span>
               <el-input v-show="!isRead" v-model="dataForm.name" style="width: auto" :readonly="isRead" />
             </el-form-item>
           </el-col>
           <el-col :span="6">
-            <el-form-item label="种类" label-width="100px" prop="infoValidation">
+            <el-form-item label="种类" label-width="100px" prop="lab_equipment_category_name">
               <!-- 新版 -->
               <span v-show="isRead">{{ dataForm.lab_equipment_category_name }}</span>
 <!--              <el-input v-show="!isRead" v-model="dataForm.lab_equipment_category_name" style="width: auto" :readonly="isRead" @blur="checkLabCategory(dataForm.lab_equipment_category_name)" />-->
@@ -35,7 +35,7 @@
 <!--              <div v-show="showCategoryCheckingErrorMessage" class="check_message_error"><span>{{ categoryCheckingMessage }}</span></div>-->
               <!-- 旧版 -->
 <!--              <el-input v-show="isRead" v-model="dataForm.lab_equipment_category_name" style="width: auto" :readonly="isRead" />-->
-              <el-select v-show="!isRead" v-model="dataForm.lab_equipment_category_id" style="width: 185px;" placeholder="器材种类" filterable>
+              <el-select v-show="!isRead" v-model="dataForm.lab_equipment_category_id" style="width: 165px;" placeholder="器材种类" filterable>
                 <!-- 获取数据库信息动态生成option -->
                 <el-option v-for="item in equCategoryList" :key="item.id" :label="item.name" :value="item.id">
                   <span style="float: left">编号:{{ item.id }}</span>
@@ -45,7 +45,7 @@
             </el-form-item>
           </el-col>
           <el-col :span="6">
-            <el-form-item label="品牌" label-width="100px" prop="infoValidation">
+            <el-form-item label="品牌" label-width="100px" prop="brand_name">
               <span v-show="isRead">{{ dataForm.brand_name }}</span>
               <el-input v-show="!isRead" v-model="dataForm.brand_name" style="width: auto" :readonly="isRead" />
             </el-form-item>
@@ -53,25 +53,25 @@
         </el-row>
         <el-row type="flex" class="row-bg" justify="space-around">
           <el-col :span="6">
-            <el-form-item label="型号" label-width="100px" prop="infoValidation">
+            <el-form-item label="型号" label-width="100px" prop="model_name">
               <span v-show="isRead">{{ dataForm.model_name }}</span>
               <el-input v-show="!isRead" v-model="dataForm.model_name" style="width: auto" :readonly="isRead" />
             </el-form-item>
           </el-col>
           <el-col :span="6">
-            <el-form-item label="单位" label-width="100px" prop="infoValidation">
+            <el-form-item label="单位" label-width="100px" prop="lab_unit_id">
               <span v-show="isRead">{{ dataForm.lab_unit_id }}</span>
               <el-input v-show="!isRead" v-model="dataForm.lab_unit_id" style="width: auto" :readonly="isRead" />
             </el-form-item>
           </el-col>
           <el-col :span="6">
-            <el-form-item label="数量" label-width="100px" prop="infoValidation">
+            <el-form-item label="数量" label-width="100px" prop="quantity">
               <span v-show="isRead">{{ dataForm.quantity }}</span>
               <el-input v-show="!isRead" v-model="dataForm.quantity" style="width: auto" :readonly="isRead" />
             </el-form-item>
           </el-col>
           <el-col :span="6">
-            <el-form-item label="单价" label-width="100px" prop="infoValidation">
+            <el-form-item label="单价" label-width="100px" prop="unit_price">
               <span v-show="isRead">{{ dataForm.unit_price }}</span>
               <el-input v-show="!isRead" v-model="dataForm.unit_price" style="width: auto" :readonly="isRead" />
             </el-form-item>
@@ -79,25 +79,25 @@
         </el-row>
         <el-row type="flex" class="row-bg" justify="space-around">
           <el-col :span="6">
-            <el-form-item label="生产商" label-width="100px" prop="infoValidation">
+            <el-form-item label="生产商" label-width="100px" prop="manufacturer">
               <span v-show="isRead">{{ dataForm.manufacturer }}</span>
               <el-input v-show="!isRead" v-model="dataForm.manufacturer" style="width: auto" :readonly="isRead" />
             </el-form-item>
           </el-col>
           <el-col :span="6">
-            <el-form-item label="生产商电话" label-width="100px" prop="infoValidation">
+            <el-form-item label="生产商电话" label-width="100px" prop="manufacturer_telephone">
               <span v-show="isRead">{{ dataForm.manufacturer_telephone }}</span>
               <el-input v-show="!isRead" v-model="dataForm.manufacturer_telephone" style="width: auto" :readonly="isRead" />
             </el-form-item>
           </el-col>
           <el-col :span="6">
-            <el-form-item label="供货商" label-width="100px" prop="infoValidation">
+            <el-form-item label="供货商" label-width="100px" prop="supplier">
               <span v-show="isRead">{{ dataForm.supplier }}</span>
               <el-input v-show="!isRead" v-model="dataForm.supplier" style="width: auto" :readonly="isRead" />
             </el-form-item>
           </el-col>
           <el-col :span="6">
-            <el-form-item label="供货商电话" label-width="100px" prop="infoValidation">
+            <el-form-item label="供货商电话" label-width="100px" prop="supplier_telephone">
               <span v-show="isRead">{{ dataForm.supplier_telephone }}</span>
               <el-input v-show="!isRead" v-model="dataForm.supplier_telephone" style="width: auto" :readonly="isRead" />
             </el-form-item>
@@ -105,26 +105,26 @@
         </el-row>
         <el-row type="flex" class="row-bg" justify="space-around">
           <el-col :span="6">
-            <el-form-item label="总价" label-width="100px" prop="infoValidation">
+            <el-form-item label="总价" label-width="100px" prop="total_price">
               <span v-show="isRead">{{ dataForm.total_price }}</span>
               <el-input v-show="!isRead" v-model="dataForm.total_price" style="width: auto" :readonly="isRead" />
             </el-form-item>
           </el-col>
           <el-col :span="6">
-            <el-form-item label="国码" label-width="100px" prop="infoValidation">
+            <el-form-item label="国码" label-width="100px" prop="country_code">
               <span v-show="isRead">{{ dataForm.country_code }}</span>
               <el-input v-show="!isRead" v-model="dataForm.country_code" style="width: auto" :readonly="isRead" />
             </el-form-item>
           </el-col>
           <el-col :span="6">
-            <el-form-item label="出产日期" label-width="100px" prop="infoValidation">
+            <el-form-item label="出产日期" label-width="100px" prop="production_date">
               <span v-show="isRead">{{ dataForm.production_date }}</span>
              <!-- <el-input v-show="isRead" v-model="dataForm.production_date" style="width: auto" :readonly="isRead" />-->
-              <el-date-picker v-show="!isRead" v-model="dataForm.production_date" type="date" style="width: 185px" value-format="yyyy-MM-dd" clearable />
+              <el-date-picker v-show="!isRead" v-model="dataForm.production_date" type="date" style="width: 165px" value-format="yyyy-MM-dd" clearable />
             </el-form-item>
           </el-col>
           <el-col :span="6">
-            <el-form-item label="保修期" label-width="100px" prop="infoValidation">
+            <el-form-item label="保修期" label-width="100px" prop="warranty">
               <span v-show="isRead">{{ dataForm.warranty }}</span>
               <el-input v-show="!isRead" v-model="dataForm.warranty" style="width: auto" :readonly="isRead" />
             </el-form-item>
@@ -132,26 +132,26 @@
         </el-row>
         <el-row type="flex" class="row-bg" justify="space-around">
           <el-col :span="6">
-            <el-form-item label="单据号" label-width="100px" prop="infoValidation">
+            <el-form-item label="单据号" label-width="100px" prop="bills_number">
               <span v-show="isRead">{{ dataForm.bills_number }}</span>
               <el-input v-show="!isRead" v-model="dataForm.bills_number" style="width: auto" :readonly="isRead" />
             </el-form-item>
           </el-col>
           <el-col :span="6">
-            <el-form-item label="购置日期" label-width="100px" prop="infoValidation">
+            <el-form-item label="购置日期" label-width="100px" prop="purchase_date">
               <span v-show="isRead">{{ dataForm.purchase_date }}</span>
               <!--<el-input v-show="isRead" v-model="dataForm.purchase_date" style="width: auto" :readonly="isRead" />-->
-              <el-date-picker v-show="!isRead" v-model="dataForm.purchase_date" style="width: 185px" type="date" value-format="yyyy-MM-dd" clearable />
+              <el-date-picker v-show="!isRead" v-model="dataForm.purchase_date" style="width: 165px" type="date" value-format="yyyy-MM-dd" clearable />
             </el-form-item>
           </el-col>
           <el-col :span="6">
-            <el-form-item label="存放地点" label-width="100px" prop="infoValidation">
+            <el-form-item label="存放地点" label-width="100px" prop="field_name">
               <span v-show="isRead">{{ dataForm.field_name }}</span>
               <el-input v-show="!isRead" v-model="dataForm.field_name" style="width: auto" :readonly="isRead" />
             </el-form-item>
           </el-col>
           <el-col :span="6">
-            <el-form-item label="购买方式" label-width="100px" prop="infoValidation">
+            <el-form-item label="购买方式" label-width="100px" prop="purchase_method">
               <span v-show="isRead">{{ dataForm.purchase_method }}</span>
               <el-input v-show="!isRead" v-model="dataForm.purchase_method" style="width: auto" :readonly="isRead" />
             </el-form-item>
@@ -159,23 +159,23 @@
         </el-row>
         <el-row type="flex" class="row-bg" justify="space-around">
           <el-col :span="6">
-            <el-form-item label="经费来源" label-width="100px" prop="infoValidation">
+            <el-form-item label="经费来源" label-width="100px" prop="expenditure">
               <span v-show="isRead">{{ dataForm.expenditure }}</span>
               <el-input v-show="!isRead" v-model="dataForm.expenditure" style="width: auto" :readonly="isRead" />
             </el-form-item>
           </el-col>
           <el-col :span="6">
-            <el-form-item label="状态" label-width="100px" prop="infoValidation">
+            <el-form-item label="状态" label-width="100px" prop="status_name">
               <span v-show="isRead">{{ dataForm.status_name }}</span>
               <!--<el-input v-show="isRead" v-model="dataForm.status_name" style="width: auto" :readonly="isRead" />-->
-              <el-select v-show="!isRead" v-model="dataForm.status" style="width: 203px;" placeholder="状态">
+              <el-select v-show="!isRead" v-model="dataForm.status" style="width: 165px;" placeholder="状态">
                 <!--获取数据库信息动态生成option-->
                 <el-option v-for="item in statusList" :key="item.id" :label="item.name" :value="item.id" />
               </el-select>
             </el-form-item>
           </el-col>
           <el-col :span="6">
-            <el-form-item label="用途" label-width="100px" prop="infoValidation">
+            <el-form-item label="用途" label-width="100px" prop="usage">
               <span v-show="isRead">{{ dataForm.usage }}</span>
               <el-input v-show="!isRead" v-model="dataForm.usage" style="width: auto" :readonly="isRead" />
             </el-form-item>
@@ -199,7 +199,7 @@
       <el-collapse-transition>
         <div v-show="showSaveBtn" style="text-align: center">
           <el-button type="success" size="medium" @click="submitEdit('dataForm')">保存</el-button>
-          <el-button type="primary" size="medium" @click="beforeCancelEdit">取消</el-button>
+          <el-button type="primary" size="medium" @click="beforeCancelEdit('dataForm')">取消</el-button>
         </div>
       </el-collapse-transition>
     </div>
@@ -265,10 +265,85 @@ export default {
       tempData: null,
       rules: {
         number: [
-          { type: 'number', message: '请输入数字', trigger: 'blur' }
+          { required: true, type: 'string', message: '请输入数字', trigger: 'blur' }
         ],
         infoValidationValidation: [
-          { type: 'string', message: '请输入', trigger: 'blur' }
+          { required: true, type: 'string', message: '请输入', trigger: 'blur' }
+        ],
+        name: [
+          { required: true, type: 'string', message: '请输入', trigger: 'blur' }
+        ],
+        lab_equipment_category_name: [
+          { required: true, type: 'string', message: '请输入', trigger: 'blur' }
+        ],
+        lab_equipment_category_id: [
+          { required: true, type: 'string', message: '请输入数字', trigger: 'blur' }
+        ],
+        brand_name: [
+          { required: true, type: 'string', message: '请输入', trigger: 'blur' }
+        ],
+        model_name: [
+          { required: true, type: 'string', message: '请输入', trigger: 'blur' }
+        ],
+        lab_unit_id: [
+          { required: true, type: 'string', message: '请输入', trigger: 'blur' }
+        ],
+        manufacturer: [
+          { required: true, type: 'string', message: '请输入', trigger: 'blur' }
+        ],
+        manufacturer_telephone: [
+          { required: true, type: 'string', message: '请输入', trigger: 'blur' }
+        ],
+        supplier: [
+          { required: true, type: 'string', message: '请输入', trigger: 'blur' }
+        ],
+        supplier_telephone: [
+          { required: true, type: 'string', message: '请输入', trigger: 'blur' }
+        ],
+        quantity: [
+          { required: true, type: 'string', message: '请输入', trigger: 'blur' }
+        ],
+        unit_price: [
+          { required: true, type: 'string', message: '请输入', trigger: 'blur' }
+        ],
+        total_price: [
+          { required: true, type: 'string', message: '请输入', trigger: 'blur' }
+        ],
+        country_code: [
+          { required: true, type: 'string', message: '请输入', trigger: 'blur' }
+        ],
+        production_date: [
+          { required: true, type: 'string', message: '请输入', trigger: 'blur' }
+        ],
+        bills_number: [
+          { required: true, type: 'string', message: '请输入', trigger: 'blur' }
+        ],
+        purchase_date: [
+          { required: true, type: 'string', message: '请输入', trigger: 'blur' }
+        ],
+        field_id: [
+          { required: true, type: 'string', message: '请输入', trigger: 'blur' }
+        ],
+        field_name: [
+          { required: true, type: 'string', message: '请输入', trigger: 'blur' }
+        ],
+        expenditure: [
+          { required: true, type: 'string', message: '请输入', trigger: 'blur' }
+        ],
+        purchase_method: [
+          { required: true, type: 'string', message: '请输入', trigger: 'blur' }
+        ],
+        warranty: [
+          { required: true, type: 'string', message: '请输入', trigger: 'blur' }
+        ],
+        status: [
+          { required: true, type: 'string', message: '请输入', trigger: 'blur' }
+        ],
+        status_name: [
+          { required: true, type: 'string', message: '请输入', trigger: 'blur' }
+        ],
+        usage: [
+          { required: true, type: 'string', message: '请输入', trigger: 'blur' }
         ]
       },
       isRead: true,
@@ -359,27 +434,32 @@ export default {
           // 根据返回信息重新复制dataForm
           console.log('success submit!!')
           this.synchronizeData('status_name', this.dataForm.status, this.statusList)
+          // 修改成功后操作
+          this.afterEdit()
         } else {
+          this.$message({
+            message: '修改失败',
+            type: 'error'
+          })
           console.log('error submit!!')
           return false
         }
       })
-      // 修改后操作
-      this.afterEdit()
     },
     /* 取消编辑操作 */
-    cancelEdit() {
+    cancelEdit(formName) {
       this.dataForm = { ...this.tempData }
+      this.$refs[formName].clearValidate()
       this.afterEdit()
     },
     /* 取消 确认弹窗 */
-    beforeCancelEdit() {
+    beforeCancelEdit(formName) {
       this.$confirm('修改信息还没保存, 是否继续?', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
-        this.cancelEdit()
+        this.cancelEdit(formName)
         this.$message({
           message: '已取消',
           type: 'success'
