@@ -602,7 +602,9 @@
   }
   .button-filter-container {
     display: inline-block;
-    margin-left: 600px;
+    position: absolute;
+    top: 25px;
+    right: 30px;
   }
   .filter-container-conditions {
     display: inline-block;

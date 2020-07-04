@@ -7,20 +7,28 @@
         <el-input v-model="queryList.name" placeholder="软件名称" style="width: 230px;" clearable>
           <template slot="prepend">软件名称</template>
         </el-input>
-        <el-select v-model="queryList.lab_software_category_id" style="width: 160px;" placeholder="软件种类" filterable clearable @change="handleFilter">
-          <!--获取数据库信息动态生成option-->
+        <el-input v-model="queryList.lab_software_category_name" placeholder="软件种类" style="width: 230px;" clearable>
+          <template slot="prepend">软件种类</template>
+        </el-input>
+        <el-input v-model="queryList.applicable_system_name" placeholder="适用系统" style="width: 230px;" clearable>
+          <template slot="prepend">适用系统</template>
+        </el-input>
+<!--
+        <el-select v-model="queryList.lab_software_category_name" style="width: 160px;" placeholder="软件种类" filterable clearable @change="handleFilter">
+          &lt;!&ndash;获取数据库信息动态生成option&ndash;&gt;
           <el-option v-for="item in softwareCategoryList" :key="item.id" :label="item.name" :value="item.id">
             <span style="float: left">编号:{{ item.id }}</span>
             <span style="float: right; color: #8492a6; font-size: 12px">名称:{{ item.name }}</span>
           </el-option>
         </el-select>
-        <el-select v-model="queryList.applicable_system" style="width: 160px;" placeholder="适用系统" filterable clearable @change="handleFilter">
-          <!--获取数据库信息动态生成option-->
+-->
+        <!--<el-select v-model="queryList.applicable_system" style="width: 160px;" placeholder="适用系统" filterable clearable @change="handleFilter">
+          &lt;!&ndash;获取数据库信息动态生成option&ndash;&gt;
           <el-option v-for="item in oSystemList" :key="item.id" :label="item.name" :value="item.id" >
             <span style="float: left">编号:{{ item.id }}</span>
             <span style="float: right; color: #8492a6; font-size: 12px">名称:{{ item.name }}</span>
           </el-option>
-        </el-select>
+        </el-select>-->
         <el-button-group>
           <el-button type="primary" size="medium" @click="handleFilter">搜索</el-button>
         </el-button-group>
@@ -59,24 +67,34 @@
             </el-input>
           </el-col>
           <!-- 软件种类 -->
-          <el-col :span="6">
+          <!--<el-col :span="6">
             <el-select v-model="queryList.lab_software_category_id" style="width: 300px;" placeholder="软件种类" filterable clearable @change="handleFilter">
-              <!--获取数据库信息动态生成option-->
+              &lt;!&ndash;获取数据库信息动态生成option&ndash;&gt;
               <el-option v-for="item in softwareCategoryList" :key="item.id" :label="item.name" :value="item.id">
                 <span style="float: left">编号:{{ item.id }}</span>
                 <span style="float: right; color: #8492a6; font-size: 12px">名称:{{ item.name }}</span>
               </el-option>
             </el-select>
+          </el-col>-->
+          <el-col :span="6">
+            <el-input v-model="queryList.lab_software_category_name" placeholder="软件种类" style="width: 300px;" clearable>
+              <template slot="prepend">软件种类</template>
+            </el-input>
           </el-col>
           <!-- 适用系统 -->
-          <el-col :span="6">
+          <!--<el-col :span="6">
             <el-select v-model="queryList.applicable_system" style="width: 300px;" placeholder="适用系统" filterable clearable @change="handleFilter">
-              <!--获取数据库信息动态生成option-->
+              &lt;!&ndash;获取数据库信息动态生成option&ndash;&gt;
               <el-option v-for="item in oSystemList" :key="item.id" :label="item.name" :value="item.id" >
                 <span style="float: left">编号:{{ item.id }}</span>
                 <span style="float: right; color: #8492a6; font-size: 12px">名称:{{ item.name }}</span>
               </el-option>
             </el-select>
+          </el-col>-->
+          <el-col :span="6">
+            <el-input v-model="queryList.applicable_system_name" placeholder="适用系统" style="width: 300px;" clearable>
+              <template slot="prepend">适用系统</template>
+            </el-input>
           </el-col>
           <!-- 发行方名称 -->
           <el-col :span="6">
@@ -92,13 +110,35 @@
             </el-input>
           </el-col>
           <el-col :span="6">
-            <el-input v-model="queryList.price" placeholder="价格" style="width: 300px;" clearable>
-              <template slot="prepend">价格</template>
+            <el-input v-model="queryList.price_name" placeholder="单价" style="width: 300px;" clearable>
+              <template slot="prepend">单价</template>
+            </el-input>
+          </el-col>
+          <el-col :span="6">
+            <el-input v-model="queryList.brand_name" placeholder="品牌" style="width: 300px;" clearable>
+              <template slot="prepend">品牌</template>
             </el-input>
           </el-col>
           <el-col :span="6">
             <el-input v-model="queryList.size" placeholder="软件大小" style="width: 300px;" clearable>
               <template slot="prepend">软件大小</template>
+            </el-input>
+          </el-col>
+        </el-row>
+        <el-row class="DetailSearch_son_row">
+          <el-col :span="6">
+            <el-input v-model="queryList.manufacturer_name" placeholder="生产商" style="width: 300px;" clearable>
+              <template slot="prepend">生产商</template>
+            </el-input>
+          </el-col>
+          <el-col :span="6">
+            <el-input v-model="queryList.supplier_name" placeholder="供货商" style="width: 300px;" clearable>
+              <template slot="prepend">供货商</template>
+            </el-input>
+          </el-col>
+          <el-col :span="6">
+            <el-input v-model="queryList.course_name" placeholder="适用课程" style="width: 300px;" clearable>
+              <template slot="prepend">适用课程</template>
             </el-input>
           </el-col>
         </el-row>
@@ -137,7 +177,7 @@
         width="auto"
       />
       <el-table-column
-        prop="lab_software_category_id"
+        prop="lab_software_category_name"
         label="软件种类"
         width="auto"
       />
@@ -146,7 +186,7 @@
         label="软甲大小"
       />
       <el-table-column
-        prop="applicable_system"
+        prop="applicable_system_name"
         label="适用系统"
       />
       <el-table-column
@@ -165,25 +205,31 @@
 </template>
 
 <script>
-// id			主id
-// name			软件名称
-// lab_software_category_id 	软件种类			外键，对应软件种类表的id
-// size			软件大小
-// applicable_system	适用系统
-// version			软件版本号
-// price			价格
-// publisher_name		发行方名称
-// attachment_id 		使用说明			外键，对应附件表的id
-//
-// datetime		本记录的创建时间
-// by_who			本记录的写入者关联到 		sys_user.id
-// deleted			本记录是否有效			0：有效，-1：无效
-// last_version		本记录的上一个版本的id		默认 -1：只有一条
-
-// eslint-disable-next-line no-unused-vars
 const fake_data = [
   {
-    id: 1, name: '软件名称', lab_software_category_id: '软件种类', size: '软件大小', applicable_system: '适用系统', version: '软件版本号', price: '价格', publisher_name: '发行方名称', attachment_id: '使用说明'
+    number: 'sw-1234',
+    name: '软件名称',
+    size: '软件大小（暂留）',
+    lab_software_category_id: 1,
+    lab_software_category_name: '分类1',
+    applicable_system_id: 1,
+    applicable_system_name: '适用系统',
+    version: '软件版本号',
+    price_id: 1,
+    price_name: '单价',
+    lab_brand_id: 1,
+    brand_name: '品牌',
+    lab_unit_id: 1,
+    lab_unit_name: '计量单位',
+    specification: '规格',
+    lab_manufacturer_id: 1,
+    manufacturer_name: '生厂商',
+    manufacturer_telephone: '生厂商电话',
+    lab_supplier_id: 1,
+    supplier_name: '供货商',
+    supplier_telephone: '供货商电话',
+    course_id: 1,
+    course_name: '适用课程'
   }
 ]
 
@@ -290,33 +336,11 @@ export default {
 }
 </script>
 
-<style scoped>
-  .demo-table-expand {
-    font-size: 0;
-  }
-  .demo-table-expand label {
-    width: 90px;
-    color: #99a9bf;
-  }
-  .demo-table-expand .el-form-item {
-    margin-right: 0;
-    margin-bottom: 0;
-    width: 50%;
-  }
-</style>
 <!-- 高级搜索样式 -->
 <style>
   .my-dialog-title{
     font-size: 20px;
     font-weight: 700;
-  }
-  .DetailSearch {
-    overflow:hidden;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    -webkit-box-shadow: #CCCCCC 0px 0px 5px;
-    -moz-box-shadow: #CCCCCC 0px 0px 5px;
-    box-shadow: #CCCCCC 0px 0px 5px;
   }
   .DetailSearch_son {
     margin : 10px;
@@ -334,22 +358,11 @@ export default {
   .filter-container {
     margin-bottom: 70px;
   }
-  .FunctionBtn {
-    overflow:hidden;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    -webkit-box-shadow: #CCCCCC 0px 0px 5px;
-    -moz-box-shadow: #CCCCCC 0px 0px 5px;
-    box-shadow: #CCCCCC 0px 0px 5px;
-  }
-  .FunctionBtn_Son {
-    display: inline-block;
-    margin : 5px;
-  }
   .button-filter-container {
     display: inline-block;
-    margin: 5px;
-    float: right;
+    position: absolute;
+    top: 25px;
+    right: 30px;
   }
   .filter-container-conditions {
     float: left;

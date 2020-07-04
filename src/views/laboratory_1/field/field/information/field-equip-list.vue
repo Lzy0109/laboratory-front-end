@@ -390,7 +390,9 @@ export default {
   }
   .button-filter-container {
     display: inline-block;
-    margin-left: 215px;
+    position: absolute;
+    top: 25px;
+    right: 30px;
   }
   .filter-container-conditions {
     display: inline-block;
