@@ -11,200 +11,55 @@
           </el-button>
         </el-button-group>
         <!-- 器材分类选择窗口 -->
-        <el-dialog :visible.sync="showCategoryBtn" width="95%" :show-close="false">
-          <!-- 标题 + 搜索框 -->
-          <div slot="title">
-            <span class="my-dialog-title">器材种类搜索</span>
-            <el-input placeholder="查询种类" style="width: 230px;" clearable></el-input>
-            <el-button type="primary" size="medium">搜索</el-button>
-          </div>
-          <!-- 分类选项 -->
-          <div class="select-group" style="display:block">
-            <el-radio-group v-model="categorySelected" @change="handleSelectCategory">
-              <el-radio border size="medium" style="margin: 10px 20px; width: 8%" :label="item.id" :key="item.id" v-for="item in categoryList">
-                {{item.name}}
-              </el-radio>
-            </el-radio-group>
-          </div>
-          <div style="text-align: center; margin-top: 20px">
-            <el-button type="primary" size="medium" @click="showCategoryBtn = !showCategoryBtn">返回</el-button>
-            <el-button type="primary" size="medium" @click="handleCategory">确定</el-button>
-          </div>
-        </el-dialog>
+        <!--
+            已抽成组件 DictionaryRadios
+            属性： showBtn： 布尔值，是否显示窗口
+                  dictionaryList: 字典数据列表
+                  title： 显示窗口标题
+            事件： handleCancel： 点击窗口取消按钮
+                  handleConfirm： 点击窗口确认按钮
+                  fuzzySearch： 点击模糊搜索按钮
+        -->
+        <DictionaryRadios :showBtn="showCategoryBtn"
+                          :dictionaryList="categoryList" title="器材种类搜索"
+                          @handleCancel="showCategoryBtn = !showCategoryBtn"
+                          @handleConfirm="handleSelectCategoryConfirm" @fuzzySearch="categoryFuzzySearch">
+        </DictionaryRadios>
+
+<!--        <el-dialog :visible.sync="showCategoryBtn" width="95%" :show-close="false">-->
+<!--          &lt;!&ndash; 标题 + 搜索框 &ndash;&gt;-->
+<!--          <div slot="title">-->
+<!--            <span class="my-dialog-title">器材种类搜索</span>-->
+<!--            <el-input placeholder="查询种类" style="width: 230px;" clearable></el-input>-->
+<!--            <el-button type="primary" size="medium">搜索</el-button>-->
+<!--          </div>-->
+<!--          <h2 v-show="categoryList.length === 0" style="text-align: center">-->
+<!--            暂无数据-->
+<!--          </h2>-->
+<!--          &lt;!&ndash; 分类选项 &ndash;&gt;-->
+<!--          <div class="select-group" style="display: block">-->
+<!--            <el-radio-group v-model="categorySelected" @change="handleSelectCategory">-->
+<!--              <el-radio border size="medium" style="margin: 10px 20px; width: 8%"-->
+<!--                        :label="item.id" :key="item.id" v-for="item in categoryList">-->
+<!--                {{item.name}}-->
+<!--              </el-radio>-->
+<!--            </el-radio-group>-->
+<!--          </div>-->
+<!--          <div style="text-align: center; margin-top: 20px">-->
+<!--            <el-button type="primary" size="medium" @click="showCategoryBtn = !showCategoryBtn">返回</el-button>-->
+<!--            <el-button type="primary" size="medium" @click="handleCategory">确定</el-button>-->
+<!--          </div>-->
+<!--        </el-dialog>-->
         <!-- 选择品牌 -->
         <el-button-group>
           <el-button type="primary" size="medium" @click="showBrandBtn = !showBrandBtn">选择器材品牌</el-button>
         </el-button-group>
-        <!-- 品牌选择窗口 -->
-        <el-dialog :visible.sync="showBrandBtn" width="95%" :show-close="false">
-          <div slot="title">
-            <span class="my-dialog-title">品牌搜索</span>
-            <el-input placeholder="查询品牌" style="width: 230px;" clearable></el-input>
-            <el-button type="primary" size="medium">搜索</el-button>
-          </div>
-          <div class="select-group" style="text-align: center">
-            <el-row style="margin: 10px">
-              <el-col :span="3">
-                <el-radio label="1" border size="medium">种类1</el-radio>
-              </el-col>
-              <el-col :span="3">
-                <el-radio label="2" border size="medium">种类2</el-radio>
-              </el-col>
-              <el-col :span="3">
-                <el-radio label="3" border size="medium">种类3</el-radio>
-              </el-col>
-              <el-col :span="3">
-                <el-radio label="4" border size="medium">种类4</el-radio>
-              </el-col>
-              <el-col :span="3">
-                <el-radio label="5" border size="medium">种类5</el-radio>
-              </el-col>
-              <el-col :span="3">
-                <el-radio label="6" border size="medium">种类6</el-radio>
-              </el-col>
-              <el-col :span="3">
-                <el-radio label="6" border size="medium">种类7</el-radio>
-              </el-col>
-              <el-col :span="3">
-                <el-radio label="6" border size="medium">种类8</el-radio>
-              </el-col>
-            </el-row>
-            <el-row style="margin: 10px">
-              <el-col :span="3">
-                <el-radio label="1" border size="medium">种类1</el-radio>
-              </el-col>
-              <el-col :span="3">
-                <el-radio label="2" border size="medium">种类2</el-radio>
-              </el-col>
-              <el-col :span="3">
-                <el-radio label="3" border size="medium">种类3</el-radio>
-              </el-col>
-              <el-col :span="3">
-                <el-radio label="4" border size="medium">种类4</el-radio>
-              </el-col>
-              <el-col :span="3">
-                <el-radio label="5" border size="medium">种类5</el-radio>
-              </el-col>
-              <el-col :span="3">
-                <el-radio label="6" border size="medium">种类6</el-radio>
-              </el-col>
-              <el-col :span="3">
-                <el-radio label="6" border size="medium">种类7</el-radio>
-              </el-col>
-              <el-col :span="3">
-                <el-radio label="6" border size="medium">种类8</el-radio>
-              </el-col>
-            </el-row>
-            <el-row style="margin: 10px">
-              <el-col :span="3">
-                <el-radio label="1" border size="medium">种类1</el-radio>
-              </el-col>
-              <el-col :span="3">
-                <el-radio label="2" border size="medium">种类2</el-radio>
-              </el-col>
-              <el-col :span="3">
-                <el-radio label="3" border size="medium">种类3</el-radio>
-              </el-col>
-              <el-col :span="3">
-                <el-radio label="4" border size="medium">种类4</el-radio>
-              </el-col>
-              <el-col :span="3">
-                <el-radio label="5" border size="medium">种类5</el-radio>
-              </el-col>
-              <el-col :span="3">
-                <el-radio label="6" border size="medium">种类6</el-radio>
-              </el-col>
-              <el-col :span="3">
-                <el-radio label="6" border size="medium">种类7</el-radio>
-              </el-col>
-              <el-col :span="3">
-                <el-radio label="6" border size="medium">种类8</el-radio>
-              </el-col>
-            </el-row>
-          </div>
-          <div style="text-align: center; margin-top: 20px">
-            <el-button type="primary" size="medium" @click="showBrandBtn = !showBrandBtn">返回</el-button>
-            <el-button type="primary" size="medium">确定</el-button>
-          </div>
-        </el-dialog>
+        <!-- 品牌选择窗口 暂缺 待完善 -->
         <!-- 选择型号 -->
         <el-button-group>
           <el-button type="primary" size="medium" @click="showModelBtn = !showModelBtn">选择器材型号</el-button>
         </el-button-group>
-        <!-- 型号选择窗口 -->
-        <el-dialog :visible.sync="showModelBtn" width="95%" :show-close="false">
-          <div slot="title">
-            <span class="my-dialog-title">型号搜索</span>
-            <el-input placeholder="查询型号" style="width: 230px;" clearable></el-input>
-            <el-button type="primary" size="medium">搜索</el-button>
-          </div>
-          <div class="select-group" style="text-align: center">
-            <el-row style="margin: 10px">
-              <el-col :span="4">
-                <el-radio label="1" border size="medium">型号1</el-radio>
-              </el-col>
-              <el-col :span="4">
-                <el-radio label="2" border size="medium">型号2</el-radio>
-              </el-col>
-              <el-col :span="4">
-                <el-radio label="3" border size="medium">型号3</el-radio>
-              </el-col>
-              <el-col :span="4">
-                <el-radio label="4" border size="medium">型号4</el-radio>
-              </el-col>
-              <el-col :span="4">
-                <el-radio label="5" border size="medium">型号5</el-radio>
-              </el-col>
-              <el-col :span="4">
-                <el-radio label="6" border size="medium">型号6</el-radio>
-              </el-col>
-            </el-row>
-            <el-row style="margin: 10px">
-              <el-col :span="4">
-                <el-radio label="1" border size="medium">型号1</el-radio>
-              </el-col>
-              <el-col :span="4">
-                <el-radio label="2" border size="medium">型号2</el-radio>
-              </el-col>
-              <el-col :span="4">
-                <el-radio label="3" border size="medium">型号3</el-radio>
-              </el-col>
-              <el-col :span="4">
-                <el-radio label="4" border size="medium">型号4</el-radio>
-              </el-col>
-              <el-col :span="4">
-                <el-radio label="5" border size="medium">型号5</el-radio>
-              </el-col>
-              <el-col :span="4">
-                <el-radio label="6" border size="medium">型号6</el-radio>
-              </el-col>
-            </el-row>
-            <el-row style="margin: 10px">
-              <el-col :span="4">
-                <el-radio label="1" border size="medium">型号1</el-radio>
-              </el-col>
-              <el-col :span="4">
-                <el-radio label="2" border size="medium">型号2</el-radio>
-              </el-col>
-              <el-col :span="4">
-                <el-radio label="3" border size="medium">型号3</el-radio>
-              </el-col>
-              <el-col :span="4">
-                <el-radio label="4" border size="medium">型号4</el-radio>
-              </el-col>
-              <el-col :span="4">
-                <el-radio label="5" border size="medium">型号5</el-radio>
-              </el-col>
-              <el-col :span="4">
-                <el-radio label="6" border size="medium">型号6</el-radio>
-              </el-col>
-            </el-row>
-          </div>
-          <div style="text-align: center; margin-top: 20px">
-            <el-button type="primary" size="medium" @click="showModelBtn = !showModelBtn">返回</el-button>
-            <el-button type="primary" size="medium">确定</el-button>
-          </div>
-        </el-dialog>
+        <!-- 型号选择窗口 暂缺 待完善 -->
         <!-- 高级搜索 -->
         <el-button-group>
           <el-button type="primary" size="medium" @click="showDetailSearchBtn = !showDetailSearchBtn">
@@ -393,6 +248,7 @@
 
 <script>
   import Pagination from '@/components/Pagination'
+  import DictionaryRadios from '@/components/DictionaryRadios'
 
   // 分类列表
   const categoryList = [
@@ -485,7 +341,8 @@
   export default {
     name: 'field-equip-add',
     components: {
-      Pagination
+      Pagination,
+      DictionaryRadios
     },
     data() {
       return {
@@ -528,8 +385,10 @@
         equCategoryList: [],
         statusList: [],
         fieldList: [],
+        /* 种类列表 */
         categoryList,
-        categorySelected: '1'
+        /* 选择的种类id */
+        categorySelected: null
       }
     },
     created() {
@@ -580,12 +439,15 @@
         /* 关闭 */
         this.showDetailSearchBtn = false
       },
-      handleSelectCategory(id) {
-        console.log(id)
+      /* radio分类选择确认 */
+      handleSelectCategoryConfirm(id) {
+        this.categorySelected = id
+        this.showCategoryBtn = !this.showCategoryBtn
+        console.log("点击确认，选中的id为：" + this.categorySelected)
       },
-      /* 选择分类 */
-      handleCategory() {
-        console.log("选择的分类id=" + this.categorySelected)
+      /* radio分类模糊搜索 */
+      categoryFuzzySearch(value) {
+        console.log("输入的关键字：" + value)
       }
     }
   }
@@ -602,9 +464,7 @@
   }
   .button-filter-container {
     display: inline-block;
-    position: absolute;
-    top: 25px;
-    right: 30px;
+    float: right;
   }
   .filter-container-conditions {
     display: inline-block;
