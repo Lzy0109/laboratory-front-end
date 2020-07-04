@@ -336,33 +336,11 @@ export default {
 }
 </script>
 
-<style scoped>
-  .demo-table-expand {
-    font-size: 0;
-  }
-  .demo-table-expand label {
-    width: 90px;
-    color: #99a9bf;
-  }
-  .demo-table-expand .el-form-item {
-    margin-right: 0;
-    margin-bottom: 0;
-    width: 50%;
-  }
-</style>
 <!-- 高级搜索样式 -->
 <style>
   .my-dialog-title{
     font-size: 20px;
     font-weight: 700;
-  }
-  .DetailSearch {
-    overflow:hidden;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    -webkit-box-shadow: #CCCCCC 0px 0px 5px;
-    -moz-box-shadow: #CCCCCC 0px 0px 5px;
-    box-shadow: #CCCCCC 0px 0px 5px;
   }
   .DetailSearch_son {
     margin : 10px;
@@ -380,22 +358,11 @@ export default {
   .filter-container {
     margin-bottom: 70px;
   }
-  .FunctionBtn {
-    overflow:hidden;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    -webkit-box-shadow: #CCCCCC 0px 0px 5px;
-    -moz-box-shadow: #CCCCCC 0px 0px 5px;
-    box-shadow: #CCCCCC 0px 0px 5px;
-  }
-  .FunctionBtn_Son {
-    display: inline-block;
-    margin : 5px;
-  }
   .button-filter-container {
     display: inline-block;
-    margin: 5px;
-    float: right;
+    position: absolute;
+    top: 25px;
+    right: 30px;
   }
   .filter-container-conditions {
     float: left;

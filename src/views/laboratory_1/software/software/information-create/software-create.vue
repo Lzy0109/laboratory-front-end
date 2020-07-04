@@ -22,14 +22,14 @@
           </el-col>
           <el-col :span="6">
             <el-form-item label="软件种类" label-width="100px" prop="lab_software_category_name">
-              <el-button style="width: 165px" @click="handleOpenDialog('softwareCategoryDialogVisible')">
+              <el-button type="info" plain style="width: 165px" @click="handleOpenDialog('softwareCategoryDialogVisible')">
                 {{ dataForm.lab_software_category_id === null ? '请选择' : dataForm.lab_software_category_name }}
               </el-button>
             </el-form-item>
           </el-col>
           <el-col :span="6">
             <el-form-item label="适用系统" label-width="100px" prop="applicable_system_name">
-              <el-button style="width: 165px;" @click="handleOpenDialog('applicableSystemDialogVisible')">
+              <el-button type="info" plain style="width: 165px;" @click="handleOpenDialog('applicableSystemDialogVisible')">
                 {{ dataForm.applicable_system_id === null ? '请选择' : dataForm.applicable_system_name }}
               </el-button>
             </el-form-item>
@@ -48,14 +48,14 @@
           </el-col>
           <el-col :span="6">
             <el-form-item label="品牌" label-width="100px" prop="brand_name">
-              <el-button style="width: 165px" @click="handleOpenDialog('brandDialogVisible')">
+              <el-button type="info" plain style="width: 165px" @click="handleOpenDialog('brandDialogVisible')">
                 {{ dataForm.lab_brand_id === null ? '请选择' : dataForm.brand_name }}
               </el-button>
             </el-form-item>
           </el-col>
           <el-col :span="6">
             <el-form-item label="计量单位" label-width="100px" prop="lab_unit_name">
-              <el-button style="width: 165px" @click="handleOpenDialog('unitDialogVisible')">
+              <el-button type="info" plain style="width: 165px" @click="handleOpenDialog('unitDialogVisible')">
                 {{ dataForm.lab_unit_id === null ? '请选择' : dataForm.lab_unit_name }}
               </el-button>
             </el-form-item>
@@ -69,7 +69,7 @@
           </el-col>
           <el-col :span="6">
             <el-form-item label="生产商" label-width="100px" prop="manufacturer_name">
-              <el-button style="width: 165px" @click="handleOpenDialog('manufacturerDialogVisible')">
+              <el-button type="info" plain style="width: 165px" @click="handleOpenDialog('manufacturerDialogVisible')">
                 {{ dataForm.lab_manufacturer_id === null ? '请选择' : dataForm.manufacturer_name }}
               </el-button>
             </el-form-item>
@@ -82,7 +82,7 @@
           <el-col :span="6">
             <el-form-item label="供货商" label-width="100px" prop="supplier_name">
               <!--<el-input v-model="dataForm.supplier_name" style="width: auto" />-->
-              <el-button style="width: 165px" @click="handleOpenDialog('supplierDialogVisible')">
+              <el-button type="info" plain style="width: 165px" @click="handleOpenDialog('supplierDialogVisible')">
                 {{ dataForm.lab_supplier_id === null ? '请选择' : dataForm.supplier_name }}
               </el-button>
             </el-form-item>
@@ -97,7 +97,7 @@
           <el-col :span="6">
             <el-form-item label="适用课程" label-width="100px" prop="course_name">
               <!--<el-input v-model="dataForm.course_name" style="width: auto;" readonly />-->
-              <el-button style="width: 165px" @click="handleOpenDialog('courseDialogVisible')">
+              <el-button type="info" plain style="width: 165px" @click="handleOpenDialog('courseDialogVisible')">
                 {{ dataForm.course_id === null ? '请选择' : dataForm.course_name }}
               </el-button>
             </el-form-item>
@@ -107,15 +107,14 @@
     </div>
     <!-- 软件种类dialog -->
     <el-dialog
-      title="选择软件种类"
       :visible.sync="softwareCategoryDialogVisible"
       width="90%"
-      center
     >
-      <div style="margin-left: 49px; width: 30%">
-        <el-input v-model="queryKeyword" placeholder="输入关键字进行筛选">
-          <el-button slot="append" @click="handleQuery(queryKeyword, 'softwareCategoryList')">筛选</el-button>
-        </el-input>
+      <!-- 标题 + 搜索框 -->
+      <div slot="title">
+        <span class="my-dialog-title">软件种类筛选</span>
+        <el-input v-model="queryKeyword" placeholder="输入关键字进行筛选" style="width: 230px;" clearable />
+        <el-button type="primary" size="medium" @click="handleQuery(queryKeyword, 'softwareCategoryList')">筛选</el-button>
       </div>
       <el-alert
         v-show="softwareCategoryList.length === 0"
@@ -125,27 +124,26 @@
         style="width: 100%;margin-top: 5px"
         :closable="false"
       />
-      <div style="margin:20px 49px 0 49px;">
+      <div style="margin:0 49px 0 49px;display: block">
         <el-radio-group v-model="dataForm.lab_software_category_id">
-          <el-radio v-for="item in softwareCategoryList" :key="item.id" :label="item.id" style="width: 150px;margin-top:5px ">{{ item.name }}</el-radio>
+          <el-radio v-for="item in softwareCategoryList" :key="item.id" :label="item.id" border size="medium" style="margin: 10px 20px; width: 15%">{{ item.name }}</el-radio>
         </el-radio-group>
       </div>
-      <span slot="footer" class="dialog-footer">
-        <el-button mini @click="softwareCategoryDialogVisible = false">返 回</el-button>
-        <el-button type="primary" mini @click="handleSelect(dataForm.lab_software_category_id,'lab_software_category_name', '',softwareCategoryList, 'softwareCategoryDialogVisible')">选 中</el-button>
-      </span>
+      <div style="text-align: center; margin-top: 20px">
+        <el-button type="primary" size="medium" @click="softwareCategoryDialogVisible = false">返 回</el-button>
+        <el-button type="primary" size="medium" @click="handleSelect(dataForm.lab_software_category_id,'lab_software_category_name', '',softwareCategoryList, 'softwareCategoryDialogVisible')">选 中</el-button>
+      </div>
     </el-dialog>
     <!-- 适用系统dialog -->
     <el-dialog
-      title="选择适用系统"
       :visible.sync="applicableSystemDialogVisible"
       width="90%"
-      center
     >
-      <div style="margin-left: 49px; width: 30%">
-        <el-input v-model="queryKeyword" placeholder="输入关键字进行筛选">
-          <el-button slot="append" @click="handleQuery(queryKeyword, 'applicableSystemList')">筛选</el-button>
-        </el-input>
+      <!-- 标题 + 搜索框 -->
+      <div slot="title">
+        <span class="my-dialog-title">适用系统筛选</span>
+        <el-input v-model="queryKeyword" placeholder="输入关键字进行筛选" style="width: 230px;" clearable />
+        <el-button type="primary" size="medium" @click="handleQuery(queryKeyword, 'applicableSystemList')">筛选</el-button>
       </div>
       <el-alert
         v-show="applicableSystemList.length === 0"
@@ -155,27 +153,26 @@
         style="width: 100%;margin-top: 5px"
         :closable="false"
       />
-      <div style="margin:20px 49px 0 49px;">
+      <div style="margin:0 49px 0 49px;display: block">
         <el-radio-group v-model="dataForm.applicable_system_id">
-          <el-radio v-for="item in applicableSystemList" :key="item.id" :label="item.id" style="width: 150px;margin-top:5px ">{{ item.name }}</el-radio>
+          <el-radio v-for="item in applicableSystemList" :key="item.id" :label="item.id" border size="medium" style="margin: 10px 20px; width: 15%">{{ item.name }}</el-radio>
         </el-radio-group>
       </div>
-      <span slot="footer" class="dialog-footer">
-        <el-button mini @click="applicableSystemDialogVisible = false">返 回</el-button>
-        <el-button type="primary" mini @click="handleSelect(dataForm.applicable_system_id,'applicable_system_name', '',applicableSystemList, 'applicableSystemDialogVisible')">选 中</el-button>
-      </span>
+      <div style="text-align: center; margin-top: 20px">
+        <el-button type="primary" size="medium" @click="applicableSystemDialogVisible = false">返 回</el-button>
+        <el-button type="primary" size="medium" @click="handleSelect(dataForm.applicable_system_id,'applicable_system_name', '',applicableSystemList, 'applicableSystemDialogVisible')">选 中</el-button>
+      </div>
     </el-dialog>
     <!-- 品牌dialog -->
     <el-dialog
-      title="选择适用系统"
       :visible.sync="brandDialogVisible"
       width="90%"
-      center
     >
-      <div style="margin-left: 49px; width: 30%">
-        <el-input v-model="queryKeyword" placeholder="输入关键字进行筛选">
-          <el-button slot="append" @click="handleQuery(queryKeyword,'brandList')">筛选</el-button>
-        </el-input>
+      <!-- 标题 + 搜索框 -->
+      <div slot="title">
+        <span class="my-dialog-title">品牌筛选</span>
+        <el-input v-model="queryKeyword" placeholder="输入关键字进行筛选" style="width: 230px;" clearable />
+        <el-button type="primary" size="medium" @click="handleQuery(queryKeyword, 'brandList')">筛选</el-button>
       </div>
       <el-alert
         v-show="brandList.length === 0"
@@ -185,27 +182,26 @@
         style="width: 100%;margin-top: 5px"
         :closable="false"
       />
-      <div style="margin:20px 49px 0 49px;">
+      <div style="margin:0 49px 0 49px;display: block">
         <el-radio-group v-model="dataForm.lab_brand_id">
-          <el-radio v-for="item in brandList" :key="item.id" :label="item.id" style="width: 150px;margin-top:5px ">{{ item.name }}</el-radio>
+          <el-radio v-for="item in brandList" :key="item.id" :label="item.id" border size="medium" style="margin: 10px 20px; width: 15%">{{ item.name }}</el-radio>
         </el-radio-group>
       </div>
-      <span slot="footer" class="dialog-footer">
-        <el-button mini @click="brandDialogVisible = false">返 回</el-button>
-        <el-button type="primary" mini @click="handleSelect(dataForm.lab_brand_id,'brand_name', '',brandList, 'brandDialogVisible')">选 中</el-button>
-      </span>
+      <div style="text-align: center; margin-top: 20px">
+        <el-button type="primary" size="medium" @click="brandDialogVisible = false">返 回</el-button>
+        <el-button type="primary" size="medium" @click="handleSelect(dataForm.lab_brand_id,'brand_name', '',brandList, 'brandDialogVisible')">选 中</el-button>
+      </div>
     </el-dialog>
     <!-- 计量单位dialog -->
     <el-dialog
-      title="选择计量单位"
       :visible.sync="unitDialogVisible"
       width="90%"
-      center
     >
-      <div style="margin-left: 49px; width: 30%">
-        <el-input v-model="queryKeyword" placeholder="输入关键字进行筛选">
-          <el-button slot="append" @click="handleQuery(queryKeyword, 'unitList')">筛选</el-button>
-        </el-input>
+      <!-- 标题 + 搜索框 -->
+      <div slot="title">
+        <span class="my-dialog-title">计量单位筛选</span>
+        <el-input v-model="queryKeyword" placeholder="输入关键字进行筛选" style="width: 230px;" clearable />
+        <el-button type="primary" size="medium" @click="handleQuery(queryKeyword, 'unitList')">筛选</el-button>
       </div>
       <el-alert
         v-show="unitList.length === 0"
@@ -215,27 +211,26 @@
         style="width: 100%;margin-top: 5px"
         :closable="false"
       />
-      <div style="margin:20px 49px 0 49px;">
+      <div style="margin:0 49px 0 49px;display: block">
         <el-radio-group v-model="dataForm.lab_unit_id">
-          <el-radio v-for="item in unitList" :key="item.id" :label="item.id" style="width: 150px;margin-top:5px ">{{ item.name }}</el-radio>
+          <el-radio v-for="item in unitList" :key="item.id" :label="item.id" border size="medium" style="margin: 10px 20px; width: 15%">{{ item.name }}</el-radio>
         </el-radio-group>
       </div>
-      <span slot="footer" class="dialog-footer">
-        <el-button mini @click="unitDialogVisible = false">返 回</el-button>
-        <el-button type="primary" mini @click="handleSelect(dataForm.lab_unit_id,'lab_unit_name', '', unitList, 'unitDialogVisible')">选 中</el-button>
-      </span>
+      <div style="text-align: center; margin-top: 20px">
+        <el-button type="primary" size="medium" @click="unitDialogVisible = false">返 回</el-button>
+        <el-button type="primary" size="medium" @click="handleSelect(dataForm.lab_unit_id,'lab_unit_name', '', unitList, 'unitDialogVisible')">选 中</el-button>
+      </div>
     </el-dialog>
     <!-- 生产商dialog -->
     <el-dialog
-      title="选择生产商"
       :visible.sync="manufacturerDialogVisible"
       width="90%"
-      center
     >
-      <div style="margin-left: 49px; width: 30%">
-        <el-input v-model="queryKeyword" placeholder="输入关键字进行筛选">
-          <el-button slot="append" @click="handleQuery(queryKeyword,'manufacturerList')">筛选</el-button>
-        </el-input>
+      <!-- 标题 + 搜索框 -->
+      <div slot="title">
+        <span class="my-dialog-title">生产商筛选</span>
+        <el-input v-model="queryKeyword" placeholder="输入关键字进行筛选" style="width: 230px;" clearable />
+        <el-button type="primary" size="medium" @click="handleQuery(queryKeyword, 'manufacturerList')">筛选</el-button>
       </div>
       <el-alert
         v-show="manufacturerList.length === 0"
@@ -245,27 +240,26 @@
         style="width: 100%;margin-top: 5px"
         :closable="false"
       />
-      <div style="margin:20px 49px 0 49px;">
+      <div style="margin:0 49px 0 49px;display: block">
         <el-radio-group v-model="dataForm.lab_manufacturer_id">
-          <el-radio v-for="item in manufacturerList" :key="item.id" :label="item.id" style="width: 150px;margin-top:5px ">{{ item.name }}</el-radio>
+          <el-radio v-for="item in manufacturerList" :key="item.id" :label="item.id" border size="medium" style="margin: 10px 20px; width: 15%">{{ item.name }}</el-radio>
         </el-radio-group>
       </div>
-      <span slot="footer" class="dialog-footer">
-        <el-button mini @click="manufacturerDialogVisible = false">返 回</el-button>
-        <el-button type="primary" mini @click="handleSelect(dataForm.lab_manufacturer_id,'manufacturer_name', 'manufacturer_telephone',manufacturerList, 'manufacturerDialogVisible')">选 中</el-button>
-      </span>
+      <div style="text-align: center; margin-top: 20px">
+        <el-button type="primary" size="medium" @click="manufacturerDialogVisible = false">返 回</el-button>
+        <el-button type="primary" size="medium" @click="handleSelect(dataForm.lab_manufacturer_id,'manufacturer_name', 'manufacturer_telephone',manufacturerList, 'manufacturerDialogVisible')">选 中</el-button>
+      </div>
     </el-dialog>
     <!-- 供货商dialog -->
     <el-dialog
-      title="选择供货商"
       :visible.sync="supplierDialogVisible"
       width="90%"
-      center
     >
-      <div style="margin-left: 49px; width: 30%">
-        <el-input v-model="queryKeyword" placeholder="输入关键字进行筛选">
-          <el-button slot="append" @click="handleQuery(queryKeyword, 'supplierList')">筛选</el-button>
-        </el-input>
+      <!-- 标题 + 搜索框 -->
+      <div slot="title">
+        <span class="my-dialog-title">供货商筛选</span>
+        <el-input v-model="queryKeyword" placeholder="输入关键字进行筛选" style="width: 230px;" clearable/>
+        <el-button type="primary" size="medium" @click="handleQuery(queryKeyword, 'supplierList')">筛选</el-button>
       </div>
       <el-alert
         v-show="supplierList.length === 0"
@@ -275,27 +269,26 @@
         style="width: 100%;margin-top: 5px"
         :closable="false"
       />
-      <div style="margin:20px 49px 0 49px;">
+      <div style="margin:0 49px 0 49px;display: block">
         <el-radio-group v-model="dataForm.lab_supplier_id">
-          <el-radio v-for="item in supplierList" :key="item.id" :label="item.id" style="width: 150px;margin-top:5px ">{{ item.name }}</el-radio>
+          <el-radio v-for="item in supplierList" :key="item.id" :label="item.id" border size="medium" style="margin: 10px 20px; width: 15%">{{ item.name }}</el-radio>
         </el-radio-group>
       </div>
-      <span slot="footer" class="dialog-footer">
-        <el-button mini @click="supplierDialogVisible = false">返 回</el-button>
-        <el-button type="primary" mini @click="handleSelect(dataForm.lab_supplier_id,'supplier_name', 'supplier_telephone',supplierList, 'supplierDialogVisible')">选 中</el-button>
-      </span>
+      <div style="text-align: center; margin-top: 20px">
+        <el-button type="primary" size="medium" @click="supplierDialogVisible = false">返 回</el-button>
+        <el-button type="primary" size="medium" @click="handleSelect(dataForm.lab_supplier_id,'supplier_name', 'supplier_telephone',supplierList, 'supplierDialogVisible')">选 中</el-button>
+      </div>
     </el-dialog>
     <!-- 适用课程dialog -->
     <el-dialog
-      title="选择适用课程"
       :visible.sync="courseDialogVisible"
       width="90%"
-      center
     >
-      <div style="margin-left: 49px; width: 30%">
-        <el-input v-model="queryKeyword" placeholder="输入关键字进行筛选">
-          <el-button slot="append" @click="handleQuery(queryKeyword, 'courseList')">筛选</el-button>
-        </el-input>
+      <!-- 标题 + 搜索框 -->
+      <div slot="title">
+        <span class="my-dialog-title">适用课程搜索</span>
+        <el-input v-model="queryKeyword" placeholder="查询适用课程" style="width: 230px;" clearable/>
+        <el-button type="primary" size="medium" @click="handleQuery(queryKeyword, 'courseList')">筛选</el-button>
       </div>
       <el-alert
         v-show="courseList.length === 0"
@@ -305,17 +298,17 @@
         style="width: 100%;margin-top: 5px"
         :closable="false"
       />
-      <div style="margin:20px 49px 0 49px;">
+      <div style="margin:0 49px 0 49px;display: block">
         <el-radio-group v-model="dataForm.course_id">
-          <el-radio v-for="item in courseList" :key="item.id" :label="item.id" style="width: 150px;margin-top:5px ">{{ item.name }}</el-radio>
+          <el-radio v-for="item in courseList" :key="item.id" :label="item.id" border size="medium" style="margin: 10px 20px; width: 15%">{{ item.name }}</el-radio>
         </el-radio-group>
       </div>
-      <span slot="footer" class="dialog-footer">
+      <div style="text-align: center; margin-top: 20px">
         <!-- 取消操作 -->
-        <el-button mini @click="courseDialogVisible = false">返 回</el-button>
+        <el-button type="primary" size="medium" @click="courseDialogVisible = false">返 回</el-button>
         <!-- 选钟操作 根据选择的id更新到name -->
-        <el-button type="primary" mini @click="handleSelect(dataForm.course_id,'course_name', '',courseList, 'courseDialogVisible')">选 中</el-button>
-      </span>
+        <el-button type="primary" size="medium" @click="handleSelect(dataForm.course_id,'course_name', '',courseList, 'courseDialogVisible')">选 中</el-button>
+      </div>
     </el-dialog>
   </div>
 </template>
@@ -357,6 +350,7 @@ const allListName = [
   { key: 'supplierList', dialogVisibleName: 'supplierDialogVisible', option: 'getSupplierList' },
   { key: 'applicableSystemList', dialogVisibleName: 'applicableSystemDialogVisible', option: 'getApplicableSystemList' }
 ]
+
 export default {
   name: 'SoftwareCreate',
   data() {
@@ -433,7 +427,7 @@ export default {
         course_id: null,
         course_name: null
       },
-
+      // 各种列表
       softwareCategoryList: [],
       courseList: [],
       unitList: [],
@@ -679,5 +673,10 @@ export default {
     box-shadow: 0 1px 4px rgba(0,21,41,.1);
     padding: 20px;
     margin-bottom: 20px;
+  }
+  .my-dialog-title{
+    font-size: 20px;
+    font-weight: 700;
+    margin-right: 50px;
   }
 </style>
