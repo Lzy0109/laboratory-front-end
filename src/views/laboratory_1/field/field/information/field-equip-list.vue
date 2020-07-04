@@ -355,9 +355,12 @@ export default {
     handleDownload() {
 
     },
-    /* 添加数据 */
+    /* 添加器材 */
     handleCreate() {
-
+      console.log('handleCreate')
+      this.$router.push({
+        name: 'Field_Equip_Add'
+      })
     },
     /* 批量添加 */
     handleBatchCreate() {
@@ -387,7 +390,7 @@ export default {
   }
   .button-filter-container {
     display: inline-block;
-    margin-left: 140px;
+    margin-left: 215px;
   }
   .filter-container-conditions {
     display: inline-block;
