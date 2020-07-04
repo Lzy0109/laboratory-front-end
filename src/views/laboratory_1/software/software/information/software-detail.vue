@@ -25,6 +25,12 @@
               <el-input v-show="!isRead" v-model="dataForm.name" style="width: auto" :readonly="isRead" />
             </el-form-item>
           </el-col>
+          <el-col :span="6">
+            <el-form-item label="英文名称" label-width="100px" prop="english_name">
+              <span v-show="isRead">{{ dataForm.english_name }}</span>
+              <el-input v-show="!isRead" v-model="dataForm.english_name" style="width: auto" />
+            </el-form-item>
+          </el-col>
           <!-- 暂留 -->
           <!--<el-col :span="6">
             <el-form-item label="软件大小" label-width="100px" prop="infoValidation">
@@ -39,6 +45,8 @@
               </el-button>
             </el-form-item>
           </el-col>
+        </el-row>
+        <el-row type="flex" class="row-bg" justify="space-around">
           <el-col :span="6">
             <el-form-item label="适用系统" label-width="100px" prop="applicable_system_name">
               <span v-show="isRead">{{ dataForm.applicable_system_name }}</span>
@@ -47,8 +55,6 @@
               </el-button>
             </el-form-item>
           </el-col>
-        </el-row>
-        <el-row type="flex" class="row-bg" justify="space-around">
           <el-col :span="6">
             <el-form-item label="软件版本号" label-width="100px" prop="version">
               <span v-show="isRead">{{ dataForm.version }}</span>
@@ -62,14 +68,6 @@
             </el-form-item>
           </el-col>
           <el-col :span="6">
-            <el-form-item label="品牌" label-width="100px" prop="brand_name">
-              <span v-show="isRead">{{ dataForm.brand_name }}</span>
-              <el-button v-show="!isRead" type="info" plain style="width: 165px" @click="handleOpenDialog('brandDialogVisible')">
-                {{ dataForm.brand_name === null ? '请选择' : dataForm.brand_name }}
-              </el-button>
-            </el-form-item>
-          </el-col>
-          <el-col :span="6">
             <el-form-item label="计量单位" label-width="100px" prop="lab_unit_name">
               <span v-show="isRead">{{ dataForm.lab_unit_name }}</span>
               <el-button v-show="!isRead" type="info" plain style="width: 165px" @click="handleOpenDialog('unitDialogVisible')">
@@ -79,12 +77,6 @@
           </el-col>
         </el-row>
         <el-row type="flex" class="row-bg">
-          <el-col :span="6">
-            <el-form-item label="规格" label-width="100px" prop="specification">
-              <span v-show="isRead">{{ dataForm.specification }}</span>
-              <el-input v-show="!isRead" v-model="dataForm.specification" style="width: auto" :readonly="isRead" />
-            </el-form-item>
-          </el-col>
           <el-col :span="6">
             <el-form-item label="生产商" label-width="100px" prop="manufacturer_name">
               <span v-show="isRead">{{ dataForm.manufacturer_name }}</span>
@@ -107,22 +99,59 @@
               </el-button>
             </el-form-item>
           </el-col>
-        </el-row>
-        <el-row type="flex" class="row-bg">
           <el-col :span="6">
             <el-form-item label="供货商电话" label-width="100px">
               <span v-show="isRead">{{ dataForm.supplier_telephone }}</span>
               <el-input v-show="!isRead" v-model="dataForm.supplier_telephone" style="width: auto" readonly />
             </el-form-item>
           </el-col>
+        </el-row>
+        <el-row type="flex" class="row-bg">
           <el-col :span="6">
+            <el-form-item label="品牌" label-width="100px" prop="brand_name">
+              <span v-show="isRead">{{ dataForm.brand_name }}</span>
+              <el-button v-show="!isRead" type="info" plain style="width: 165px" @click="handleOpenDialog('brandDialogVisible')">
+                {{ dataForm.brand_name === null ? '请选择' : dataForm.brand_name }}
+              </el-button>
+            </el-form-item>
+          </el-col>
+          <el-col :span="6">
+            <el-form-item label="规格" label-width="100px" prop="specification">
+              <span v-show="isRead">{{ dataForm.specification }}</span>
+              <el-input v-show="!isRead" v-model="dataForm.specification" style="width: auto" :readonly="isRead" />
+            </el-form-item>
+          </el-col>
+          <el-col :span="6">
+            <el-form-item label="国码" label-width="100px" prop="country_code_name">
+              <span v-show="isRead">{{ dataForm.country_code_name }}</span>
+              <el-button v-show="!isRead" type="info" plain style="width: 165px" @click="handleOpenDialog('countryCodeDialogVisible')">
+                {{ dataForm.country_code_name === null ? '请选择' : dataForm.country_code_name }}
+              </el-button>
+            </el-form-item>
+          </el-col>
+          <el-col :span="6">
+            <el-form-item label="出产日期" label-width="100px" prop="production_date">
+              <span v-show="isRead">{{ dataForm.production_date }}</span>
+              <el-date-picker
+                v-show="!isRead"
+                v-model="dataForm.production_date"
+                align="right"
+                type="date"
+                style="width: 165px"
+                placeholder="选择日期"
+                value-format="yyyy-MM-dd"
+                :picker-options="pickerOptions"
+              />
+            </el-form-item>
+          </el-col>
+         <!-- <el-col :span="6">
             <el-form-item label="适用课程" label-width="100px" prop="course_name">
               <span v-show="isRead">{{ dataForm.course_name }}</span>
               <el-button v-show="!isRead" type="info" plain style="width: 165px" @click="handleOpenDialog('courseDialogVisible')">
                 {{ dataForm.course_name === null ? '请选择' : dataForm.course_name }}
               </el-button>
             </el-form-item>
-          </el-col>
+          </el-col>-->
         </el-row>
       </el-form>
       <el-collapse-transition>
@@ -306,12 +335,43 @@
         <el-button type="primary" size="medium" @click="handleSelect(dataForm.lab_supplier_id,'supplier_name', 'supplier_telephone',supplierList, 'supplierDialogVisible')">选 中</el-button>
       </div>
     </el-dialog>
-    <!-- 适用课程dialog -->
+    <!-- 国码dialog -->
     <el-dialog
-      :visible.sync="courseDialogVisible"
+      :visible.sync="countryCodeDialogVisible"
       width="90%"
     >
       <!-- 标题 + 搜索框 -->
+      <div slot="title">
+        <span class="my-dialog-title">国码筛选</span>
+        <el-input v-model="queryKeyword" placeholder="查询国码" style="width: 230px;" clearable />
+        <el-button type="primary" size="medium" @click="handleQuery(queryKeyword, 'countryCodeList')">筛选</el-button>
+      </div>
+      <el-alert
+        v-show="countryCodeList.length === 0"
+        title="查无数据"
+        type="info"
+        center
+        style="width: 100%;margin-top: 5px"
+        :closable="false"
+      />
+      <div style="margin:0 49px 0 49px;display: block">
+        <el-radio-group v-model="dataForm.country_code_id">
+          <el-radio v-for="item in countryCodeList" :key="item.id" :label="item.id" border size="medium" style="margin: 10px 20px; width: 15%">{{ item.name }}</el-radio>
+        </el-radio-group>
+      </div>
+      <div style="text-align: center; margin-top: 20px">
+        <!-- 取消操作 -->
+        <el-button type="primary" size="medium" @click="countryCodeDialogVisible = false">返 回</el-button>
+        <!-- 选钟操作 根据选择的id更新到name -->
+        <el-button type="primary" size="medium" @click="handleSelect(dataForm.country_code_id,'country_code_name', '',countryCodeList, 'countryCodeDialogVisible')">选 中</el-button>
+      </div>
+    </el-dialog>
+    <!-- 适用课程dialog -->
+    <!--<el-dialog
+      :visible.sync="courseDialogVisible"
+      width="90%"
+    >
+      &lt;!&ndash; 标题 + 搜索框 &ndash;&gt;
       <div slot="title">
         <span class="my-dialog-title">适用课程搜索</span>
         <el-input v-model="queryKeyword" placeholder="查询适用课程" style="width: 230px;" clearable />
@@ -331,12 +391,12 @@
         </el-radio-group>
       </div>
       <div style="text-align: center; margin-top: 20px">
-        <!-- 取消操作 -->
+        &lt;!&ndash; 取消操作 &ndash;&gt;
         <el-button type="primary" size="medium" @click="courseDialogVisible = false">返 回</el-button>
-        <!-- 选钟操作 根据选择的id更新到name -->
+        &lt;!&ndash; 选钟操作 根据选择的id更新到name &ndash;&gt;
         <el-button type="primary" size="medium" @click="handleSelect(dataForm.course_id,'course_name', '',courseList, 'courseDialogVisible')">选 中</el-button>
       </div>
-    </el-dialog>
+    </el-dialog>-->
   </div>
 </template>
 
@@ -344,6 +404,7 @@
 // 假数据
 const fakeData = {
   number: 'sw-1234',
+  english_name: 'english-name',
   name: '软件名称',
   size: '软件大小（暂留）',
   lab_software_category_id: 1,
@@ -358,14 +419,19 @@ const fakeData = {
   lab_unit_id: 1,
   lab_unit_name: '计量单位',
   specification: '规格',
+
+  country_code_id: 1,
+  country_code_name: '国码',
+  production_date: '2020-07-03',
+
   lab_manufacturer_id: 1,
   manufacturer_name: '生厂商',
   manufacturer_telephone: '生厂商电话',
   lab_supplier_id: 1,
   supplier_name: '供货商',
   supplier_telephone: '供货商电话',
-  course_id: 1,
-  course_name: '适用课程'
+  // course_id: 1,
+  // course_name: '适用课程'
 }
 // 下拉框信息测试
 const fakeList = [
@@ -401,12 +467,28 @@ const allListName = [
   { key: 'brandList', dialogVisibleName: 'brandDialogVisible', option: 'getBrandList' },
   { key: 'manufacturerList', dialogVisibleName: 'manufacturerDialogVisible', option: 'getManufacturerList' },
   { key: 'supplierList', dialogVisibleName: 'supplierDialogVisible', option: 'getSupplierList' },
-  { key: 'applicableSystemList', dialogVisibleName: 'applicableSystemDialogVisible', option: 'getApplicableSystemList' }
+  { key: 'applicableSystemList', dialogVisibleName: 'applicableSystemDialogVisible', option: 'getApplicableSystemList' },
+  { key: 'countryCodeList', dialogVisibleName: 'countryCodeDialogVisible', option: 'getCountryCodeList' }
 ]
 
+import { isChinese, isEnglish } from '@/utils/fieldValidate'
 export default {
   name: 'SoftwareDetail',
   data() {
+    const validateIsChinese = (rule, value, callback) => {
+      if (!isChinese(value)) {
+        callback(new Error('请输入中文'))
+      } else {
+        callback()
+      }
+    }
+    const validateIsEnglish = (rule, value, callback) => {
+      if (!isEnglish(value)) {
+        callback(new Error('请输入英文'))
+      } else {
+        callback()
+      }
+    }
     return {
       dataForm: null,
       tempData: null,
@@ -415,7 +497,11 @@ export default {
           { required: true, type: 'string', message: '请输入', trigger: 'blur' }
         ],
         name: [
-          { required: true, type: 'string', message: '请输入', trigger: 'blur' }
+          { required: true, trigger: 'blur', validator: validateIsChinese }
+        ],
+        english_name: [
+          { required: true, message: '请输入', trigger: 'blur' },
+          { required: true, trigger: 'blur', validator: validateIsEnglish }
         ],
         size: [
           { required: true, type: 'string', message: '请输入', trigger: 'blur' }
@@ -453,11 +539,18 @@ export default {
         supplier_name: [
           { required: true, type: 'string', message: '请输入', trigger: 'change' }
         ],
-        course_name: [
-          { required: true, type: 'string', message: '请选择', trigger: 'change' }
+        country_code_name: [
+          { required: true, type: 'string', message: '请输入', trigger: 'change' }
+        ],
+        production_date: [
+          { required: true, type: 'string', message: '请选择日期', trigger: 'change' }
         ]
       },
-
+      pickerOptions: {
+        disabledDate(time) {
+          return time.getTime() > Date.now()
+        }
+      },
       isRead: true,
       isAble: false,
       showSaveBtn: false,
@@ -470,7 +563,7 @@ export default {
       manufacturerList: [],
       supplierList: [],
       applicableSystemList: [],
-
+      countryCodeList: [],
       // 对话框
       queryKeyword: null,
       softwareCategoryDialogVisible: false,
@@ -479,6 +572,7 @@ export default {
       unitDialogVisible: false,
       supplierDialogVisible: false,
       manufacturerDialogVisible: false,
+      countryCodeDialogVisible: false,
       courseDialogVisible: false
     }
   },
@@ -581,6 +675,24 @@ export default {
         pre_name: m.pre_name,
         name: m.name
       }))
+    },
+    /* 获取国码列表信息 */
+    getCountryCodeList(keyword) {
+      if (!keyword) {
+        console.log('keyword is null')
+        this.countryCodeList = fakeList
+        console.log('this.countryCodeList = ' + this.countryCodeList)
+        return false
+      }
+      // 调用接口
+      // 暂用假数据 作为筛选， 实际通过调用接口，在后台进行模糊筛选再返回数据
+      console.log('keyword is not null')
+      this.countryCodeList = fakeList.filter(m => m.pre_name === keyword).map(m => ({
+        id: m.id,
+        pre_name: m.pre_name,
+        name: m.name
+      }))
+      console.log('this.courseList = ' + this.countryCodeList)
     },
     /* 获取适用课程列表信息 */
     getCourseList(keyword) {
