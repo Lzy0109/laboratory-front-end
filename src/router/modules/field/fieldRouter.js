@@ -13,6 +13,7 @@ import facCategoryListRouter from '@/router/modules/field/modules/facility-modul
 import facCategoryCreateRouter from '@/router/modules/field/modules/facility-modules/category/category-create'
 import facCategoryDetailRouter from '@/router/modules/field/modules/facility-modules/category/category-detail'
 import facilityListRouter from '@/router/modules/field/modules/facility-modules/information/facility-list'
+import fieldEquipAddRouter from '@/router/modules/field/modules/field-modules/information/field-equip-add'
 
 const fieldRouter = {
   path: 'field',
@@ -43,6 +44,8 @@ const fieldRouter = {
         fieldFacListRouter,
         // 指定实验室内器材列表
         fieldEquipListRouter,
+        // 为指定实验室添加器材
+        fieldEquipAddRouter
 
         // 实验室数量管理
         // {
