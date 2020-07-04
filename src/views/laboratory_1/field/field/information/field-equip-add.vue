@@ -20,11 +20,11 @@
                   handleConfirm： 点击窗口确认按钮
                   fuzzySearch： 点击模糊搜索按钮
         -->
-        <DictionaryRadios :showBtn="showCategoryBtn"
+        <dictionary-radios :showBtn="showCategoryBtn"
                           :dictionaryList="categoryList" title="器材种类搜索"
                           @handleCancel="showCategoryBtn = !showCategoryBtn"
                           @handleConfirm="handleSelectCategoryConfirm" @fuzzySearch="categoryFuzzySearch">
-        </DictionaryRadios>
+        </dictionary-radios>
 
 <!--        <el-dialog :visible.sync="showCategoryBtn" width="95%" :show-close="false">-->
 <!--          &lt;!&ndash; 标题 + 搜索框 &ndash;&gt;-->
