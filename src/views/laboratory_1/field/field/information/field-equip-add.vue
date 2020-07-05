@@ -17,49 +17,40 @@
                   dictionaryList: 字典数据列表
                   title： 显示窗口标题
             事件： handleCancel： 点击窗口取消按钮
+                  handleSelect： 监听选择radio
                   handleConfirm： 点击窗口确认按钮
                   fuzzySearch： 点击模糊搜索按钮
         -->
-        <DictionaryRadios :showBtn="showCategoryBtn"
-                          :dictionaryList="categoryList" title="器材种类搜索"
-                          @handleCancel="showCategoryBtn = !showCategoryBtn"
-                          @handleConfirm="handleSelectCategoryConfirm" @fuzzySearch="categoryFuzzySearch">
-        </DictionaryRadios>
-
-<!--        <el-dialog :visible.sync="showCategoryBtn" width="95%" :show-close="false">-->
-<!--          &lt;!&ndash; 标题 + 搜索框 &ndash;&gt;-->
-<!--          <div slot="title">-->
-<!--            <span class="my-dialog-title">器材种类搜索</span>-->
-<!--            <el-input placeholder="查询种类" style="width: 230px;" clearable></el-input>-->
-<!--            <el-button type="primary" size="medium">搜索</el-button>-->
-<!--          </div>-->
-<!--          <h2 v-show="categoryList.length === 0" style="text-align: center">-->
-<!--            暂无数据-->
-<!--          </h2>-->
-<!--          &lt;!&ndash; 分类选项 &ndash;&gt;-->
-<!--          <div class="select-group" style="display: block">-->
-<!--            <el-radio-group v-model="categorySelected" @change="handleSelectCategory">-->
-<!--              <el-radio border size="medium" style="margin: 10px 20px; width: 8%"-->
-<!--                        :label="item.id" :key="item.id" v-for="item in categoryList">-->
-<!--                {{item.name}}-->
-<!--              </el-radio>-->
-<!--            </el-radio-group>-->
-<!--          </div>-->
-<!--          <div style="text-align: center; margin-top: 20px">-->
-<!--            <el-button type="primary" size="medium" @click="showCategoryBtn = !showCategoryBtn">返回</el-button>-->
-<!--            <el-button type="primary" size="medium" @click="handleCategory">确定</el-button>-->
-<!--          </div>-->
-<!--        </el-dialog>-->
+        <dictionary-radios :showBtn="showCategoryBtn"
+                           :dictionaryList="categoryList" title="器材种类搜索"
+                           @handleCancel="showCategoryBtn = !showCategoryBtn"
+                           @handleConfirm="handleSelectCategoryConfirm"
+                           @fuzzySearch="categoryFuzzySearch">
+        </dictionary-radios>
         <!-- 选择品牌 -->
         <el-button-group>
           <el-button type="primary" size="medium" @click="showBrandBtn = !showBrandBtn">选择器材品牌</el-button>
         </el-button-group>
-        <!-- 品牌选择窗口 暂缺 待完善 -->
+        <!-- 品牌选择窗口 -->
+        <dictionary-radios :showBtn="showBrandBtn"
+                           :dictionaryList="brandList" title="器材品牌搜索"
+                           @handleCancel="showBrandBtn = !showBrandBtn"
+                           @handleConfirm="handleSelectBrandConfirm"
+                           @fuzzySearch="brandFuzzySearch">
+
+        </dictionary-radios>
         <!-- 选择型号 -->
         <el-button-group>
           <el-button type="primary" size="medium" @click="showModelBtn = !showModelBtn">选择器材型号</el-button>
         </el-button-group>
-        <!-- 型号选择窗口 暂缺 待完善 -->
+        <!-- 型号选择窗口 -->
+        <dictionary-radios :showBtn="showModelBtn"
+                           :dictionaryList="modelList" title="器材型号搜索"
+                           @handleCancel="showModelBtn = !showModelBtn"
+                           @handleConfirm="handleSelectModelConfirm"
+                           @fuzzySearch="modelFuzzySearch">
+
+        </dictionary-radios>
         <!-- 高级搜索 -->
         <el-button-group>
           <el-button type="primary" size="medium" @click="showDetailSearchBtn = !showDetailSearchBtn">
@@ -243,6 +234,52 @@
       :page.sync="pageNum"
       :limit.sync="pageSize"
     />
+
+    <!-- 详情浮动窗口 -->
+    <el-dialog :visible.sync="showDetailBtn" width="80%" :show-close="false">
+      <h3 slot="title">器材概要</h3>
+      <el-row type="flex" class="row-bg" justify="space-around" style="margin-bottom: 20px">
+        <el-col :span="6">
+          <span style="font-size: 16px; padding: 10px; font-weight: 700">器材编号: </span>
+          <span>1001</span>
+        </el-col>
+        <el-col :span="6">
+          <span style="font-size: 16px; padding: 10px; font-weight: 700">器材名称: </span>
+          <span>Equip</span>
+        </el-col>
+        <el-col :span="6">
+          <span style="font-size: 16px; padding: 10px; font-weight: 700">器材种类: </span>
+          <span>EquipCategory</span>
+        </el-col>
+        <el-col :span="6">
+          <span style="font-size: 16px; padding: 10px; font-weight: 700">品牌: </span>
+          <span>Equip1001</span>
+        </el-col>
+      </el-row>
+      <el-row type="flex" class="row-bg" justify="space-around" style="margin-bottom: 20px">
+          <el-col :span="6">
+            <span style="font-size: 16px; padding: 10px; font-weight: 700">数量: </span>
+            <span>100</span>
+          </el-col>
+          <el-col :span="6">
+            <span style="font-size: 16px; padding: 10px; font-weight: 700">生厂商: </span>
+            <span>Equip生产商</span>
+          </el-col>
+          <el-col :span="6">
+            <span style="font-size: 16px; padding: 10px; font-weight: 700">供货商: </span>
+            <span>Equip供货商</span>
+          </el-col>
+          <el-col :span="6">
+            <span style="font-size: 16px; padding: 10px; font-weight: 700">器材状态: </span>
+            <span>Good</span>
+          </el-col>
+        </el-row>
+      <div style="text-align: center; margin-top: 20px">
+          <el-input-number v-model="equipAddCount"  @change="handleChange" :min="1" :max="120" style="display: block; margin: 10px auto;"></el-input-number>
+          <el-button type="primary" size="medium" @click="showDetailBtn = !showDetailBtn">返回</el-button>
+          <el-button type="primary" size="medium" @click="handleAdd">添加</el-button>
+        </div>
+    </el-dialog>
   </div>
 </template>
 
@@ -293,7 +330,11 @@
       name: '种类10'
     }
   ]
-
+  // 品牌列表
+  const brandList = []
+  // 型号列表
+  const modelList = []
+  // 器材状态列表
   const statusList = [
     { id: 0, name: '在库' },
     { id: 1, name: '使用中' },
@@ -317,7 +358,7 @@
     supplier: '供货商',
     supplier_telephone: '供货商电话',
 
-    quantity: '数量',
+    quantity: 100,
     unit_price: '单价',
     total_price: '总价',
     country_code: '国码',
@@ -376,6 +417,12 @@
         },
         /* 显示高级搜索 */
         showDetailSearchBtn: false,
+        /* 显示详情 */
+        showDetailBtn: false,
+        /* 详情dataForm */
+        dataForm: null,
+        /* 添加器材个数 */
+        equipAddCount: 1,
         /* 显示器材分类搜索 */
         showCategoryBtn: false,
         /* 显示器材品牌搜索 */
@@ -388,7 +435,15 @@
         /* 种类列表 */
         categoryList,
         /* 选择的种类id */
-        categorySelected: null
+        categorySelected: null,
+        /* 品牌列表 */
+        brandList,
+        /* 选择的品牌id */
+        brandSelected: null,
+        /* 型号列表 */
+        modelList,
+        /* 选择的型号id */
+        modelSelected: null
       }
     },
     created() {
@@ -416,15 +471,35 @@
       handleReturn() {
         this.$router.go(-1)
       },
-      /* 详情 */
+      /* 弹窗显示 */
       handleDetail(row) {
         console.log('handleDetail id=' + row.id)
-        this.$router.push({
-          name: 'Equipment_Detail',
-          query: {
-            id: row.id
-          }
+        // 获取data
+        this.dataForm = fakeData
+        this.showDetailBtn = !this.showDetailBtn
+      },
+      /* 添加器材 */
+      handleAdd() {
+        this.$confirm('添加器材, 是否继续?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          // 添加器材
+          console.log("添加器材,个数=" + this.equipAddCount)
+          // 刷新列表
+          this.$message({
+            message: '添加成功',
+            type: 'success'
+          })
+          this.showDetailBtn = !this.showDetailBtn
+        }).catch(() => {
+          console.log('已取消')
         })
+      },
+      /* 监听添加器材数量 */
+      handleChange(value) {
+        console.log(value);
       },
       /* 查找 */
       handleFilter() {
@@ -439,14 +514,40 @@
         /* 关闭 */
         this.showDetailSearchBtn = false
       },
-      /* radio分类选择确认 */
+      /* 分类radio选择确认 */
       handleSelectCategoryConfirm(id) {
         this.categorySelected = id
         this.showCategoryBtn = !this.showCategoryBtn
         console.log("点击确认，选中的id为：" + this.categorySelected)
+        /* 更新器材列表 */
       },
-      /* radio分类模糊搜索 */
+      /* 分类radio模糊搜索 */
       categoryFuzzySearch(value) {
+        /* 更新分类列表 */
+        console.log("输入的关键字：" + value)
+      },
+      /* 品牌radio选择确认 */
+      handleSelectBrandConfirm(id) {
+        this.brandSelected = id
+        this.showBrandBtn = !this.showBrandBtn
+        console.log("点击确认，选中的id为：" + this.brandSelected)
+        /* 更新品牌列表 */
+      },
+      /* 品牌radio模糊搜索 */
+      brandFuzzySearch(value) {
+        /* 更新品牌列表 */
+        console.log("输入的关键字：" + value)
+      },
+      /* 型号radio选择确认 */
+      handleSelectModelConfirm(id) {
+        this.modelSelected = id
+        this.showModelBtn = !this.showModelBtn
+        console.log("点击确认，选中的id为：" + this.modelSelected)
+        /* 更新型号列表 */
+      },
+      /* 型号radio模糊搜索 */
+      modelFuzzySearch(value) {
+        /* 更新型号列表 */
         console.log("输入的关键字：" + value)
       }
     }
