@@ -26,18 +26,18 @@
             </el-form-item>
           </el-col>
           <el-col :span="6">
-            <el-form-item label="软件种类" label-width="100px" prop="lab_software_category_name">
+            <el-form-item label="软件种类" label-width="100px" prop="lab_software_category_id">
               <el-button type="info" plain style="width: 165px" @click="handleOpenDialog('softwareCategoryDialogVisible')">
-                {{ dataForm.lab_software_category_id === null ? '请选择' : dataForm.lab_software_category_name }}
+                {{ dataForm.lab_software_category_name === null ? '请选择' : dataForm.lab_software_category_name }}
               </el-button>
             </el-form-item>
           </el-col>
         </el-row>
         <el-row type="flex" class="row-bg" justify="space-around">
           <el-col :span="6">
-            <el-form-item label="适用系统" label-width="100px" prop="applicable_system_name">
+            <el-form-item label="适用系统" label-width="100px" prop="applicable_system_id">
               <el-button type="info" plain style="width: 165px;" @click="handleOpenDialog('applicableSystemDialogVisible')">
-                {{ dataForm.applicable_system_id === null ? '请选择' : dataForm.applicable_system_name }}
+                {{ dataForm.applicable_system_name === null ? '请选择' : dataForm.applicable_system_name }}
               </el-button>
             </el-form-item>
           </el-col>
@@ -52,18 +52,18 @@
             </el-form-item>
           </el-col>
           <el-col :span="6">
-            <el-form-item label="计量单位" label-width="100px" prop="lab_unit_name">
+            <el-form-item label="计量单位" label-width="100px" prop="lab_unit_id">
               <el-button type="info" plain style="width: 165px" @click="handleOpenDialog('unitDialogVisible')">
-                {{ dataForm.lab_unit_id === null ? '请选择' : dataForm.lab_unit_name }}
+                {{ dataForm.lab_unit_name === null ? '请选择' : dataForm.lab_unit_name }}
               </el-button>
             </el-form-item>
           </el-col>
         </el-row>
         <el-row type="flex" class="row-bg">
           <el-col :span="6">
-            <el-form-item label="生产商" label-width="100px" prop="manufacturer_name">
+            <el-form-item label="生产商" label-width="100px" prop="lab_manufacturer_id">
               <el-button type="info" plain style="width: 165px" @click="handleOpenDialog('manufacturerDialogVisible')">
-                {{ dataForm.lab_manufacturer_id === null ? '请选择' : dataForm.manufacturer_name }}
+                {{ dataForm.manufacturer_name === null ? '请选择' : dataForm.manufacturer_name }}
               </el-button>
             </el-form-item>
           </el-col>
@@ -73,10 +73,10 @@
             </el-form-item>
           </el-col>
           <el-col :span="6">
-            <el-form-item label="供货商" label-width="100px" prop="supplier_name">
+            <el-form-item label="供货商" label-width="100px" prop="lab_supplier_id">
               <!--<el-input v-model="dataForm.supplier_name" style="width: auto" />-->
               <el-button type="info" plain style="width: 165px" @click="handleOpenDialog('supplierDialogVisible')">
-                {{ dataForm.lab_supplier_id === null ? '请选择' : dataForm.supplier_name }}
+                {{ dataForm.supplier_name === null ? '请选择' : dataForm.supplier_name }}
               </el-button>
             </el-form-item>
           </el-col>
@@ -88,9 +88,9 @@
         </el-row>
         <el-row type="flex" class="row-bg">
           <el-col :span="6">
-            <el-form-item label="品牌" label-width="100px" prop="brand_name">
+            <el-form-item label="品牌" label-width="100px" prop="lab_brand_id">
               <el-button type="info" plain style="width: 165px" @click="handleOpenDialog('brandDialogVisible')">
-                {{ dataForm.lab_brand_id === null ? '请选择' : dataForm.brand_name }}
+                {{ dataForm.brand_name === null ? '请选择' : dataForm.brand_name }}
               </el-button>
             </el-form-item>
           </el-col>
@@ -100,7 +100,7 @@
             </el-form-item>
           </el-col>
           <el-col :span="6">
-            <el-form-item label="国码" label-width="100px" prop="country_code_name">
+            <el-form-item label="国码" label-width="100px" prop="country_code_id">
               <el-button type="info" plain style="width: 165px" @click="handleOpenDialog('countryCodeDialogVisible')">
                 {{ dataForm.country_code_name === null ? '请选择' : dataForm.country_code_name }}
               </el-button>
@@ -118,253 +118,114 @@
               />
             </el-form-item>
           </el-col>
-          <!--<el-col :span="6">
-            <el-form-item label="适用课程" label-width="100px" prop="course_name">
-              &lt;!&ndash;<el-input v-model="dataForm.course_name" style="width: auto;" readonly />&ndash;&gt;
-              <el-button type="info" plain style="width: 165px" @click="handleOpenDialog('courseDialogVisible')">
-                {{ dataForm.course_id === null ? '请选择' : dataForm.course_name }}
-              </el-button>
-            </el-form-item>
-          </el-col>-->
         </el-row>
       </el-form>
     </div>
     <!-- 软件种类dialog -->
-    <el-dialog
-      :visible.sync="softwareCategoryDialogVisible"
-      width="90%"
+    <dictionary-for-select
+      title="软件种类"
+      listName="softwareCategoryList"
+      idKey="lab_software_category_id"
+      methodKey="softwareCategory"
+      dialogVisibleKey="softwareCategoryDialogVisible"
+      :currentDialogVisible = "softwareCategoryDialogVisible"
+      :currentList = "softwareCategoryList"
+      :currentSelectedItem = "dataForm.lab_software_category_id"
+      @handleCancel="softwareCategoryDialogVisible = !softwareCategoryDialogVisible"
+      @handleQuery="handleQuery"
+      @handleSelect="handleSelect"
     >
-      <!-- 标题 + 搜索框 -->
-      <div slot="title">
-        <span class="my-dialog-title">软件种类筛选</span>
-        <el-input v-model="queryKeyword" placeholder="输入关键字进行筛选" style="width: 230px;" clearable />
-        <el-button type="primary" size="medium" @click="handleQuery(queryKeyword, 'softwareCategoryList')">筛选</el-button>
-      </div>
-      <el-alert
-        v-show="softwareCategoryList.length === 0"
-        title="查无数据"
-        type="info"
-        center
-        style="width: 100%;margin-top: 5px"
-        :closable="false"
-      />
-      <div style="margin:0 49px 0 49px;display: block">
-        <el-radio-group v-model="dataForm.lab_software_category_id">
-          <el-radio v-for="item in softwareCategoryList" :key="item.id" :label="item.id" border size="medium" style="margin: 10px 20px; width: 15%">{{ item.name }}</el-radio>
-        </el-radio-group>
-      </div>
-      <div style="text-align: center; margin-top: 20px">
-        <el-button type="primary" size="medium" @click="softwareCategoryDialogVisible = false">返 回</el-button>
-        <el-button type="primary" size="medium" @click="handleSelect(dataForm.lab_software_category_id,'lab_software_category_name', '',softwareCategoryList, 'softwareCategoryDialogVisible')">选 中</el-button>
-      </div>
-    </el-dialog>
+    </dictionary-for-select>
     <!-- 适用系统dialog -->
-    <el-dialog
-      :visible.sync="applicableSystemDialogVisible"
-      width="90%"
+    <dictionary-for-select
+      title="适用系统"
+      listName="applicableSystemList"
+      idKey="applicable_system_id"
+      methodKey="applicableSystem"
+      dialogVisibleKey="applicableSystemDialogVisible"
+      :currentDialogVisible = "applicableSystemDialogVisible"
+      :currentList = "applicableSystemList"
+      :currentSelectedItem = "dataForm.applicable_system_id"
+      @handleCancel="applicableSystemDialogVisible = !applicableSystemDialogVisible"
+      @handleQuery="handleQuery"
+      @handleSelect="handleSelect"
     >
-      <!-- 标题 + 搜索框 -->
-      <div slot="title">
-        <span class="my-dialog-title">适用系统筛选</span>
-        <el-input v-model="queryKeyword" placeholder="输入关键字进行筛选" style="width: 230px;" clearable />
-        <el-button type="primary" size="medium" @click="handleQuery(queryKeyword, 'applicableSystemList')">筛选</el-button>
-      </div>
-      <el-alert
-        v-show="applicableSystemList.length === 0"
-        title="查无数据"
-        type="info"
-        center
-        style="width: 100%;margin-top: 5px"
-        :closable="false"
-      />
-      <div style="margin:0 49px 0 49px;display: block">
-        <el-radio-group v-model="dataForm.applicable_system_id">
-          <el-radio v-for="item in applicableSystemList" :key="item.id" :label="item.id" border size="medium" style="margin: 10px 20px; width: 15%">{{ item.name }}</el-radio>
-        </el-radio-group>
-      </div>
-      <div style="text-align: center; margin-top: 20px">
-        <el-button type="primary" size="medium" @click="applicableSystemDialogVisible = false">返 回</el-button>
-        <el-button type="primary" size="medium" @click="handleSelect(dataForm.applicable_system_id,'applicable_system_name', '',applicableSystemList, 'applicableSystemDialogVisible')">选 中</el-button>
-      </div>
-    </el-dialog>
+    </dictionary-for-select>
     <!-- 品牌dialog -->
-    <el-dialog
-      :visible.sync="brandDialogVisible"
-      width="90%"
+    <dictionary-for-select
+      title="品牌筛选"
+      listName="brandList"
+      idKey="lab_brand_id"
+      methodKey="brand"
+      dialogVisibleKey="brandDialogVisible"
+      :currentDialogVisible = "brandDialogVisible"
+      :currentList = "brandList"
+      :currentSelectedItem = "dataForm.lab_brand_id"
+      @handleCancel="brandDialogVisible = !brandDialogVisible"
+      @handleQuery="handleQuery"
+      @handleSelect="handleSelect"
     >
-      <!-- 标题 + 搜索框 -->
-      <div slot="title">
-        <span class="my-dialog-title">品牌筛选</span>
-        <el-input v-model="queryKeyword" placeholder="输入关键字进行筛选" style="width: 230px;" clearable />
-        <el-button type="primary" size="medium" @click="handleQuery(queryKeyword, 'brandList')">筛选</el-button>
-      </div>
-      <el-alert
-        v-show="brandList.length === 0"
-        title="查无数据"
-        type="info"
-        center
-        style="width: 100%;margin-top: 5px"
-        :closable="false"
-      />
-      <div style="margin:0 49px 0 49px;display: block">
-        <el-radio-group v-model="dataForm.lab_brand_id">
-          <el-radio v-for="item in brandList" :key="item.id" :label="item.id" border size="medium" style="margin: 10px 20px; width: 15%">{{ item.name }}</el-radio>
-        </el-radio-group>
-      </div>
-      <div style="text-align: center; margin-top: 20px">
-        <el-button type="primary" size="medium" @click="brandDialogVisible = false">返 回</el-button>
-        <el-button type="primary" size="medium" @click="handleSelect(dataForm.lab_brand_id,'brand_name', '',brandList, 'brandDialogVisible')">选 中</el-button>
-      </div>
-    </el-dialog>
+    </dictionary-for-select>
     <!-- 计量单位dialog -->
-    <el-dialog
-      :visible.sync="unitDialogVisible"
-      width="90%"
+    <dictionary-for-select
+      title="计量单位筛选"
+      listName="unitList"
+      idKey="lab_unit_id"
+      methodKey="unit"
+      dialogVisibleKey="unitDialogVisible"
+      :currentDialogVisible = "unitDialogVisible"
+      :currentList = "unitList"
+      :currentSelectedItem = "dataForm.lab_unit_id"
+      @handleCancel="unitDialogVisible = !unitDialogVisible"
+      @handleQuery="handleQuery"
+      @handleSelect="handleSelect"
     >
-      <!-- 标题 + 搜索框 -->
-      <div slot="title">
-        <span class="my-dialog-title">计量单位筛选</span>
-        <el-input v-model="queryKeyword" placeholder="输入关键字进行筛选" style="width: 230px;" clearable />
-        <el-button type="primary" size="medium" @click="handleQuery(queryKeyword, 'unitList')">筛选</el-button>
-      </div>
-      <el-alert
-        v-show="unitList.length === 0"
-        title="查无数据"
-        type="info"
-        center
-        style="width: 100%;margin-top: 5px"
-        :closable="false"
-      />
-      <div style="margin:0 49px 0 49px;display: block">
-        <el-radio-group v-model="dataForm.lab_unit_id">
-          <el-radio v-for="item in unitList" :key="item.id" :label="item.id" border size="medium" style="margin: 10px 20px; width: 15%">{{ item.name }}</el-radio>
-        </el-radio-group>
-      </div>
-      <div style="text-align: center; margin-top: 20px">
-        <el-button type="primary" size="medium" @click="unitDialogVisible = false">返 回</el-button>
-        <el-button type="primary" size="medium" @click="handleSelect(dataForm.lab_unit_id,'lab_unit_name', '', unitList, 'unitDialogVisible')">选 中</el-button>
-      </div>
-    </el-dialog>
+    </dictionary-for-select>
     <!-- 生产商dialog -->
-    <el-dialog
-      :visible.sync="manufacturerDialogVisible"
-      width="90%"
+    <dictionary-for-select
+      title="生产商筛选"
+      listName="manufacturerList"
+      idKey="lab_manufacturer_id"
+      methodKey="manufacturer"
+      dialogVisibleKey="manufacturerDialogVisible"
+      :currentDialogVisible = "manufacturerDialogVisible"
+      :currentList = "manufacturerList"
+      :currentSelectedItem = "dataForm.lab_manufacturer_id"
+      @handleCancel="manufacturerDialogVisible = !manufacturerDialogVisible"
+      @handleQuery="handleQuery"
+      @handleSelect="handleSelect"
     >
-      <!-- 标题 + 搜索框 -->
-      <div slot="title">
-        <span class="my-dialog-title">生产商筛选</span>
-        <el-input v-model="queryKeyword" placeholder="输入关键字进行筛选" style="width: 230px;" clearable />
-        <el-button type="primary" size="medium" @click="handleQuery(queryKeyword, 'manufacturerList')">筛选</el-button>
-      </div>
-      <el-alert
-        v-show="manufacturerList.length === 0"
-        title="查无数据"
-        type="info"
-        center
-        style="width: 100%;margin-top: 5px"
-        :closable="false"
-      />
-      <div style="margin:0 49px 0 49px;display: block">
-        <el-radio-group v-model="dataForm.lab_manufacturer_id">
-          <el-radio v-for="item in manufacturerList" :key="item.id" :label="item.id" border size="medium" style="margin: 10px 20px; width: 15%">{{ item.name }}</el-radio>
-        </el-radio-group>
-      </div>
-      <div style="text-align: center; margin-top: 20px">
-        <el-button type="primary" size="medium" @click="manufacturerDialogVisible = false">返 回</el-button>
-        <el-button type="primary" size="medium" @click="handleSelect(dataForm.lab_manufacturer_id,'manufacturer_name', 'manufacturer_telephone',manufacturerList, 'manufacturerDialogVisible')">选 中</el-button>
-      </div>
-    </el-dialog>
+    </dictionary-for-select>
     <!-- 供货商dialog -->
-    <el-dialog
-      :visible.sync="supplierDialogVisible"
-      width="90%"
+    <dictionary-for-select
+      title="供货商筛选"
+      listName="supplierList"
+      idKey="lab_supplier_id"
+      methodKey="supplier"
+      dialogVisibleKey="supplierDialogVisible"
+      :currentDialogVisible = "supplierDialogVisible"
+      :currentList = "supplierList"
+      :currentSelectedItem = "dataForm.lab_supplier_id"
+      @handleCancel="supplierDialogVisible = !supplierDialogVisible"
+      @handleQuery="handleQuery"
+      @handleSelect="handleSelect"
     >
-      <!-- 标题 + 搜索框 -->
-      <div slot="title">
-        <span class="my-dialog-title">供货商筛选</span>
-        <el-input v-model="queryKeyword" placeholder="输入关键字进行筛选" style="width: 230px;" clearable />
-        <el-button type="primary" size="medium" @click="handleQuery(queryKeyword, 'supplierList')">筛选</el-button>
-      </div>
-      <el-alert
-        v-show="supplierList.length === 0"
-        title="查无数据"
-        type="info"
-        center
-        style="width: 100%;margin-top: 5px"
-        :closable="false"
-      />
-      <div style="margin:0 49px 0 49px;display: block">
-        <el-radio-group v-model="dataForm.lab_supplier_id">
-          <el-radio v-for="item in supplierList" :key="item.id" :label="item.id" border size="medium" style="margin: 10px 20px; width: 15%">{{ item.name }}</el-radio>
-        </el-radio-group>
-      </div>
-      <div style="text-align: center; margin-top: 20px">
-        <el-button type="primary" size="medium" @click="supplierDialogVisible = false">返 回</el-button>
-        <el-button type="primary" size="medium" @click="handleSelect(dataForm.lab_supplier_id,'supplier_name', 'supplier_telephone',supplierList, 'supplierDialogVisible')">选 中</el-button>
-      </div>
-    </el-dialog>
+    </dictionary-for-select>
     <!-- 国码dialog -->
-    <el-dialog
-      :visible.sync="countryCodeDialogVisible"
-      width="90%"
+    <dictionary-for-select
+      title="国码"
+      listName="countryCodeList"
+      idKey="country_code_id"
+      methodKey="countryCode"
+      dialogVisibleKey="countryCodeDialogVisible"
+      :currentDialogVisible = "countryCodeDialogVisible"
+      :currentList = "countryCodeList"
+      :currentSelectedItem = "dataForm.country_code_id"
+      @handleCancel="countryCodeDialogVisible = !countryCodeDialogVisible"
+      @handleQuery="handleQuery"
+      @handleSelect="handleSelect"
     >
-      <!-- 标题 + 搜索框 -->
-      <div slot="title">
-        <span class="my-dialog-title">国码筛选</span>
-        <el-input v-model="queryKeyword" placeholder="查询国码" style="width: 230px;" clearable />
-        <el-button type="primary" size="medium" @click="handleQuery(queryKeyword, 'countryCodeList')">筛选</el-button>
-      </div>
-      <el-alert
-        v-show="countryCodeList.length === 0"
-        title="查无数据"
-        type="info"
-        center
-        style="width: 100%;margin-top: 5px"
-        :closable="false"
-      />
-      <div style="margin:0 49px 0 49px;display: block">
-        <el-radio-group v-model="dataForm.country_code_id">
-          <el-radio v-for="item in countryCodeList" :key="item.id" :label="item.id" border size="medium" style="margin: 10px 20px; width: 15%">{{ item.name }}</el-radio>
-        </el-radio-group>
-      </div>
-      <div style="text-align: center; margin-top: 20px">
-        <!-- 取消操作 -->
-        <el-button type="primary" size="medium" @click="countryCodeDialogVisible = false">返 回</el-button>
-        <!-- 选钟操作 根据选择的id更新到name -->
-        <el-button type="primary" size="medium" @click="handleSelect(dataForm.country_code_id,'country_code_name', '',countryCodeList, 'countryCodeDialogVisible')">选 中</el-button>
-      </div>
-    </el-dialog>
-    <!-- 适用课程dialog -->
-    <!--<el-dialog
-      :visible.sync="courseDialogVisible"
-      width="90%"
-    >
-      &lt;!&ndash; 标题 + 搜索框 &ndash;&gt;
-      <div slot="title">
-        <span class="my-dialog-title">适用课程搜索</span>
-        <el-input v-model="queryKeyword" placeholder="查询适用课程" style="width: 230px;" clearable/>
-        <el-button type="primary" size="medium" @click="handleQuery(queryKeyword, 'courseList')">筛选</el-button>
-      </div>
-      <el-alert
-        v-show="courseList.length === 0"
-        title="查无数据"
-        type="info"
-        center
-        style="width: 100%;margin-top: 5px"
-        :closable="false"
-      />
-      <div style="margin:0 49px 0 49px;display: block">
-        <el-radio-group v-model="dataForm.course_id">
-          <el-radio v-for="item in courseList" :key="item.id" :label="item.id" border size="medium" style="margin: 10px 20px; width: 15%">{{ item.name }}</el-radio>
-        </el-radio-group>
-      </div>
-      <div style="text-align: center; margin-top: 20px">
-        &lt;!&ndash; 取消操作 &ndash;&gt;
-        <el-button type="primary" size="medium" @click="courseDialogVisible = false">返 回</el-button>
-        &lt;!&ndash; 选钟操作 根据选择的id更新到name &ndash;&gt;
-        <el-button type="primary" size="medium" @click="handleSelect(dataForm.course_id,'course_name', '',courseList, 'courseDialogVisible')">选 中</el-button>
-      </div>
-    </el-dialog>-->
+    </dictionary-for-select>
   </div>
 </template>
 
@@ -395,7 +256,7 @@ const fakeList = [
   { id: 22, pre_name: 'c3', name: 'radio内容22', phone: '13812341234' }
 ]
 
-// 有用
+// 字典
 const allListName = [
   { key: 'softwareCategoryList', dialogVisibleName: 'softwareCategoryDialogVisible', option: 'getSoftwareCategoryList' },
   { key: 'courseList', dialogVisibleName: 'courseDialogVisible', option: 'getCourseList' },
@@ -406,10 +267,25 @@ const allListName = [
   { key: 'applicableSystemList', dialogVisibleName: 'applicableSystemDialogVisible', option: 'getApplicableSystemList' },
   { key: 'countryCodeList', dialogVisibleName: 'countryCodeDialogVisible', option: 'getCountryCodeList' }
 ]
+const key2option = [
+  {key: 'softwareCategory', option: 'fetchSoftwareCategoryById'},
+  {key: 'applicableSystem', option: 'fetchApplicableSystemById'},
+  {key: 'brand', option: 'fetchBrandById'},
+  {key: 'unit', option: 'fetchUnitById'},
+  {key: 'manufacturer', option: 'fetchManufacturerById'},
+  {key: 'supplier', option: 'fetchSupplierById'},
+  {key: 'countryCode', option: 'fetchCountryCodeById'}
+]
 
+import { getSelectValue } from '@/utils/get-select-value'
 import { isChinese, isEnglish } from '@/utils/fieldValidate'
+import DictionaryForSelect from '@/components/DictionaryForSelect'
+
 export default {
   name: 'SoftwareCreate',
+  components: {
+    DictionaryForSelect
+  },
   data() {
     const validateIsChinese = (rule, value, callback) => {
       if (!isChinese(value)) {
@@ -441,40 +317,34 @@ export default {
           { required: true, type: 'string', message: '请输入', trigger: 'blur' }
         ],
         lab_software_category_id: [
-          { required: true, type: 'number', message: '请输入', trigger: 'blur' }
+          { required: true, type: 'number', message: '请输入', trigger: 'change' }
         ],
-        lab_software_category_name: [
-          { required: true, type: 'string', message: '请输入', trigger: 'blur' }
-        ],
-        applicable_system_name: [
-          { required: true, type: 'string', message: '请输入', trigger: 'blur' }
+        applicable_system_id: [
+          { required: true, type: 'number', message: '请输入', trigger: 'change' }
         ],
         version: [
           { required: true, type: 'string', message: '请输入', trigger: 'blur' }
         ],
-        price: [
+        price_name: [
           { required: true, type: 'string', message: '请输入', trigger: 'blur' }
         ],
-        brand_name: [
-          { required: true, type: 'string', message: '请输入', trigger: 'blur' }
+        lab_brand_id: [
+          { required: true, type: 'number', message: '请输入', trigger: 'change' }
         ],
-        lab_unit_name: [
-          { required: true, type: 'string', message: '请输入', trigger: 'blur' }
+        lab_unit_id: [
+          { required: true, type: 'number', message: '请输入', trigger: 'change' }
         ],
         specification: [
           { required: true, type: 'string', message: '请输入', trigger: 'blur' }
         ],
-        manufacturer_name: [
-          { required: true, type: 'string', message: '请输入', trigger: 'blur' }
+        lab_manufacturer_id: [
+          { required: true, type: 'number', message: '请输入', trigger: 'change' }
         ],
-        manufacturer_telephone: [
-          { required: true, type: 'string', message: '请输入', trigger: 'blur' }
+        lab_supplier_id: [
+          { required: true, type: 'number', message: '请输入', trigger: 'change' }
         ],
-        supplier_name: [
-          { required: true, type: 'string', message: '请输入', trigger: 'change' }
-        ],
-        country_code_name: [
-          { required: true, type: 'string', message: '请输入', trigger: 'change' }
+        country_code_id: [
+          { required: true, type: 'number', message: '请输入', trigger: 'change' }
         ],
         production_date: [
           { required: true, type: 'string', message: '请选择日期', trigger: 'change' }
@@ -646,24 +516,6 @@ export default {
         name: m.name
       }))
     },
-    /* 获取适用课程列表信息 */
-    getCourseList(keyword) {
-      if (!keyword) {
-        console.log('keyword is null')
-        this.courseList = fakeList
-        console.log('this.courseList = ' + this.courseList)
-        return false
-      }
-      // 调用接口
-      // 暂用假数据 作为筛选， 实际通过调用接口，在后台进行模糊筛选再返回数据
-      console.log('keyword is not null')
-      this.courseList = fakeList.filter(m => m.pre_name === keyword).map(m => ({
-        id: m.id,
-        pre_name: m.pre_name,
-        name: m.name
-      }))
-      console.log('this.courseList = ' + this.courseList)
-    },
     /* 获取国码列表信息 */
     getCountryCodeList(keyword) {
       if (!keyword) {
@@ -682,6 +534,67 @@ export default {
       }))
       console.log('this.courseList = ' + this.countryCodeList)
     },
+    /* 获取软件分类信息 id */
+    fetchSoftwareCategoryById(id) {
+      return null
+      // return {
+      //  lab_software_category_name: '??'
+      // }
+    },
+    /* 获取适用系统信息 id */
+    fetchApplicableSystemById(id) {
+      // 根据select id key查询出的数据 各字段经过包装
+      return null
+      // return {
+      //   applicable_system_name: '测试name',
+      // }
+    },
+    /* 获取品牌信息 id */
+    fetchBrandById(id) {
+      // 根据select id key查询出的数据 各字段经过包装
+      return null
+      // return {
+      //   brand_name: '测试name',
+      // }
+    },
+    /* 获取计量单位信息 id */
+    fetchUnitById(id) {
+      // 根据select id key查询出的数据 各字段经过包装
+      // if (找不到)
+      return null
+      // return {
+      //   lab_unit_name: '测试name',
+      // }
+    },
+    /* 获取供货商信息 id */
+    fetchSupplierById(id) {
+      // 根据select id key查询出的数据 各字段经过包装
+      // if (找不到)
+      return null
+      // return {
+      //   supplier_name: '测试name',
+      //   supplier_telephone: '13532142121'
+      // }
+    },
+    /* 获取生产商信息 id */
+    fetchManufacturerById(id) {
+      // 根据select id key查询出的数据 各字段经过包装
+      // if (找不到)
+      // return null
+      return {
+        manufacturer_name: '测试name',
+        manufacturer_telephone: '13532142121'
+      }
+    },
+    /* 获取国码信息 id */
+    fetchCountryCodeById(id) {
+      // 根据select id key查询出的数据 各字段经过包装
+      // if (找不到)
+      //  return null
+      return {
+        country_code_name: '国码咯'
+      }
+    },
     /* 根据关键词打开dialog */
     handleOpenDialog(dialogVisible) {
       this[dialogVisible] = true // 打开对应的dialog
@@ -698,62 +611,55 @@ export default {
         })
       }
     },
-    // /* 打开软件种类dialog */
-    // handleSoftwareCategoryDialog() {
-    //   this.softwareCategoryDialogVisible = true
-    //   this.queryKeyword = null
-    //   this.getSoftwareCategoryList()
-    // },
-    //
-    // /* 打开适用系统dialog */
-    // handleApplicableSystemDialog() {
-    //   this.applicableSystemDialogVisible = true
-    //   this.queryKeyword = null
-    //   this.getApplicableSystemList()
-    // },
-    // /* 打开品牌dialog */
-    // handleBrandDialog() {
-    //   this.brandDialogVisible = true
-    //   this.queryKeyword = null
-    //   this.getBrandList()
-    // },
-    // /* 打开计量单位dialog */
-    // handleUnitDialog() {
-    //   this.unitDialogVisible = true
-    //   this.queryKeyword = null
-    //   this.getUnitList()
-    // },
-    // /* 打开供货商对话框 */
-    // handleSupplierDialog() {
-    //   this.supplierDialogVisible = true
-    //   this.queryKeyword = null
-    //   this.getSupplierList()
-    // },
-    // /* 打开生产商dialog */
-    // handleManufacturerDialog() {
-    //   this.manufacturerDialogVisible = true
-    //   this.queryKeyword = null
-    //   this.getManufacturerList()
-    // },
-    // /* 打开适用课程对话框 */
-    // handleCourseDialog() {
-    //   this.courseDialogVisible = true
-    //   this.queryKeyword = null
-    //   // 获取信息用于生成radio
-    //   this.getCourseList()
-    // },
     /* 将信息同步 */
-    handleSelect(select_id, select_name, select_phone, dataList, dialogVisibleKey) {
-      this.dataForm[select_name] = dataList
-        .filter(m => m.id === select_id).map(m => m.name).pop()
-      this.dataForm[select_phone] = dataList
-        .filter(m => m.id === select_id).map(m => m.phone).pop()
-      // 关闭对话框
-      this[dialogVisibleKey] = false
-      this.$refs['dataForm'].validateField(select_name)
+    // handleSelect(data) {
+    //   let select_id_key = data.select_id_key
+    //   let select_id_value = data.select_id_value
+    //   // 根据选择的id变更数据 问题1如何根据id确定获取什么表的数据？ 传入供货商的name
+    //   const selectData = this.getMethodByKey(data.methodKey, select_id_value)
+    //   let dataList = data.dataList
+    //   let dialogVisibleKey = data.dialogVisibleKey
+    //   //  如果查询的列表为空 返回尚未选择字样
+    //   console.log('dataList= ' + dataList.length)
+    //   if (dataList.length === 0) {
+    //     this.dataForm[select_id_key] = null
+    //     for (let key in selectData){
+    //       if (selectData.hasOwnProperty(key)){
+    //         this.dataForm[key] = selectData[key]
+    //       }
+    //     }
+    //   } else {
+    //     this.dataForm[select_id_key] = select_id_value
+    //     for (let key in selectData){
+    //       if (selectData.hasOwnProperty(key)){
+    //         this.dataForm[key] = selectData[key]
+    //       }
+    //     }
+    //   }
+    //   // 关闭对话框
+    //   this[dialogVisibleKey] = false
+    //   // this.$refs['dataForm'].validateField()
+    // },
+    /* 测试 根据关键字获取对应方法 并返回查询出的数据 */
+    getMethodByKey(key, id) {
+      let option = key2option.filter(m => m.key === key).map(m => m.option).pop()
+      return this[option](id)
     },
-    /* 筛选数据 */
-    handleQuery(keyword, listName) {
+    /* 抽取方法 将信息同步 */
+    handleSelect(data) {
+      // 查询选择的id相关的数据
+      let tempData = this.getMethodByKey(data.methodKey, data.select_id_value)
+      getSelectValue(data, this.dataForm, tempData)
+      // 表单数据验证规则
+      this.$refs['dataForm'].validateField(data.select_id_key)
+      // 关闭对话框
+      console.log('data.dialogVisibleKey = ' + data.dialogVisibleKey)
+      this[data.dialogVisibleKey] = false
+    },
+    handleQuery(data) {
+      console.log('data=>' + data.listName + ',' + data.queryKeyword)
+      let keyword = data.queryKeyword
+      let listName = data.listName
       const option = allListName.filter(m => m.key === listName).map(m => m.option).pop()
       console.log('option=' + option)
       console.log('keyword=' + keyword)
@@ -762,7 +668,7 @@ export default {
       } else {
         return false
       }
-    }
+    },
   }
 }
 </script>
