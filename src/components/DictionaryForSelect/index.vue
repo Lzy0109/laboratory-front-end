@@ -3,6 +3,8 @@
     <el-dialog
       :visible.sync="currentDialogVisible"
       width="90%"
+      :close-on-click-modal="false"
+      :show-close="false"
     >
       <!-- 标题 + 搜索框 -->
       <div slot="title">
@@ -55,7 +57,7 @@
     data() {
       return {
         queryKeyword: null,
-        currentItem: this.currentSelectedItem
+        currentItem: this.currentSelectedItem,
       }
     },
     methods: {

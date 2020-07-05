@@ -21,19 +21,10 @@
             </el-form-item>
           </el-col>
           <el-col :span="8">
-            <el-form-item label="实验室分类" label-width="100px" prop="lab_category_name">
-              <!-- 新版 -->
-              <el-input v-model="dataForm.lab_category_name" style="width: auto" @blur="checkLabCategory(dataForm.lab_category_name)" />
-              <div v-show="showCategoryCheckingSuccessMessage" class="check_message_success"><span>{{ categoryCheckingMessage }}</span></div>
-              <div v-show="showCategoryCheckingErrorMessage" class="check_message_error"><span>{{ categoryCheckingMessage }}</span></div>
-              <!-- 旧版 -->
-              <!--<el-select v-model="dataForm.lab_category_id" style="width: 160px;" placeholder="实验室分类" filterable clearable>
-                &lt;!&ndash;获取数据库信息动态生成option&ndash;&gt;
-                <el-option v-for="item in labCategoryList" :key="item.id" :label="item.name" :value="item.id">
-                  <span style="float: left">编号:{{ item.id }}</span>
-                  <span style="float: right; color: #8492a6; font-size: 12px">名称:{{ item.name }}</span>
-                </el-option>
-              </el-select>-->
+            <el-form-item label="实验室分类" label-width="100px" prop="lab_category_id">
+              <el-button type="info" plain style="width: 165px" @click="handleOpenDialog('labCategoryDialogVisible')">
+                {{ dataForm.lab_category_name === null ? '请选择' : dataForm.lab_category_name }}
+              </el-button>
             </el-form-item>
           </el-col>
         </el-row>
@@ -45,10 +36,10 @@
             </el-form-item>
           </el-col>
           <el-col :span="8">
-            <el-form-item label="场地" label-width="100px" prop="field_name">
-              <el-input v-model="dataForm.field_name" style="width: auto" @blur="checkField(dataForm.field_name)" />
-              <div v-show="showFieldCheckingSuccessMessage" class="check_message_success"><span>{{ fieldCheckingMessage }}</span></div>
-              <div v-show="showFieldCheckingErrorMessage" class="check_message_error"><span>{{ fieldCheckingMessage }}</span></div>
+            <el-form-item label="场地" label-width="100px" prop="field_id">
+              <el-button type="info" plain style="width: 165px" @click="handleOpenDialog('fieldDialogVisible')">
+                {{ dataForm.field_name === null ? '请选择' : dataForm.field_name }}
+              </el-button>
             </el-form-item>
           </el-col>
         </el-row>
@@ -117,8 +108,37 @@
             </el-form-item>
           </el-col>
         </el-row>-->
-
       </el-form>
+      <!-- 实验室分类dialog -->
+      <dictionary-for-select
+        title="实验室分类"
+        listName="labCategoryList"
+        idKey="lab_category_id"
+        methodKey="labCategory"
+        dialogVisibleKey="labCategoryDialogVisible"
+        :currentDialogVisible = "labCategoryDialogVisible"
+        :currentList = "labCategoryList"
+        :currentSelectedItem = "dataForm.lab_category_id"
+        @handleCancel="labCategoryDialogVisible = !labCategoryDialogVisible"
+        @handleQuery="handleQuery"
+        @handleSelect="handleSelect"
+      >
+      </dictionary-for-select>
+      <!-- 场地dialog -->
+      <dictionary-for-select
+        title="场地"
+        listName="fieldList"
+        idKey="field_id"
+        methodKey="field"
+        dialogVisibleKey="fieldDialogVisible"
+        :currentDialogVisible = "fieldDialogVisible"
+        :currentList = "fieldList"
+        :currentSelectedItem = "dataForm.field_id"
+        @handleCancel="fieldDialogVisible = !fieldDialogVisible"
+        @handleQuery="handleQuery"
+        @handleSelect="handleSelect"
+      >
+      </dictionary-for-select>
     </div>
 
   </div>
@@ -166,23 +186,49 @@ const fake_fieldList = [
     volumn: '最大容纳人数'
   }
 ]
-const fake_labCategoryList = [
-  { id: 1, name: '种类1', number: 'ZL01' },
-  { id: 2, name: '种类2', number: 'ZL02' },
-  { id: 3, name: '种类3', number: 'ZL03' }
+const fakeList = [
+  { id: 1, pre_name: 'c1', name: 'radio内容1', phone: '13512341234' },
+  { id: 2, pre_name: 'c1', name: 'radio内容2', phone: '16812341234' },
+  { id: 3, pre_name: 'c1', name: 'radio内容3', phone: '13812341234' },
+  { id: 4, pre_name: 'c1', name: 'radio内容4', phone: '13812341234' },
+  { id: 5, pre_name: 'c1', name: 'radio内容5', phone: '13812341234' },
+  { id: 6, pre_name: 'c1', name: 'radio内容6', phone: '13812341234' },
+  { id: 7, pre_name: 'c1', name: 'radio内容7', phone: '13812341234' },
+  { id: 8, pre_name: 'c1', name: 'radio内容8', phone: '13812341234' },
+  { id: 9, pre_name: 'c1', name: 'radio内容9', phone: '13812341234' },
+  { id: 10, pre_name: 'c1', name: 'radio内容10', phone: '13812341234' },
+  { id: 11, pre_name: 'c1', name: 'radio内容11', phone: '13812341234' },
+  { id: 12, pre_name: 'c2', name: 'radio内容12', phone: '13812341234' },
+  { id: 13, pre_name: 'c2', name: 'radio内容13', phone: '13812341234' },
+  { id: 14, pre_name: 'c2', name: 'radio内容14', phone: '13812341234' },
+  { id: 15, pre_name: 'c2', name: 'radio内容15', phone: '13812341234' },
+  { id: 16, pre_name: 'c2', name: 'radio内容16', phone: '13812341234' },
+  { id: 17, pre_name: 'c3', name: 'radio内容17', phone: '13812341234' },
+  { id: 18, pre_name: 'c3', name: 'radio内容18', phone: '13812341234' },
+  { id: 19, pre_name: 'c3', name: 'radio内容19', phone: '13812341234' },
+  { id: 20, pre_name: 'c3', name: 'radio内容20', phone: '13812341234' },
+  { id: 21, pre_name: 'c3', name: 'radio内容21', phone: '13812341234' },
+  { id: 22, pre_name: 'c3', name: 'radio内容22', phone: '13812341234' }
 ]
-const fake_ownerList = [
-  { id: 1, name: '负责人1', number: 'FZ01' },
-  { id: 2, name: '负责人2', number: 'FZ02' },
-  { id: 3, name: '负责人3', number: 'FZ03' }
-]
-// 存储要改变的key
-const keyList = []
 
-import { isChinese } from '@/utils/fieldValidate'
-import { isEnglish } from '@/utils/fieldValidate'
+const allListName = [
+  { key: 'labCategoryList', dialogVisibleName: 'labCategoryDialogVisible', option: 'getLabCategoryList' },
+  { key: 'fieldList', dialogVisibleName: 'fieldDialogVisible', option: 'getFieldList' }
+]
+const key2option = [
+  {key: 'labCategory', option: 'fetchLabCategoryById'},
+  {key: 'field', option: 'fetchFieldById'}
+]
+
+import { getSelectValue } from '@/utils/get-select-value'
+import { isChinese, isEnglish } from '@/utils/fieldValidate'
+import DictionaryForSelect from '@/components/DictionaryForSelect'
+
 export default {
   name: 'FieldCreate',
+  components: {
+    DictionaryForSelect
+  },
   data() {
     const validateIsChinese = (rule, value, callback) => {
       if (!isChinese(value)) {
@@ -207,11 +253,11 @@ export default {
           { required: true, message: '请输入', trigger: 'blur' },
           { required: true, trigger: 'blur', validator: validateIsEnglish }
         ],
-        lab_category_name: [
-          { type: 'string', message: '请输入', trigger: 'blur', required: true }
+        lab_category_id: [
+          { type: 'number', message: '请输入', trigger: 'change', required: true }
         ],
-        field_name: [
-          { type: 'string', message: '请输入', trigger: 'blur', required: true }
+        field_id: [
+          { type: 'number', message: '请输入', trigger: 'change', required: true }
         ],
         max_seat: [
           { type: 'number', message: '请输入', trigger: 'blur', required: true }
@@ -231,17 +277,12 @@ export default {
         field_id: null,
         field_name: null
       },
-      showCategoryCheckingSuccessMessage: false,
-      showCategoryCheckingErrorMessage: false,
-      categoryCheckingMessage: null,
 
-      showFieldCheckingSuccessMessage: false,
-      showFieldCheckingErrorMessage: false,
-      fieldCheckingMessage: null,
+      labCategoryDialogVisible: false,
+      fieldDialogVisible: false,
 
-      fieldList: fake_fieldList,
-      labCategoryList: fake_labCategoryList,
-      labOwnerList: fake_ownerList
+      fieldList: [],
+      labCategoryList: [],
     }
   },
   created() {
@@ -249,14 +290,6 @@ export default {
   },
   methods: {
     submitCreate(formName) {
-      // 验证部分数据是否正确
-      if (this.showCategoryCheckingErrorMessage || this.showFieldCheckingErrorMessage) {
-        this.$message({
-          message: '表单的内容存在错误，请修改后再保存，否则请取消编辑',
-          type: 'error'
-        })
-        return false
-      }
       // 验证输入合法性
       this.$refs[formName].validate((valid) => {
         if (valid) {
@@ -277,73 +310,92 @@ export default {
     handleReturn() {
       this.$router.go(-1)
     },
-    showFieldData(number) {
-      console.log('number=' + number)
-      if (!number) {
-        for (const key in keyList) {
-          if (!keyList.hasOwnProperty(key)) continue
-          this.dataForm[keyList[key]] = ''
-        }
+    /* 获取实验室分类列表信息 */
+    getLabCategoryList(keyword) {
+      console.log('调用获取实验室分类列表信息接口')
+      if (!keyword) {
+        this.labCategoryList = fakeList
+        return false
       }
-      const temp = fake_fieldList.filter(m => m.id === number).map(m => ({
-        field_name: m.name,
-        field_manager_id: m.field_manager_id,
-        field_manager: m.field_manager,
-        field_floor: m.floor,
-        field_room: m.room,
-        field_isIndoor: m.isIndoor,
-        field_height: m.height,
-        field_width: m.width,
-        field_long: m.long,
-        field_volumn: m.volumn
-      })).pop()
-      for (const key in temp) {
-        this.dataForm[key] = temp[key]
-        keyList.push(key)
+      // 调用接口
+      // 暂用假数据 作为筛选， 实际通过后台进行筛选
+      this.labCategoryList = fakeList.filter(m => m.pre_name === keyword).map(m => ({
+        id: m.id,
+        pre_name: m.pre_name,
+        name: m.name
+      }))
+    },
+    /* 获取场地列表信息 */
+    getFieldList(keyword) {
+      console.log('调用获取场地列表信息接口')
+      if (!keyword) {
+        this.fieldList = fakeList
+        return false
+      }
+      // 调用接口
+      // 暂用假数据 作为筛选， 实际通过后台进行筛选
+      this.fieldList = fakeList.filter(m => m.pre_name === keyword).map(m => ({
+        id: m.id,
+        pre_name: m.pre_name,
+        name: m.name
+      }))
+    },
+    /* 获取软件分类信息 id */
+    fetchLabCategoryById(id) {
+      return {
+       lab_category_name: 'test'
       }
     },
-    checkLabCategory(value) {
-      console.log('check lab category ' + value)
-      // 检查输入的内容是否存在
-      if (!value) {
-        this.showCategoryCheckingSuccessMessage = false
-        this.showCategoryCheckingErrorMessage = false
-        return
-      }
-      const flag = this.labCategoryList.filter(m => m.name === value).pop()
-      if (flag) {
-        this.showCategoryCheckingErrorMessage = false
-        this.showCategoryCheckingSuccessMessage = true
-        this.categoryCheckingMessage = '该分类存在，可选择'
-        this.dataForm.lab_category_name = flag.name
-        this.dataForm.lab_category_id = flag.id
-      } else {
-        this.showCategoryCheckingSuccessMessage = false
-        this.showCategoryCheckingErrorMessage = true
-        this.categoryCheckingMessage = '该分类不存在，不可选用'
+    /* 获取场地信息 id */
+    fetchFieldById(id) {
+      return {
+        field_name: '场地1名称'
       }
     },
-    checkField(value) {
-      console.log('check Field')
-      // 检查输入的内容是否存在
-      if (!value) {
-        this.showFieldCheckingSuccessMessage = false
-        this.showFieldCheckingErrorMessage = false
-        return
-      }
-      const flag = this.fieldList.filter(m => m.name === value).pop()
-      if (flag) {
-        this.showFieldCheckingErrorMessage = false
-        this.showFieldCheckingSuccessMessage = true
-        this.fieldCheckingMessage = '该场地存在，可选择'
-        this.dataForm.field_id = flag.id
-        this.getFieldDataById()
+    /* 根据关键词打开dialog */
+    handleOpenDialog(dialogVisible) {
+      this[dialogVisible] = true // 打开对应的dialog
+      // 调用获取方法，用于生成radio
+      const option = allListName.filter(m => m.dialogVisibleName === dialogVisible).map(m => m.option).pop()
+      console.log('option===' + option)
+      if (option) {
+        this[option]()
       } else {
-        this.showFieldCheckingSuccessMessage = false
-        this.showFieldCheckingErrorMessage = true
-        this.fieldCheckingMessage = '该场地不存在，不可选用'
+        this.$message({
+          message: 'dialog null error!',
+          type: 'error'
+        })
       }
-    }
+    },
+    /* 测试 根据关键字获取对应方法 并返回查询出的数据 */
+    getMethodByKey(key, id) {
+      let option = key2option.filter(m => m.key === key).map(m => m.option).pop()
+      return this[option](id)
+    },
+    /* 抽取方法 将信息同步 */
+    handleSelect(data) {
+      // 查询选择的id相关的数据
+      let tempData = this.getMethodByKey(data.methodKey, data.select_id_value)
+      getSelectValue(data, this.dataForm, tempData)
+      // 表单数据验证规则
+      this.$refs['dataForm'].validateField(data.select_id_key)
+      // 关闭对话框
+      console.log('data.dialogVisibleKey = ' + data.dialogVisibleKey)
+      this[data.dialogVisibleKey] = false
+    },
+    handleQuery(data) {
+      console.log('data=>' + data.listName + ',' + data.queryKeyword)
+      let keyword = data.queryKeyword
+      let listName = data.listName
+      const option = allListName.filter(m => m.key === listName).map(m => m.option).pop()
+      console.log('option=' + option)
+      console.log('keyword=' + keyword)
+      if (option) {
+        this[option](keyword)
+      } else {
+        return false
+      }
+    },
   }
 }
 </script>
