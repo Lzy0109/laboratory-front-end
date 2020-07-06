@@ -427,7 +427,6 @@ export default {
 
       // 各种列表
       softwareCategoryList: [],
-      courseList: [],
       unitList: [],
       brandList: [],
       manufacturerList: [],
@@ -442,8 +441,7 @@ export default {
       unitDialogVisible: false,
       supplierDialogVisible: false,
       manufacturerDialogVisible: false,
-      countryCodeDialogVisible: false,
-      courseDialogVisible: false
+      countryCodeDialogVisible: false
     }
   },
   created() {
