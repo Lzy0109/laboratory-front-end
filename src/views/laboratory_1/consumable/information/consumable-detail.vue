@@ -166,7 +166,7 @@
             </el-form-item>
           </el-col>
           <el-col :span="6">
-            <el-form-item label="品牌" label-width="100px" prop="brand_name">
+            <el-form-item label="品牌" label-width="100px" prop="lab_brand_id">
               <span v-show="isRead">{{ dataForm.brand_name }}</span>
               <el-button v-show="!isRead" type="info" plain style="width: 165px" @click="handleOpenDialog('brandDialogVisible')">
                 {{ dataForm.brand_name === null ? '请选择' : dataForm.brand_name }}

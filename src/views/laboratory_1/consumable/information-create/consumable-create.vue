@@ -12,27 +12,23 @@
         <el-row type="flex" class="row-bg" justify="space-around">
           <el-col :span="6">
             <el-form-item label="编号" label-width="100px" prop="number">
-              <span v-show="isRead">{{ dataForm.number }}</span>
-              <el-input v-show="!isRead" v-model="dataForm.number" style="width: auto" :readonly="isRead" />
+              <el-input v-model="dataForm.number" style="width: auto" />
             </el-form-item>
           </el-col>
           <el-col :span="6">
             <el-form-item label="中文名称" label-width="100px" prop="name">
-              <span v-show="isRead">{{ dataForm.name }}</span>
-              <el-input v-show="!isRead" v-model="dataForm.name" style="width: auto" :readonly="isRead" />
+              <el-input v-model="dataForm.name" style="width: auto" />
             </el-form-item>
           </el-col>
           <el-col :span="6">
             <el-form-item label="英文名称" label-width="100px" prop="english_name">
-              <span v-show="isRead">{{ dataForm.english_name }}</span>
-              <el-input v-show="!isRead" v-model="dataForm.english_name" style="width: auto" :readonly="isRead" />
+              <el-input v-model="dataForm.english_name" style="width: auto" />
             </el-form-item>
           </el-col>
           <el-col :span="6">
             <el-form-item label="耗材分类" label-width="100px" prop="lab_consumable_category_id">
               <!-- 新版 -->
-              <span v-show="isRead">{{ dataForm.lab_consumable_category_name }}</span>
-              <el-button v-show="!isRead" type="info" plain style="width: 165px" @click="handleOpenDialog('consumableCategoryDialogVisible')">
+              <el-button type="info" plain style="width: 165px" @click="handleOpenDialog('consumableCategoryDialogVisible')">
                 {{ dataForm.lab_consumable_category_name === null ? '请选择' : dataForm.lab_consumable_category_name }}
               </el-button>
             </el-form-item>
@@ -41,146 +37,126 @@
         <el-row type="flex" class="row-bg" justify="space-around">
           <el-col :span="6">
             <el-form-item label="型号" label-width="100px" prop="lab_model_id">
-              <span v-show="isRead">{{ dataForm.model_name }}</span>
-              <el-button v-show="!isRead" type="info" plain style="width: 165px" @click="handleOpenDialog('equipmentModelDialogVisible')">
+              <el-button type="info" plain style="width: 165px" @click="handleOpenDialog('equipmentModelDialogVisible')">
                 {{ dataForm.model_name === null ? '请选择' : dataForm.model_name }}
               </el-button>
             </el-form-item>
           </el-col>
           <el-col :span="6">
             <el-form-item label="单位" label-width="100px" prop="lab_unit_id">
-              <span v-show="isRead">{{ dataForm.lab_unit_name }}</span>
-              <el-button v-show="!isRead" type="info" plain style="width: 165px" @click="handleOpenDialog('unitDialogVisible')">
+              <el-button type="info" plain style="width: 165px" @click="handleOpenDialog('unitDialogVisible')">
                 {{ dataForm.lab_unit_name === null ? '请选择' : dataForm.lab_unit_name }}
               </el-button>
             </el-form-item>
           </el-col>
           <el-col :span="6">
             <el-form-item label="数量" label-width="100px" prop="quantity">
-              <span v-show="isRead">{{ dataForm.quantity }}</span>
-              <el-input v-show="!isRead" v-model="dataForm.quantity" style="width: auto" :readonly="isRead" />
+              <el-input v-model="dataForm.quantity" style="width: auto" />
             </el-form-item>
           </el-col>
           <el-col :span="6">
             <el-form-item label="单价" label-width="100px" prop="unit_price">
-              <span v-show="isRead">{{ dataForm.unit_price }}</span>
-              <el-input v-show="!isRead" v-model.number="dataForm.unit_price" style="width: auto" :readonly="isRead" />
+              <el-input v-model.number="dataForm.unit_price" style="width: auto" />
             </el-form-item>
           </el-col>
         </el-row>
         <el-row type="flex" class="row-bg" justify="space-around">
           <el-col :span="6">
             <el-form-item label="生产商" label-width="100px" prop="lab_manufacturer_id">
-              <span v-show="isRead">{{ dataForm.manufacturer_name }}</span>
-              <el-button v-show="!isRead" type="info" plain style="width: 165px" @click="handleOpenDialog('manufacturerDialogVisible')">
+              <el-button type="info" plain style="width: 165px" @click="handleOpenDialog('manufacturerDialogVisible')">
                 {{ dataForm.manufacturer_name === null ? '请选择' : dataForm.manufacturer_name }}
               </el-button>
             </el-form-item>
           </el-col>
           <el-col :span="6">
             <el-form-item label="生产商电话" label-width="100px">
-              <span v-show="isRead">{{ dataForm.manufacturer_telephone }}</span>
-              <el-input v-show="!isRead" v-model="dataForm.manufacturer_telephone" style="width: auto" :readonly="isRead" />
+              <el-input v-model="dataForm.manufacturer_telephone" style="width: auto" readonly />
             </el-form-item>
           </el-col>
           <el-col :span="6">
             <el-form-item label="供货商" label-width="100px" prop="lab_supplier_id">
-              <span v-show="isRead">{{ dataForm.supplier_name }}</span>
-              <el-button v-show="!isRead" type="info" plain style="width: 165px" @click="handleOpenDialog('supplierDialogVisible')">
+              <el-button type="info" plain style="width: 165px" @click="handleOpenDialog('supplierDialogVisible')">
                 {{ dataForm.supplier_name === null ? '请选择' : dataForm.supplier_name }}
               </el-button>
             </el-form-item>
           </el-col>
           <el-col :span="6">
             <el-form-item label="供货商电话" label-width="100px">
-              <span v-show="isRead">{{ dataForm.supplier_telephone }}</span>
-              <el-input v-show="!isRead" v-model="dataForm.supplier_telephone" style="width: auto" :readonly="isRead" />
+              <el-input v-model="dataForm.supplier_telephone" style="width: auto" readonly />
             </el-form-item>
           </el-col>
         </el-row>
         <el-row type="flex" class="row-bg" justify="space-around">
           <el-col :span="6">
             <el-form-item label="总价" label-width="100px" prop="total_price">
-              <span v-show="isRead">{{ dataForm.total_price }}</span>
-              <el-input v-show="!isRead" v-model.number="dataForm.total_price" style="width: auto" :readonly="isRead" />
+              <el-input v-model.number="dataForm.total_price" style="width: auto" />
             </el-form-item>
           </el-col>
           <el-col :span="6">
             <el-form-item label="国码" label-width="100px" prop="country_code_id">
-              <span v-show="isRead">{{ dataForm.country_code_name }}</span>
-              <el-button v-show="!isRead" type="info" plain style="width: 165px" @click="handleOpenDialog('countryCodeDialogVisible')">
+              <el-button type="info" plain style="width: 165px" @click="handleOpenDialog('countryCodeDialogVisible')">
                 {{ dataForm.country_code_name === null ? '请选择' : dataForm.country_code_name }}
               </el-button>
             </el-form-item>
           </el-col>
           <el-col :span="6">
             <el-form-item label="出产日期" label-width="100px" prop="production_date">
-              <span v-show="isRead">{{ dataForm.production_date }}</span>
-              <!-- <el-input v-show="isRead" v-model="dataForm.production_date" style="width: auto" :readonly="isRead" />-->
-              <el-date-picker v-show="!isRead" v-model="dataForm.production_date" type="date" style="width: 165px" value-format="yyyy-MM-dd" clearable />
+              <!-- <el-input v-show="isRead" v-model="dataForm.production_date" style="width: auto" />-->
+              <el-date-picker v-model="dataForm.production_date" type="date" style="width: 165px" value-format="yyyy-MM-dd" clearable />
             </el-form-item>
           </el-col>
           <el-col :span="6">
             <el-form-item label="保修期" label-width="100px" prop="warranty">
-              <span v-show="isRead">{{ dataForm.warranty }}</span>
-              <el-input v-show="!isRead" v-model="dataForm.warranty" style="width: auto" :readonly="isRead" />
+              <el-input v-model="dataForm.warranty" style="width: auto" />
             </el-form-item>
           </el-col>
         </el-row>
         <el-row type="flex" class="row-bg" justify="space-around">
           <el-col :span="6">
             <el-form-item label="单据号" label-width="100px" prop="bills_number">
-              <span v-show="isRead">{{ dataForm.bills_number }}</span>
-              <el-input v-show="!isRead" v-model="dataForm.bills_number" style="width: auto" :readonly="isRead" />
+              <el-input v-model="dataForm.bills_number" style="width: auto" />
             </el-form-item>
           </el-col>
           <el-col :span="6">
             <el-form-item label="购置日期" label-width="100px" prop="purchase_date">
-              <span v-show="isRead">{{ dataForm.purchase_date }}</span>
-              <!--<el-input v-show="isRead" v-model="dataForm.purchase_date" style="width: auto" :readonly="isRead" />-->
-              <el-date-picker v-show="!isRead" v-model="dataForm.purchase_date" style="width: 165px" type="date" value-format="yyyy-MM-dd" clearable />
+              <!--<el-input v-show="isRead" v-model="dataForm.purchase_date" style="width: auto" />-->
+              <el-date-picker v-model="dataForm.purchase_date" style="width: 165px" type="date" value-format="yyyy-MM-dd" clearable />
             </el-form-item>
           </el-col>
           <el-col :span="6">
             <el-form-item label="存放地点" label-width="100px" prop="field_id">
-              <span v-show="isRead">{{ dataForm.field_name }}</span>
-              <el-button v-show="!isRead" type="info" plain style="width: 165px" @click="handleOpenDialog('fieldDialogVisible')">
+              <el-button type="info" plain style="width: 165px" @click="handleOpenDialog('fieldDialogVisible')">
                 {{ dataForm.field_name === null ? '请选择' : dataForm.field_name }}
               </el-button>
             </el-form-item>
           </el-col>
           <el-col :span="6">
             <el-form-item label="购买方式？" label-width="100px" prop="purchase_method">
-              <span v-show="isRead">{{ dataForm.purchase_method }}</span>
-              <el-input v-show="!isRead" v-model="dataForm.purchase_method" style="width: auto" :readonly="isRead" />
+              <el-input v-model="dataForm.purchase_method" style="width: auto" />
             </el-form-item>
           </el-col>
         </el-row>
         <el-row>
           <el-col :span="6">
             <el-form-item label="经费来源？" label-width="100px" prop="expenditure">
-              <span v-show="isRead">{{ dataForm.expenditure }}</span>
-              <el-input v-show="!isRead" v-model="dataForm.expenditure" style="width: auto" :readonly="isRead" />
+              <el-input v-model="dataForm.expenditure" style="width: auto" />
             </el-form-item>
           </el-col>
           <el-col :span="6">
-            <el-form-item label="品牌" label-width="100px" prop="brand_name">
-              <span v-show="isRead">{{ dataForm.brand_name }}</span>
-              <el-button v-show="!isRead" type="info" plain style="width: 165px" @click="handleOpenDialog('brandDialogVisible')">
+            <el-form-item label="品牌" label-width="100px" prop="lab_brand_id">
+              <el-button type="info" plain style="width: 165px" @click="handleOpenDialog('brandDialogVisible')">
                 {{ dataForm.brand_name === null ? '请选择' : dataForm.brand_name }}
               </el-button>
             </el-form-item>
           </el-col>
           <el-col :span="6">
             <el-form-item label="规格" label-width="100px" prop="specification">
-              <span v-show="isRead">{{ dataForm.specification }}</span>
-              <el-input v-show="!isRead" v-model="dataForm.specification" style="width: auto" :readonly="isRead" />
+              <el-input v-model="dataForm.specification" style="width: auto" />
             </el-form-item>
           </el-col>
           <el-col :span="6">
             <el-form-item label="专用器材" label-width="100px" prop="specialized">
-              <span v-show="isRead">{{ dataForm.specialized ? '是':'否' }}</span>
-              <el-radio-group v-show="!isRead" v-model="dataForm.specialized">
+              <el-radio-group v-model="dataForm.specialized">
                 <el-radio :label="true">是</el-radio>
                 <el-radio :label="false">否</el-radio>
               </el-radio-group>
