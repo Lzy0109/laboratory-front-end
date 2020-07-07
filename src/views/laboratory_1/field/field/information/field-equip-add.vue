@@ -274,8 +274,10 @@
             <span>Good</span>
           </el-col>
         </el-row>
-      <div style="text-align: center; margin-top: 20px">
-          <el-input-number v-model="equipAddCount"  @change="handleChange" :min="1" :max="120" style="display: block; margin: 10px auto;"></el-input-number>
+      <div style="text-align: center; margin-top: 50px">
+<!--          <el-input-number v-model="equipAddCount"  @change="handleChange" :min="1" :max="120" style="display: block; margin: 10px auto;"></el-input-number>-->
+          <h3 style="float: left; font-weight: bold; font-size: 17px; color: #000">填写器材使用用途</h3>
+          <el-input v-model="equipUsage" type="textarea" :autosize="{ minRows:2,maxRows:5 }" style="display: block; margin: 10px auto"/>
           <el-button type="primary" size="medium" @click="showDetailBtn = !showDetailBtn">返回</el-button>
           <el-button type="primary" size="medium" @click="handleAdd">添加</el-button>
         </div>
@@ -423,6 +425,8 @@
         dataForm: null,
         /* 添加器材个数 */
         equipAddCount: 1,
+        /* 添加器材填写用途 */
+        equipUsage: null,
         /* 显示器材分类搜索 */
         showCategoryBtn: false,
         /* 显示器材品牌搜索 */
