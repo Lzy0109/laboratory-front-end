@@ -8,17 +8,24 @@
     <!-- 添加信息表单 -->
     <div class="form-style">
       <h2>新建零部件分类信息</h2>
-      <el-form ref="dataForm" :model="dataForm" :rules="rules">
+      <el-form ref="dataForm" :model="dataForm" :rules="rules" hide-required-asterisk>
         <el-row type="flex" class="row-bg" justify="space-around">
           <el-col>
-            <el-form-item label="分类名称" label-width="100px" prop="infoValidation">
+            <el-form-item label="分类名称" label-width="100px" prop="name">
               <el-input v-model="dataForm.name" style="width: auto" />
             </el-form-item>
           </el-col>
         </el-row>
         <el-row type="flex" class="row-bg" justify="space-around">
           <el-col>
-            <el-form-item label="分类描述" label-width="100px" prop="infoValidation">
+            <el-form-item label="英文名称" label-width="100px" prop="english_name">
+              <el-input v-model="dataForm.english_name" style="width: auto" />
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row type="flex" class="row-bg" justify="space-around">
+          <el-col>
+            <el-form-item label="分类描述" label-width="100px" prop="description">
               <el-input v-model="dataForm.description" type="textarea" :autosize="{ minRows:2,maxRows:5 }" style="width: 600px" />
             </el-form-item>
           </el-col>
@@ -29,17 +36,40 @@
 </template>
 
 <script>
+  import { isChinese, isEnglish } from '@/utils/fieldValidate'
   export default {
     name: 'category-create',
     data() {
+      const validateIsChinese = (rule, value, callback) => {
+        if (!isChinese(value)) {
+          callback(new Error('请输入中文'))
+        } else {
+          callback()
+        }
+      }
+      const validateIsEnglish = (rule, value, callback) => {
+        if (!isEnglish(value)) {
+          callback(new Error('请输入英文'))
+        } else {
+          callback()
+        }
+      }
       return {
         rules: {
-          infoValidation: [
-            { type: 'string', message: '请输入', trigger: 'blur' }
+          name: [
+            { required: true, trigger: 'blur', validator: validateIsChinese }
+          ],
+          english_name: [
+            { required: true, message: '请输入', trigger: 'blur' },
+            { required: true, trigger: 'blur', validator: validateIsEnglish }
+          ],
+          description: [
+            { required: true, type: 'string', message: '请输入', trigger: 'blur' }
           ]
         },
         dataForm: {
           name: '',
+          english_name: '',
           description: ''
         }
       }
