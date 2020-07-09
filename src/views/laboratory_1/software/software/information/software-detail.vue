@@ -460,13 +460,13 @@ export default {
       this.dataForm = fakeData
       const id = this.$route.query.id
       console.log(id)
-      // 调用接口获取软件详细信息
-      fetchSoftwareInfoById(id)
-        .then(res => {
-          this.dataForm = res.data.item;
-        }).catch(err => {
-          alert('获取内容失败！' + err)
-      })
+      // 实际 调用接口获取软件详细信息
+      // fetchSoftwareInfoById(id)
+      //   .then(res => {
+      //     this.dataForm = res.data.item;
+      //   }).catch(err => {
+      //     alert('获取内容失败！' + err)
+      // })
     },
     /* 返回上一页 */
     handleReturn() {
@@ -688,12 +688,13 @@ export default {
     handleQuery(data) {
       console.log('data=>' + data.listName + ',' + data.queryKeyword)
       let keyword = data.queryKeyword
+      let query = { keyword: keyword }
       let listName = data.listName
       const option = allListName.filter(m => m.key === listName).map(m => m.option).pop()
       console.log('option=' + option)
-      console.log('keyword=' + keyword)
+      console.log('keyword=', {...query})
       if (option) {
-        this[option](keyword)
+        this[option](query)
       } else {
         return false
       }
@@ -724,18 +725,18 @@ export default {
       console.log(this.dataForm)
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          createSoftwareInfo(this.dataForm).then(res => {
-            this.$message({
-              message: '修改成功',
-              type: 'success'
-            })
-            // 根据返回信息重新复制dataForm
-            console.log('success submit!!')
-            // 修改成功后操作
-            this.afterEdit()
-          }).catch(err => {
-            alert('出错！')
-          })
+          // createSoftwareInfo(this.dataForm).then(res => {
+            // this.$message({
+            //   message: '修改成功',
+            //   type: 'success'
+            // })
+            // // 根据返回信息重新复制dataForm
+            // console.log('success submit!!')
+            // // 修改成功后操作
+            // this.afterEdit()
+          // }).catch(err => {
+          //   alert('出错！')
+          // })
         } else {
           this.$message({
             message: '修改内容存在错误，请修改后再保存，或者点击取消按钮取消操作',

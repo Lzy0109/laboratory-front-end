@@ -198,8 +198,8 @@
     <pagination
       v-show="total > 0"
       :total="100"
-      :page.sync="pageNum"
-      :limit.sync="pageSize"
+      :page.sync="queryList.pageNum"
+      :limit.sync="queryList.pageSize"
     />
   </div>
 </template>
@@ -246,8 +246,6 @@ export default {
       listLoading: true,
       /* 分页参数 待修改 */
       total: 100,
-      pageNum: 1,
-      pageSize: 20,
       /* 类别信息列表 */
       softwareCategoryList: [],
       /* 通用系统信息列表 */
@@ -257,13 +255,17 @@ export default {
       /* 查询条件 */
       queryList: {
         // 需要修改
+        pageNum: 1,
+        pageSize: 20,
         name: null,
-        lab_software_category_id: null,
-        applicable_system: null,
+        lab_software_category_name: null,
+        applicable_system_name: null,
         publisher_name: null,
         version: null,
+        supplier_name: null,
         price: null,
-        size: null
+        size: null,
+        course_name: null
       },
       /* 是否显示高级搜索 */
       showDetailSearchBtn: false
