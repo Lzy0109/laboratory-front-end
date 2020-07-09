@@ -341,6 +341,12 @@ const key2option = [
   {key: 'countryCode', option: 'fetchCountryCodeById'}
 ]
 
+import {
+  createSoftwareInfo, deleteSoftwareInfoById,
+  fetchSoftwareCategoryInfoById,
+  fetchSoftwareCategoryInfos,
+  fetchSoftwareInfoById
+} from '@/api/software'
 import { getSelectValue } from '@/utils/get-select-value'
 import { isChinese, isEnglish } from '@/utils/fieldValidate'
 import DictionaryForSelect from '@/components/DictionaryForSelect'
@@ -454,6 +460,13 @@ export default {
       this.dataForm = fakeData
       const id = this.$route.query.id
       console.log(id)
+      // 实际 调用接口获取软件详细信息
+      // fetchSoftwareInfoById(id)
+      //   .then(res => {
+      //     this.dataForm = res.data.item;
+      //   }).catch(err => {
+      //     alert('获取内容失败！' + err)
+      // })
     },
     /* 返回上一页 */
     handleReturn() {
@@ -473,6 +486,14 @@ export default {
         pre_name: m.pre_name,
         name: m.name
       }))
+      // 实际 keyword可为空
+      // fetchSoftwareCategoryInfos(keyword)
+      //   .then(res => {
+      //     this.softwareCategoryList = res.data.list;
+      //   })
+      //   .catch(err => {
+      //    alert('获取内容失败！' + err)
+      // })
     },
     /* 获取适用系统列表信息 */
     getApplicableSystemList(keyword) {
@@ -565,6 +586,13 @@ export default {
 
     /* 获取软件分类信息 id */
     fetchSoftwareCategoryById(id) {
+      // 实际使用
+      // fetchSoftwareCategoryInfoById(id).then(res => {
+      //   return res.data.item
+      // }).catch(err => {
+      //   alert('获取内容失败！' + err)
+      //   return null
+      // })
       return null
       // return {
       //  lab_software_category_name: '??'
@@ -624,7 +652,7 @@ export default {
         country_code_name: '国码咯'
       }
     },
-    /* 根据关键词打开dialog */
+    /* 利用字典1 根据关键词打开dialog */
     handleOpenDialog(dialogVisible) {
       this[dialogVisible] = true // 打开对应的dialog
       this.queryKeyword = null // 将查询值设为空
@@ -640,7 +668,7 @@ export default {
         })
       }
     },
-    /* 测试 根据关键字获取对应方法 并返回查询出的数据 */
+    /* 利用字典2 根据关键字获取对应方法 并返回查询出的数据 */
     getMethodByKey(key, id) {
       let option = key2option.filter(m => m.key === key).map(m => m.option).pop()
       return this[option](id)
@@ -656,16 +684,17 @@ export default {
       console.log('data.dialogVisibleKey = ' + data.dialogVisibleKey)
       this[data.dialogVisibleKey] = false
     },
-
+    /* 筛选操作 */
     handleQuery(data) {
       console.log('data=>' + data.listName + ',' + data.queryKeyword)
       let keyword = data.queryKeyword
+      let query = { keyword: keyword }
       let listName = data.listName
       const option = allListName.filter(m => m.key === listName).map(m => m.option).pop()
       console.log('option=' + option)
-      console.log('keyword=' + keyword)
+      console.log('keyword=', {...query})
       if (option) {
-        this[option](keyword)
+        this[option](query)
       } else {
         return false
       }
@@ -696,15 +725,18 @@ export default {
       console.log(this.dataForm)
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          this.$message({
-            message: '修改成功',
-            type: 'success'
-          })
-          // 根据返回信息重新复制dataForm
-          console.log('success submit!!')
-          // 修改成功后操作
-          // this.synchronizeData()
-          this.afterEdit()
+          // createSoftwareInfo(this.dataForm).then(res => {
+            // this.$message({
+            //   message: '修改成功',
+            //   type: 'success'
+            // })
+            // // 根据返回信息重新复制dataForm
+            // console.log('success submit!!')
+            // // 修改成功后操作
+            // this.afterEdit()
+          // }).catch(err => {
+          //   alert('出错！')
+          // })
         } else {
           this.$message({
             message: '修改内容存在错误，请修改后再保存，或者点击取消按钮取消操作',
@@ -740,6 +772,11 @@ export default {
     /* 删除 */
     handleDelete() {
       if (this.dataForm.id) {
+        deleteSoftwareInfoById(this.dataForm.id).then(res => {
+          return true
+        }).catch(err => {
+          return false
+        })
         console.log(this.dataForm.id)
         return true
       } else {
