@@ -61,8 +61,8 @@
     <pagination
       v-show="total > 0"
       :total="100"
-      :page.sync="pageNum"
-      :limit.sync="pageSize"
+      :page.sync="queryList.pageNum"
+      :limit.sync="queryList.pageSize"
     />
   </div>
 </template>
@@ -88,13 +88,14 @@ export default {
       listLoading: true,
       /* 分页参数 待修改 */
       total: 100,
-      pageNum: 1,
-      pageSize: 20,
+
       /* 导出excel相关参数 */
       downloadLoading: false,
       /* 查询条件 */
       queryList: {
         // 需要修改
+        pageNum: 1,
+        pageSize: 20,
         name: null
       }
     }
