@@ -346,7 +346,7 @@ import {
   fetchSoftwareCategoryInfoById,
   fetchSoftwareCategoryInfos,
   fetchSoftwareInfoById
-} from '@/api/software'
+} from '@/api/laboratory_1/software'
 import { getSelectValue } from '@/utils/get-select-value'
 import { isChinese, isEnglish } from '@/utils/fieldValidate'
 import DictionaryForSelect from '@/components/DictionaryForSelect'
