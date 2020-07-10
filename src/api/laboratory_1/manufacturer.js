@@ -4,12 +4,12 @@ import request from '@/utils/request'
  * @param query 查询条件数据
  * @returns {*}
  */
-export function fetchManufacturerInfos(query) {
+export function fetchManufacturerInfos(keyword) {
   return request({
-    url: 'dev/api',
+    url: '/api/manufacturer/infos',
     method: 'GET',
-    query: {
-      query
+    params: {
+      keyword: keyword
     }
   })
 }
@@ -20,7 +20,11 @@ export function fetchManufacturerInfos(query) {
  */
 export function fetchManufacturerInfoById(id) {
   return request({
-    url: 'dev/api/' + id,
-    method: 'GET'
+    // url: 'dev/api/' + id,
+    url: '/api/manufacturer/detail',
+    method: 'GET',
+    params: {
+      id: id
+    }
   })
 }

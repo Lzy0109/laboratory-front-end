@@ -4,12 +4,12 @@ import request from '@/utils/request'
  * @param query 查询条件数据
  * @returns {*}
  */
-export function fetchUnitPriceInfos(query) {
+export function fetchUnitPriceInfos(keyword) {
   return request({
-    url: 'dev/api',
+    url: '/api/unitPrice/infos',
     method: 'GET',
-    query: {
-      query
+    params: {
+      keyword: keyword
     }
   })
 }
@@ -20,7 +20,11 @@ export function fetchUnitPriceInfos(query) {
  */
 export function fetchUnitPriceInfoById(id) {
   return request({
-    url: 'dev/api/' + id,
-    method: 'GET'
+    // url: 'dev/api/' + id,
+    url: '/api/unitPrice/detail',
+    method: 'GET',
+    params: {
+      id: id
+    }
   })
 }
