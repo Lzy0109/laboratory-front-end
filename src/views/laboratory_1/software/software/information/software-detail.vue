@@ -153,149 +153,167 @@
         </div>
       </el-collapse-transition>
     </div>
-    <!-- 软件种类dialog -->
-    <dictionary-for-select
-      title="软件种类"
-      listName="softwareCategoryList"
-      idKey="lab_software_category_id"
-      methodKey="softwareCategory"
-      dialogVisibleKey="softwareCategoryDialogVisible"
-      :currentDialogVisible = "softwareCategoryDialogVisible"
-      :currentList = "softwareCategoryList"
-      :currentSelectedItem = "dataForm.lab_software_category_id"
-      @handleCancel="softwareCategoryDialogVisible = !softwareCategoryDialogVisible"
-      @handleQuery="handleQuery"
-      @handleSelect="handleSelect"
-    >
-    </dictionary-for-select>
-    <!-- 适用系统dialog -->
-    <dictionary-for-select
-      title="适用系统"
-      listName="applicableSystemList"
-      idKey="applicable_system_id"
-      methodKey="applicableSystem"
-      dialogVisibleKey="applicableSystemDialogVisible"
-      :currentDialogVisible = "applicableSystemDialogVisible"
-      :currentList = "applicableSystemList"
-      :currentSelectedItem = "dataForm.applicable_system_id"
-      @handleCancel="applicableSystemDialogVisible = !applicableSystemDialogVisible"
-      @handleQuery="handleQuery"
-      @handleSelect="handleSelect"
-    >
-    </dictionary-for-select>
-    <!-- 品牌dialog -->
-    <dictionary-for-select
-      title="品牌筛选"
-      listName="brandList"
-      idKey="lab_brand_id"
-      methodKey="brand"
-      dialogVisibleKey="brandDialogVisible"
-      :currentDialogVisible = "brandDialogVisible"
-      :currentList = "brandList"
-      :currentSelectedItem = "dataForm.lab_brand_id"
-      @handleCancel="brandDialogVisible = !brandDialogVisible"
-      @handleQuery="handleQuery"
-      @handleSelect="handleSelect"
-    >
-    </dictionary-for-select>
-    <!-- 计量单位dialog -->
-    <dictionary-for-select
-      title="计量单位筛选"
-      listName="unitList"
-      idKey="lab_unit_id"
-      methodKey="unit"
-      dialogVisibleKey="unitDialogVisible"
-      :currentDialogVisible = "unitDialogVisible"
-      :currentList = "unitList"
-      :currentSelectedItem = "dataForm.lab_unit_id"
-      @handleCancel="unitDialogVisible = !unitDialogVisible"
-      @handleQuery="handleQuery"
-      @handleSelect="handleSelect"
-    >
-    </dictionary-for-select>
-    <!-- 生产商dialog -->
-    <dictionary-for-select
-      title="生产商筛选"
-      listName="manufacturerList"
-      idKey="lab_manufacturer_id"
-      methodKey="manufacturer"
-      dialogVisibleKey="manufacturerDialogVisible"
-      :currentDialogVisible = "manufacturerDialogVisible"
-      :currentList = "manufacturerList"
-      :currentSelectedItem = "dataForm.lab_manufacturer_id"
-      @handleCancel="manufacturerDialogVisible = !manufacturerDialogVisible"
-      @handleQuery="handleQuery"
-      @handleSelect="handleSelect"
-    >
-    </dictionary-for-select>
-    <!-- 供货商dialog -->
-    <dictionary-for-select
-      title="供货商筛选"
-      listName="supplierList"
-      idKey="lab_supplier_id"
-      methodKey="supplier"
-      dialogVisibleKey="supplierDialogVisible"
-      :currentDialogVisible = "supplierDialogVisible"
-      :currentList = "supplierList"
-      :currentSelectedItem = "dataForm.lab_supplier_id"
-      @handleCancel="supplierDialogVisible = !supplierDialogVisible"
-      @handleQuery="handleQuery"
-      @handleSelect="handleSelect"
-    >
-    </dictionary-for-select>
-    <!-- 国码dialog -->
-    <dictionary-for-select
-      title="国码"
-      listName="countryCodeList"
-      idKey="country_code_id"
-      methodKey="countryCode"
-      dialogVisibleKey="countryCodeDialogVisible"
-      :currentDialogVisible = "countryCodeDialogVisible"
-      :currentList = "countryCodeList"
-      :currentSelectedItem = "dataForm.country_code_id"
-      @handleCancel="countryCodeDialogVisible = !countryCodeDialogVisible"
-      @handleQuery="handleQuery"
-      @handleSelect="handleSelect"
-    >
-    </dictionary-for-select>
+    <div v-if="this.dataForm.id">
+      <!-- 软件种类dialog -->
+      <dictionary-for-select
+        title="软件种类"
+        listName="softwareCategoryList"
+        idKey="lab_software_category_id"
+        methodKey="softwareCategory"
+        dialogVisibleKey="softwareCategoryDialogVisible"
+        :currentDialogVisible = "softwareCategoryDialogVisible"
+        :currentList = "softwareCategoryList"
+        :currentSelectedItem = "dataForm.lab_software_category_id"
+        @handleCancel="softwareCategoryDialogVisible = !softwareCategoryDialogVisible"
+        @handleQuery="handleQuery"
+        @handleSelect="handleSelect"
+      >
+      </dictionary-for-select>
+      <!-- 适用系统dialog -->
+      <dictionary-for-select
+        title="适用系统"
+        listName="applicableSystemList"
+        idKey="applicable_system_id"
+        methodKey="applicableSystem"
+        dialogVisibleKey="applicableSystemDialogVisible"
+        :currentDialogVisible = "applicableSystemDialogVisible"
+        :currentList = "applicableSystemList"
+        :currentSelectedItem = "dataForm.applicable_system_id"
+        @handleCancel="applicableSystemDialogVisible = !applicableSystemDialogVisible"
+        @handleQuery="handleQuery"
+        @handleSelect="handleSelect"
+      >
+      </dictionary-for-select>
+      <!-- 品牌dialog -->
+      <dictionary-for-select
+        title="品牌筛选"
+        listName="brandList"
+        idKey="lab_brand_id"
+        methodKey="brand"
+        dialogVisibleKey="brandDialogVisible"
+        :currentDialogVisible = "brandDialogVisible"
+        :currentList = "brandList"
+        :currentSelectedItem = "dataForm.lab_brand_id"
+        @handleCancel="brandDialogVisible = !brandDialogVisible"
+        @handleQuery="handleQuery"
+        @handleSelect="handleSelect"
+      >
+      </dictionary-for-select>
+      <!-- 计量单位dialog -->
+      <dictionary-for-select
+        title="计量单位筛选"
+        listName="unitList"
+        idKey="lab_unit_id"
+        methodKey="unit"
+        dialogVisibleKey="unitDialogVisible"
+        :currentDialogVisible = "unitDialogVisible"
+        :currentList = "unitList"
+        :currentSelectedItem = "dataForm.lab_unit_id"
+        @handleCancel="unitDialogVisible = !unitDialogVisible"
+        @handleQuery="handleQuery"
+        @handleSelect="handleSelect"
+      >
+      </dictionary-for-select>
+      <!-- 生产商dialog -->
+      <dictionary-for-select
+        title="生产商筛选"
+        listName="manufacturerList"
+        idKey="lab_manufacturer_id"
+        methodKey="manufacturer"
+        dialogVisibleKey="manufacturerDialogVisible"
+        :currentDialogVisible = "manufacturerDialogVisible"
+        :currentList = "manufacturerList"
+        :currentSelectedItem = "dataForm.lab_manufacturer_id"
+        @handleCancel="manufacturerDialogVisible = !manufacturerDialogVisible"
+        @handleQuery="handleQuery"
+        @handleSelect="handleSelect"
+      >
+      </dictionary-for-select>
+      <!-- 供货商dialog -->
+      <dictionary-for-select
+        title="供货商筛选"
+        listName="supplierList"
+        idKey="lab_supplier_id"
+        methodKey="supplier"
+        dialogVisibleKey="supplierDialogVisible"
+        :currentDialogVisible = "supplierDialogVisible"
+        :currentList = "supplierList"
+        :currentSelectedItem = "dataForm.lab_supplier_id"
+        @handleCancel="supplierDialogVisible = !supplierDialogVisible"
+        @handleQuery="handleQuery"
+        @handleSelect="handleSelect"
+      >
+      </dictionary-for-select>
+      <!-- 国码dialog -->
+      <dictionary-for-select
+        title="国码"
+        listName="countryCodeList"
+        idKey="country_code_id"
+        methodKey="countryCode"
+        dialogVisibleKey="countryCodeDialogVisible"
+        :currentDialogVisible = "countryCodeDialogVisible"
+        :currentList = "countryCodeList"
+        :currentSelectedItem = "dataForm.country_code_id"
+        @handleCancel="countryCodeDialogVisible = !countryCodeDialogVisible"
+        @handleQuery="handleQuery"
+        @handleSelect="handleSelect"
+      >
+      </dictionary-for-select>
+    </div>
   </div>
 </template>
 
 <script>
-// 假数据
-const fakeData = {
-  number: 'sw-1234',
-  english_name: 'english-name',
-  name: '软件名称',
-  size: '软件大小（暂留）',
-  lab_software_category_id: 1,
-  lab_software_category_name: '分类1',
-  applicable_system_id: 1,
-  applicable_system_name: '适用系统',
-  version: '软件版本号',
-  price_id: 1,
-  price_name: '单价',
-  lab_brand_id: 1,
-  brand_name: '品牌',
-  lab_unit_id: 1,
-  lab_unit_name: '计量单位',
-  specification: '规格',
+  // 假数据
+  // const fakeData = {
+  //   number: 'sw-1234',
+  //   english_name: 'english-name',
+  //   name: '软件名称',
+  //   size: '软件大小（暂留）',
+  //   lab_software_category_id: 1,
+  //   lab_software_category_name: '分类1',
+  //   applicable_system_id: 1,
+  //   applicable_system_name: '适用系统',
+  //   version: '软件版本号',
+  //   price_id: 1,
+  //   price_name: '单价',
+  //   lab_brand_id: 1,
+  //   brand_name: '品牌',
+  //   lab_unit_id: 1,
+  //   lab_unit_name: '计量单位',
+  //   specification: '规格',
+  //
+  //   country_code_id: 1,
+  //   country_code_name: '国码',
+  //   production_date: '2020-07-03',
+  //
+  //   lab_manufacturer_id: 1,
+  //   manufacturer_name: '生厂商',
+  //   manufacturer_telephone: '生厂商电话',
+  //   lab_supplier_id: 1,
+  //   supplier_name: '供货商',
+  //   supplier_telephone: '供货商电话',
+  //   course_id: 1,
+  //   course_name: '适用课程'
+  // }
+  // 下拉框信息测试
+  import { fetchSoftwareCategoryInfoById, fetchSoftwareCategoryInfos } from '@/api/laboratory_1/software'
+  import { deleteSoftwareInfoById, fetchSoftwareInfoById } from '@/api/laboratory_1/software'
 
-  country_code_id: 1,
-  country_code_name: '国码',
-  production_date: '2020-07-03',
+  import { getSelectValue } from '@/utils/get-select-value'
+  import { isChinese, isEnglish } from '@/utils/fieldValidate'
+  import DictionaryForSelect from '@/components/DictionaryForSelect'
+  import {
+    fetchApplicableSystemInfoById,
+    fetchApplicableSystemInfos
+  } from '../../../../../api/laboratory_1/applicable-system'
+  import { fetchBrandInfoById, fetchBrandInfos } from '../../../../../api/laboratory_1/brand'
+  import { fetchUnitPriceInfoById, fetchUnitPriceInfos } from '../../../../../api/laboratory_1/unit-price'
+  import { fetchSupplierInfoById, fetchSupplierInfos } from '../../../../../api/laboratory_1/supplier'
+  import { fetchManufacturerInfoById, fetchManufacturerInfos } from '../../../../../api/laboratory_1/manufacturer'
+  import { fetchCountryCodeInfoById, fetchCountryCodeInfos } from '../../../../../api/laboratory_1/country-code'
 
-  lab_manufacturer_id: 1,
-  manufacturer_name: '生厂商',
-  manufacturer_telephone: '生厂商电话',
-  lab_supplier_id: 1,
-  supplier_name: '供货商',
-  supplier_telephone: '供货商电话',
-  course_id: 1,
-  course_name: '适用课程'
-}
-// 下拉框信息测试
-const fakeList = [
+  const fakeList = [
   { id: 1, pre_name: 'c1', name: 'radio内容1', phone: '13512341234' },
   { id: 2, pre_name: 'c1', name: 'radio内容2', phone: '16812341234' },
   { id: 3, pre_name: 'c1', name: 'radio内容3', phone: '13812341234' },
@@ -341,17 +359,7 @@ const key2option = [
   {key: 'countryCode', option: 'fetchCountryCodeById'}
 ]
 
-import {
-  createSoftwareInfo, deleteSoftwareInfoById,
-  fetchSoftwareCategoryInfoById,
-  fetchSoftwareCategoryInfos,
-  fetchSoftwareInfoById
-} from '@/api/software'
-import { getSelectValue } from '@/utils/get-select-value'
-import { isChinese, isEnglish } from '@/utils/fieldValidate'
-import DictionaryForSelect from '@/components/DictionaryForSelect'
-
-export default {
+  export default {
   name: 'SoftwareDetail',
   components: {
     DictionaryForSelect
@@ -372,8 +380,39 @@ export default {
       }
     }
     return {
-      dataForm: null,
+      dataForm: {
+        id: null,
+        number: null,
+        english_name: null,
+        name: null,
+        size: null,
+        lab_software_category_id: null,
+        lab_software_category_name: null,
+        applicable_system_id: null,
+        applicable_system_name: null,
+        version: null,
+        price_id: null,
+        price_name: null,
+        lab_brand_id: null,
+        brand_name: null,
+        lab_unit_id: null,
+        lab_unit_name: null,
+        specification: null,
+        country_code_id: null,
+        country_code_name: null,
+        production_date: null,
+        lab_manufacturer_id: null,
+        manufacturer_name: null,
+        manufacturer_telephone: null,
+        lab_supplier_id: null,
+        supplier_name: null,
+        supplier_telephone: null,
+        course_id: null,
+        course_name: null
+      },
+      // dataForm: null,
       tempData: null,
+      tempDataByID: null,
       rules: {
         number: [
           { required: true, type: 'string', message: '请输入', trigger: 'blur' }
@@ -455,212 +494,165 @@ export default {
   },
   methods: {
     /* 根据ID获取数据 */
-    getOriginalData() {
-      // 暂用假数据
-      this.dataForm = fakeData
+    async getOriginalData() {
       const id = this.$route.query.id
       console.log(id)
       // 实际 调用接口获取软件详细信息
-      // fetchSoftwareInfoById(id)
-      //   .then(res => {
-      //     this.dataForm = res.data.item;
-      //   }).catch(err => {
-      //     alert('获取内容失败！' + err)
-      // })
+     await fetchSoftwareInfoById(id)
+        .then(res => {
+          // 暂用假数据
+          this.dataForm = res.data.item;
+          console.log({...this.dataForm})
+        }).catch(err => {
+          alert('获取内容失败！' + err)
+      })
     },
     /* 返回上一页 */
     handleReturn() {
       this.$router.go(-1)
     },
     /* 获取软件分类列表信息 */
-    getSoftwareCategoryList(keyword) {
+    async getSoftwareCategoryList(keyword) {
       console.log('调用获取软件分类列表信息接口')
-      if (!keyword) {
-        this.softwareCategoryList = fakeList
-        return false
-      }
-      // 调用接口
-      // 暂用假数据 作为筛选， 实际通过后台进行筛选
-      this.softwareCategoryList = fakeList.filter(m => m.pre_name === keyword).map(m => ({
-        id: m.id,
-        pre_name: m.pre_name,
-        name: m.name
-      }))
       // 实际 keyword可为空
-      // fetchSoftwareCategoryInfos(keyword)
-      //   .then(res => {
-      //     this.softwareCategoryList = res.data.list;
-      //   })
-      //   .catch(err => {
-      //    alert('获取内容失败！' + err)
-      // })
+      await fetchSoftwareCategoryInfos(keyword)
+        .then(res => {
+          this.softwareCategoryList = res.data.list;
+        }).catch(err => {
+         alert('获取用获取软件分类列表失败！' + err)
+      })
     },
     /* 获取适用系统列表信息 */
-    getApplicableSystemList(keyword) {
-      if (!keyword) {
-        this.applicableSystemList = fakeList
-        return false
-      }
-      // 调用接口
-      // 暂用假数据 作为筛选， 实际通过后台进行筛选
-      this.applicableSystemList = fakeList.filter(m => m.pre_name === keyword).map(m => ({
-        id: m.id,
-        pre_name: m.pre_name,
-        name: m.name
-      }))
+    async getApplicableSystemList(keyword) {
+      await fetchApplicableSystemInfos(keyword)
+        .then(res => {
+          this.applicableSystemList = res.data.list;
+        }).catch(err => {
+          alert('获取适用系统列表失败！' + err)
+        })
     },
     /* 获取品牌列表信息 */
-    getBrandList(keyword) {
-      if (!keyword) {
-        this.brandList = fakeList
-        return false
-      }
-      // 调用接口
-      // 暂用假数据 作为筛选， 实际通过后台进行筛选
-      this.brandList = fakeList.filter(m => m.pre_name === keyword).map(m => ({
-        id: m.id,
-        pre_name: m.pre_name,
-        name: m.name
-      }))
+    async getBrandList(keyword) {
+      await fetchBrandInfos(keyword).then(res => {
+        this.brandList = res.data.list;
+      }).catch(err => {
+        alert('获取品牌列表失败！' + err)
+      })
     },
     /* 获取计量单位列表信息 */
-    getUnitList(keyword) {
-      if (!keyword) {
-        this.unitList = fakeList
-        return false
-      }
-      // 调用接口
-      // 暂用假数据 作为筛选， 实际通过后台进行筛选
-      this.unitList = fakeList.filter(m => m.pre_name === keyword).map(m => ({
-        id: m.id,
-        pre_name: m.pre_name,
-        name: m.name
-      }))
+    async getUnitList(keyword) {
+      await fetchUnitPriceInfos(keyword).then(res => {
+        this.unitList = res.data.list;
+      }).catch(err => {
+        alert('获取计量单位列表信息失败！' + err)
+      })
     },
     /* 获取供货商列表信息 */
-    getSupplierList(keyword) {
-      if (!keyword) {
-        this.supplierList = fakeList
-        return false
-      }
-      // 调用接口
-      // 暂用假数据 作为筛选， 实际通过后台进行筛选
-      this.supplierList = fakeList.filter(m => m.pre_name === keyword).map(m => ({
-        id: m.id,
-        pre_name: m.pre_name,
-        name: m.name
-      }))
+    async getSupplierList(keyword) {
+      await fetchSupplierInfos(keyword).then(res => {
+        this.supplierList = res.data.list;
+      }).catch(err => {
+        alert('获取供货商列表信息失败！' + err)
+      })
     },
     /* 获取生产商列表信息 */
-    getManufacturerList(keyword) {
-      if (!keyword) {
-        this.manufacturerList = fakeList
-        return false
-      }
-      // 调用接口
-      // 暂用假数据 作为筛选， 实际通过后台进行筛选
-      this.manufacturerList = fakeList.filter(m => m.pre_name === keyword).map(m => ({
-        id: m.id,
-        pre_name: m.pre_name,
-        name: m.name
-      }))
+    async getManufacturerList(keyword) {
+     await fetchManufacturerInfos(keyword).then(res => {
+       this.manufacturerList = res.data.list;
+     }).catch(err => {
+       alert('获取生产商列表信息失败！' + err)
+     })
     },
     /* 获取国码列表信息 */
-    getCountryCodeList(keyword) {
-      if (!keyword) {
-        console.log('keyword is null')
-        this.countryCodeList = fakeList
-        console.log('this.countryCodeList = ' + this.countryCodeList)
-        return false
-      }
-      // 调用接口
-      // 暂用假数据 作为筛选， 实际通过调用接口，在后台进行模糊筛选再返回数据
-      console.log('keyword is not null')
-      this.countryCodeList = fakeList.filter(m => m.pre_name === keyword).map(m => ({
-        id: m.id,
-        pre_name: m.pre_name,
-        name: m.name
-      }))
-      console.log('this.courseList = ' + this.countryCodeList)
+    async getCountryCodeList(keyword) {
+      await fetchCountryCodeInfos(keyword).then(res => {
+        this.countryCodeList = res.data.list;
+      }).catch(err => {
+        alert('获取生产商列表信息失败！' + err)
+      })
     },
 
     /* 获取软件分类信息 id */
-    fetchSoftwareCategoryById(id) {
+    async fetchSoftwareCategoryById(id) {
       // 实际使用
-      // fetchSoftwareCategoryInfoById(id).then(res => {
-      //   return res.data.item
-      // }).catch(err => {
-      //   alert('获取内容失败！' + err)
-      //   return null
-      // })
-      return null
-      // return {
-      //  lab_software_category_name: '??'
-      // }
+      console.log('调用获取软件分类信息接口')
+      await fetchSoftwareCategoryInfoById(id)
+        .then(res => {
+          this.tempDataByID = res.data.item;
+        })
+        .catch(err => {
+          alert('获取软件分类信息内容失败！' + err)
+          return null
+        })
     },
     /* 获取适用系统信息 id */
-    fetchApplicableSystemById(id) {
+    async fetchApplicableSystemById(id) {
       // 根据select id key查询出的数据 各字段经过包装
-      return null
-      // return {
-      //   applicable_system_name: '测试name',
-      // }
+      await fetchApplicableSystemInfoById(id).then(res => {
+        this.tempDataByID = res.data.item;
+      }).catch(err => {
+        alert('获取适用系统信息内容失败！' + err)
+        return null
+      })
     },
     /* 获取品牌信息 id */
-    fetchBrandById(id) {
+    async fetchBrandById(id) {
       // 根据select id key查询出的数据 各字段经过包装
-      return null
-      // return {
-      //   brand_name: '测试name',
-      // }
+      await fetchBrandInfoById(id).then(res => {
+        this.tempDataByID = res.data.item;
+      }).catch(err => {
+        alert('获取品牌信息信息内容失败！' + err)
+        return null
+      })
     },
     /* 获取计量单位信息 id */
-    fetchUnitById(id) {
+    async fetchUnitById(id) {
       // 根据select id key查询出的数据 各字段经过包装
-      // if (找不到)
-      return null
-      // return {
-      //   lab_unit_name: '测试name',
-      // }
+      await fetchUnitPriceInfoById(id).then(res => {
+        this.tempDataByID = res.data.item;
+      }).catch(err => {
+        alert('获取计量单位信息内容失败！' + err)
+        return null
+      })
     },
     /* 获取供货商信息 id */
-    fetchSupplierById(id) {
+    async fetchSupplierById(id) {
       // 根据select id key查询出的数据 各字段经过包装
-      // if (找不到)
-      return null
-      // return {
-      //   supplier_name: '测试name',
-      //   supplier_telephone: '13532142121'
-      // }
+      await fetchSupplierInfoById(id).then(res => {
+        this.tempDataByID = res.data.item;
+      }).catch(err => {
+        alert('获取供货商信息内容失败！' + err)
+        return null
+      })
     },
     /* 获取生产商信息 id */
-    fetchManufacturerById(id) {
+    async fetchManufacturerById(id) {
       // 根据select id key查询出的数据 各字段经过包装
-      // if (找不到)
-      // return null
-      return {
-        manufacturer_name: '测试name',
-        manufacturer_telephone: '13532142121'
-      }
+      await fetchManufacturerInfoById(id).then(res => {
+        this.tempDataByID = res.data.item;
+      }).catch(err => {
+        alert('获取供货商信息内容失败！' + err)
+        return null
+      })
     },
     /* 获取国码信息 id */
-    fetchCountryCodeById(id) {
+    async fetchCountryCodeById(id) {
       // 根据select id key查询出的数据 各字段经过包装
-      // if (找不到)
-      //  return null
-      return {
-        country_code_name: '国码咯'
-      }
+      await fetchCountryCodeInfoById(id).then(res => {
+        this.tempDataByID = res.data.item;
+      }).catch(err => {
+        alert('获取供货商信息内容失败！' + err)
+        return null
+      })
     },
     /* 利用字典1 根据关键词打开dialog */
-    handleOpenDialog(dialogVisible) {
+    async handleOpenDialog(dialogVisible) {
       this[dialogVisible] = true // 打开对应的dialog
-      this.queryKeyword = null // 将查询值设为空
       // 生成默认radio数据
       const option = allListName.filter(m => m.dialogVisibleName === dialogVisible).map(m => m.option).pop()
       console.log('option===' + option)
       if (option) {
-        this[option]()
+        await this[option]()
       } else {
         this.$message({
           message: 'dialog null error!',
@@ -669,14 +661,18 @@ export default {
       }
     },
     /* 利用字典2 根据关键字获取对应方法 并返回查询出的数据 */
-    getMethodByKey(key, id) {
+    async getMethodByKey(key, id) {
       let option = key2option.filter(m => m.key === key).map(m => m.option).pop()
-      return this[option](id)
+      await this[option](id)
     },
     /* 抽取方法 将信息同步 */
-    handleSelect(data) {
+    async handleSelect(data) {
       // 查询选择的id相关的数据
-      let tempData = this.getMethodByKey(data.methodKey, data.select_id_value)
+      await this.getMethodByKey(data.methodKey, data.select_id_value)
+      let tempData = this.tempDataByID
+      this.tempDataByID = null
+      console.log('tempData=')
+      console.log({ ...tempData })
       getSelectValue(data, this.dataForm, tempData)
       // 表单数据验证规则
       this.$refs['dataForm'].validateField(data.select_id_key)
@@ -688,13 +684,12 @@ export default {
     handleQuery(data) {
       console.log('data=>' + data.listName + ',' + data.queryKeyword)
       let keyword = data.queryKeyword
-      let query = { keyword: keyword }
       let listName = data.listName
       const option = allListName.filter(m => m.key === listName).map(m => m.option).pop()
       console.log('option=' + option)
-      console.log('keyword=', {...query})
+      console.log('keyword=', keyword)
       if (option) {
-        this[option](query)
+        this[option](keyword)
       } else {
         return false
       }
