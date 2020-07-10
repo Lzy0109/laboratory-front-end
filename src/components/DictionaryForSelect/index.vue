@@ -17,7 +17,7 @@
       </h2>
       <div style="margin:0 49px 0 49px;display: block">
         <el-radio-group v-model="currentItem">
-          <el-radio v-for="item in currentList" :key="item.id" :label="item.id" border size="medium" style="margin: 10px 20px; width: 15%">{{ item.name }}</el-radio>
+          <el-radio v-for="item in currentList" :key="item.id" :label="item.id" border size="medium" style="margin: 10px 20px; width: 150px">{{ item.name }}</el-radio>
         </el-radio-group>
       </div>
       <div style="text-align: center; margin-top: 20px">
@@ -54,11 +54,17 @@
       methodKey: String,
       dialogVisibleKey: String
     },
-    data() {
+    data: function() {
       return {
         queryKeyword: null,
         currentItem: this.currentSelectedItem,
+        newCurrentList: this.currentList
       }
+    },
+    created() {
+      console.log('create currentItem=' + this.currentItem)
+      console.log('create currentSelectedItem=' + this.currentSelectedItem)
+      console.log('create currentList=' + this.currentList)
     },
     methods: {
       handleCancel() {
