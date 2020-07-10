@@ -4,12 +4,12 @@ import request from '@/utils/request'
  * @param query 查询条件数据
  * @returns {*}
  */
-export function fetchApplicableSystemInfos(query) {
+export function fetchApplicableSystemInfos(keyword) {
   return request({
-    url: 'dev/api',
+    url: '/api/applicableSystem/infos',
     method: 'GET',
-    query: {
-      query
+    params: {
+      keyword: keyword
     }
   })
 }
@@ -20,7 +20,11 @@ export function fetchApplicableSystemInfos(query) {
  */
 export function fetchApplicableSystemInfoById(id) {
   return request({
-    url: 'dev/api/' + id,
-    method: 'GET'
+    // url: 'dev/api/' + id,
+    url: '/api/applicableSystem/detail',
+    method: 'GET',
+    params:{
+      id: id
+    }
   })
 }
