@@ -37,7 +37,7 @@ export function fetchSoftwareInfoById(id) {
 /**
  * 新增一条信息
  * @param data
- * @returns {AxiosPromise}
+ * @returns {}
  */
 export function createSoftwareInfo(data) {
   return request({
@@ -72,72 +72,3 @@ export function modifySoftwareInfo(data) {
     })
 }
 
-/**
- * 获取分类信息
- * @param query
- * @returns {*}
- */
-export function fetchSoftwareCategoryInfos(keyword) {
-    return request({
-      url: '/api/softwareCategory/infos',
-      method: 'GET',
-      params:{
-        keyword: keyword
-      }
-    })
-}
-
-/**
- * 根据ID获取分类信息
- * @param id
- * @returns {AxiosPromise}
- */
-export function fetchSoftwareCategoryInfoById(id) {
-  return request({
-    url: '/api/softwareCategory/detail',
-    method: 'GET',
-    params: {
-      id: id
-    }
-  })
-
-}
-
-/**
- * 创建分类信息
- * @param data
- * @returns {AxiosPromise}
- */
-export function createSoftwareCategoryInfo(data) {
-  return request({
-    url: '/api/softwareCategory/create',
-    method: 'POST',
-    data: data
-  })
-}
-
-/**
- * 根据ID删除信息
- * @param id
- * @returns {AxiosPromise}
- */
-export function deleteSoftwareCategoryById(id) {
-  return request({
-    url: '/api/softwareCategory/delete',
-    // url: '/api/softwareCategory/' + id,
-    method: 'DELETE'
-  })
-}
-
-/**
- * 修改信息
- * @param data
- * @returns {AxiosPromise}
- */
-export function modifySoftwareCategoryInfo(data) {
-  return request({
-    url: '/api/softwareCategory/modify',
-    method: 'PUT',
-    data: data
-  })
-}
