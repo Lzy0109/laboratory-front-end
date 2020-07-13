@@ -11,6 +11,7 @@ const unitPrice = require('./unit-price')
 const countryCode = require('./country-code')
 const manufacturer = require('./manufacturer')
 const supplier = require('./supplier')
+const consumableCategory = require('./consumable-category')
 
 const mocks = [
   ...user,
@@ -22,7 +23,8 @@ const mocks = [
   ...unitPrice,
   ...countryCode,
   ...manufacturer,
-  ...supplier
+  ...supplier,
+  ...consumableCategory
 ]
 
 // for front mock
