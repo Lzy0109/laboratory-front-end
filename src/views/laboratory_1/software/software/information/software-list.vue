@@ -197,44 +197,47 @@
     <!-- 分页栏 -->
     <pagination
       v-show="total > 0"
-      :total="100"
+      :total="total"
       :page.sync="queryList.pageNum"
       :limit.sync="queryList.pageSize"
+      @pagination="getTableList"
     />
   </div>
 </template>
 
 <script>
-const fake_data = [
-  {
-    id: 1,
-    number: 'sw-1234',
-    name: '软件名称',
-    size: '软件大小（暂留）',
-    lab_software_category_id: 1,
-    lab_software_category_name: '分类1',
-    applicable_system_id: 1,
-    applicable_system_name: '适用系统',
-    version: '软件版本号',
-    price_id: 1,
-    price_name: '单价',
-    lab_brand_id: 1,
-    brand_name: '品牌',
-    lab_unit_id: 1,
-    lab_unit_name: '计量单位',
-    specification: '规格',
-    lab_manufacturer_id: 1,
-    manufacturer_name: '生厂商',
-    manufacturer_telephone: '生厂商电话',
-    lab_supplier_id: 1,
-    supplier_name: '供货商',
-    supplier_telephone: '供货商电话',
-    course_id: 1,
-    course_name: '适用课程'
-  }
-]
+// const fake_data = [
+//   {
+//     id: 1,
+//     number: 'sw-1234',
+//     name: '软件名称',
+//     size: '软件大小（暂留）',
+//     lab_software_category_id: 1,
+//     lab_software_category_name: '分类1',
+//     applicable_system_id: 1,
+//     applicable_system_name: '适用系统',
+//     version: '软件版本号',
+//     price_id: 1,
+//     price_name: '单价',
+//     lab_brand_id: 1,
+//     brand_name: '品牌',
+//     lab_unit_id: 1,
+//     lab_unit_name: '计量单位',
+//     specification: '规格',
+//     lab_manufacturer_id: 1,
+//     manufacturer_name: '生厂商',
+//     manufacturer_telephone: '生厂商电话',
+//     lab_supplier_id: 1,
+//     supplier_name: '供货商',
+//     supplier_telephone: '供货商电话',
+//     course_id: 1,
+//     course_name: '适用课程'
+//   }
+// ]
 
 import Pagination from '@/components/Pagination'
+import { fetchSoftwareInfos } from '@/api/laboratory_1/software'
+
 export default {
   name: 'SoftwareList',
   components: {
@@ -246,7 +249,7 @@ export default {
       tableData: null,
       listLoading: true,
       /* 分页参数 待修改 */
-      total: 100,
+      total: 0,
       /* 类别信息列表 */
       softwareCategoryList: [],
       /* 通用系统信息列表 */
@@ -274,31 +277,38 @@ export default {
   },
   created() {
     this.getTableList()
-    this.getSoftwareCategoryList()
-    this.getOSystemList()
   },
   methods: {
-    /* 获取列表信息 */
+    /**
+      * @method：getTableList
+      * @desc：获取软件列表信息
+      * @params:
+      * @create date： 2020/7/13
+      * @update date： 2020/7/13
+      * @author：李国烨
+     */
     getTableList() {
-      this.tableData = fake_data
-      this.listLoading = false
-    },
-    /* 获取软件分类列表信息 */
-    getSoftwareCategoryList() {
-      // 调用接口
-      console.log('调用获取软件分类列表信息接口')
-      // 暂用假数据
-      this.softwareCategoryList.push({ id: 1, name: '分类1' }, { id: 2, name: 'cate2' })
-    },
-    /* 获取软件适用系统列表信息 */
-    getOSystemList() {
-      // 调用接口
-      console.log('调用获取软件适用系统列表信息')
-      // 暂用假数据
-      this.oSystemList.push({ id: 1, name: 'window' }, { id: 2, name: 'linux' })
+      fetchSoftwareInfos(this.queryList).then(res => {
+        this.total = res.data.total
+        this.tableData = res.data.list
+        this.listLoading = false
+      }).catch(err => {
+        this.$message({
+          message: '获取信息失败 ' + err,
+          type: 'error'
+        })
+      })
     },
     /* 详情 */
-    handleDetail(row, column, event) {
+    /**
+      * @method：handleDetail
+      * @desc：跳转到详情页面
+      * @params:
+      * @create date： 2020/7/13
+      * @update date： 2020/7/13
+      * @author：李国烨
+     */
+    handleDetail(row) {
       console.log('handleDetail')
       this.$router.push({
         name: 'Software_Detail',
@@ -307,26 +317,66 @@ export default {
         }
       })
     },
-    /* 查找 */
+    /**
+      * @method：handleFilter
+      * @desc：条件查询
+      * @params:
+      * @create date： 2020/7/13
+      * @update date： 2020/7/13
+      * @author：李国烨
+     */
     handleFilter() {
-
+      console.log(JSON.stringify(this.queryList))
+      this.queryList.pageNum = 1
+      for (const key in this.queryList) {
+        if (this.queryList[key] === '') { this.queryList[key] = null }
+      }
+      this.getTableList()
     },
-    /* 导出Excel */
+    /**
+      * @method：handleDownload
+      * @desc：导出Excel
+      * @params:
+      * @create date： 2020/7/13
+      * @update date： 2020/7/13
+      * @author：李国烨
+     */
     handleDownload() {
 
     },
-    /* 跳转添加页面 */
+    /**
+      * @method：handleCreate
+      * @desc：跳转添加页面
+      * @params:
+      * @create date： 2020/7/13
+      * @update date： 2020/7/13
+      * @author：李国烨
+     */
     handleCreate() {
       console.log('handleCreate')
       this.$router.push({
         name: 'Software_Create'
       })
     },
-    /* 批量添加 */
+    /**
+      * @method：handleBatchCreate
+      * @desc：批量添加
+      * @params:
+      * @create date： 2020/7/13
+      * @update date： 2020/7/13
+      * @author：李国烨
+     */
     handleBatchCreate() {
 
     },
-    /* 管理高级搜索 */
+    /**
+      * @method：handleClose
+      * @desc：关闭管理高级搜索对话框
+      * @params:
+      * @create date： 2020/7/13
+      * @update date： 2020/7/13
+      * @author：李国烨
+     */
     handleClose() {
       // 清空旧数据
       for (const key in this.queryList) {
