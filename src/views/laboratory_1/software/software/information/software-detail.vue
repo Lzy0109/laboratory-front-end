@@ -298,19 +298,18 @@
   // }
 
 import { getSelectValue } from '@/utils/get-select-value'
+import DictionaryForSelect from '@/components/DictionaryForSelect'
+import { isChinese, isEnglish } from '@/utils/fieldValidate'
 import { fetchApplicableSystemInfoById, fetchApplicableSystemInfos } from '@/api/laboratory_1/applicable-system'
 import { fetchBrandInfoById, fetchBrandInfos } from '@/api/laboratory_1/brand'
 import { fetchUnitPriceInfoById, fetchUnitPriceInfos } from '@/api/laboratory_1/unit-price'
 import { fetchSupplierInfoById, fetchSupplierInfos } from '@/api/laboratory_1/supplier'
 import { fetchManufacturerInfoById, fetchManufacturerInfos } from '@/api/laboratory_1/manufacturer'
 import { fetchCountryCodeInfoById, fetchCountryCodeInfos } from '@/api/laboratory_1/country-code'
-import DictionaryForSelect from '@/components/DictionaryForSelect'
-import { isChinese, isEnglish } from '@/utils/fieldValidate'
 import { modifySoftwareInfo, deleteSoftwareInfoById, fetchSoftwareInfoById, } from '@/api/laboratory_1/software'
 import { fetchSoftwareCategoryInfoById, fetchSoftwareCategoryInfos } from '@/api/laboratory_1/software-category'
 
-
-  // 字典
+// 字典1
 const allListName = [
   { key: 'softwareCategoryList', dialogVisibleName: 'softwareCategoryDialogVisible', option: 'getSoftwareCategoryList' },
   { key: 'courseList', dialogVisibleName: 'courseDialogVisible', option: 'getCourseList' },
@@ -321,6 +320,7 @@ const allListName = [
   { key: 'applicableSystemList', dialogVisibleName: 'applicableSystemDialogVisible', option: 'getApplicableSystemList' },
   { key: 'countryCodeList', dialogVisibleName: 'countryCodeDialogVisible', option: 'getCountryCodeList' }
 ]
+//  字典2
 const key2option = [
   {key: 'softwareCategory', option: 'fetchSoftwareCategoryById'},
   {key: 'applicableSystem', option: 'fetchApplicableSystemById'},
@@ -429,7 +429,7 @@ export default {
           { required: true, type: 'number', message: '请输入', trigger: 'change' }
         ],
         production_date: [
-          { required: true, type: 'string', message: '请选择日期', trigger: 'change' }
+          { required: true, type: 'date', message: '请选择日期', trigger: 'change' }
         ]
       },
       pickerOptions: {
@@ -496,7 +496,6 @@ export default {
     handleReturn() {
       this.$router.go(-1)
     },
-    /* 获取软件分类列表信息 */
     /**
       * @method：getSoftwareCategoryList
       * @desc：获取软件分类列表信息
