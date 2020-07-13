@@ -1,3 +1,9 @@
+<!--
+    @Author: 刘梓伊
+    @Description: 实验室器材内置软件列表界面
+    @Date: 2020-06-20 16:32
+    @Version: 1.0
+-->
 <template>
   <div class="app-container">
     <!-- 功能区域 -->
@@ -185,6 +191,7 @@
 
 <script>
   import Pagination from '@/components/Pagination'
+  // 假数据
   const fakeData = {
     id:1,
     software_number:"器材编号",
@@ -226,6 +233,7 @@
       }
     },
     methods:{
+      /* 获取实验室器材内置软件列表 */
       getList(){
         //fake data
         this.tableData = fakeDataList;
@@ -237,7 +245,7 @@
       handleReturn() {
         this.$router.go(-1)
       },
-      /* 详情 */
+      /* 跳转详情页面 */
       handleDetail(row, column, event) {
         console.log('handleDetail id=' + row.id)
         this.$router.push({

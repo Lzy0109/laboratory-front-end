@@ -1,3 +1,9 @@
+<!--
+    @Author: 刘梓伊
+    @Description: 实验室设施详情界面
+    @Date: 2020-06-13 16:24
+    @Version: 1.0
+-->
 <template>
   <div class="app-container">
     <!-- 功能按钮 -->
@@ -170,6 +176,7 @@
       return {
         dataForm: null,
         tempData: null,
+        // 校验规则
         rules: {
           lab_num: [
             { type: 'number', message: '请输入数字', trigger: 'blur' }

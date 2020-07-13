@@ -1,4 +1,9 @@
-// 实验室管理
+/**
+ * @Author: 刘梓伊
+ * @Date: 2020-06-26
+ * @Description: 实验室管理路由
+ * @Version: 1.0
+ **/
 import fieldCreateRouter from '@/router/modules/field/modules/field-modules/information/field-create'
 import fieldDetailRouter from '@/router/modules/field/modules/field-modules/information/field-detail'
 import fieldFacListRouter from '@/router/modules/field/modules/field-modules/information/field-fac-list'

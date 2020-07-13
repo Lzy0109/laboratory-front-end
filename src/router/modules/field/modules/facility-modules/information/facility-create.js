@@ -1,4 +1,9 @@
-// 新增设施
+/**
+ * @Author: 刘梓伊
+ * @Date: 2020-06-26
+ * @Description: 新增设施路由
+ * @Version: 1.0
+ **/
 const facilityCreateRouter = {
   path: 'facility_create',
   component:() => import('@/views/laboratory_1/field/facility/information-create/facility-create'),

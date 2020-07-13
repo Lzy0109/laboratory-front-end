@@ -1,4 +1,9 @@
-// 耗材管理
+/**
+ * @Author: 刘梓伊
+ * @Date: 2020-06-26
+ * @Description: 耗材管理路由
+ * @Version: 1.0
+ **/
 const consumableListRouter = {
   path: 'consumable_list',
   component: () => import('@/views/laboratory_1/consumable/information/consumable-list'),

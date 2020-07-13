@@ -1,4 +1,9 @@
-// 新增零部件分类
+/**
+ * @Author: 刘梓伊
+ * @Date: 2020-06-26
+ * @Description: 新增零部件分类路由
+ * @Version: 1.0
+ **/
 const componentsCategoryCreateRouter = {
   path: 'components_category_create',
   component: () => import('@/views/laboratory_1/equipment/components/category-create/category-create'),

@@ -1,3 +1,9 @@
+<!--
+    @Author: 刘梓伊
+    @Description: 实验室设施列表界面
+    @Date: 2020-06-13 16:24
+    @Version: 1.0
+-->
 <template>
   <div class="app-container">
     <!-- 功能区域 -->
@@ -172,6 +178,7 @@
       }
     },
     methods:{
+      /* 获取实验室内设施列表 */
       getList(){
         /* fake data */
         this.tableData = fakeDataList;
@@ -183,7 +190,7 @@
       handleReturn() {
         this.$router.go(-1)
       },
-      /* 详情 */
+      /* 跳转设施详情页 */
       handleDetail(row, column, event) {
         console.log('handleDetail id=' + row.id)
         this.$router.push({

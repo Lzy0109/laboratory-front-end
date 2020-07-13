@@ -1,3 +1,9 @@
+<!--
+    @Author: 刘梓伊
+    @Description: 实验室的器材详情
+    @Date: 2020-06-13 16:41
+    @Version: 1.0
+-->
 <template>
   <div class="app-container">
     <!-- 功能按钮 -->
@@ -14,27 +20,30 @@
       <h2>器材详细信息</h2>
       <el-form ref="dataForm" :model="dataForm" :rules="rules" hide-required-asterisk>
         <el-row type="flex" class="row-bg" justify="space-around">
+          <!-- 编号 -->
           <el-col :span="6">
             <el-form-item label="编号" label-width="100px" prop="number">
               <span v-show="isRead">{{ dataForm.number }}</span>
               <el-input v-show="!isRead" v-model="dataForm.number" style="width: auto" :readonly="isRead" />
             </el-form-item>
           </el-col>
+          <!-- 中文名称 -->
           <el-col :span="6">
             <el-form-item label="中文名称" label-width="100px" prop="name">
               <span v-show="isRead">{{ dataForm.name }}</span>
               <el-input v-show="!isRead" v-model="dataForm.name" style="width: auto" :readonly="isRead" />
             </el-form-item>
           </el-col>
+          <!-- 英文名称 -->
           <el-col :span="6">
             <el-form-item label="英文名称" label-width="100px" prop="english_name">
               <span v-show="isRead">{{ dataForm.english_name }}</span>
               <el-input v-show="!isRead" v-model="dataForm.english_name" style="width: auto" :readonly="isRead" />
             </el-form-item>
           </el-col>
+          <!-- 器材分类 -->
           <el-col :span="6">
             <el-form-item label="器材分类" label-width="100px" prop="lab_equipment_category_id">
-              <!-- 新版 -->
               <span v-show="isRead">{{ dataForm.lab_equipment_category_name }}</span>
               <el-button v-show="!isRead" type="info" plain style="width: 165px" @click="handleOpenDialog('labEquipmentCategoryDialogVisible')">
                 {{ dataForm.lab_equipment_category_name === null ? '请选择' : dataForm.lab_equipment_category_name }}
@@ -43,6 +52,7 @@
           </el-col>
         </el-row>
         <el-row type="flex" class="row-bg" justify="space-around">
+          <!-- 型号 -->
           <el-col :span="6">
             <el-form-item label="型号" label-width="100px" prop="lab_equipment_model_id">
               <span v-show="isRead">{{ dataForm.equipment_model_name }}</span>
@@ -51,6 +61,7 @@
               </el-button>
             </el-form-item>
           </el-col>
+          <!-- 单位 -->
           <el-col :span="6">
             <el-form-item label="单位" label-width="100px" prop="lab_unit_id">
               <span v-show="isRead">{{ dataForm.lab_unit_name }}</span>
@@ -59,12 +70,14 @@
               </el-button>
             </el-form-item>
           </el-col>
+          <!-- 数量 -->
           <el-col :span="6">
             <el-form-item label="数量" label-width="100px" prop="quantity">
               <span v-show="isRead">{{ dataForm.quantity }}</span>
               <el-input v-show="!isRead" v-model="dataForm.quantity" style="width: auto" :readonly="isRead" />
             </el-form-item>
           </el-col>
+          <!-- 单价 -->
           <el-col :span="6">
             <el-form-item label="单价" label-width="100px" prop="unit_price">
               <span v-show="isRead">{{ dataForm.unit_price }}</span>
@@ -73,6 +86,7 @@
           </el-col>
         </el-row>
         <el-row type="flex" class="row-bg" justify="space-around">
+          <!-- 生产商 -->
           <el-col :span="6">
             <el-form-item label="生产商" label-width="100px" prop="lab_manufacturer_id">
               <span v-show="isRead">{{ dataForm.manufacturer_name }}</span>
@@ -81,12 +95,14 @@
               </el-button>
             </el-form-item>
           </el-col>
+          <!-- 生产商电话 -->
           <el-col :span="6">
             <el-form-item label="生产商电话" label-width="100px">
               <span v-show="isRead">{{ dataForm.manufacturer_telephone }}</span>
               <el-input v-show="!isRead" v-model="dataForm.manufacturer_telephone" style="width: auto" :readonly="isRead" />
             </el-form-item>
           </el-col>
+          <!-- 供货商 -->
           <el-col :span="6">
             <el-form-item label="供货商" label-width="100px" prop="lab_supplier_id">
               <span v-show="isRead">{{ dataForm.supplier_name }}</span>
@@ -95,6 +111,7 @@
               </el-button>
             </el-form-item>
           </el-col>
+          <!-- 供货商电话 -->
           <el-col :span="6">
             <el-form-item label="供货商电话" label-width="100px">
               <span v-show="isRead">{{ dataForm.supplier_telephone }}</span>
@@ -103,12 +120,14 @@
           </el-col>
         </el-row>
         <el-row type="flex" class="row-bg" justify="space-around">
+          <!-- 总价 -->
           <el-col :span="6">
             <el-form-item label="总价" label-width="100px" prop="total_price">
               <span v-show="isRead">{{ dataForm.total_price }}</span>
               <el-input v-show="!isRead" v-model="dataForm.total_price" style="width: auto" :readonly="isRead" />
             </el-form-item>
           </el-col>
+          <!-- 国码 -->
           <el-col :span="6">
             <el-form-item label="国码" label-width="100px" prop="country_code_id">
               <span v-show="isRead">{{ dataForm.country_code_name }}</span>
@@ -117,6 +136,7 @@
               </el-button>
             </el-form-item>
           </el-col>
+          <!-- 出产日期 -->
           <el-col :span="6">
             <el-form-item label="出产日期" label-width="100px" prop="production_date">
               <span v-show="isRead">{{ dataForm.production_date }}</span>
@@ -124,6 +144,7 @@
               <el-date-picker v-show="!isRead" v-model="dataForm.production_date" type="date" style="width: 165px" value-format="yyyy-MM-dd" clearable />
             </el-form-item>
           </el-col>
+          <!-- 保修期 -->
           <el-col :span="6">
             <el-form-item label="保修期" label-width="100px" prop="warranty">
               <span v-show="isRead">{{ dataForm.warranty }}</span>
@@ -132,12 +153,14 @@
           </el-col>
         </el-row>
         <el-row type="flex" class="row-bg" justify="space-around">
+          <!-- 单据号 -->
           <el-col :span="6">
             <el-form-item label="单据号" label-width="100px" prop="bills_number">
               <span v-show="isRead">{{ dataForm.bills_number }}</span>
               <el-input v-show="!isRead" v-model="dataForm.bills_number" style="width: auto" :readonly="isRead" />
             </el-form-item>
           </el-col>
+          <!-- 购置日期 -->
           <el-col :span="6">
             <el-form-item label="购置日期" label-width="100px" prop="purchase_date">
               <span v-show="isRead">{{ dataForm.purchase_date }}</span>
@@ -145,6 +168,7 @@
               <el-date-picker v-show="!isRead" v-model="dataForm.purchase_date" style="width: 165px" type="date" value-format="yyyy-MM-dd" clearable />
             </el-form-item>
           </el-col>
+          <!-- 存放地点 -->
           <el-col :span="6">
             <el-form-item label="存放地点" label-width="100px" prop="field_id">
               <span v-show="isRead">{{ dataForm.field_name }}</span>
@@ -153,6 +177,7 @@
               </el-button>
             </el-form-item>
           </el-col>
+          <!-- 购买方式 -->
           <el-col :span="6">
             <el-form-item label="购买方式？" label-width="100px" prop="purchase_method">
               <span v-show="isRead">{{ dataForm.purchase_method }}</span>
@@ -161,12 +186,14 @@
           </el-col>
         </el-row>
         <el-row type="flex" class="row-bg" justify="space-around">
+          <!-- 经费来源 -->
           <el-col :span="6">
             <el-form-item label="经费来源？" label-width="100px" prop="expenditure">
               <span v-show="isRead">{{ dataForm.expenditure }}</span>
               <el-input v-show="!isRead" v-model="dataForm.expenditure" style="width: auto" :readonly="isRead" />
             </el-form-item>
           </el-col>
+          <!-- 状态 -->
           <el-col :span="6">
             <el-form-item label="状态" label-width="100px" prop="status_name">
               <span v-show="isRead">{{ dataForm.status_name }}</span>
@@ -177,12 +204,14 @@
               </el-select>
             </el-form-item>
           </el-col>
+          <!-- 用途 -->
           <el-col :span="6">
             <el-form-item label="用途" label-width="100px" prop="usage">
               <span v-show="isRead">{{ dataForm.usage }}</span>
               <el-input v-show="!isRead" v-model="dataForm.usage" style="width: auto" :readonly="isRead" />
             </el-form-item>
           </el-col>
+          <!-- 品牌 -->
           <el-col :span="6">
             <el-form-item label="品牌" label-width="100px" prop="brand_name">
               <span v-show="isRead">{{ dataForm.brand_name }}</span>
@@ -193,6 +222,7 @@
           </el-col>
         </el-row>
         <el-row>
+          <!-- 附件 -->
           <el-col :span="6">
             <el-form-item label="附件URL" label-width="100px" prop="infoValidation">
               <span v-show="isRead">{{ dataForm.URL }}</span>
@@ -463,6 +493,7 @@ export default {
     return {
       dataForm: null,
       tempData: null,
+      // 校验规则
       rules: {
         number: [
           { required: true, type: 'string', message: '请输入数字', trigger: 'blur' }
@@ -540,22 +571,38 @@ export default {
       showSaveBtn: false,
 
       labEquipmentCategoryDialogVisible: false,
+      // 品牌radio组合
       brandDialogVisible: false,
+      // 计量单位radio组合
       unitDialogVisible: false,
+      // 供应商radio组合
       supplierDialogVisible: false,
+      // 生产商radio组合
       manufacturerDialogVisible: false,
+      // 国码radio组合
       countryCodeDialogVisible: false,
+      // 型号radio组合
       equipmentModelDialogVisible: false,
+      // 场地radio组合
       fieldDialogVisible: false,
 
+      // 器材分类列表
       equCategoryList: [],
+      // 计量单位列表
       unitList: [],
+      // 品牌列表
       brandList: [],
+      // 型号列表
       equipmentModelList: [],
+      // 生产商列表
       manufacturerList: [],
+      // 供应商列表
       supplierList: [],
+      // 场地列表
       fieldList: [],
+      // 国码列表
       countryCodeList: [],
+      // 状态列表
       statusList: []
     }
   },
@@ -695,14 +742,14 @@ export default {
       console.log('this.courseList = ' + this.countryCodeList)
     },
 
-    /* 获取器材类别信息 id */
+    /* 根据id获取器材类别信息 */
     fetchEquCategoryById(id) {
       // 根据select id key查询出的数据 各字段经过包装
       return null
       // return {
       // }
     },
-    /* 获取品牌信息 id */
+    /* 根据id获取品牌信息 */
     fetchBrandById(id) {
       // 根据select id key查询出的数据 各字段经过包装
       return null
@@ -710,14 +757,14 @@ export default {
       //   brand_name: '测试name',
       // }
     },
-    /* 获取型号信息 id */
+    /* 根据id获取型号信息 */
     fetchEquipmentModelById(id) {
       // 根据select id key查询出的数据 各字段经过包装
       return null
       // return {
       // }
     },
-    /* 获取计量单位信息 id */
+    /* 根据id获取计量单位信息 */
     fetchUnitById(id) {
       // 根据select id key查询出的数据 各字段经过包装
       // if (找不到)
@@ -726,7 +773,7 @@ export default {
       //   lab_unit_name: '测试name',
       // }
     },
-    /* 获取供货商信息 id */
+    /* 根据id获取供货商信息 */
     fetchSupplierById(id) {
       // 根据select id key查询出的数据 各字段经过包装
       // if (找不到)
@@ -736,7 +783,7 @@ export default {
       //   supplier_telephone: '13532142121'
       // }
     },
-    /* 获取生产商信息 id */
+    /* 根据id获取生产商信息 */
     fetchManufacturerById(id) {
       // 根据select id key查询出的数据 各字段经过包装
       // if (找不到)
@@ -746,7 +793,7 @@ export default {
         manufacturer_telephone: '13532142121'
       }
     },
-    /* 获取国码信息 id */
+    /* 根据id获取国码信息 */
     fetchCountryCodeById(id) {
       // 根据select id key查询出的数据 各字段经过包装
       // if (找不到)
@@ -755,7 +802,7 @@ export default {
         country_code_name: '国码咯'
       }
     },
-    /* 获取场地信息 id */
+    /* 根据id获取场地信息 */
     fetchFieldById(id) {
       return {
         field_name: '场地1名称'
@@ -792,7 +839,7 @@ export default {
       console.log('data.dialogVisibleKey = ' + data.dialogVisibleKey)
       this[data.dialogVisibleKey] = false
     },
-
+    /* 查询 */
     handleQuery(data) {
       console.log('data=>' + data.listName + ',' + data.queryKeyword)
       let keyword = data.queryKeyword
@@ -832,7 +879,7 @@ export default {
       this.showCategoryCheckingErrorMessage = false
       this.showCategoryCheckingSuccessMessage = false
     },
-    /* 同步耗材种类id 和 名称 */
+    /* 同步耗材种类id和名称 */
     synchronizeData(keyName, keyId, keyNameIdList) {
       this.dataForm[keyName] = keyNameIdList
         .filter(m => m.id === keyId)

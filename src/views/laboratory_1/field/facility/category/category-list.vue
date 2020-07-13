@@ -1,3 +1,9 @@
+<!--
+    @Author: 刘梓伊
+    @Description: 设施分类列表界面
+    @Date: 2020-06-19 16:50
+    @Version: 1.0
+-->
 <template>
   <div class="app-container">
     <!-- 功能区域 -->

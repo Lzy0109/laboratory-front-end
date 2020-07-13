@@ -1,3 +1,9 @@
+<!--
+    @Author: 刘梓伊
+    @Description: 实验室分类列表界面
+    @Date: 2020-06-18 16:20
+    @Version: 1.0
+-->
 <template>
   <div class="app-container">
     <!-- 功能区域 -->
@@ -73,7 +79,8 @@
 </template>
 
 <script>
-const fake_data = [
+  // 假数据
+  const fake_data = [
   {
     id: 1,
     name: '实验室分类名称',
@@ -115,7 +122,7 @@ export default {
       this.tableData = fake_data
       this.listLoading = false
     },
-    /* 跳转到详情页面 */
+    /* 跳转到实验室分类详情页面 */
     handleDetail(row, column, event) {
       console.log('handleDetail')
       this.$router.push({
@@ -125,7 +132,7 @@ export default {
         }
       })
     },
-    /* 跳转添加页面 */
+    /* 跳转添加实验室分类页面 */
     handleCreate() {
       console.log('handleCreate')
       this.$router.push({

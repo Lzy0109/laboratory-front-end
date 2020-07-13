@@ -1,3 +1,9 @@
+<!--
+    @Author: 刘梓伊
+    @Description: 为实验室添加器材页面
+    @Date: 2020-07-02 19:25
+    @Version: 1.0
+-->
 <template>
   <div class="app-container">
     <!-- 功能区域 -->
@@ -37,7 +43,6 @@
                            @handleCancel="showBrandBtn = !showBrandBtn"
                            @handleConfirm="handleSelectBrandConfirm"
                            @fuzzySearch="brandFuzzySearch">
-
         </dictionary-radios>
         <!-- 选择型号 -->
         <el-button-group>
@@ -49,7 +54,6 @@
                            @handleCancel="showModelBtn = !showModelBtn"
                            @handleConfirm="handleSelectModelConfirm"
                            @fuzzySearch="modelFuzzySearch">
-
         </dictionary-radios>
         <!-- 高级搜索 -->
         <el-button-group>
@@ -234,7 +238,6 @@
       :page.sync="pageNum"
       :limit.sync="pageSize"
     />
-
     <!-- 详情浮动窗口 -->
     <el-dialog :visible.sync="showDetailBtn" width="80%" :show-close="false">
       <h3 slot="title">器材概要</h3>
@@ -433,8 +436,11 @@
         showBrandBtn: false,
         /* 显示器材型号搜索 */
         showModelBtn: false,
+        /* 器材分类列表 */
         equCategoryList: [],
+        /* 状态列表 */
         statusList: [],
+        /* 场地列表 */
         fieldList: [],
         /* 种类列表 */
         categoryList,
@@ -456,6 +462,7 @@
       this.getEquCategoryList()
     },
     methods: {
+      /* 获取器材信息列表 */
       getTableList() {
         /* fake data */
         this.tableData = fakeDataList
@@ -464,7 +471,7 @@
         /* 根据传过来的实验室id获取对应的器材 */
         console.log('实验室id获取对应的器材. lab id')
       },
-      /* 获取器材负责人（人员）信息 */
+      /* 获取器材负责人信息 */
       getEquOwnerList() {
         console.log('equ owner list')
       },
@@ -472,17 +479,18 @@
       getEquCategoryList() {
         console.log('equ category list')
       },
+      /* 返回上一步 */
       handleReturn() {
         this.$router.go(-1)
       },
-      /* 弹窗显示 */
+      /* 弹窗显示器材概要信息 */
       handleDetail(row) {
         console.log('handleDetail id=' + row.id)
         // 获取data
         this.dataForm = fakeData
         this.showDetailBtn = !this.showDetailBtn
       },
-      /* 添加器材 */
+      /* 添加器材按钮操作，提示信息 */
       handleAdd() {
         this.$confirm('添加器材, 是否继续?', '提示', {
           confirmButtonText: '确定',
@@ -501,7 +509,7 @@
           console.log('已取消')
         })
       },
-      /* 监听添加器材数量 */
+      /* 监听添加器材数量（功能已注释，可后期根据需求打开） */
       handleChange(value) {
         console.log(value);
       },
@@ -509,7 +517,7 @@
       handleFilter() {
 
       },
-      /* 管理高级搜索 */
+      /* 高级搜索中的取消按钮，清空搜索数据 */
       handleClose() {
         /* 清空旧数据 */
         for (const key in this.queryList) {

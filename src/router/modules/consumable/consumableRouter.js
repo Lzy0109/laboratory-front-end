@@ -1,4 +1,9 @@
-// 实验耗材管理
+/**
+ * @Author: 刘梓伊
+ * @Date: 2020-06-26
+ * @Description: 实验耗材管理路由
+ * @Version: 1.0
+ **/
 import consumableListRouter from '@/router/modules/consumable/modules/information/consumable-list'
 import consumableDetailRouter from '@/router/modules/consumable/modules/information/consumable-detail'
 import consumableCreateRouter from '@/router/modules/consumable/modules/information/consumable-create'

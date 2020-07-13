@@ -1,4 +1,9 @@
-// 实验软件管理
+/**
+ * @Author: 刘梓伊
+ * @Date: 2020-06-26
+ * @Description: 实验软件管理路由
+ * @Version: 1.0
+ **/
 import softwareCreateRouter from '@/router/modules/software/modules/information/software-create'
 import softwareDetailRouter from '@/router/modules/software/modules/information/software-detail'
 import softwareCategoryListRouter from '@/router/modules/software/modules/category/category-list'

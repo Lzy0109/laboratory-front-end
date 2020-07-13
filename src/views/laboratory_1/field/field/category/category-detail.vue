@@ -1,3 +1,9 @@
+<!--
+    @Author: 刘梓伊
+    @Description: 实验室分类详情界面
+    @Date: 2020-06-18 16:22
+    @Version: 1.0
+-->
 <template>
   <div class="app-container">
     <!-- 功能按钮 -->
@@ -47,6 +53,7 @@
 </template>
 
 <script>
+  // 假数据
   const fake_data =
     {
       id: 1,
@@ -76,6 +83,7 @@
       return {
         dataForm: null,
         tempData: null,
+        // 校验规则
         rules: {
           name: [
             { required: true, trigger: 'blur', validator: validateIsChinese }
@@ -90,6 +98,7 @@
         },
         isRead: true,
         isAble: false,
+        // 编辑按钮
         showSaveBtn: false
       }
     },
@@ -97,7 +106,7 @@
       this.getOriginalData()
     },
     methods: {
-      /* 根据ID获取数据 */
+      /* 根据id获取数据 */
       getOriginalData() {
         // 暂用假数据
         this.dataForm = fake_data
@@ -141,13 +150,13 @@
             // 修改后操作
             this.afterEdit()
             // 根据返回信息重新复制dataForm
-            console.log('success submit!!')
+            console.log('submit')
           } else {
             this.$message({
               message: '修改失败！请注意输入内容',
               type: 'error'
             })
-            console.log('error submit!!')
+            console.log('error')
             return false
           }
         })

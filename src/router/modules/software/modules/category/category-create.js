@@ -1,4 +1,9 @@
-// 新建软件分类
+/**
+ * @Author: 刘梓伊
+ * @Date: 2020-06-26
+ * @Description: 新建软件分类路由
+ * @Version: 1.0
+ **/
 const softwareCategoryCreateRouter = {
   path: 'software_category_create',
   component: () => import('@/views/laboratory_1/software/software/category-create/category-create'),
