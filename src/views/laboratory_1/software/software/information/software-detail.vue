@@ -474,13 +474,9 @@ export default {
      */
     async getOriginalData() {
       const id = this.$route.query.id
-      console.log(id)
-      // 实际 调用接口获取软件详细信息
      await fetchSoftwareInfoById(id)
         .then(res => {
-          // 暂用假数据
           this.dataForm = res.data.item;
-          console.log({...this.dataForm})
         }).catch(err => {
           alert('获取内容失败！' + err)
       })
@@ -511,7 +507,7 @@ export default {
         .then(res => {
           this.softwareCategoryList = res.data.list;
         }).catch(err => {
-         alert('获取用获取软件分类列表失败！' + err)
+         alert('获取软件分类信息失败！' + err)
       })
     },
     /**
@@ -750,22 +746,20 @@ export default {
         return null
       })
     },
-    /* 利用字典1 根据关键词打开dialog */
     /**
       * @method：handleOpenDialog
-      * @desc：利用字典1 根据关键词打开dialog
+      * @desc：利用字典1 根据关键词打开dialog,并调用对应方法生成radio列表
       * @params: dialogVisible
-      * @create date： 2020/7/13
+      * @create date： 2020/7/8
       * @update date： 2020/7/13
       * @author：李国烨
      */
     async handleOpenDialog(dialogVisible) {
       this[dialogVisible] = true // 打开对应的dialog
-      // 生成默认radio数据
       const option = allListName.filter(m => m.dialogVisibleName === dialogVisible).map(m => m.option).pop()
       console.log('option===' + option)
       if (option) {
-        await this[option]()
+        await this[option]();  // 生成默认radio数据
       } else {
         this.$message({
           message: 'dialog null error!',

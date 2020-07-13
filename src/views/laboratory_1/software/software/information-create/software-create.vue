@@ -340,6 +340,7 @@ export default {
           return time.getTime() > Date.now()
         }
       },
+      tempDataByID: null,
       dataForm: {
         number: null,
         name: null,

@@ -7,7 +7,7 @@ import request from '@/utils/request'
  */
 export function fetchConsumableInfos(keyword) {
   return request({
-    url: '/api/Consumable/infos',
+    url: '/api/consumable/infos',
     method: 'GET',
     params:{
       keyword: keyword
@@ -22,7 +22,7 @@ export function fetchConsumableInfos(keyword) {
  */
 export function fetchConsumableInfoById(id) {
   return request({
-    url: '/api/Consumable/detail',
+    url: '/api/consumable/detail',
     method: 'GET',
     params: {
       id: id
@@ -38,7 +38,7 @@ export function fetchConsumableInfoById(id) {
  */
 export function createConsumableInfo(data) {
   return request({
-    url: '/api/Consumable/create',
+    url: '/api/consumable/create',
     method: 'POST',
     data: data
   })
@@ -51,8 +51,8 @@ export function createConsumableInfo(data) {
  */
 export function deleteConsumableById(id) {
   return request({
-    url: '/api/Consumable/delete',
-    // url: '/api/Consumable/' + id,
+    url: '/api/consumable/delete',
+    // url: '/api/consumable/' + id,
     method: 'DELETE'
   })
 }
@@ -64,7 +64,7 @@ export function deleteConsumableById(id) {
  */
 export function modifyConsumableInfo(data) {
   return request({
-    url: '/api/Consumable/modify',
+    url: '/api/consumable/modify',
     method: 'PUT',
     data: data
   })
