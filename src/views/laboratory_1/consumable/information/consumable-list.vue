@@ -1,3 +1,9 @@
+<!--
+    @Author 李国烨
+    @Date 2020/7/6 21:51
+    @Description: 耗材信息列表页面
+    @Version 1.0
+-->
 <template>
   <div class="app-container">
     <!-- 功能区域 -->
@@ -180,12 +186,15 @@
       :total="total"
       :page.sync="queryList.pageNum"
       :limit.sync="queryList.pageSize"
+      @pagination="getTableList"
     />
   </div>
 </template>
 
 <script>
 // 假数据
+import { fetchConsumableInfos } from '../../../../api/laboratory_1/consumable'
+
 const fakeData = {
   id: 1,
   number: '耗材编号',
@@ -227,6 +236,7 @@ const fakeData = {
   production_date: '2020-07-01',
 }
 const fakeDataList = [{...fakeData}]
+
 import Pagination from '@/components/Pagination'
 export default {
   name: 'ConsumableList',
@@ -235,21 +245,20 @@ export default {
   },
   data() {
     return {
-      /* 表格参数 */
+      /** 表格参数 **/
       tableData: null,
       listLoading: true,
-      /* 分页参数 待修改 */
-      total: 100,
+      /** 分页参数 待修改 **/
+      total: 0,
 
-      /* 类别信息列表 */
+      /** 类别信息列表 **/
       consumableCategoryList: [],
-      /* 导出excel相关参数 */
+      /** 导出excel相关参数 **/
       downloadLoading: false,
-      /* 查询条件 */
+      /** 查询条件 **/
       queryList: {
         pageNum: 1,
         pageSize: 20,
-        // 需要修改
         lab_consumable_category_name: null,
         brand_name: null,
         model_name: null,
@@ -257,7 +266,6 @@ export default {
         specialized: true,
         manufacturer_name: null,
         supplier_name: null,
-
         // 适用器材（applicative_equipment）
         purchase_date: null,
         field_name: null,
@@ -268,7 +276,7 @@ export default {
         country_code_name: null,
         production_date: null,
       },
-      /* 是否显示高级搜索 */
+      /** 是否显示高级搜索 **/
       showDetailSearchBtn: false
     }
   },
@@ -276,14 +284,36 @@ export default {
     this.getTableList()
   },
   methods: {
-    /* 获取列表信息 */
+    /**
+     * @method：getTableList
+     * @desc：获取软件列表信息
+     * @params:
+     * @create date： 2020/7/7
+     * @update date： 2020/7/13
+     * @author：李国烨
+     */
     getTableList() {
       // 暂用假数据
-      this.tableData = fakeDataList
-      this.listLoading = false
       // 调用获取信息的接口
+      fetchConsumableInfos(this.queryList).then(res => {
+        this.total = res.data.total
+        this.tableData = res.data.list
+        this.listLoading = false
+      }).catch(err => {
+        this.$message({
+          message: '获取信息失败 ' + err,
+          type: 'error'
+        })
+      })
     },
-    /* 详情 */
+    /**
+     * @method：handleDetail
+     * @desc：跳转到详情页面
+     * @params:
+     * @create date： 2020/7/7
+     * @update date： 2020/7/13
+     * @author：李国烨
+     */
     handleDetail(row) {
       console.log('handleDetail')
       this.$router.push({
@@ -293,33 +323,70 @@ export default {
         }
       })
     },
-    /* 查找 */
+    /**
+     * @method：handleFilter
+     * @desc：条件查询
+     * @params:
+     * @create date： 2020/7/7
+     * @update date： 2020/7/13
+     * @author：李国烨
+     */
     handleFilter() {
-
+      this.queryList.pageNum = 1
+      for (const key in this.queryList) {
+        if (this.queryList[key] === '') { this.queryList[key] = null }
+      }
+      this.getTableList()
     },
-    /* 导出Excel */
+    /**
+     * @method：handleDownload
+     * @desc：导出Excel
+     * @params:
+     * @create date： 2020/7/7
+     * @update date： 2020/7/13
+     * @author：李国烨
+     */
     handleDownload() {
 
     },
-    /* 跳转添加页面 */
+    /**
+     * @method：handleCreate
+     * @desc：跳转添加页面
+     * @params:
+     * @create date： 2020/7/7
+     * @update date： 2020/7/13
+     * @author：李国烨
+     */
     handleCreate() {
       console.log('handleCreate')
       this.$router.push({
         name: 'Consumable_Create'
       })
     },
-    /* 批量添加 */
+    /**
+     * @method：handleBatchCreate
+     * @desc：批量添加
+     * @params:
+     * @create date： 2020/7/7
+     * @update date： 2020/7/13
+     * @author：李国烨
+     */
     handleBatchCreate() {
 
     },
-    /* 管理高级搜索 */
+    /**
+     * @method：handleClose
+     * @desc：关闭管理高级搜索对话框
+     * @params:
+     * @create date： 2020/7/7
+     * @update date： 2020/7/13
+     * @author：李国烨
+     */
     handleClose() {
-      // 清空旧数据
       for (const key in this.queryList) {
-        this.queryList[key] = null
+        this.queryList[key] = null; // 清空旧数据
       }
-      // 关闭
-      this.showDetailSearchBtn = false
+      this.showDetailSearchBtn = false; // 关闭
     }
   }
 }

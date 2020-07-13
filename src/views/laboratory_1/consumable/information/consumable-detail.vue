@@ -1,3 +1,9 @@
+<!--
+    @Author 李国烨
+    @Date 2020/7/6 22:04
+    @Description: 耗材信息详情页面
+    @Version 1.0
+-->
 <template>
   <div class="app-container">
     <!-- 功能按钮 -->
@@ -321,73 +327,7 @@
 </template>
 
 <script>
-// 假数据
-const fakeData = {
-    id: 1,
-    number: '耗材编号',
-    name: '耗材名称',
-    english_name: 'english-name',
-    lab_consumable_category_id: 1,
-    lab_consumable_category_name: '耗材种类',
-    lab_brand_id: 1,
-    brand_name: '品牌',
-    lab_model_id: 1,
-    model_name: '型号',
-    lab_unit_id: 1,
-    lab_unit_name: '单位111',
-    specification: '规格',
-    specialized: true,
-    lab_manufacturer_id: 1,
-    manufacturer_name: '生产商111',
-    manufacturer_telephone: '12345678911',
-    lab_supplier_id: 1,
-    supplier_name: '供货商111',
-    supplier_telephone: '12345678922',
-
-
-    // 适用器材（applicative_equipment）
-
-    bills_number: '单据号',
-    purchase_date: '2016-01-01',
-    field_id: 1,
-    field_name: '存放场所',
-    expenditure: '经费来源',
-    purchase_method: '购买方式',
-    warranty: '保修期',
-
-    quantity: '数量',
-    unit_price: '单价',
-    total_price: '总价',
-    country_code_id: 1,
-    country_code_name: '国码',
-    production_date: '2020-07-01',
-  }
-const fakeList = [
-  { id: 1, pre_name: 'c1', name: 'radio内容1', phone: '13512341234' },
-  { id: 2, pre_name: 'c1', name: 'radio内容2', phone: '16812341234' },
-  { id: 3, pre_name: 'c1', name: 'radio内容3', phone: '13812341234' },
-  { id: 4, pre_name: 'c1', name: 'radio内容4', phone: '13812341234' },
-  { id: 5, pre_name: 'c1', name: 'radio内容5', phone: '13812341234' },
-  { id: 6, pre_name: 'c1', name: 'radio内容6', phone: '13812341234' },
-  { id: 7, pre_name: 'c1', name: 'radio内容7', phone: '13812341234' },
-  { id: 8, pre_name: 'c1', name: 'radio内容8', phone: '13812341234' },
-  { id: 9, pre_name: 'c1', name: 'radio内容9', phone: '13812341234' },
-  { id: 10, pre_name: 'c1', name: 'radio内容10', phone: '13812341234' },
-  { id: 11, pre_name: 'c1', name: 'radio内容11', phone: '13812341234' },
-  { id: 12, pre_name: 'c2', name: 'radio内容12', phone: '13812341234' },
-  { id: 13, pre_name: 'c2', name: 'radio内容13', phone: '13812341234' },
-  { id: 14, pre_name: 'c2', name: 'radio内容14', phone: '13812341234' },
-  { id: 15, pre_name: 'c2', name: 'radio内容15', phone: '13812341234' },
-  { id: 16, pre_name: 'c2', name: 'radio内容16', phone: '13812341234' },
-  { id: 17, pre_name: 'c3', name: 'radio内容17', phone: '13812341234' },
-  { id: 18, pre_name: 'c3', name: 'radio内容18', phone: '13812341234' },
-  { id: 19, pre_name: 'c3', name: 'radio内容19', phone: '13812341234' },
-  { id: 20, pre_name: 'c3', name: 'radio内容20', phone: '13812341234' },
-  { id: 21, pre_name: 'c3', name: 'radio内容21', phone: '13812341234' },
-  { id: 22, pre_name: 'c3', name: 'radio内容22', phone: '13812341234' }
-]
-
-// 字典
+// 字典1
 const allListName = [
   { key: 'consumableCategoryList', dialogVisibleName: 'consumableCategoryDialogVisible', option: 'getConsumableCategoryList' },
   { key: 'brandList', dialogVisibleName: 'brandDialogVisible', option: 'getBrandList' },
@@ -398,6 +338,7 @@ const allListName = [
   { key: 'countryCodeList', dialogVisibleName: 'countryCodeDialogVisible', option: 'getCountryCodeList' },
   { key: 'fieldList', dialogVisibleName: 'fieldDialogVisible', option: 'getFieldList' }
 ]
+// 字典2
 const key2option = [
   {key: 'consumableCategory', option: 'fetchConsumableCategoryById'},
   {key: 'equipmentModel', option: 'fetchEquipmentModelById'},
@@ -413,6 +354,15 @@ const key2option = [
 import { getSelectValue } from '@/utils/get-select-value'
 import { isChinese, isEnglish } from '@/utils/fieldValidate'
 import DictionaryForSelect from '@/components/DictionaryForSelect'
+import { fetchConsumableInfoById } from '@/api/laboratory_1/consumable'
+import { fetchConsumableCategoryInfoById, fetchConsumableCategoryInfos } from '@/api/laboratory_1/consumable-category'
+import { fetchFieldInfoById, fetchFieldInfos } from '@/api/laboratory_1/field'
+import { fetchBrandInfoById, fetchBrandInfos } from '@/api/laboratory_1/brand'
+import { fetchModelInfoById, fetchModelInfos } from '@/api/laboratory_1/model'
+import { fetchUnitPriceInfoById, fetchUnitPriceInfos } from '@/api/laboratory_1/unit-price'
+import { fetchSupplierInfoById, fetchSupplierInfos } from '@/api/laboratory_1/supplier'
+import { fetchManufacturerInfoById, fetchManufacturerInfos } from '@/api/laboratory_1/manufacturer'
+import { fetchCountryCodeInfoById, fetchCountryCodeInfos } from '@/api/laboratory_1/country-code'
 export default {
   name: 'ConsumableDetail',
   components: {
@@ -436,6 +386,7 @@ export default {
     return {
       dataForm: null,
       tempData: null,
+      tempDataByID: null,
       rules: {
         number: [
           { required: true, type: 'string', message: '请输入数字', trigger: 'blur' }
@@ -532,206 +483,316 @@ export default {
     this.getOriginalData()
   },
   methods: {
-    /* 根据ID获取数据 */
-    getOriginalData() {
-      // 暂用假数据
-      this.dataForm = fakeData
+    /**
+     * @method：getOriginalData
+     * @desc：根据ID获取数据
+     * @params: null
+     * @create date： 2020/7/8
+     * @update date： 2020/7/13
+     * @author：李国烨
+     */
+   async getOriginalData() {
       const id = this.$route.query.id
-      console.log(id)
+      await fetchConsumableInfoById(id).then(res => {
+        this.dataForm = res.data.item;
+      }).catch(err => {
+        alert('获取内容失败！' + err)
+      })
     },
-    /* 获取耗材种类列表信息 */
-    getConsumableCategoryList(keyword) {
-      console.log('调用获取耗材种类列表信息接口')
-      if (!keyword) {
-        this.consumableCategoryList = fakeList
-        return false
-      }
-      // 调用接口
-      // 暂用假数据 作为筛选， 实际通过后台进行筛选
-      this.consumableCategoryList = fakeList.filter(m => m.pre_name === keyword).map(m => ({
-        id: m.id,
-        pre_name: m.pre_name,
-        name: m.name
-      }))
+    /**
+      * @method：getConsumableCategoryList
+      * @desc： 获取耗材种类列表信息
+      * @params:
+      * @create date： 2020/7/8
+      * @update date： 2020/7/13
+      * @author：李国烨
+     */
+   async getConsumableCategoryList(keyword) {
+      await fetchConsumableCategoryInfos(keyword).then(res => {
+        this.consumableCategoryList = res.data.list;
+      }).catch(err => {
+        alert('获取耗材种类信息失败！' + err)
+      })
     },
-    /* 获取场地列表信息 */
-    getFieldList(keyword) {
+    /**
+      * @method：getFieldList
+      * @desc：获取场地列表信息
+      * @params:
+      * @create date： 2020/7/8
+      * @update date： 2020/7/13
+      * @author：李国烨
+     */
+   async getFieldList(keyword) {
       console.log('调用获取场地列表信息接口')
-      if (!keyword) {
-        this.fieldList = fakeList
-        return false
-      }
-      // 调用接口
-      // 暂用假数据 作为筛选， 实际通过后台进行筛选
-      this.fieldList = fakeList.filter(m => m.pre_name === keyword).map(m => ({
-        id: m.id,
-        pre_name: m.pre_name,
-        name: m.name
-      }))
+      await fetchFieldInfos(keyword).then(res => {
+        this.fieldList = res.data.list;
+      }).catch(err => {
+        alert('获取场地信息失败！' + err)
+      })
     },
-    /* 获取品牌列表信息 */
-    getBrandList(keyword) {
-      if (!keyword) {
-        this.brandList = fakeList
-        return false
-      }
-      // 调用接口
-      // 暂用假数据 作为筛选， 实际通过后台进行筛选
-      this.brandList = fakeList.filter(m => m.pre_name === keyword).map(m => ({
-        id: m.id,
-        pre_name: m.pre_name,
-        name: m.name
-      }))
+    /**
+     * @method：getBrandList
+     * @desc：获取品牌列表信息
+     * @params: keyword 查询条件，可为null
+     * @create date： 2020/7/8
+     * @update date： 2020/7/13
+     * @author：李国烨
+     */
+   async getBrandList(keyword) {
+      await fetchBrandInfos(keyword).then(res => {
+        this.brandList = res.data.list;
+      }).catch(err => {
+        alert('获取品牌列表失败！' + err)
+      })
     },
-    /* 获取型号列表信息 */
-    getEquipmentModelList(keyword) {
-      if (!keyword) {
-        this.equipmentModelList = fakeList
-        return false
-      }
-      // 调用接口
-      // 暂用假数据 作为筛选， 实际通过后台进行筛选
-      this.equipmentModelList = fakeList.filter(m => m.pre_name === keyword).map(m => ({
-        id: m.id,
-        pre_name: m.pre_name,
-        name: m.name
-      }))
+    /**
+      * @method：getEquipmentModelList
+      * @desc：获取型号列表信息
+      * @params:
+      * @create date： 2020/7/8
+      * @update date： 2020/7/13
+      * @author：李国烨
+     */
+   async getEquipmentModelList(keyword) {
+     await fetchModelInfos(keyword).then(res => {
+       this.equipmentModelList = res.data.list;
+     }).catch(err => {
+       alert('获取型号列表失败！' + err)
+     })
     },
-    /* 获取计量单位列表信息 */
-    getUnitList(keyword) {
-      if (!keyword) {
-        this.unitList = fakeList
-        return false
-      }
-      // 调用接口
-      // 暂用假数据 作为筛选， 实际通过后台进行筛选
-      this.unitList = fakeList.filter(m => m.pre_name === keyword).map(m => ({
-        id: m.id,
-        pre_name: m.pre_name,
-        name: m.name
-      }))
+    /**
+     * @method：getUnitList
+     * @desc：获取计量单位列表信息
+     * @params: keyword 查询条件，可为null
+     * * @create date： 2020/7/8
+     * @update date： 2020/7/13
+     * @author：李国烨
+     */
+   async getUnitList(keyword) {
+      await fetchUnitPriceInfos(keyword).then(res => {
+        this.unitList = res.data.list;
+      }).catch(err => {
+        alert('获取计量单位列表信息失败！' + err)
+      })
     },
-    /* 获取供货商列表信息 */
-    getSupplierList(keyword) {
-      if (!keyword) {
-        this.supplierList = fakeList
-        return false
-      }
-      // 调用接口
-      // 暂用假数据 作为筛选， 实际通过后台进行筛选
-      this.supplierList = fakeList.filter(m => m.pre_name === keyword).map(m => ({
-        id: m.id,
-        pre_name: m.pre_name,
-        name: m.name
-      }))
+    /**
+     * @method：getSupplierList
+     * @desc：获取供货商列表信息
+     * @params: keyword 查询条件，可为null
+     * @create date： 2020/7/8
+     * @update date： 2020/7/13
+     * @author：李国烨
+     */
+   async getSupplierList(keyword) {
+      await fetchSupplierInfos(keyword).then(res => {
+        this.supplierList = res.data.list;
+      }).catch(err => {
+        alert('获取供货商列表信息失败！' + err)
+      })
     },
-    /* 获取生产商列表信息 */
-    getManufacturerList(keyword) {
-      if (!keyword) {
-        this.manufacturerList = fakeList
-        return false
-      }
-      // 调用接口
-      // 暂用假数据 作为筛选， 实际通过后台进行筛选
-      this.manufacturerList = fakeList.filter(m => m.pre_name === keyword).map(m => ({
-        id: m.id,
-        pre_name: m.pre_name,
-        name: m.name
-      }))
+    /**
+     * @method：getManufacturerList
+     * @desc：获取生产商列表信息
+     * @params: keyword 查询条件，可为null
+     * * @create date： 2020/7/8
+     * @update date： 2020/7/13
+     * @author：李国烨
+     */
+   async getManufacturerList(keyword) {
+      await fetchManufacturerInfos(keyword).then(res => {
+        this.manufacturerList = res.data.list;
+      }).catch(err => {
+        alert('获取生产商列表信息失败！' + err)
+      })
     },
-    /* 获取国码列表信息 */
-    getCountryCodeList(keyword) {
-      if (!keyword) {
-        console.log('keyword is null')
-        this.countryCodeList = fakeList
-        console.log('this.countryCodeList = ' + this.countryCodeList)
-        return false
-      }
-      // 调用接口
-      // 暂用假数据 作为筛选， 实际通过调用接口，在后台进行模糊筛选再返回数据
-      console.log('keyword is not null')
-      this.countryCodeList = fakeList.filter(m => m.pre_name === keyword).map(m => ({
-        id: m.id,
-        pre_name: m.pre_name,
-        name: m.name
-      }))
-      console.log('this.courseList = ' + this.countryCodeList)
+    /**
+     * @method：getCountryCodeList
+     * @desc：获取国码列表信息
+     * @params: keyword 查询条件，可为null
+     * * @create date： 2020/7/8
+     * @update date： 2020/7/13
+     * @author：李国烨
+     */
+   async getCountryCodeList(keyword) {
+      await fetchCountryCodeInfos(keyword).then(res => {
+        this.countryCodeList = res.data.list;
+      }).catch(err => {
+        alert('获取生产商列表信息失败！' + err)
+      })
     },
-
-    /* 获取耗材种类信息 id */
-    fetchConsumableCategoryById(id) {
+    /**
+     * @method：fetchConsumableCategoryById
+     * @desc：根据ID获获取耗材种类信息
+     * @params: id
+     * @create date： 2020/7/8
+     * @update date： 2020/7/13
+     * @author：李国烨
+     */
+    async fetchConsumableCategoryById(id) {
+      await fetchConsumableCategoryInfoById(id).then(res => {
+        this.tempDataByID = {
+          lab_consumable_category_id: res.data.item.id,
+          lab_consumable_category_name: res.data.item.name
+        }
+      }).catch(err => {
+        alert('取耗材种类信息内容失败！' + err)
+        return null
+      })
+    },
+    /**
+     * @method：fetchBrandById
+     * @desc：获根据ID取品牌信息
+     * @params: id
+     * @create date： 2020/7/8
+     * @update date： 2020/7/13
+     * @author：李国烨
+     */
+    async fetchBrandById(id) {
       // 根据select id key查询出的数据 各字段经过包装
-      return null
-      // return {
-      // }
+      await fetchBrandInfoById(id).then(res => {
+        this.tempDataByID = {
+          lab_brand_id: res.data.item.id,
+          brand_name: res.data.item.name
+        };
+      }).catch(err => {
+        alert('获取品牌信息信息内容失败！' + err)
+        return null
+      })
     },
-    /* 获取品牌信息 id */
-    fetchBrandById(id) {
+    /**
+      * @method：fetchEquipmentModelById
+      * @desc：根据ID获取型号信息
+      * @params:
+      * @create date： 2020/7/8
+      * @update date： 2020/7/13
+      * @author：李国烨
+     */
+    async fetchEquipmentModelById(id) {
+      await fetchModelInfoById(id).then(res => {
+        this.tempDataByID = {
+          lab_model_id: res.data.item.id,
+          equipment_model_name: res.data.item.name
+        }
+      }).catch(err => {
+        alert('获取型号信息内容失败！' + err)
+        return null
+      })
+    },
+    /**
+     * @method：fetchUnitById
+     * @desc：根据ID获取计量单位信息
+     * @params: id
+     * * @create date： 2020/7/8
+     * @update date： 2020/7/13
+     * @author：李国烨
+     */
+    async fetchUnitById(id) {
       // 根据select id key查询出的数据 各字段经过包装
-      return null
-      // return {
-      //   brand_name: '测试name',
-      // }
+      await fetchUnitPriceInfoById(id).then(res => {
+        this.tempDataByID = {
+          lab_unit_id: res.data.item.id,
+          lab_unit_name: res.data.item.name
+        };
+      }).catch(err => {
+        alert('获取计量单位信息内容失败！' + err)
+        return null
+      })
     },
-    /* 获取型号信息 id */
-    fetchEquipmentModelById(id) {
+    /**
+     * @method：fetchSupplierById
+     * @desc：根据ID获取供货商信息
+     * @params: id
+     * * @create date： 2020/7/8
+     * @update date： 2020/7/13
+     * @author：李国烨
+     */
+    async fetchSupplierById(id) {
       // 根据select id key查询出的数据 各字段经过包装
-      return null
-      // return {
-      // }
+      await fetchSupplierInfoById(id).then(res => {
+        this.tempDataByID = {
+          lab_supplier_id: res.data.item.id,
+          supplier_name: res.data.item.name,
+          supplier_telephone: res.data.item.telephone
+        }
+      }).catch(err => {
+        alert('获取供货商信息内容失败！' + err)
+        return null
+      })
     },
-    /* 获取计量单位信息 id */
-    fetchUnitById(id) {
+    /**
+     * @method：fetchManufacturerById
+     * @desc：根据ID获取生产商信息
+     * @params: id
+     * * @create date： 2020/7/8
+     * @update date： 2020/7/13
+     * @author：李国烨
+     */
+    async fetchManufacturerById(id) {
       // 根据select id key查询出的数据 各字段经过包装
-      // if (找不到)
-      return null
-      // return {
-      //   lab_unit_name: '测试name',
-      // }
+      await fetchManufacturerInfoById(id).then(res => {
+        this.tempDataByID = {
+          lab_manufacturer_id: res.data.item.id,
+          manufacturer_name: res.data.item.name,
+          manufacturer_telephone: res.data.item.telephone
+        };
+      }).catch(err => {
+        alert('获取生产商信息内容失败！' + err)
+        return null
+      })
     },
-    /* 获取供货商信息 id */
-    fetchSupplierById(id) {
+    /**
+     * @method：fetchCountryCodeById
+     * @desc：根据ID获取国码信息
+     * @params: id
+     * * @create date： 2020/7/8
+     * @update date： 2020/7/13
+     * @author：李国烨
+     */
+    async fetchCountryCodeById(id) {
       // 根据select id key查询出的数据 各字段经过包装
-      // if (找不到)
-      return null
-      // return {
-      //   supplier_name: '测试name',
-      //   supplier_telephone: '13532142121'
-      // }
+      await fetchCountryCodeInfoById(id).then(res => {
+        this.tempDataByID = {
+          country_code_id: res.data.item.id,
+          country_code_name: res.data.item.name
+        };
+      }).catch(err => {
+        alert('获取国码信息内容失败！' + err)
+        return null
+      })
     },
-    /* 获取生产商信息 id */
-    fetchManufacturerById(id) {
-      // 根据select id key查询出的数据 各字段经过包装
-      // if (找不到)
-      // return null
-      return {
-        manufacturer_name: '测试name',
-        manufacturer_telephone: '13532142121'
-      }
+    /**
+      * @method：fetchFieldById
+      * @desc：根据ID获取场地信息
+      * @params:
+      * @create date： 2020/7/8
+      * @update date： 2020/7/13
+      * @author：李国烨
+     */
+    async fetchFieldById(id) {
+      await fetchFieldInfoById(id).then(res => {
+        this.tempDataByID = {
+          field_id: res.data.item.id,
+          field_name: res.data.item.name
+        };
+      }).catch(err => {
+        alert('获取场地信息内容失败！' + err)
+        return null
+      })
     },
-    /* 获取国码信息 id */
-    fetchCountryCodeById(id) {
-      // 根据select id key查询出的数据 各字段经过包装
-      // if (找不到)
-      //  return null
-      return {
-        country_code_name: '国码咯'
-      }
-    },
-    /* 获取场地信息 id */
-    fetchFieldById(id) {
-      return {
-        field_name: '场地1名称'
-      }
-    },
-    /* 根据关键词打开dialog */
-    handleOpenDialog(dialogVisible) {
+    /**
+     * @method：handleOpenDialog
+     * @desc：利用字典1 根据关键词打开dialog
+     * @params: dialogVisible
+     * @create date： 2020/7/8
+     * @update date： 2020/7/13
+     * @author：李国烨
+     */
+    async handleOpenDialog(dialogVisible) {
       this[dialogVisible] = true // 打开对应的dialog
-      // 生成默认radio数据
       const option = allListName.filter(m => m.dialogVisibleName === dialogVisible).map(m => m.option).pop()
       console.log('option===' + option)
       if (option) {
-        this[option]()
+        await this[option](); // 生成默认radio数据
       } else {
         this.$message({
           message: 'dialog null error!',
@@ -739,41 +800,65 @@ export default {
         })
       }
     },
-    /* 测试 根据关键字获取对应方法 并返回查询出的数据 */
-    getMethodByKey(key, id) {
+    /**
+     * @method：getMethodByKey
+     * @desc：利用字典2 根据关键字获取对应方法 并返回查询出的数据
+     * @params: key：找出方法对关键字，id：被找出方法需要要参数值
+     * @create date： 2020/7/8
+     * @update date： 2020/7/13
+     * @author：李国烨
+     */
+   async getMethodByKey(key, id) {
       let option = key2option.filter(m => m.key === key).map(m => m.option).pop()
-      return this[option](id)
+      await this[option](id)
     },
-    /* 抽取方法 将信息同步 */
-    handleSelect(data) {
-      // 查询选择的id相关的数据
-      let tempData = this.getMethodByKey(data.methodKey, data.select_id_value)
+    /**
+     * @method：handleSelect
+     * @desc：抽取方法 将信息同步
+     * @params:
+     * * @create date： 2020/7/8
+     * @update date： 2020/7/13
+     * @author：李国烨
+     */
+    async handleSelect(data) {
+      // 查询 选择的id的相关的数据
+      await this.getMethodByKey(data.methodKey, data.select_id_value)
+      let tempData = this.tempDataByID
+      this.tempDataByID = null
       getSelectValue(data, this.dataForm, tempData)
-      // 表单数据验证规则
-      this.$refs['dataForm'].validateField(data.select_id_key)
-      // 关闭对话框
-      console.log('data.dialogVisibleKey = ' + data.dialogVisibleKey)
-      this[data.dialogVisibleKey] = false
+      this.$refs['dataForm'].validateField(data.select_id_key) // 表单数据验证规则
+      this[data.dialogVisibleKey] = false // 关闭对话框
     },
-    /* 筛选数据 */
+    /**
+     * @method：handleQuery
+     * @desc：筛选radio
+     * @params: data：自定义组件传的数据
+     * * @create date： 2020/7/8
+     * @update date： 2020/7/13
+     * @author：李国烨
+     */
     handleQuery(data) {
-      console.log('data=>' + data.listName + ',' + data.queryKeyword)
       let keyword = data.queryKeyword
       let listName = data.listName
       const option = allListName.filter(m => m.key === listName).map(m => m.option).pop()
-      console.log('option=' + option)
-      console.log('keyword=' + keyword)
       if (option) {
-        this[option](keyword)
+        this[option](keyword); // 根据option找出对应筛选方法
       } else {
         return false
       }
     },
-    /* 返回上一页 */
+    /** 返回上一页 **/
     handleReturn() {
       this.$router.go(-1)
     },
-    /* 编辑前 */
+    /**
+     * @method：beforeEdit
+     * @desc：为页面显示为编辑页面做准备
+     * @params:
+     * * @create date： 2020/7/8
+     * @update date： 2020/7/13
+     * @author：李国烨
+     */
     beforeEdit() {
       this.showSaveBtn = !this.showSaveBtn
       // 保存修改前数据
@@ -785,7 +870,14 @@ export default {
       // 设为不可用,防止暂存数据出错
       this.isAble = true
     },
-    /* 编辑后 */
+    /**
+     * @method：afterEdit
+     * @desc：编辑成功后的操作，还原修改前所有状态
+     * @params:
+     * * @create date： 2020/7/8
+     * @update date： 2020/7/13
+     * @author：李国烨
+     */
     afterEdit() {
       // 还原修改前所有状态
       this.tempData = null
@@ -793,7 +885,14 @@ export default {
       this.showSaveBtn = false
       this.isAble = false
     },
-    /* 提交编辑的内容 */
+    /**
+     * @method：submitEdit
+     * @desc：提交编辑的内容
+     * @params: formName:表单的名称
+     * * @create date： 2020/7/8
+     * @update date： 2020/7/13
+     * @author：李国烨
+     */
     submitEdit(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
@@ -815,13 +914,27 @@ export default {
         }
       })
     },
-    /* 取消编辑操作 */
+    /**
+     * @method：cancelEdit
+     * @desc：取消编辑
+     * @params: formName 表单名称
+     * * @create date： 2020/7/8
+     * @update date： 2020/7/13
+     * @author：李国烨
+     */
     cancelEdit(formName) {
       this.dataForm = { ...this.tempData }
       this.$refs[formName].clearValidate()
       this.afterEdit()
     },
-    /* 取消 确认弹窗 */
+    /**
+     * @method：beforeCancelEdit
+     * @desc：取消编辑，确认弹窗，确认后调用cancelEdit方法
+     * @params: formName 表单名称
+     * * @create date： 2020/7/8
+     * @update date： 2020/7/13
+     * @author：李国烨
+     */
     beforeCancelEdit(formName) {
       this.$confirm('修改信息还没保存, 是否继续?', '提示', {
         confirmButtonText: '确定',
@@ -838,7 +951,14 @@ export default {
         console.log('已取消')
       })
     },
-    /* 删除 */
+    /**
+     * @method：handleDelete
+     * @desc：根据ID删除信息
+     * @params:
+     * * @create date： 2020/7/8
+     * @update date： 2020/7/13
+     * @author：李国烨
+     */
     handleDelete() {
       if (this.dataForm.id) {
         console.log(this.dataForm.id)
@@ -847,7 +967,14 @@ export default {
         return false
       }
     },
-    /* 删除 确认弹窗 */
+    /**
+     * @method：beforeHandleDelete
+     * @desc：删除前 确认弹窗，确认后调用handleDelete方法
+     * @params:
+     * * @create date： 2020/7/8
+     * @update date： 2020/7/13
+     * @author：李国烨
+     */
     beforeHandleDelete() {
       this.$confirm('此操作将删除该信息, 是否继续?', '提示', {
         confirmButtonText: '确定',
@@ -873,7 +1000,14 @@ export default {
         })
       })
     },
-    /* 导出 */
+    /**
+     * @method：handleDownload
+     * @desc：导出表单信息
+     * @params:
+     * * @create date： 2020/7/8
+     * @update date： 2020/7/13
+     * @author：李国烨
+     */
     handleDownload() {
       console.log('导出')
     }
