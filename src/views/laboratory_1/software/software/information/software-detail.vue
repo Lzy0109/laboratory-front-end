@@ -1,3 +1,9 @@
+<!--
+    @Author 李国烨
+    @Date 2020/6/28 22:55
+    @Description: 软件信息详情页面
+    @Version 1.0
+-->
 <template>
   <div class="app-container">
     <!-- 功能按钮 -->
@@ -485,7 +491,7 @@ export default {
       * @method：handleReturn
       * @desc：返回上一页
       * @params: null
-      * @create date： 2020/7/13
+      * @create date： 2020/6/29
       * @update date： 2020/7/13
       * @author：李国烨
      */
@@ -496,7 +502,7 @@ export default {
       * @method：getSoftwareCategoryList
       * @desc：获取软件分类列表信息
       * @params: keyword 查询条件，可为null
-      * @create date： 2020/7/13
+      * @create date： 2020/6/29
       * @update date： 2020/7/13
       * @author：李国烨
      */
@@ -514,7 +520,7 @@ export default {
       * @method：getApplicableSystemList
       * @desc：获取适用系统列表信息
       * @params: keyword 查询条件，可为null
-      * @create date： 2020/7/13
+      * @create date： 2020/6/29
       * @update date： 2020/7/13
       * @author：李国烨
      */
@@ -530,7 +536,7 @@ export default {
       * @method：getBrandList
       * @desc：获取品牌列表信息
       * @params: keyword 查询条件，可为null
-      * @create date： 2020/7/13
+      * @create date： 2020/6/29
       * @update date： 2020/7/13
       * @author：李国烨
      */
@@ -545,7 +551,7 @@ export default {
       * @method：getUnitList
       * @desc：获取计量单位列表信息
       * @params: keyword 查询条件，可为null
-      * @create date： 2020/7/13
+      * @create date： 2020/6/29
       * @update date： 2020/7/13
       * @author：李国烨
      */
@@ -560,7 +566,7 @@ export default {
       * @method：getSupplierList
       * @desc：获取供货商列表信息
       * @params: keyword 查询条件，可为null
-      * @create date： 2020/7/13
+      * @create date： 2020/6/29
       * @update date： 2020/7/13
       * @author：李国烨
      */
@@ -575,7 +581,7 @@ export default {
       * @method：getManufacturerList
       * @desc：获取生产商列表信息
       * @params: keyword 查询条件，可为null
-      * @create date： 2020/7/13
+      * @create date： 2020/6/29
       * @update date： 2020/7/13
       * @author：李国烨
      */
@@ -590,7 +596,7 @@ export default {
       * @method：getCountryCodeList
       * @desc：获取国码列表信息
       * @params: keyword 查询条件，可为null
-      * @create date： 2020/7/13
+      * @create date： 2020/6/29
       * @update date： 2020/7/13
       * @author：李国烨
      */
@@ -605,7 +611,7 @@ export default {
       * @method：fetchSoftwareCategoryById
       * @desc：根据ID获取软件分类信息
       * @params: id
-      * @create date： 2020/7/13
+      * @create date： 2020/6/29
       * @update date： 2020/7/13
       * @author：李国烨
      */
@@ -628,7 +634,7 @@ export default {
       * @method：fetchApplicableSystemById
       * @desc：根据ID获取适用系统信息
       * @params: id
-      * @create date： 2020/7/13
+      * @create date： 2020/6/29
       * @update date： 2020/7/13
       * @author：李国烨
      */
@@ -648,7 +654,7 @@ export default {
       * @method：fetchBrandById
       * @desc：获根据ID取品牌信息
       * @params: id
-      * @create date： 2020/7/13
+      * @create date： 2020/6/29
       * @update date： 2020/7/13
       * @author：李国烨
      */
@@ -668,7 +674,7 @@ export default {
       * @method：fetchUnitById
       * @desc：根据ID获取计量单位信息
       * @params: id
-      * @create date： 2020/7/13
+      * @create date： 2020/6/29
       * @update date： 2020/7/13
       * @author：李国烨
      */
@@ -688,7 +694,7 @@ export default {
       * @method：fetchSupplierById
       * @desc：根据ID获取供货商信息
       * @params: id
-      * @create date： 2020/7/13
+      * @create date： 2020/6/29
       * @update date： 2020/7/13
       * @author：李国烨
      */
@@ -709,7 +715,7 @@ export default {
       * @method：fetchManufacturerById
       * @desc：根据ID获取生产商信息
       * @params: id
-      * @create date： 2020/7/13
+      * @create date： 2020/6/29
       * @update date： 2020/7/13
       * @author：李国烨
      */
@@ -730,7 +736,7 @@ export default {
       * @method：fetchCountryCodeById
       * @desc：根据ID获取国码信息
       * @params: id
-      * @create date： 2020/7/13
+      * @create date： 2020/6/29
       * @update date： 2020/7/13
       * @author：李国烨
      */
@@ -771,7 +777,7 @@ export default {
       * @method：getMethodByKey
       * @desc：利用字典2 根据关键字获取对应方法 并返回查询出的数据
       * @params: key：找出方法对关键字，id：被找出方法需要要参数值
-      * @create date： 2020/7/13
+      * @create date： 2020/6/29
       * @update date： 2020/7/13
       * @author：李国烨
      */
@@ -783,7 +789,7 @@ export default {
       * @method：handleSelect
       * @desc：抽取方法 将信息同步
       * @params:
-      * @create date： 2020/7/13
+      * @create date： 2020/6/29
       * @update date： 2020/7/13
       * @author：李国烨
      */
@@ -805,7 +811,7 @@ export default {
       * @method：handleQuery
       * @desc：筛选radio
       * @params: data：自定义组件传的数据
-      * @create date： 2020/7/13
+      * @create date： 2020/6/29
       * @update date： 2020/7/13
       * @author：李国烨
      */
@@ -827,7 +833,7 @@ export default {
       * @method：beforeEdit
       * @desc：为页面显示为编辑页面做准备
       * @params:
-      * @create date： 2020/7/13
+      * @create date： 2020/6/29
       * @update date： 2020/7/13
       * @author：李国烨
      */
@@ -846,7 +852,7 @@ export default {
       * @method：afterEdit
       * @desc：编辑成功后的操作，还原修改前所有状态
       * @params:
-      * @create date： 2020/7/13
+      * @create date： 2020/6/29
       * @update date： 2020/7/13
       * @author：李国烨
      */
@@ -861,7 +867,7 @@ export default {
       * @method：submitEdit
       * @desc：提交编辑的内容
       * @params: formName:表单的名称
-      * @create date： 2020/7/13
+      * @create date： 2020/6/29
       * @update date： 2020/7/13
       * @author：李国烨
      */
@@ -895,7 +901,7 @@ export default {
       * @method：cancelEdit
       * @desc：取消编辑
       * @params: formName 表单名称
-      * @create date： 2020/7/13
+      * @create date： 2020/6/29
       * @update date： 2020/7/13
       * @author：李国烨
      */
@@ -908,7 +914,7 @@ export default {
       * @method：beforeCancelEdit
       * @desc：取消编辑，确认弹窗，确认后调用cancelEdit方法
       * @params: formName 表单名称
-      * @create date： 2020/7/13
+      * @create date： 2020/6/29
       * @update date： 2020/7/13
       * @author：李国烨
      */
@@ -931,7 +937,7 @@ export default {
       * @method：handleDelete
       * @desc：根据ID删除信息
       * @params:
-      * @create date： 2020/7/13
+      * @create date： 2020/6/29
       * @update date： 2020/7/13
       * @author：李国烨
      */
@@ -952,7 +958,7 @@ export default {
       * @method：beforeHandleDelete
       * @desc：删除前 确认弹窗，确认后调用handleDelete方法
       * @params:
-      * @create date： 2020/7/13
+      * @create date： 2020/6/29
       * @update date： 2020/7/13
       * @author：李国烨
      */
@@ -985,7 +991,7 @@ export default {
       * @method：handleDownload
       * @desc：导出表单信息
       * @params:
-      * @create date： 2020/7/13
+      * @create date： 2020/6/29
       * @update date： 2020/7/13
       * @author：李国烨
      */
@@ -996,7 +1002,7 @@ export default {
       * @method：handleAttachment
       * @desc：跳转到使用说明
       * @params:
-      * @create date： 2020/7/13
+      * @create date： 2020/6/29
       * @update date： 2020/7/13
       * @author：李国烨
      */

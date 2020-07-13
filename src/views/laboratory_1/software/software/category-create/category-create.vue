@@ -1,3 +1,9 @@
+<!--
+    @Author 李国烨
+    @Date 2020/6/27 23:00
+    @Description: 软件分类信息创建页面
+    @Version 1.0
+-->
 <template>
   <div class="app-container">
     <!-- 功能按钮 -->
@@ -79,7 +85,7 @@ export default {
       * @method：submitCreate
       * @desc：提交表单
       * @params: formName 表单名称
-      * @create date： 2020/7/13
+      * @create date： 2020/6/27
       * @update date： 2020/7/13
       * @author：李国烨
      */
@@ -113,7 +119,7 @@ export default {
       * @method：handleReturn
       * @desc：返回上一页
       * @params:
-      * @create date： 2020/7/13
+      * @create date： 2020/6/27
       * @update date： 2020/7/13
       * @author：李国烨
      */

@@ -1,3 +1,9 @@
+<!--
+    @Author 李国烨
+    @Date 2020/6/28 22:00
+    @Description:
+    @Version 1.0
+-->
 <template>
   <div class="app-container">
     <!-- 功能区域 -->
@@ -66,16 +72,6 @@
               <template slot="prepend">软件名称</template>
             </el-input>
           </el-col>
-          <!-- 软件种类 -->
-          <!--<el-col :span="6">
-            <el-select v-model="queryList.lab_software_category_id" style="width: 300px;" placeholder="软件种类" filterable clearable @change="handleFilter">
-              &lt;!&ndash;获取数据库信息动态生成option&ndash;&gt;
-              <el-option v-for="item in softwareCategoryList" :key="item.id" :label="item.name" :value="item.id">
-                <span style="float: left">编号:{{ item.id }}</span>
-                <span style="float: right; color: #8492a6; font-size: 12px">名称:{{ item.name }}</span>
-              </el-option>
-            </el-select>
-          </el-col>-->
           <el-col :span="6">
             <el-input v-model="queryList.lab_software_category_name" placeholder="软件种类" style="width: 300px;" clearable>
               <template slot="prepend">软件种类</template>
@@ -283,7 +279,7 @@ export default {
       * @method：getTableList
       * @desc：获取软件列表信息
       * @params:
-      * @create date： 2020/7/13
+      * @create date： 2020/6/28
       * @update date： 2020/7/13
       * @author：李国烨
      */
@@ -304,7 +300,7 @@ export default {
       * @method：handleDetail
       * @desc：跳转到详情页面
       * @params:
-      * @create date： 2020/7/13
+      * @create date： 2020/6/28
       * @update date： 2020/7/13
       * @author：李国烨
      */
@@ -321,7 +317,7 @@ export default {
       * @method：handleFilter
       * @desc：条件查询
       * @params:
-      * @create date： 2020/7/13
+      * @create date： 2020/6/28
       * @update date： 2020/7/13
       * @author：李国烨
      */
@@ -337,7 +333,7 @@ export default {
       * @method：handleDownload
       * @desc：导出Excel
       * @params:
-      * @create date： 2020/7/13
+      * @create date： 2020/6/28
       * @update date： 2020/7/13
       * @author：李国烨
      */
@@ -348,7 +344,7 @@ export default {
       * @method：handleCreate
       * @desc：跳转添加页面
       * @params:
-      * @create date： 2020/7/13
+      * @create date： 2020/6/28
       * @update date： 2020/7/13
       * @author：李国烨
      */
@@ -362,7 +358,7 @@ export default {
       * @method：handleBatchCreate
       * @desc：批量添加
       * @params:
-      * @create date： 2020/7/13
+      * @create date： 2020/6/28
       * @update date： 2020/7/13
       * @author：李国烨
      */
@@ -373,7 +369,7 @@ export default {
       * @method：handleClose
       * @desc：关闭管理高级搜索对话框
       * @params:
-      * @create date： 2020/7/13
+      * @create date： 2020/6/28
       * @update date： 2020/7/13
       * @author：李国烨
      */

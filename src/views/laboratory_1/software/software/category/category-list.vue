@@ -1,3 +1,9 @@
+<!--
+    @Author 李国烨
+    @Date 2020/6/27 23:02
+    @Description: 件分类信息列表页面
+    @Version 1.0
+-->
 <template>
   <div class="app-container">
     <!-- 功能区域 -->
@@ -108,7 +114,7 @@ export default {
       * @method：getTableList
       * @desc：获取列表信息
       * @params:
-      * @create date： 2020/7/13
+      * @create date： 2020/6/27
       * @update date： 2020/7/13
       * @author：李国烨
      */
@@ -129,7 +135,7 @@ export default {
       * @method：handleDetail
       * @desc：跳转到详情页面
       * @params: row 当前行的数据
-      * @create date： 2020/7/13
+      * @create date： 2020/6/27
       * @update date： 2020/7/13
       * @author：李国烨
      */
@@ -146,7 +152,7 @@ export default {
       * @method：handleCreate
       * @desc：跳转添加页面
       * @params:
-      * @create date： 2020/7/13
+      * @create date： 2020/6/27
       * @update date： 2020/7/13
       * @author：李国烨
      */
@@ -160,7 +166,7 @@ export default {
       * @method：handleFilter
       * @desc：条件查找
       * @params:
-      * @create date： 2020/7/13
+      * @create date： 2020/6/27
       * @update date： 2020/7/13
       * @author：李国烨
      */
@@ -175,7 +181,7 @@ export default {
       * @method：handleDownload
       * @desc：导出Excel
       * @params:
-      * @create date： 2020/7/13
+      * @create date： 2020/6/27
       * @update date： 2020/7/13
       * @author：李国烨
      */
@@ -186,7 +192,7 @@ export default {
       * @method：handleBatchCreate
       * @desc：批量添加
       * @params:
-      * @create date： 2020/7/13
+      * @create date： 2020/6/27
       * @update date： 2020/7/13
       * @author：李国烨
      */
