@@ -41,12 +41,7 @@ module.exports = [
     type: 'get',
     response: config => {
       const {id} = config.query
-      let tempData = List.filter(m => m.id === id * 1)
-        .map(m => ({
-          lab_supplier_id: m.id,
-          supplier_name: m.name,
-          supplier_telephone: m.telephone
-        })).pop()
+      let tempData = List.filter(m => m.id === id * 1).pop()
       // console.log({...tempData})
       return {
         code: 20000,

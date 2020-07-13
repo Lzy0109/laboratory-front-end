@@ -18,7 +18,7 @@ module.exports = [
     response: config => {
       console.log('config query = ', config.query)
       let {pageNum, pageSize, name} = config.query
-      if (!pageSize && !pageNum){
+      if (!pageSize && !pageNum && !name){
         return {
           code: 20000,
           data: {

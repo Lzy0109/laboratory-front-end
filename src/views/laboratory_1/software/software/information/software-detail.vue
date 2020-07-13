@@ -429,7 +429,7 @@ export default {
           { required: true, type: 'number', message: '请输入', trigger: 'change' }
         ],
         production_date: [
-          { required: true, type: 'date', message: '请选择日期', trigger: 'change' }
+          { required: true, message: '请选择日期', trigger: 'change' }
         ]
       },
       pickerOptions: {
@@ -618,7 +618,10 @@ export default {
       console.log('调用获取软件分类信息接口')
       await fetchSoftwareCategoryInfoById(id)
         .then(res => {
-          this.tempDataByID = res.data.item;
+          this.tempDataByID = {
+            lab_software_category_id: res.data.item.id,
+            lab_software_category_name: res.data.item.name
+          }
         })
         .catch(err => {
           alert('获取软件分类信息内容失败！' + err)
@@ -636,7 +639,10 @@ export default {
     async fetchApplicableSystemById(id) {
       // 根据select id key查询出的数据 各字段经过包装
       await fetchApplicableSystemInfoById(id).then(res => {
-        this.tempDataByID = res.data.item;
+        this.tempDataByID = {
+          applicable_system_id: res.data.item.id,
+          applicable_system_name: res.data.item.name
+        };
       }).catch(err => {
         alert('获取适用系统信息内容失败！' + err)
         return null
@@ -653,7 +659,10 @@ export default {
     async fetchBrandById(id) {
       // 根据select id key查询出的数据 各字段经过包装
       await fetchBrandInfoById(id).then(res => {
-        this.tempDataByID = res.data.item;
+        this.tempDataByID = {
+          lab_brand_id: res.data.item.id,
+          brand_name: res.data.item.name
+        };
       }).catch(err => {
         alert('获取品牌信息信息内容失败！' + err)
         return null
@@ -670,7 +679,10 @@ export default {
     async fetchUnitById(id) {
       // 根据select id key查询出的数据 各字段经过包装
       await fetchUnitPriceInfoById(id).then(res => {
-        this.tempDataByID = res.data.item;
+        this.tempDataByID = {
+          lab_unit_id: res.data.item.id,
+          lab_unit_name: res.data.item.name
+        };
       }).catch(err => {
         alert('获取计量单位信息内容失败！' + err)
         return null
@@ -687,7 +699,11 @@ export default {
     async fetchSupplierById(id) {
       // 根据select id key查询出的数据 各字段经过包装
       await fetchSupplierInfoById(id).then(res => {
-        this.tempDataByID = res.data.item;
+        this.tempDataByID = {
+          lab_supplier_id: res.data.item.id,
+          supplier_name: res.data.item.name,
+          supplier_telephone: res.data.item.telephone
+        }
       }).catch(err => {
         alert('获取供货商信息内容失败！' + err)
         return null
@@ -704,7 +720,11 @@ export default {
     async fetchManufacturerById(id) {
       // 根据select id key查询出的数据 各字段经过包装
       await fetchManufacturerInfoById(id).then(res => {
-        this.tempDataByID = res.data.item;
+        this.tempDataByID = {
+          lab_manufacturer_id: res.data.item.id,
+          manufacturer_name: res.data.item.name,
+          manufacturer_telephone: res.data.item.telephone
+        };
       }).catch(err => {
         alert('获取生产商信息内容失败！' + err)
         return null
@@ -721,7 +741,10 @@ export default {
     async fetchCountryCodeById(id) {
       // 根据select id key查询出的数据 各字段经过包装
       await fetchCountryCodeInfoById(id).then(res => {
-        this.tempDataByID = res.data.item;
+        this.tempDataByID = {
+          country_code_id: res.data.item.id,
+          country_code_name: res.data.item.name
+        };
       }).catch(err => {
         alert('获取国码信息内容失败！' + err)
         return null
