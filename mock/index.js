@@ -3,10 +3,26 @@ const { param2Obj } = require('./utils')
 
 const user = require('./user')
 const table = require('./table')
+const software = require('./software')
+const softwareCategory = require('./software-category')
+const applicableSystem = require('./applicable-system')
+const brand = require('./brand')
+const unitPrice = require('./unit-price')
+const countryCode = require('./country-code')
+const manufacturer = require('./manufacturer')
+const supplier = require('./supplier')
 
 const mocks = [
   ...user,
-  ...table
+  ...table,
+  ...software,
+  ...softwareCategory,
+  ...applicableSystem,
+  ...brand,
+  ...unitPrice,
+  ...countryCode,
+  ...manufacturer,
+  ...supplier
 ]
 
 // for front mock

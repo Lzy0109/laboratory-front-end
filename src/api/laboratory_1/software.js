@@ -10,7 +10,7 @@ import request from '@/utils/request'
  */
 export function fetchSoftwareInfos(query) {
    return request({
-     url: 'dev/api',
+     url: '/api/software/infos',
      method: 'GET',
      query: {
        query
@@ -25,8 +25,12 @@ export function fetchSoftwareInfos(query) {
  */
 export function fetchSoftwareInfoById(id) {
     return request({
-      url: 'dev/api/' + id,
-      method: 'GET'
+      url: '/api/software/detail',
+      // url: '/api/api/' + id,
+      method: 'GET',
+      params: {
+        id: id
+      }
     })
 }
 
@@ -37,7 +41,7 @@ export function fetchSoftwareInfoById(id) {
  */
 export function createSoftwareInfo(data) {
   return request({
-    url: 'dev/api',
+    url: '/api/software/create',
     method: 'POST',
     data: data
   })
@@ -49,7 +53,8 @@ export function createSoftwareInfo(data) {
  */
 export function deleteSoftwareInfoById(id) {
     return request({
-      url: 'dev/api/' + id,
+      url: '/api/software/delete',
+      // url: '/api/api/' + id,
       method: 'DELETE'
     })
 }
@@ -61,7 +66,7 @@ export function deleteSoftwareInfoById(id) {
  */
 export function modifySoftwareInfo(data) {
     return request({
-      url: 'dev/api',
+      url: '/api/software/modify',
       method: 'PUT',
       data: data
     })
@@ -72,12 +77,12 @@ export function modifySoftwareInfo(data) {
  * @param query
  * @returns {*}
  */
-export function fetchSoftwareCategoryInfos(query) {
+export function fetchSoftwareCategoryInfos(keyword) {
     return request({
-      url: 'dev/api',
+      url: '/api/softwareCategory/infos',
       method: 'GET',
-      query: {
-        query
+      params:{
+        keyword: keyword
       }
     })
 }
@@ -89,8 +94,11 @@ export function fetchSoftwareCategoryInfos(query) {
  */
 export function fetchSoftwareCategoryInfoById(id) {
   return request({
-    url: 'dev/api/' + id,
+    url: '/api/softwareCategory/detail',
     method: 'GET',
+    params: {
+      id: id
+    }
   })
 
 }
@@ -102,7 +110,7 @@ export function fetchSoftwareCategoryInfoById(id) {
  */
 export function createSoftwareCategoryInfo(data) {
   return request({
-    url: 'dev/api',
+    url: '/api/softwareCategory/create',
     method: 'POST',
     data: data
   })
@@ -115,7 +123,8 @@ export function createSoftwareCategoryInfo(data) {
  */
 export function deleteSoftwareCategoryById(id) {
   return request({
-    url: 'dev/api/' + id,
+    url: '/api/softwareCategory/delete',
+    // url: '/api/softwareCategory/' + id,
     method: 'DELETE'
   })
 }
@@ -127,7 +136,7 @@ export function deleteSoftwareCategoryById(id) {
  */
 export function modifySoftwareCategoryInfo(data) {
   return request({
-    url: 'dev/api',
+    url: '/api/softwareCategory/modify',
     method: 'PUT',
     data: data
   })

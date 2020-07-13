@@ -1,15 +1,15 @@
 import request from '@/utils/request'
 /**
  * 获取全部信息
- * @param query 查询条件数据
+ * @param keyword 查询条件数据
  * @returns {*}
  */
-export function fetchSupplierInfos(query) {
+export function fetchSupplierInfos(keyword) {
   return request({
-    url: 'dev/api',
+    url: '/api/supplier/infos',
     method: 'GET',
-    query: {
-      query
+    params: {
+      keyword: keyword
     }
   })
 }
@@ -20,7 +20,11 @@ export function fetchSupplierInfos(query) {
  */
 export function fetchSupplierInfoById(id) {
   return request({
-    url: 'dev/api/' + id,
-    method: 'GET'
+    // url: '/api/' + id,
+    url: '/api/supplier/detail',
+    method: 'GET',
+    params: {
+      id: id
+    }
   })
 }

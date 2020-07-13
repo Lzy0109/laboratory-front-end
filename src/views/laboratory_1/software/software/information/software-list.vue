@@ -207,6 +207,7 @@
 <script>
 const fake_data = [
   {
+    id: 1,
     number: 'sw-1234',
     name: '软件名称',
     size: '软件大小（暂留）',

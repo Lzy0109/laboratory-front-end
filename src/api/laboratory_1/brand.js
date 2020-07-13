@@ -4,12 +4,12 @@ import request from '@/utils/request'
  * @param query 查询条件数据
  * @returns {*}
  */
-export function fetchBrandInfos(query) {
+export function fetchBrandInfos(keyword) {
   return request({
-    url: 'dev/api',
+    url: '/api/brand/infos',
     method: 'GET',
-    query: {
-      query
+    params: {
+      keyword
     }
   })
 }
@@ -20,7 +20,11 @@ export function fetchBrandInfos(query) {
  */
 export function fetchBrandInfoById(id) {
   return request({
-    url: 'dev/api/' + id,
-    method: 'GET'
+    // url: '/api/' + id,
+    url: '/api/brand/detail',
+    method: 'GET',
+    params: {
+      id: id
+    }
   })
 }
