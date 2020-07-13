@@ -1,11 +1,13 @@
 
-const count = 100;
+const count = 20;
 const List = []
 
 for (let i = 1; i <= count; i++){
   List.push({
     id: i,
-    name: 'swcate' + i
+    name: '软件',
+    english_name: 'eng-sw',
+    description: 'desc-sw'
   })
 }
 
@@ -14,9 +16,9 @@ module.exports = [
     url: '/api/softwareCategory/infos',
     type: 'get',
     response: config => {
-      console.log('config query = ', config.query.keyword)
-      let temp_keyword = config.query.keyword
-      if (!temp_keyword){
+      console.log('config query = ', config.query)
+      let {pageNum, pageSize, name} = config.query
+      if (!pageSize && !pageNum){
         return {
           code: 20000,
           data: {
@@ -25,7 +27,7 @@ module.exports = [
           }
         }
       }
-      const list = List.filter(m => m.name===temp_keyword )
+      const list = List.filter(m => m.name===name )
       return {
         code: 20000,
         data: {
@@ -40,8 +42,7 @@ module.exports = [
     type: 'get',
     response: config => {
       const {id} = config.query
-      let tempData = List.filter(m => m.id === id * 1)
-        .map(m => ({lab_software_category_id:m.id,lab_software_category_name: m.name})).pop()
+      let tempData = List.filter(m => m.id === id * 1).pop()
       // console.log({...tempData})
       return {
         code: 20000,

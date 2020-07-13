@@ -52,6 +52,11 @@
         width="auto"
       />
       <el-table-column
+        prop="english_name"
+        label="英文名称"
+        width="auto"
+      />
+      <el-table-column
         prop="description"
         label="分类描述"
         width="auto"
@@ -60,21 +65,17 @@
     <!-- 分页栏 -->
     <pagination
       v-show="total > 0"
-      :total="100"
+      :total="total"
       :page.sync="queryList.pageNum"
       :limit.sync="queryList.pageSize"
+      @pagination="getTableList"
     />
   </div>
 </template>
 
 <script>
-const fake_data = [
-  {
-    id: 1,
-    name: '软件分类名称',
-    description: '软件分类描述'
-  }
-]
+import { fetchSoftwareCategoryInfos } from '../../../../../api/laboratory_1/software-category'
+
 import Pagination from '@/components/Pagination'
 export default {
   name: 'CategoryList',
@@ -87,8 +88,7 @@ export default {
       tableData: null,
       listLoading: true,
       /* 分页参数 待修改 */
-      total: 100,
-
+      total: 0,
       /* 导出excel相关参数 */
       downloadLoading: false,
       /* 查询条件 */
@@ -104,13 +104,35 @@ export default {
     this.getTableList()
   },
   methods: {
-    /* 获取列表信息 */
+    /**
+      * @method：getTableList
+      * @desc：获取列表信息
+      * @params:
+      * @create date： 2020/7/13
+      * @update date： 2020/7/13
+      * @author：李国烨
+     */
     getTableList() {
       // 调用获取信息接口
-      this.tableData = fake_data
-      this.listLoading = false
+      fetchSoftwareCategoryInfos(this.queryList).then(res => {
+        this.total = res.data.total
+        this.tableData = res.data.list
+        this.listLoading = false
+      }).catch(err => {
+        this.$message({
+          message: '获取信息失败',
+          type: 'error'
+        })
+      })
     },
-    /* 跳转到详情页面 */
+    /**
+      * @method：handleDetail
+      * @desc：跳转到详情页面
+      * @params: row 当前行的数据
+      * @create date： 2020/7/13
+      * @update date： 2020/7/13
+      * @author：李国烨
+     */
     handleDetail(row, column, event) {
       console.log('handleDetail')
       this.$router.push({
@@ -120,22 +142,54 @@ export default {
         }
       })
     },
-    /* 跳转添加页面 */
+    /**
+      * @method：handleCreate
+      * @desc：跳转添加页面
+      * @params:
+      * @create date： 2020/7/13
+      * @update date： 2020/7/13
+      * @author：李国烨
+     */
     handleCreate() {
       console.log('handleCreate')
       this.$router.push({
         name: 'Software_Category_Create'
       })
     },
-    /* 查找 */
+    /**
+      * @method：handleFilter
+      * @desc：条件查找
+      * @params:
+      * @create date： 2020/7/13
+      * @update date： 2020/7/13
+      * @author：李国烨
+     */
     handleFilter() {
-
+      this.queryList.pageNum = 1
+      for (const key in this.queryList) {
+        if (this.queryList[key] === '') { this.queryList[key] = null }
+      }
+      this.getTableList()
     },
-    /* 导出Excel */
+    /**
+      * @method：handleDownload
+      * @desc：导出Excel
+      * @params:
+      * @create date： 2020/7/13
+      * @update date： 2020/7/13
+      * @author：李国烨
+     */
     handleDownload() {
 
     },
-    /* 批量添加 */
+    /**
+      * @method：handleBatchCreate
+      * @desc：批量添加
+      * @params:
+      * @create date： 2020/7/13
+      * @update date： 2020/7/13
+      * @author：李国烨
+     */
     handleBatchCreate() {
 
     }
