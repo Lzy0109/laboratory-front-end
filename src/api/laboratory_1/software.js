@@ -12,9 +12,7 @@ export function fetchSoftwareInfos(query) {
    return request({
      url: '/api/software/infos',
      method: 'GET',
-     query: {
-       query
-     }
+     params: query
    })
 }
 
