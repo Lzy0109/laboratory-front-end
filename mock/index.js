@@ -19,6 +19,8 @@ const laboratory = require('./laboratory')
 const laboratoryCategory = require('./laboratory-category')
 const equipment = require('./equipment')
 const equipmentCategory = require('./equipment-category')
+const equComponents = require('./equ-components')
+const equComponentsCategory = require('./equ-components-category')
 
 const mocks = [
   ...user,
@@ -38,7 +40,9 @@ const mocks = [
   ...laboratory,
   ...laboratoryCategory,
   ...equipment,
-  ...equipmentCategory
+  ...equipmentCategory,
+  ...equComponents,
+  ...equComponentsCategory
 ]
 
 // for front mock

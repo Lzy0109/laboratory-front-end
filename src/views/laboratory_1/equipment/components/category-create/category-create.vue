@@ -1,3 +1,9 @@
+<!--
+    @Author 李国烨
+    @Date 2020/6/22 10:31
+    @Description: 零部件分类信息创建页面
+    @Version 1.0
+-->
 <template>
   <div class="app-container">
     <!-- 功能按钮 -->
@@ -37,6 +43,7 @@
 
 <script>
   import { isChinese, isEnglish } from '@/utils/fieldValidate'
+  import { createComponentsCategoryInfo } from '@/api/laboratory_1/equ-components-category'
   export default {
     name: 'category-create',
     data() {
@@ -75,23 +82,33 @@
       }
     },
     methods: {
+      /** 提交表单信息 **/
       submitCreate(formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
-            // 调用接口
-            this.$message({
-              message: '添加成功!',
-              type: 'success'
+            createComponentsCategoryInfo(this.dataForm).then(res => {
+              this.$message({
+                message: '添加成功',
+                type: 'success'
+              })
+              this.$router.go(-1)
+            }).catch(err => {
+              this.$message({
+                message: '添加失败',
+                type: 'error'
+              })
             })
-            console.log('success submit!!')
-            this.$router.go(-1)
           } else {
+            this.$message({
+              message: '添加失败 请注意输入内容',
+              type: 'error'
+            })
             console.log('error submit!!')
             return false
           }
         })
       },
-      /* 返回上一页 */
+      /** 返回上一页 **/
       handleReturn() {
         this.$router.go(-1)
       }

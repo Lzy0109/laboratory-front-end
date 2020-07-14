@@ -1,3 +1,9 @@
+<!--
+    @Author 李国烨
+    @Date 2020/6/22 10:40
+    @Description: 器材分类信息详情页面
+    @Version 1.0
+-->
 <template>
   <div class="app-container">
     <!-- 功能按钮 -->
@@ -47,15 +53,12 @@
 </template>
 
 <script>
-  const fake_data =
-    {
-      id: 1,
-      name: '器材分类名称',
-      english_name: '-',
-      description: '器材分类描述'
-    }
-
   import { isChinese, isEnglish } from '@/utils/fieldValidate'
+  import {
+    deleteEquipmentCategoryById,
+    fetchEquipmentCategoryInfoById,
+    modifyEquipmentCategoryInfo
+  } from '../../../../../api/laboratory_1/equipment-category'
   export default {
     name: 'category-detail',
     data() {
@@ -74,7 +77,11 @@
         }
       }
       return {
-        dataForm: null,
+        dataForm: {
+          name: '',
+          english_name: '',
+          description: ''
+        },
         tempData: null,
         rules: {
           name: [
@@ -97,19 +104,22 @@
       this.getOriginalData()
     },
     methods: {
-      /* 根据ID获取数据 */
+      /** 根据ID获取数据 **/
       getOriginalData() {
-        // 暂用假数据
-        this.dataForm = fake_data
         const id = this.$route.query.id
         console.log(id)
         // 调用获取信息接口
+        fetchEquipmentCategoryInfoById(id).then(res => {
+          this.dataForm = res.data.item
+        }).catch(err => {
+          alert('获取信息失败')
+        })
       },
-      /* 返回上一页 */
+      /** 返回上一页 **/
       handleReturn() {
         this.$router.go(-1)
       },
-      /* 编辑前 */
+      /** 编辑前 **/
       beforeEdit() {
         this.showSaveBtn = !this.showSaveBtn
         // 保存修改前数据
@@ -121,7 +131,7 @@
         // 设为不可用,防止暂存数据出错
         this.isAble = true
       },
-      /* 编辑后 */
+      /** 编辑后 **/
       afterEdit() {
         // 还原修改前所有状态
         this.tempData = null
@@ -129,19 +139,22 @@
         this.showSaveBtn = false
         this.isAble = false
       },
-      /* 提交编辑的内容 */
+      /** 提交编辑的内容 **/
       submitEdit(formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
-            // 调用编辑信息接口
-            this.$message({
-              message: '修改成功',
-              type: 'success'
+            modifyEquipmentCategoryInfo(this.dataForm).then(res => {
+              this.$message({
+                message: '修改成功',
+                type: 'success'
+              })
+              this.afterEdit()
+            }).catch(err => {
+              this.$message({
+                message: '修改失败' + err,
+                type: 'error'
+              })
             })
-            // 修改后操作
-            this.afterEdit()
-            // 根据返回信息重新复制dataForm
-            console.log('success submit!!')
           } else {
             this.$message({
               message: '修改失败！请注意输入内容',
@@ -152,13 +165,13 @@
           }
         })
       },
-      /* 取消编辑操作 */
+      /** 取消编辑操作 **/
       cancelEdit(formName) {
         this.dataForm = { ...this.tempData }
         this.$refs[formName].clearValidate()
         this.afterEdit()
       },
-      /* 取消 确认弹窗 */
+      /** 取消 确认弹窗 **/
       beforeCancelEdit(formName) {
         this.$confirm('修改信息还没保存, 是否继续?', '提示', {
           confirmButtonText: '确定',
@@ -175,17 +188,15 @@
           console.log('已取消退出')
         })
       },
-      /* 删除 */
-      handleDelete() {
-        if (this.dataForm.id) {
-          // 调用删除信息接口
-          console.log(this.dataForm.id)
+      /** 删除 **/
+      async handleDelete() {
+        await deleteEquipmentCategoryById(this.dataForm.id).then(res => {
           return true
-        } else {
+        }).catch(err => {
           return false
-        }
+        })
       },
-      /* 删除 确认弹窗 */
+      /** 删除 确认弹窗 **/
       beforeHandleDelete() {
         this.$confirm('此操作将删除该信息, 是否继续?', '提示', {
           confirmButtonText: '确定',
@@ -211,7 +222,7 @@
           })
         })
       },
-      /* 导出 */
+      /** 导出 **/
       handleDownload() {
         console.log('导出')
       }

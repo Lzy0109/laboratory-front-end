@@ -1,36 +1,23 @@
+<!--
+    @Author 李国烨
+    @Date 2020/6/22 10:42
+    @Description: 器材信息列表页面
+    @Version 1.0
+-->
 <template>
   <div class="app-container">
     <!-- 功能区域 -->
     <div class="filter-container">
       <!-- 简单搜索 -->
       <div class="filter-container-conditions" style="margin: 2px">
-        <el-input v-model="queryList.lab_num" placeholder="器材编号" style="width: 230px;" clearable>
+        <el-input v-model="queryList.number" placeholder="器材编号" style="width: 230px;" clearable>
           <template slot="prepend">器材编号</template>
         </el-input>
-        <el-select v-model="queryList.lab_cate" style="width: 160px;" placeholder="器材分类" filterable clearable @change="handleFilter">
-          <!--获取数据库信息动态生成option-->
-          <!--
-          <el-option v-for="item in CategoryList" :key=item.id :label="item.name" :value="item.id" >
-            <span style="float: left">编号:{{ item.id }}</span>
-            <span style="float: right; color: #8492a6; font-size: 12px">名称:{{ item.name }}</span>
-          </el-option>
-          -->
-          <el-option key="1" label="类别1" value="1" />
-          <el-option key="0" label="类别2" value="0" />
-        </el-select>
-        <el-select v-model="queryList.lab_owner" style="width: 160px;" placeholder="器材负责人" filterable clearable @change="handleFilter">
-          <!--获取数据库信息动态生成option-->
-          <!--
-          <el-option v-for="item in CategoryList" :key=item.id :label="item.name" :value="item.id" >
-            <span style="float: left">编号:{{ item.id }}</span>
-            <span style="float: right; color: #8492a6; font-size: 12px">名称:{{ item.name }}</span>
-          </el-option>
-          -->
-          <el-option key="1" label="负责人1" value="1" />
-          <el-option key="0" label="负责人2" value="0" />
-        </el-select>
+        <el-input v-model="queryList.lab_equipment_category_name" placeholder="器材分类" style="width: 230px;" clearable>
+          <template slot="prepend">器材分类</template>
+        </el-input>
         <el-button-group>
-          <el-button type="primary"  size="medium" @click="handleFilter">搜索</el-button>
+          <el-button type="primary" size="medium" @click="handleFilter">搜索</el-button>
         </el-button-group>
       </div>
       <!-- 功能按钮 -->
@@ -57,82 +44,124 @@
     </div>
     <!-- 浮动高级搜索区域 -->
     <el-dialog :visible.sync="showDetailSearchBtn" width="95%" :show-close="false">
-      <span class="my-dialog-title" slot="title">高级搜索</span>
+      <span slot="title" class="my-dialog-title">高级搜索</span>
       <div class="DetailSearch_son">
+        <!-- el-row内容需要替换 -->
         <el-row class="DetailSearch_son_row">
-          <!-- 实验室编号 -->
+          <!-- 器材编号 -->
           <el-col :span="6">
-            <el-input v-model="queryList.lab_num" placeholder="实验室编号" style="width: 300px;" clearable>
-              <template slot="prepend">实验室编号</template>
+            <el-input v-model="queryList.number" placeholder="器材编号" style="width: 300px;" clearable>
+              <template slot="prepend">器材编号</template>
             </el-input>
           </el-col>
-          <!-- 实验室名称 -->
+          <!-- 器材种类 -->
           <el-col :span="6">
-            <el-input v-model="queryList.lab_name" placeholder="实验室名称" style="width: 300px;" clearable>
-              <template slot="prepend">实验室名称</template>
+            <el-input v-model="queryList.lab_equipment_category_name" placeholder="器材分类" style="width: 300px;" clearable>
+              <template slot="prepend">器材分类</template>
+            </el-input>
+            <!-- 旧版 -->
+            <!--<div class="detail-search-prepend">器材种类</div>
+            <div style="display: table-cell">
+              <el-select v-model="queryList.lab_equipment_category_id" style="width: 203px;" placeholder="器材种类" filterable clearable @change="handleFilter">
+                &lt;!&ndash;获取数据库信息动态生成option&ndash;&gt;
+                <el-option v-for="item in equCategoryList" :key="item.id" :label="item.name" :value="item.id">
+                  <span style="float: left">编号:{{ item.id }}</span>
+                  <span style="float: right; color: #8492a6; font-size: 12px">名称:{{ item.name }}</span>
+                </el-option>
+              </el-select>
+            </div>-->
+          </el-col>
+          <el-col :span="6">
+            <el-input v-model="queryList.equip_name" placeholder="器材名称" style="width: 300px;" clearable>
+              <template slot="prepend">器材名称</template>
             </el-input>
           </el-col>
-          <!-- 实验室分类 -->
           <el-col :span="6">
-            <el-select v-model="queryList.lab_owner" style="width: 300px;" placeholder="实验室分类" filterable clearable @change="handleFilter">
-              <!--获取数据库信息动态生成option-->
-              <!--
-              <el-option v-for="item in CategoryList" :key=item.id :label="item.name" :value="item.id" >
-                <span style="float: left">编号:{{ item.id }}</span>
-                <span style="float: right; color: #8492a6; font-size: 12px">名称:{{ item.name }}</span>
-              </el-option>
-              -->
-              <el-option key="1" label="类别1" value="1" />
-              <el-option key="0" label="类别2" value="0" />
-            </el-select>
-          </el-col>
-          <!-- 实验室负责人 -->
-          <el-col :span="6">
-            <el-select v-model="queryList.lab_owner" style="width: 300px;" placeholder="实验室负责人" filterable clearable @change="handleFilter">
-              <el-option key="1" label="负责人1" value="1" />
-              <el-option key="0" label="负责人2" value="0" />
-            </el-select>
+            <el-input v-model="queryList.field_name" placeholder="存放场所" style="width: 300px;" clearable>
+              <template slot="prepend">存放场所</template>
+            </el-input>
+            <!-- 旧版 -->
+            <!--<div class="detail-search-prepend">存放场所</div>
+            <div style="display: table-cell">
+              <el-select v-model="queryList.field_id" style="width: 203px;" placeholder="存放场所" filterable clearable @change="handleFilter">
+                &lt;!&ndash;获取数据库信息动态生成option&ndash;&gt;
+                <el-option v-for="item in fieldList" :key="item.id" :label="item.name" :value="item.id">
+                  <span style="float: left">编号:{{ item.id }}</span>
+                  <span style="float: right; color: #8492a6; font-size: 12px">名称:{{ item.name }}</span>
+                </el-option>
+              </el-select>
+            </div>-->
           </el-col>
         </el-row>
         <el-row class="DetailSearch_son_row">
           <el-col :span="6">
-            <el-input v-model="queryList.other" placeholder="楼" style="width: 300px;" clearable>
-              <template slot="prepend">楼</template>
+            <el-input v-model="queryList.quantity" placeholder="器材数量" style="width: 300px;" clearable>
+              <template slot="prepend">器材数量</template>
             </el-input>
           </el-col>
           <el-col :span="6">
-            <el-input v-model="queryList.other" placeholder="房间号" style="width: 300px;" clearable>
-              <template slot="prepend">房间号</template>
+            <el-input v-model="queryList.brand_id" placeholder="品牌" style="width: 300px;" clearable>
+              <template slot="prepend">品牌</template>
             </el-input>
           </el-col>
           <el-col :span="6">
-            <el-input v-model="queryList.other" placeholder="最大机位数" style="width: 300px;" clearable>
-              <template slot="prepend">最大机位数</template>
+            <el-input v-model="queryList.model_id" placeholder="型号" style="width: 300px;" clearable>
+              <template slot="prepend">型号</template>
             </el-input>
           </el-col>
           <el-col :span="6">
-            <el-input v-model="queryList.other" placeholder="可容纳人数上限" style="width: 300px;" clearable>
-              <template slot="prepend">可容纳人数上限</template>
+            <el-input v-model="queryList.manufacturer" placeholder="生产商" style="width: 300px;" clearable>
+              <template slot="prepend">生产商</template>
             </el-input>
           </el-col>
         </el-row>
         <el-row class="DetailSearch_son_row">
           <el-col :span="6">
-            <el-input v-model="queryList.other" placeholder="可用设备数" style="width: 300px;" clearable>
-              <template slot="prepend">可用设备数</template>
+            <el-input v-model="queryList.supplier" placeholder="供货商" style="width: 300px;" clearable>
+              <template slot="prepend">供货商</template>
             </el-input>
           </el-col>
-          <!--          <el-col :span="6">-->
-          <!--            <span>日期：</span>-->
-          <!--            <el-date-picker-->
-          <!--              v-model="queryList.other"-->
-          <!--              type="date"-->
-          <!--              placeholder="（其他）日期"-->
-          <!--              value-format="yyyy-MM-dd"-->
-          <!--              style="width: auto;"-->
-          <!--              class="filter-item"-->
-          <!--            />-->
-          <!--          </el-col>-->
+          <el-col :span="6">
+            <div class="detail-search-prepend">购置日</div>
+            <div style="display: table-cell">
+              <el-date-picker
+                v-model="queryList.fac_purchaseDate"
+                type="date"
+                style="width: 217px;"
+                placeholder="购置日"
+              /></div>
+          </el-col>
+          <el-col :span="6">
+            <div class="detail-search-prepend">出产日期</div>
+            <div style="display: table-cell">
+              <el-date-picker
+                v-model="queryList.production_date"
+                type="date"
+                style="width: 203px;"
+                placeholder="出产日期"
+              /></div>
+          </el-col>
+          <el-col :span="6">
+            <el-input v-model="queryList.usage" placeholder="用途" style="width: 300px;" clearable>
+              <template slot="prepend">用途</template>
+            </el-input>
+          </el-col>
+        </el-row>
+        <el-row class="DetailSearch_son_row">
+          <el-col :span="6">
+            <el-input v-model="queryList.warranty" placeholder="保修期" style="width: 300px;" clearable>
+              <template slot="prepend">保修期</template>
+            </el-input>
+          </el-col>
+          <el-col :span="6">
+            <div class="detail-search-prepend">状态</div>
+            <div style="display: table-cell">
+              <el-select v-model="queryList.status" style="width: 231px;" placeholder="状态" filterable clearable>
+                <!--获取数据库信息动态生成option-->
+                <el-option v-for="item in statusList" :key="item.id" :label="item.name" :value="item.id" />
+              </el-select>
+            </div>
+          </el-col>
         </el-row>
         <!-- 按钮定位 -->
         <div class="DetailSearch_button">
@@ -165,67 +194,44 @@
         align="center"
       />
       <el-table-column
-        prop="equip_num"
-        label="器材编号"
-        width="auto"
+        label="编号"
+        prop="number"
       />
       <el-table-column
-        prop="equip_name"
-        label="器材名称"
-        width="auto"
+        label="名称"
+        prop="name"
       />
       <el-table-column
-        prop="equip_category"
-        label="器材分类"
+        label="器材种类"
+        prop="lab_equipment_category_name"
       />
       <el-table-column
-        prop="equip_status"
-        label="器材状态"
-      />
-      <el-table-column
-        prop="equip_inCharge"
-        label="器材负责人"
+        label="存放场所"
+        prop="field_name"
       />
     </el-table>
     <!-- 分页栏 -->
     <pagination v-show="total > 0"
-                :total="100"
-                :page.sync="pageNum"
-                :limit.sync="pageSize"
+                :total="total"
+                :page.sync="queryList.pageNum"
+                :limit.sync="queryList.pageSize"
+                @pagination="getTableList"
     />
   </div>
 </template>
 
 <script>
+  // 状态列表
+  const statusList = [
+    { id: 0, name: '在库' },
+    { id: 1, name: '使用中' },
+    { id: 2, name: '出借' },
+    { id: 3, name: '故障' },
+    { id: 4, name: '报废' },
+    { id: 5, name: '丢失' }
+  ]
   import Pagination from '@/components/Pagination'
-  // 假数据
-  const fakeData = {
-    id: 1, // 主键id
-    equip_num: '器材编号', // 器材编号
-    equip_name: '器材名称', // 器材名称
-    equip_model: '器材型号', // 器材型号
-    equip_category: '器材分类', // 器材分类
-    equip_status: '器材状态', // 器材状态
-    equip_useDirection: '使用方向', // 器材使用方向
-    equip_quantity: '器材数量', // 器材数量
-    equip_unit: '单位', // 单位
-    equip_unitPrice: '单价', // 单价
-    equip_totalPrice: '总价', // 总价
-    equip_purchaseDate: '购置日期', // 购置日期
-    equip_specification: '规格', // 规格
-    equip_countryCode: '国码', // 国码
-    equip_produceDate: '生产日期', // 生产日期
-    equip_expenditure: '经费来源', // 经费来源
-    equip_purchaseMethod: '购买方式', // 购买方式
-    equip_billsNumber: '单据号', // 单据号
-    equip_attachment: '附件', // 附件
-    equip_warranty: '保修期', // 保修期
-    equip_inCharge: '负责人', // 负责人
-    equip_supplier: '供货商', // 供货商
-    equip_supplierTel: '供货商联系电话', // 供货商联系电话
-  }
-  //假数据列表
-  const fakeDataList = [ {...fakeData},{...fakeData},{...fakeData},{...fakeData},{...fakeData},{...fakeData},{...fakeData},{...fakeData},{...fakeData},{...fakeData} ]
+  import { fetchEquipmentInfos } from '../../../../../api/laboratory_1/equipment'
   export default {
     components: {
       Pagination
@@ -237,32 +243,55 @@
         tableData: null,
         listLoading: true,
         /* 分页参数 待修改 */
-        total: 100,
-        pageNum: 1,
-        pageSize: 20,
+        total: 0,
         /* 类别信息列表 */
         CategoryList: [],
         /* 导出excel相关参数 */
         downloadLoading: false,
         /* 查询条件 */
         queryList: {
-          // 需要修改
-          lab_name: null,
-          lab_num: null,
-          lab_owner: null,
-          lab_cate: null,
-          other: null
+          // 需求修改
+          pageNum: 1,
+          pageSize: 20,
+          lab_id: null,
+          number: null,
+          name: null,
+          lab_equipment_category_name: null,
+          lab_equipment_category_id: null,
+          quantity: null,
+          field_id: null,
+          field_name: null,
+          brand_id: null,
+          model_id: null,
+          lab_unit_id: null,
+          manufacturer: null,
+          supplier: null,
+          production_date: null,
+          purchase_date: null,
+          warranty: null,
+
+          status: null,
+          usage: null
         },
         /* 是否显示高级搜索 */
-        showDetailSearchBtn: false
+        showDetailSearchBtn: false,
+        statusList: []
       }
+    },
+    created() {
+      this.getTableList();
+      this.statusList = statusList;
     },
     methods: {
       /* 获取列表信息 */
-      getList(){
-        /* fake data */
-        this.tableData = fakeDataList
-        this.listLoading = false
+      getTableList(){
+        fetchEquipmentInfos(this.queryList).then(res => {
+          this.total = res.data.total;
+          this.tableData = res.data.list;
+          this.listLoading = false
+        }).catch(err => {
+          alert('获取信息失败')
+        })
       },
       /* 详情 */
       handleDetail(row, column, event) {
@@ -276,7 +305,11 @@
       },
       /* 查找 */
       handleFilter() {
-
+        this.queryList.pageNum = 1
+        for (const key in this.queryList) {
+          if (this.queryList[key] === '') { this.queryList[key] = null }
+        }
+        this.getTableList()
       },
       /* 导出Excel */
       handleDownload() {
@@ -302,10 +335,6 @@
         // 关闭
         this.showDetailSearchBtn = false
       }
-    },
-    /* 页面创建时，加载数据 */
-    created() {
-      this.getList();
     }
   }
 </script>
