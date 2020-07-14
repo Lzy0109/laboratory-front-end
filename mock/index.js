@@ -17,6 +17,8 @@ const field = require('./field')
 const model = require('./model')
 const laboratory = require('./laboratory')
 const laboratoryCategory = require('./laboratory-category')
+const equipment = require('./equipment')
+const equipmentCategory = require('./equipment-category')
 
 const mocks = [
   ...user,
@@ -34,7 +36,9 @@ const mocks = [
   ...field,
   ...model,
   ...laboratory,
-  ...laboratoryCategory
+  ...laboratoryCategory,
+  ...equipment,
+  ...equipmentCategory
 ]
 
 // for front mock

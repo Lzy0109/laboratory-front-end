@@ -458,7 +458,6 @@ export default {
         return null
       })
     },
-
     /* 根据关键词打开dialog */
     async handleOpenDialog(dialogVisible) {
       this[dialogVisible] = true // 打开对应的dialog
@@ -499,7 +498,7 @@ export default {
       } else {
         return false
       }
-    },
+    }
   }
 }
 </script>

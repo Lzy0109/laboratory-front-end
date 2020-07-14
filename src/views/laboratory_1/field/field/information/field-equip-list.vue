@@ -222,15 +222,15 @@
     <!-- 分页栏 -->
     <pagination
       v-show="total > 0"
-      :total="100"
-      :page.sync="pageNum"
-      :limit.sync="pageSize"
+      :total="total"
+      :page.sync="queryList.pageNum"
+      :limit.sync="queryList.pageSize"
+      @pagination="getTableList"
     />
   </div>
 </template>
 
 <script>
-import Pagination from '@/components/Pagination'
 
 // 状态列表
 const statusList = [
@@ -241,42 +241,10 @@ const statusList = [
   { id: 4, name: '报废' },
   { id: 5, name: '丢失' }
 ]
-// 假数据
-const fakeData = {
-  id: 1,
-  number: '器材编号',
-  name: '器材名称',
-  lab_equipment_category_name: '器材种类',
-  lab_equipment_category_id: 1,
-  brand_id: '品牌',
-  model_id: '型号',
-  lab_unit_id: '单位',
-  manufacturer: '生产商',
-  manufacturer_telephone: '生产商电话',
-  supplier: '供货商',
-  supplier_telephone: '供货商电话',
 
-  quantity: '数量',
-  unit_price: '单价',
-  total_price: '总价',
-  country_code: '国码',
-  production_date: '出产日期',
+import Pagination from '@/components/Pagination'
+import { fetchEquipmentInfos } from '@/api/laboratory_1/equipment'
 
-  bills_number: '单据号',
-  purchase_date: '购置日',
-  field_id: 1,
-  field_name: '存放场所',
-  expenditure: '经费来源',
-  purchase_method: '购买方式',
-  warranty: '保修期',
-  IP: '附件IP',
-  URL: '附件URL',
-
-  status: '状态',
-  usage: '用途'
-}
-// 假数据列表
-const fakeDataList = [{ ...fakeData }, { ...fakeData }, { ...fakeData }, { ...fakeData }, { ...fakeData }, { ...fakeData }, { ...fakeData }, { ...fakeData }, { ...fakeData }, { ...fakeData }]
 export default {
   name: 'field-equip-list',
   components: {
@@ -285,14 +253,15 @@ export default {
   data() {
     return {
       /* 分页参数 待修改 */
-      total: 100,
-      pageNum: 1,
-      pageSize: 20,
+      total: 0,
       listLoading: true,
       tableData: null,
       /* 查询条件 */
       queryList: {
         // 需求修改
+        pageNum: 1,
+        pageSize: 20,
+        lab_id: null,
         number: null,
         name: null,
         lab_equipment_category_name: null,
@@ -314,36 +283,27 @@ export default {
       },
       /* 是否显示高级搜索 */
       showDetailSearchBtn: false,
-      /* 器材分类列表 */
-      equCategoryList: [],
-      /* 状态列表 */
-      statusList: [],
-      /* 场地列表 */
-      fieldList: []
+      statusList: []
     }
   },
   created() {
     this.getTableList()
-    this.getEquOwnerList()
-    this.getEquCategoryList()
+    this.statusList = statusList
   },
   methods: {
     /* 获取实验室器材清单列表信息 */
     getTableList() {
-      /* fake data */
-      this.tableData = fakeDataList
-      this.listLoading = false
-      this.statusList = statusList
       /* 根据传过来的实验室id获取对应的器材 */
-      console.log('实验室id获取对应的器材. lab id')
-    },
-    /* 获取器材负责人信息 */
-    getEquOwnerList() {
-      console.log('equ owner list')
-    },
-    /* 获取器材分类信息 */
-    getEquCategoryList() {
-      console.log('equ category list')
+      const lab_id = this.$route.query.id
+      console.log('lab_id=' + lab_id)
+      this.queryList.lab_id = this.$route.query.id
+      fetchEquipmentInfos(this.queryList).then(res => {
+        this.total = res.data.total;
+        this.tableData = res.data.list;
+        this.listLoading = false;
+      }).catch(err => {
+        alert('获取器材清单失败')
+      })
     },
     /* 返回上一页 */
     handleReturn() {
@@ -361,7 +321,11 @@ export default {
     },
     /* 查找 */
     handleFilter() {
-
+      this.queryList.pageNum = 1
+      for (const key in this.queryList) {
+        if (this.queryList[key] === '') { this.queryList[key] = null }
+      }
+      this.getTableList()
     },
     /* 导出Excel */
     handleDownload() {

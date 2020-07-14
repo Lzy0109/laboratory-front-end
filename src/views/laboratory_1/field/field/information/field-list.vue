@@ -185,31 +185,18 @@
     <!-- 分页栏 -->
     <pagination
       v-show="total > 0"
-      :total="100"
-      :page.sync="pageNum"
-      :limit.sync="pageSize"
+      :total="total"
+      :page.sync="queryList.pageNum"
+      :limit.sync="queryList.pageSize"
+      @pagination="getTableList"
     />
   </div>
 </template>
 
 <script>
+
 import Pagination from '@/components/Pagination'
-// 假数据
-const fakeData = {
-  id: 1,
-  english_name: 'en-test',
-  name: '测试实验室1',
-  lab_category_name: '实验室类别1',
-  max_seat: '100',
-  field_manager: '负责人'
-}
-// 实验室分类列表（假数据）
-const fake_labCategoryList = [
-  { id: 1, name: '实验室类别1' },
-  { id: 2, name: '实验室类别2' }
-]
-// 假数据列表
-const fakeDataList = [{ ...fakeData }, { ...fakeData }, { ...fakeData }, { ...fakeData }, { ...fakeData }, { ...fakeData }, { ...fakeData }, { ...fakeData }, { ...fakeData }, { ...fakeData }]
+import { fetchLaboratoryInfos } from '../../../../../api/laboratory_1/laboratory'
 export default {
   name: 'FieldList',
   components: {
@@ -221,16 +208,15 @@ export default {
       tableData: null,
       listLoading: true,
       /* 分页参数 待修改 */
-      total: 100,
-      pageNum: 1,
-      pageSize: 20,
+      total: 0,
       /* 类别信息列表 */
       CategoryList: [],
       /* 导出excel相关参数 */
       downloadLoading: false,
       /* 查询条件 */
       queryList: {
-        // 需要修改
+        pageNum: 1,
+        pageSize: 20,
         name: null,
         english_name: null,
         max_seat: null,
@@ -253,19 +239,18 @@ export default {
   /* 页面创建时，加载数据 */
   created() {
     this.getTableList()
-    this.getLabCategoryList()
   },
   methods: {
     /* 获取列表信息 */
     getTableList() {
-      this.tableData = fakeDataList
-      this.listLoading = false
       // 调用获取列表信息接口
-    },
-    /* 获取实验室分类信息 */
-    getLabCategoryList() {
-      this.labCategoryList = fake_labCategoryList
-      // 调用获取列表信息接口
+      fetchLaboratoryInfos(this.queryList).then(res => {
+        this.total = res.data.total
+        this.tableData = res.data.list
+        this.listLoading = false
+      }).catch(err => {
+        alert('获取信息失败！')
+      })
     },
     /* 跳转实验室详情页面 */
     handleDetail(row) {
@@ -279,7 +264,11 @@ export default {
     },
     /* 查找 */
     handleFilter() {
-
+      this.queryList.pageNum = 1
+      for (const key in this.queryList) {
+        if (this.queryList[key] === '') { this.queryList[key] = null }
+      }
+      this.getTableList()
     },
     /* 导出Excel */
     handleDownload() {
