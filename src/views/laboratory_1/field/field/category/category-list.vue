@@ -71,24 +71,18 @@
     <!-- 分页栏 -->
     <pagination
       v-show="total > 0"
-      :total="100"
-      :page.sync="pageNum"
-      :limit.sync="pageSize"
+      :total="total"
+      :page.sync="queryList.pageNum"
+      :limit.sync="queryList.pageSize"
+      @pagination="getTableList"
     />
   </div>
 </template>
 
 <script>
-  // 假数据
-  const fake_data = [
-  {
-    id: 1,
-    name: '实验室分类名称',
-    english_name: 'test_lab_category',
-    description: '实验室分类描述'
-  }
-]
+
 import Pagination from '@/components/Pagination'
+import { fetchLaboratoryCategoryInfos } from '@/api/laboratory_1/laboratory-category'
 export default {
   name: 'category-list',
   components: {
@@ -100,14 +94,13 @@ export default {
       tableData: null,
       listLoading: true,
       /* 分页参数 待修改 */
-      total: 100,
-      pageNum: 1,
-      pageSize: 20,
+      total: 0,
       /* 导出excel相关参数 */
       downloadLoading: false,
       /* 查询条件 */
       queryList: {
-        // 需要修改
+        pageNum: 1,
+        pageSize: 20,
         name: null
       }
     }
@@ -119,8 +112,13 @@ export default {
     /* 获取列表信息 */
     getTableList() {
       // 调用获取信息接口
-      this.tableData = fake_data
-      this.listLoading = false
+      fetchLaboratoryCategoryInfos(this.queryList).then(res => {
+        this.total = res.data.total
+        this.tableData = res.data.list
+        this.listLoading = false
+      }).catch(err => {
+        alert('获取列表信息失败')
+      })
     },
     /* 跳转到实验室分类详情页面 */
     handleDetail(row, column, event) {
@@ -141,7 +139,11 @@ export default {
     },
     /* 查找 */
     handleFilter() {
-
+      this.queryList.pageNum = 1
+      for (const key in this.queryList) {
+        if (this.queryList[key] === '') { this.queryList[key] = null }
+      }
+      this.getTableList()
     },
     /* 导出Excel */
     handleDownload() {

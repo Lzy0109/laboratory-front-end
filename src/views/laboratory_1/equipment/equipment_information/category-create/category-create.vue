@@ -1,3 +1,9 @@
+<!--
+    @Author 李国烨
+    @Date 2020/6/22 10:41
+    @Description: 器材分类信息创建页面
+    @Version 1.0
+-->
 <template>
   <div class="app-container">
     <!-- 功能按钮 -->
@@ -37,6 +43,7 @@
 
 <script>
   import { isChinese, isEnglish } from '@/utils/fieldValidate'
+  import { createEquipmentCategoryInfo } from '../../../../../api/laboratory_1/equipment-category'
   export default {
     name: 'category-create',
     data() {
@@ -75,23 +82,33 @@
       }
     },
     methods: {
+      /** 提交表单信息 **/
       submitCreate(formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
-            // 调用接口
-            this.$message({
-              message: '添加成功!',
-              type: 'success'
+            createEquipmentCategoryInfo(this.dataForm).then(res => {
+              this.$message({
+                message: '添加成功',
+                type: 'success'
+              })
+              console.log('success submit')
+              this.$router.go(-1)
+            }).catch(err => {
+              this.$message({
+                message: '添加失败',
+                type: 'error'
+              })
             })
-            console.log('success submit!!')
-            this.$router.go(-1)
           } else {
-            console.log('error submit!!')
+            this.$message({
+              message: '添加失败!请注意输入内容',
+              type: 'error'
+            })
             return false
           }
         })
       },
-      /* 返回上一页 */
+      /** 返回上一页 **/
       handleReturn() {
         this.$router.go(-1)
       }

@@ -1,7 +1,7 @@
 /**
  * @Author：李国烨
- * @Create： 2020/7/13
- * @Desc：耗材分类接口
+ * @Create： 2020/7/14
+ * @Desc：器材零部件分类接口
  * @version: v1.0
  */
 import request from '@/utils/request'
@@ -11,9 +11,9 @@ import request from '@/utils/request'
  * @param keyword
  * @returns {*}
  */
-export function fetchConsumableCategoryInfos(keyword) {
+export function fetchComponentsCategoryInfos(keyword) {
   return request({
-    url: '/api/consumableCategory/infos',
+    url: '/api/components/category/infos',
     method: 'GET',
     params:{
       keyword: keyword
@@ -26,9 +26,9 @@ export function fetchConsumableCategoryInfos(keyword) {
  * @param id
  * @returns {}
  */
-export function fetchConsumableCategoryInfoById(id) {
+export function fetchComponentsCategoryInfoById(id) {
   return request({
-    url: '/api/consumableCategory/detail',
+    url: '/api/components/category/detail',
     method: 'GET',
     params: {
       id: id
@@ -42,9 +42,9 @@ export function fetchConsumableCategoryInfoById(id) {
  * @param data
  * @returns {}
  */
-export function createConsumableCategoryInfo(data) {
+export function createComponentsCategoryInfo(data) {
   return request({
-    url: '/api/consumableCategory/create',
+    url: '/api/components/category/create',
     method: 'POST',
     data: data
   })
@@ -55,10 +55,10 @@ export function createConsumableCategoryInfo(data) {
  * @param id
  * @returns {}
  */
-export function deleteConsumableCategoryById(id) {
+export function deleteComponentsCategoryById(id) {
   return request({
-    url: '/api/consumableCategory/delete',
-    // url: '/api/consumableCategory/' + id,
+    url: '/api/components/category/delete',
+    // url: '/api/components/category/' + id,
     method: 'DELETE'
   })
 }
@@ -68,9 +68,9 @@ export function deleteConsumableCategoryById(id) {
  * @param data
  * @returns {}
  */
-export function modifyConsumableCategoryInfo(data) {
+export function modifyComponentsCategoryInfo(data) {
   return request({
-    url: '/api/consumableCategory/modify',
+    url: '/api/components/category/modify',
     method: 'PUT',
     data: data
   })

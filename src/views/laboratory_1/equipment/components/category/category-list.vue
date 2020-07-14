@@ -1,3 +1,9 @@
+<!--
+    @Author 李国烨
+    @Date 2020/6/22 10:31
+    @Description: 零部件列表信息页面
+    @Version 1.0
+-->
 <template>
   <div class="app-container">
     <!-- 功能区域 -->
@@ -52,6 +58,11 @@
         width="auto"
       />
       <el-table-column
+        prop="english_name"
+        label="英文名称"
+        width="auto"
+      />
+      <el-table-column
         prop="description"
         label="分类描述"
         width="auto"
@@ -60,22 +71,17 @@
     <!-- 分页栏 -->
     <pagination
       v-show="total > 0"
-      :total="100"
-      :page.sync="pageNum"
-      :limit.sync="pageSize"
+      :total="total"
+      :page.sync="queryList.pageNum"
+      :limit.sync="queryList.pageSize"
+      @pagination="getTableList"
     />
   </div>
 </template>
 
 <script>
-  const fake_data = [
-    {
-      id: 1,
-      name: '零部件分类名称',
-      description: '零部件分类描述'
-    }
-  ]
   import Pagination from '@/components/Pagination'
+  import { fetchComponentsCategoryInfos } from '@/api/laboratory_1/equ-components-category'
   export default {
     name: 'category-list',
     components: {
@@ -83,18 +89,17 @@
     },
     data() {
       return {
-        /* 表格参数 */
+        /** 表格参数 **/
         tableData: null,
         listLoading: true,
-        /* 分页参数 待修改 */
-        total: 100,
-        pageNum: 1,
-        pageSize: 20,
-        /* 导出excel相关参数 */
+        /** 分页参数 待修改 **/
+        total: 0,
+        /** 导出excel相关参数 **/
         downloadLoading: false,
-        /* 查询条件 */
+        /** 查询条件 **/
         queryList: {
-          // 需要修改
+          pageNum: 1,
+          pageSize: 20,
           name: null
         }
       }
@@ -103,13 +108,17 @@
       this.getTableList()
     },
     methods: {
-      /* 获取列表信息 */
+      /** 获取列表信息 **/
       getTableList() {
-        // 调用获取信息接口
-        this.tableData = fake_data
-        this.listLoading = false
+        fetchComponentsCategoryInfos(this.queryList).then(res => {
+          this.total = res.data.total
+          this.tableData = res.data.list;
+          this.listLoading = false;
+        }).catch(err => {
+            alert('获取信息失败')
+        })
       },
-      /* 跳转到详情页面 */
+      /** 跳转到详情页面 **/
       handleDetail(row, column, event) {
         console.log('handleDetail')
         this.$router.push({
@@ -119,22 +128,26 @@
           }
         })
       },
-      /* 跳转添加页面 */
+      /** 跳转添加页面 **/
       handleCreate() {
         console.log('handleCreate')
         this.$router.push({
           name: 'Components_Category_Create'
         })
       },
-      /* 查找 */
+      /** 查找 **/
       handleFilter() {
-
+        this.queryList.pageNum = 1
+        for (const key in this.queryList) {
+          if (this.queryList[key] === '') { this.queryList[key] = null }
+        }
+        this.getTableList()
       },
-      /* 导出Excel */
+      /** 导出Excel **/
       handleDownload() {
 
       },
-      /* 批量添加 */
+      /** 批量添加 **/
       handleBatchCreate() {
 
       }

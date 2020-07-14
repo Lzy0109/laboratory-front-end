@@ -1,3 +1,9 @@
+<!--
+    @Author 李国烨
+    @Date 2020/6/22 10:46
+    @Description: 器材配置软件信息列表页面
+    @Version 1.0
+-->
 <template>
   <div class="app-container">
     <!-- 功能区域 -->

@@ -234,9 +234,10 @@
     <!-- 分页栏 -->
     <pagination
       v-show="total > 0"
-      :total="100"
-      :page.sync="pageNum"
-      :limit.sync="pageSize"
+      :total="total"
+      :page.sync="queryList.pageNum"
+      :limit.sync="queryList.pageSize"
+      @pagination="getTableList"
     />
     <!-- 详情浮动窗口 -->
     <el-dialog :visible.sync="showDetailBtn" width="80%" :show-close="false">
@@ -393,14 +394,14 @@
     data() {
       return {
         /* 分页参数 待修改 */
-        total: 100,
-        pageNum: 1,
-        pageSize: 20,
+        total: 0,
         listLoading: true,
         tableData: null,
         /* 查询条件 */
         queryList: {
           // 需求修改
+          pageNum: 1,
+          pageSize: 20,
           number: null,
           name: null,
           lab_equipment_category_name: null,
@@ -443,15 +444,15 @@
         /* 场地列表 */
         fieldList: [],
         /* 种类列表 */
-        categoryList,
+        categoryList: [],
         /* 选择的种类id */
         categorySelected: null,
         /* 品牌列表 */
-        brandList,
+        brandList: [],
         /* 选择的品牌id */
         brandSelected: null,
         /* 型号列表 */
-        modelList,
+        modelList: [],
         /* 选择的型号id */
         modelSelected: null
       }

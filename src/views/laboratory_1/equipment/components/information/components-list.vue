@@ -1,3 +1,9 @@
+<!--
+    @Author 李国烨
+    @Date 2020/6/22 10:32
+    @Description: 零部件信息列表页面
+    @Version 1.0
+-->
 <template>
   <div class="app-container">
     <!-- 功能区域 -->
@@ -199,58 +205,18 @@
     <!-- 分页栏 -->
     <pagination
       v-show="total > 0"
-      :total="100"
+      :total="total"
       :page.sync="queryList.pageNum"
       :limit.sync="queryList.pageSize"
+      @pagination="getTableList"
     />
   </div>
 </template>
 
 <script>
-// 假数据
-const fakeData = {
-  id: 1,
-  number: '器材零部件编号',
-  name: '器材零部件名称',
-  english_name: 'english_name',
-  lab_equipment_parts_category_id: 1,
-  lab_equipment_parts_category_name: '器材零部件种类',
-  lab_brand_id: 1,
-  brand_name: '品牌',
-  lab_model_id: 1,
-  model_name: '型号',
-  lab_unit_id: 1,
-  lab_unit_name: '单位111',
-  lab_manufacturer_id: 1,
-  manufacturer_name: '生产商111',
-  manufacturer_telephone: '12345678911',
-  lab_supplier_id: 1,
-  supplier_name: '供货商111',
-  supplier_telephone: '12345678922',
 
-  specification: '规格',
-  quantity: '数量',
-  unit_price: '单价',
-  total_price: '总价',
-
-  // 适用器材（applicative_equipment）
-
-  lab_country_code_id: 1,
-  country_code_name: '国码',
-  production_date: '出产日期',
-
-  bills_number: '单据号',
-  purchase_date: '购置日',
-  field_id: 1,
-  field_name: '存放场所',
-  expenditure: '经费来源',
-  purchase_method: '购买方式',
-  warranty: '保修期',
-
-}
-// 假数据列表
-const fakeDataList = [{ ...fakeData }, { ...fakeData }, { ...fakeData }, { ...fakeData }, { ...fakeData }, { ...fakeData }, { ...fakeData }, { ...fakeData }, { ...fakeData }, { ...fakeData }]
 import Pagination from '@/components/Pagination'
+import { fetchComponentsInfos } from '@/api/laboratory_1/equ-components'
 export default {
   name: 'components-information-list',
   components: {
@@ -258,13 +224,11 @@ export default {
   },
   data() {
     return {
-      /* 分页参数 待修改 */
-      total: 100,
+      total: 0,
       listLoading: true,
       tableData: null,
-      /* 查询条件 */
+      /** 查询条件 **/
       queryList: {
-        // 需求修改
         pageNum: 1,
         pageSize: 20,
         number: null,
@@ -287,7 +251,7 @@ export default {
         purchase_date: null,
         warranty: null,
       },
-      /* 是否显示高级搜索 */
+      /** 是否显示高级搜索 **/
       showDetailSearchBtn: false,
       equipmentPartsCategory: []
 
@@ -295,25 +259,23 @@ export default {
   },
   created() {
     this.getTableList()
-    this.getEquOwnerList()
-    this.getEquCategoryList()
   },
   methods: {
+    /** 获取零部件泪飙信息 **/
     getTableList() {
-      /* fake data */
-      this.tableData = fakeDataList
-      this.listLoading = false
-      /* 根据传过来的id获取对应的器材零部件 */
-      console.log('id获取对应的器材零部件. 如果为空，全部获取')
+      fetchComponentsInfos(this.queryList).then(res => {
+        this.total = res.data.total
+        this.tableData = res.data.list
+        this.listLoading = false
+      }).catch(err => {
+        alert('获取信息失败')
+      })
     },
-    /* 获取器材零部件分类信息 */
-    getEquCategoryList() {
-      console.log('equ category list')
-    },
+    /** 返回到上一页 **/
     handleReturn() {
       this.$router.go(-1)
     },
-    /* 详情 */
+    /** 详情 **/
     handleDetail(row) {
       console.log('handleDetail id=' + row.id)
       this.$router.push({
@@ -323,32 +285,36 @@ export default {
         }
       })
     },
-    /* 查找 */
+    /** 查找 **/
     handleFilter() {
-
+      this.queryList.pageNum = 1
+      for (const key in this.queryList) {
+        if (this.queryList[key] === '') { this.queryList[key] = null }
+      }
+      this.getTableList()
     },
-    /* 导出Excel */
+    /** 导出Excel **/
     handleDownload() {
 
     },
-    /* 添加器材零部件 */
+    /** 添加器材零部件 **/
     handleCreate() {
       console.log('handleCreate')
       this.$router.push({
         name: 'Components_Create'
       })
     },
-    /* 批量添加 */
+    /** 批量添加 **/
     handleBatchCreate() {
 
     },
-    /* 管理高级搜索 */
+    /** 管理高级搜索 **/
     handleClose() {
-      /* 清空旧数据 */
+      /** 清空旧数据 **/
       for (const key in this.queryList) {
         this.queryList[key] = null
       }
-      /* 关闭 */
+      /** 关闭 **/
       this.showDetailSearchBtn = false
     }
   }

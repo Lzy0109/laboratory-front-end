@@ -44,6 +44,7 @@
 <script>
 
   import { isChinese, isEnglish } from '@/utils/fieldValidate'
+  import { createLaboratoryCategoryInfo } from '@/api/laboratory_1/laboratory-category'
   export default {
     name: 'category-create',
     data() {
@@ -88,14 +89,24 @@
         this.$refs[formName].validate((valid) => {
           if (valid) {
             // 调用接口
-            this.$message({
-              message: '添加成功!',
-              type: 'success'
+            createLaboratoryCategoryInfo(this.dataForm).then(res => {
+              this.$message({
+                message: '添加成功',
+                type: 'success'
+              })
+              console.log('submit')
+              this.$router.go(-1)
+            }).catch(err => {
+              this.$message({
+                message: '添加失败',
+                type: 'error'
+              })
             })
-            console.log('submit')
-            this.$router.go(-1)
           } else {
-            console.log('error')
+            this.$message({
+              message: '添加失败！请注意输入内容',
+              type: 'error'
+            })
             return false
           }
         })

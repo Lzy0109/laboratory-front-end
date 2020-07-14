@@ -1,5 +1,10 @@
-
-/** 将信息同步 *
+/**
+  * @Author：李国烨
+  * @Create： 2020/7/1
+  * @Desc：抽离方法
+  * @version: v1.0
+ */
+/** 主要功能室将信息同步 *
 *  data 由dialog传入的一组数据
  * dataForm 页面表单数据源
  * selectedData 根据dialog中选择的id查询出来的相关数据

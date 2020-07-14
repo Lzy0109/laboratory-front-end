@@ -1,7 +1,13 @@
+/**
+  * @Author：李国烨
+  * @Create： 2020/7/11
+  * @Desc：计量单位信息接口
+  * @version: v1.0
+ */
 import request from '@/utils/request'
 /**
  * 获取全部信息
- * @param query 查询条件数据
+ * @param keyword 查询条件数据
  * @returns {*}
  */
 export function fetchUnitPriceInfos(keyword) {

@@ -1,6 +1,6 @@
 <!--
     @Author 李国烨
-    @Date 2020/7/6 21:51
+    @Date 2020/6/21 14:40
     @Description: 耗材信息列表页面
     @Version 1.0
 -->
@@ -193,50 +193,7 @@
 
 <script>
 // 假数据
-import { fetchConsumableInfos } from '../../../../api/laboratory_1/consumable'
-
-const fakeData = {
-  id: 1,
-  number: '耗材编号',
-  name: '耗材名称',
-  english_name: 'english_name',
-  lab_consumable_category_id: 1,
-  lab_consumable_category_name: '耗材种类',
-  lab_brand_id: 1,
-  brand_name: '品牌',
-  lab_model_id: 1,
-  model_name: '型号',
-  lab_unit_id: 1,
-  lab_unit_name: '单位111',
-  specification: '规格',
-  specialized: true,
-  lab_manufacturer_id: 1,
-  manufacturer_name: '生产商111',
-  manufacturer_telephone: '12345678911',
-  lab_supplier_id: 1,
-  supplier_name: '供货商111',
-  supplier_telephone: '12345678922',
-
-
-  // 适用器材（applicative_equipment）
-
-  bills_number: '单据号',
-  purchase_date: '2016-01-01',
-  field_id: 1,
-  field_name: '存放场所',
-  expenditure: '经费来源',
-  purchase_method: '购买方式',
-  warranty: '保修期',
-
-  quantity: '数量',
-  unit_price: '单价',
-  total_price: '总价',
-  country_code_id: 1,
-  country_code_name: '国码',
-  production_date: '2020-07-01',
-}
-const fakeDataList = [{...fakeData}]
-
+import { fetchConsumableInfos } from '@/api/laboratory_1/consumable'
 import Pagination from '@/components/Pagination'
 export default {
   name: 'ConsumableList',
@@ -250,7 +207,6 @@ export default {
       listLoading: true,
       /** 分页参数 待修改 **/
       total: 0,
-
       /** 类别信息列表 **/
       consumableCategoryList: [],
       /** 导出excel相关参数 **/
@@ -288,12 +244,11 @@ export default {
      * @method：getTableList
      * @desc：获取软件列表信息
      * @params:
-     * @create date： 2020/7/7
+     * @create date： 2020/6/21
      * @update date： 2020/7/13
      * @author：李国烨
      */
     getTableList() {
-      // 暂用假数据
       // 调用获取信息的接口
       fetchConsumableInfos(this.queryList).then(res => {
         this.total = res.data.total
@@ -310,7 +265,7 @@ export default {
      * @method：handleDetail
      * @desc：跳转到详情页面
      * @params:
-     * @create date： 2020/7/7
+     * @create date： 2020/6/21
      * @update date： 2020/7/13
      * @author：李国烨
      */
@@ -327,7 +282,7 @@ export default {
      * @method：handleFilter
      * @desc：条件查询
      * @params:
-     * @create date： 2020/7/7
+     * @create date： 2020/6/21
      * @update date： 2020/7/13
      * @author：李国烨
      */
@@ -342,7 +297,7 @@ export default {
      * @method：handleDownload
      * @desc：导出Excel
      * @params:
-     * @create date： 2020/7/7
+     * @create date： 2020/6/21
      * @update date： 2020/7/13
      * @author：李国烨
      */
@@ -353,7 +308,7 @@ export default {
      * @method：handleCreate
      * @desc：跳转添加页面
      * @params:
-     * @create date： 2020/7/7
+     * @create date： 2020/6/21
      * @update date： 2020/7/13
      * @author：李国烨
      */
@@ -367,7 +322,7 @@ export default {
      * @method：handleBatchCreate
      * @desc：批量添加
      * @params:
-     * @create date： 2020/7/7
+     * @create date： 2020/6/21
      * @update date： 2020/7/13
      * @author：李国烨
      */
@@ -378,7 +333,7 @@ export default {
      * @method：handleClose
      * @desc：关闭管理高级搜索对话框
      * @params:
-     * @create date： 2020/7/7
+     * @create date： 2020/6/21
      * @update date： 2020/7/13
      * @author：李国烨
      */

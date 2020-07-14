@@ -1,3 +1,9 @@
+<!--
+    @Author 李国烨
+    @Date 2020/7/1 11:22
+    @Description: 自定义组件：用于显示radio选项以及筛选radio功能组件
+    @Version 1.0
+-->
 <template>
   <div>
     <el-dialog
@@ -34,14 +40,13 @@
   export default {
     name: 'index',
     props: {
-      // 需要传入的值
       // 打开dialog的值
       currentDialogVisible: Boolean,
       // 传入的list
       currentList: {
         Array
       },
-      // 传入的已选择值
+      // 已选择值
       currentSelectedItem: {
         type: Number,
         default: null
@@ -67,9 +72,11 @@
       console.log('create currentList=' + this.currentList)
     },
     methods: {
+      /** 发送取消事件 **/
       handleCancel() {
         this.$emit('handleCancel')
       },
+      /** 发送筛选事件 **/
       handleQuery() {
         console.log('this.queryKeyword = ' + this.queryKeyword)
         let data = {
@@ -78,6 +85,7 @@
         }
           this.$emit('handleQuery', data)
       },
+      /** 发送选择事件 **/
       handleSelect() {
         if (this.currentList.length === 0 || this.currentItem === null){
           this.$message({
