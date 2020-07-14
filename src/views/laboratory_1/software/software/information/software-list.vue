@@ -1,7 +1,7 @@
 <!--
     @Author 李国烨
-    @Date 2020/6/28 22:00
-    @Description:
+    @Date 2020/6/19 11:05
+    @Description: 软件信息列表页面
     @Version 1.0
 -->
 <template>
@@ -279,7 +279,7 @@ export default {
       * @method：getTableList
       * @desc：获取软件列表信息
       * @params:
-      * @create date： 2020/6/28
+      * @create date： 2020/6/19
       * @update date： 2020/7/13
       * @author：李国烨
      */
@@ -300,7 +300,7 @@ export default {
       * @method：handleDetail
       * @desc：跳转到详情页面
       * @params:
-      * @create date： 2020/6/28
+      * @create date： 2020/6/19
       * @update date： 2020/7/13
       * @author：李国烨
      */
@@ -317,7 +317,7 @@ export default {
       * @method：handleFilter
       * @desc：条件查询
       * @params:
-      * @create date： 2020/6/28
+      * @create date： 2020/6/19
       * @update date： 2020/7/13
       * @author：李国烨
      */
@@ -333,7 +333,7 @@ export default {
       * @method：handleDownload
       * @desc：导出Excel
       * @params:
-      * @create date： 2020/6/28
+      * @create date： 2020/6/19
       * @update date： 2020/7/13
       * @author：李国烨
      */
@@ -344,7 +344,7 @@ export default {
       * @method：handleCreate
       * @desc：跳转添加页面
       * @params:
-      * @create date： 2020/6/28
+      * @create date： 2020/6/19
       * @update date： 2020/7/13
       * @author：李国烨
      */
@@ -358,7 +358,7 @@ export default {
       * @method：handleBatchCreate
       * @desc：批量添加
       * @params:
-      * @create date： 2020/6/28
+      * @create date： 2020/6/19
       * @update date： 2020/7/13
       * @author：李国烨
      */
@@ -369,7 +369,7 @@ export default {
       * @method：handleClose
       * @desc：关闭管理高级搜索对话框
       * @params:
-      * @create date： 2020/6/28
+      * @create date： 2020/6/19
       * @update date： 2020/7/13
       * @author：李国烨
      */

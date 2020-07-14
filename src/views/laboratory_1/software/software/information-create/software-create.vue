@@ -1,7 +1,7 @@
 <!--
     @Author 李国烨
-    @Date 2020/6/28 22:58
-    @Description:
+    @Date 2020/6/19 11:21
+    @Description:软件信息创建页面
     @Version 1.0
 -->
 <template>
@@ -401,6 +401,14 @@ export default {
 
   },
   methods: {
+    /**
+      * @method：submitCreate
+      * @desc：提交表单信息
+      * @params:
+      * @create date： 2020/6/19
+      * @update date： 2020/7/14
+      * @author：李国烨
+     */
     submitCreate(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
@@ -432,7 +440,7 @@ export default {
      * @method：getSoftwareCategoryList
      * @desc：获取软件分类列表信息
      * @params: keyword 查询条件，可为null
-     * @create date： 2020/6/28
+     * @create date： 2020/6/19
      * @update date： 2020/7/13
      * @author：李国烨
      */
@@ -450,7 +458,7 @@ export default {
      * @method：getApplicableSystemList
      * @desc：获取适用系统列表信息
      * @params: keyword 查询条件，可为null
-     * @create date： 2020/6/28
+     * @create date： 2020/6/19
      * @update date： 2020/7/13
      * @author：李国烨
      */
@@ -466,7 +474,7 @@ export default {
      * @method：getBrandList
      * @desc：获取品牌列表信息
      * @params: keyword 查询条件，可为null
-     * @create date： 2020/6/28
+     * @create date： 2020/6/19
      * @update date： 2020/7/13
      * @author：李国烨
      */
@@ -481,7 +489,7 @@ export default {
      * @method：getUnitList
      * @desc：获取计量单位列表信息
      * @params: keyword 查询条件，可为null
-     * @create date： 2020/6/28
+     * @create date： 2020/6/19
      * @update date： 2020/7/13
      * @author：李国烨
      */
@@ -496,7 +504,7 @@ export default {
      * @method：getSupplierList
      * @desc：获取供货商列表信息
      * @params: keyword 查询条件，可为null
-     * @create date： 2020/6/28
+     * @create date： 2020/6/19
      * @update date： 2020/7/13
      * @author：李国烨
      */
@@ -511,7 +519,7 @@ export default {
      * @method：getManufacturerList
      * @desc：获取生产商列表信息
      * @params: keyword 查询条件，可为null
-     * @create date： 2020/6/28
+     * @create date： 2020/6/19
      * @update date： 2020/7/13
      * @author：李国烨
      */
@@ -526,7 +534,7 @@ export default {
      * @method：getCountryCodeList
      * @desc：获取国码列表信息
      * @params: keyword 查询条件，可为null
-     * @create date： 2020/6/28
+     * @create date： 2020/6/19
      * @update date： 2020/7/13
      * @author：李国烨
      */
@@ -541,7 +549,7 @@ export default {
      * @method：fetchSoftwareCategoryById
      * @desc：根据ID获取软件分类信息
      * @params: id
-     * @create date： 2020/6/28
+     * @create date： 2020/6/19
      * @update date： 2020/7/13
      * @author：李国烨
      */
@@ -564,7 +572,7 @@ export default {
      * @method：fetchApplicableSystemById
      * @desc：根据ID获取适用系统信息
      * @params: id
-     * @create date： 2020/6/28
+     * @create date： 2020/6/19
      * @update date： 2020/7/13
      * @author：李国烨
      */
@@ -584,7 +592,7 @@ export default {
      * @method：fetchBrandById
      * @desc：获根据ID取品牌信息
      * @params: id
-     * @create date： 2020/6/28
+     * @create date： 2020/6/19
      * @update date： 2020/7/13
      * @author：李国烨
      */
@@ -604,7 +612,7 @@ export default {
      * @method：fetchUnitById
      * @desc：根据ID获取计量单位信息
      * @params: id
-     * @create date： 2020/6/28
+     * @create date： 2020/6/19
      * @update date： 2020/7/13
      * @author：李国烨
      */
@@ -624,7 +632,7 @@ export default {
      * @method：fetchSupplierById
      * @desc：根据ID获取供货商信息
      * @params: id
-     * @create date： 2020/6/28
+     * @create date： 2020/6/19
      * @update date： 2020/7/13
      * @author：李国烨
      */
@@ -645,7 +653,7 @@ export default {
      * @method：fetchManufacturerById
      * @desc：根据ID获取生产商信息
      * @params: id
-     * @create date： 2020/6/28
+     * @create date： 2020/6/19
      * @update date： 2020/7/13
      * @author：李国烨
      */
@@ -666,7 +674,7 @@ export default {
      * @method：fetchCountryCodeById
      * @desc：根据ID获取国码信息
      * @params: id
-     * @create date： 2020/6/28
+     * @create date： 2020/6/19
      * @update date： 2020/7/13
      * @author：李国烨
      */
@@ -686,7 +694,7 @@ export default {
      * @method：handleOpenDialog
      * @desc：利用字典1 根据关键词打开dialog
      * @params: dialogVisible
-     * @create date： 2020/6/28
+     * @create date： 2020/6/19
      * @update date： 2020/7/13
      * @author：李国烨
      */
@@ -708,7 +716,7 @@ export default {
      * @method：getMethodByKey
      * @desc：利用字典2 根据关键字获取对应方法 并返回查询出的数据
      * @params: key：找出方法对关键字，id：被找出方法需要要参数值
-     * @create date： 2020/6/28
+     * @create date： 2020/6/19
      * @update date： 2020/7/13
      * @author：李国烨
      */
@@ -720,7 +728,7 @@ export default {
      * @method：handleSelect
      * @desc：抽取方法 将信息同步
      * @params:
-     * @create date： 2020/6/28
+     * @create date： 2020/6/19
      * @update date： 2020/7/13
      * @author：李国烨
      */
@@ -742,7 +750,7 @@ export default {
      * @method：handleQuery
      * @desc：筛选radio
      * @params: data：自定义组件传的数据
-     * @create date： 2020/6/28
+     * @create date： 2020/6/19
      * @update date： 2020/7/13
      * @author：李国烨
      */
