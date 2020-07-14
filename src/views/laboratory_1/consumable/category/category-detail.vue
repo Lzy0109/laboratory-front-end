@@ -54,7 +54,7 @@
 
 <script>
 import { isChinese, isEnglish } from '@/utils/fieldValidate'
-import { createConsumableCategoryInfo, fetchConsumableCategoryInfoById }from '@/api/laboratory_1/consumable-category'
+import { deleteConsumableCategoryById, createConsumableCategoryInfo, fetchConsumableCategoryInfoById }from '@/api/laboratory_1/consumable-category'
 export default {
   name: 'ConsumableCategoryDetail',
   data() {
@@ -235,14 +235,12 @@ export default {
      * @update date： 2020/7/13
      * @author：李国烨
      */
-    handleDelete() {
-      if (this.dataForm.id) {
-        // 调用删除信息接口
-        console.log(this.dataForm.id)
+    async handleDelete() {
+      await deleteConsumableCategoryById(this.dataForm.id).then(res => {
         return true
-      } else {
+      }).catch(err => {
         return false
-      }
+      })
     },
     /**
      * @method：beforeHandleDelete
