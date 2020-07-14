@@ -1,4 +1,3 @@
-const Mock = require('mockjs')
 
 const count = 20;
 const List = []
@@ -6,42 +5,42 @@ const List = []
 for (let i = 1; i <= count; i++){
   List.push({
     id: i,
-    number: '耗材编号',
-    name: '耗材名称',
-    english_name: 'english-name',
+    number: '0w0' + i,
+    name: '耗材名称' + i,
+    english_name: 'english-name' + i,
     lab_consumable_category_id: i,
-    lab_consumable_category_name: '耗材种类',
+    lab_consumable_category_name: '耗材种类' + i,
     lab_brand_id: i,
-    brand_name: '品牌',
+    brand_name: '品牌' + i,
     lab_model_id: i,
-    model_name: '型号',
+    model_name: '型号' + i,
     lab_unit_id: i,
-    lab_unit_name: '单位',
-    specification: '规格',
+    lab_unit_name: '单位' + i,
+    specification: '规格' + i,
     specialized: true,
     lab_manufacturer_id: i,
-    manufacturer_name: '生产商',
+    manufacturer_name: '生产商' + i,
     manufacturer_telephone: 'i2345678911',
     lab_supplier_id: i,
-    supplier_name: '供货商',
+    supplier_name: '供货商' + i,
     supplier_telephone: '22345678922',
 
 
     // 适用器材（applicative_equipment）
 
-    bills_number: '单据号',
-    purchase_date: '20i6-01-01',
+    bills_number: '单据号' + i,
+    purchase_date: '2020-01-01',
     field_id: i,
-    field_name: '存放场所',
-    expenditure: '经费来源',
-    purchase_method: '购买方式',
-    warranty: '保修期',
+    field_name: '存放场所' + i,
+    expenditure: '经费来源' + i,
+    purchase_method: '购买方式' + i,
+    warranty: '保修期' + i,
 
-    quantity: '数量',
-    unit_price: '单价',
-    total_price: '总价',
+    quantity: '数量' + i,
+    unit_price: '单价' + i,
+    total_price: '总价' + i,
     country_code_id: i,
-    country_code_name: '国码',
+    country_code_name: '国码' + i,
     production_date: '2020-07-01',
   })
 }

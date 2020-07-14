@@ -296,7 +296,7 @@
 
 <script>
 // 字典1
-import { createConsumableInfo } from '../../../../api/laboratory_1/consumable'
+import { createConsumableInfo } from '@/api/laboratory_1/consumable'
 
 const allListName = [
   { key: 'consumableCategoryList', dialogVisibleName: 'consumableCategoryDialogVisible', option: 'getConsumableCategoryList' },
