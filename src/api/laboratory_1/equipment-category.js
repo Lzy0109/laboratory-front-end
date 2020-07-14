@@ -1,3 +1,9 @@
+/**
+  * @Author：李国烨
+  * @Create： 2020/7/14
+  * @Desc：器材分类接口
+  * @version: v1.0
+ */
 import request from '@/utils/request'
 
 /**

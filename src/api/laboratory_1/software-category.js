@@ -1,3 +1,9 @@
+/**
+  * @Author：李国烨
+  * @Create： 2020/7/11
+  * @Desc：软件分类信息接口
+  * @version: v1.0
+ */
 import request from '@/utils/request'
 
 /**
