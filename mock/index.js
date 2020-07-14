@@ -13,6 +13,8 @@ const manufacturer = require('./manufacturer')
 const supplier = require('./supplier')
 const consumableCategory = require('./consumable-category')
 const consumable = require('./consumable')
+const field = require('./field')
+const model = require('./model')
 
 const mocks = [
   ...user,
@@ -26,7 +28,9 @@ const mocks = [
   ...manufacturer,
   ...supplier,
   ...consumableCategory,
-  ...consumable
+  ...consumable,
+  ...field,
+  ...model
 ]
 
 // for front mock

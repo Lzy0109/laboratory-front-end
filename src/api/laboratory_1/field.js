@@ -1,15 +1,15 @@
 import request from '@/utils/request'
 /**
  * 获取全部信息
- * @param query 查询条件数据
+ * @param keyword 查询条件数据
  * @returns {*}
  */
-export function fetchFieldInfos(query) {
+export function fetchFieldInfos(keyword) {
   return request({
-    url: 'dev/api',
+    url: '/api/field/infos',
     method: 'GET',
-    query: {
-      query
+    params: {
+      keyword
     }
   })
 }
@@ -20,7 +20,11 @@ export function fetchFieldInfos(query) {
  */
 export function fetchFieldInfoById(id) {
   return request({
-    url: 'dev/api/' + id,
-    method: 'GET'
+    // url: 'dev/api/' + id,
+    url: '/api/field/detail',
+    method: 'GET',
+    params: {
+      id: id
+    }
   })
 }
