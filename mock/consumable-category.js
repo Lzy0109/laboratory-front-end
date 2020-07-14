@@ -5,15 +5,15 @@ const List = []
 for (let i = 1; i <= count; i++){
   List.push({
     id: i,
-    name: '软件',
-    english_name: 'eng-sw',
-    description: 'desc-sw'
+    name: '耗材分类' + i,
+    english_name: 'eng-cc' + i,
+    description: 'desc-cc'
   })
 }
 
 module.exports = [
   {
-    url: '/api/softwareCategory/infos',
+    url: '/api/consumableCategory/infos',
     type: 'get',
     response: config => {
       console.log('config query = ', config.query)
@@ -38,7 +38,7 @@ module.exports = [
     }
   },
   {
-    url: '/api/softwareCategory/detail',
+    url: '/api/consumableCategory/detail',
     type: 'get',
     response: config => {
       const {id} = config.query
@@ -53,7 +53,7 @@ module.exports = [
     }
   },
   {
-    url: '/api/softwareCategory/create',
+    url: '/api/consumableCategory/create',
     type: 'post',
     response: config => {
       return {
@@ -65,7 +65,7 @@ module.exports = [
     }
   },
   {
-    url: '/api/softwareCategory/delete',
+    url: '/api/consumableCategory/delete',
     type: 'delete',
     response: config => {
       return {
@@ -77,7 +77,7 @@ module.exports = [
     }
   },
   {
-    url:'/api/softwareCategory/modify',
+    url:'/api/consumableCategory/modify',
     type: 'put',
     response: config => {
       return {

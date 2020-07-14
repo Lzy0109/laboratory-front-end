@@ -1,4 +1,9 @@
-// 实验器材管理
+/**
+ * @Author: 刘梓伊
+ * @Date: 2020-06-26
+ * @Description: 实验器材管理路由
+ * @Version: 1.0
+ **/
 import equipDetailRouter from '@/router/modules/equipment/equip-modules/information/equipment-detail'
 import equipCreateRouter from '@/router/modules/equipment/equip-modules/information/equipment-create'
 import equipSoftwareListRouter from '@/router/modules/equipment/equip-modules/information/equipment-software-list'

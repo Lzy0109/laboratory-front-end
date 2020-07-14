@@ -1,3 +1,9 @@
+<!--
+    @Author: 刘梓伊
+    @Description: 实验室列表界面
+    @Date: 2020-06-15 16:27
+    @Version: 1.0
+-->
 <template>
   <div class="app-container">
     <!-- 功能区域 -->
@@ -188,6 +194,7 @@
 
 <script>
 import Pagination from '@/components/Pagination'
+// 假数据
 const fakeData = {
   id: 1,
   english_name: 'en-test',
@@ -196,6 +203,7 @@ const fakeData = {
   max_seat: '100',
   field_manager: '负责人'
 }
+// 实验室分类列表（假数据）
 const fake_labCategoryList = [
   { id: 1, name: '实验室类别1' },
   { id: 2, name: '实验室类别2' }
@@ -259,7 +267,7 @@ export default {
       this.labCategoryList = fake_labCategoryList
       // 调用获取列表信息接口
     },
-    /* 详情 */
+    /* 跳转实验室详情页面 */
     handleDetail(row) {
       console.log('handleDetail')
       this.$router.push({

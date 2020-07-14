@@ -1,3 +1,9 @@
+<!--
+    @Author: 刘梓伊
+    @Description: 添加实验室分类界面
+    @Date: 2020-06-18 16:25
+    @Version: 1.0
+-->
 <template>
   <div class="app-container">
     <!-- 功能按钮 -->
@@ -56,6 +62,7 @@
         }
       }
       return {
+        // 校验规则
         rules: {
           name: [
             { required: true, trigger: 'blur', validator: validateIsChinese }
@@ -76,6 +83,7 @@
       }
     },
     methods: {
+      /* 提交表单数据 */
       submitCreate(formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
@@ -84,10 +92,10 @@
               message: '添加成功!',
               type: 'success'
             })
-            console.log('success submit!!')
+            console.log('submit')
             this.$router.go(-1)
           } else {
-            console.log('error submit!!')
+            console.log('error')
             return false
           }
         })

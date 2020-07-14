@@ -1,3 +1,9 @@
+<!--
+    @Author: 刘梓伊
+    @Date: 2020-06-15 16:27
+    @Description: 实验室详情页面代码
+    @Version: 1.0
+-->
 <template>
   <div class="app-container">
     <!-- 功能按钮 -->
@@ -14,18 +20,21 @@
       <h2>实验室详细信息</h2>
       <el-form ref="dataForm" :model="dataForm" :rules="rules" hide-required-asterisk>
         <el-row type="flex" class="row-bg" justify="space-around">
+          <!-- 英文名称 -->
           <el-col :span="6">
             <el-form-item label="英文名称" label-width="100px" prop="english_name">
               <span v-show="isRead">{{ dataForm.english_name }}</span>
               <el-input v-show="!isRead" v-model="dataForm.english_name" style="width: auto;" :readonly="isRead" />
             </el-form-item>
           </el-col>
+          <!-- 中文名称 -->
           <el-col :span="6">
             <el-form-item label="中文名称" label-width="100px" prop="name">
               <span v-show="isRead">{{ dataForm.name }}</span>
               <el-input v-show="!isRead" v-model="dataForm.name" style="width: auto" :readonly="isRead" />
             </el-form-item>
           </el-col>
+          <!-- 实验室分类 -->
           <el-col :span="6">
             <el-form-item label="实验室分类" label-width="100px" prop="lab_category_name">
               <span v-show="isRead">{{ dataForm.lab_category_name }}</span>
@@ -34,6 +43,7 @@
               </el-button>
             </el-form-item>
           </el-col>
+          <!-- 最大机位数 -->
           <el-col :span="6">
             <el-form-item label="最大机位数" label-width="100px" prop="max_seat">
               <span v-show="isRead">{{ dataForm.max_seat }}</span>
@@ -42,6 +52,7 @@
           </el-col>
         </el-row>
         <el-row>
+          <!-- 场地 -->
           <el-col :span="6">
             <el-form-item label="场地" label-width="100px" prop="field_id">
               <span v-show="isRead">{{ dataForm.field_name }}</span>
@@ -50,18 +61,21 @@
               </el-button>
             </el-form-item>
           </el-col>
+          <!-- 楼层 -->
           <el-col :span="6">
             <el-form-item label="楼层" label-width="100px">
               <span>{{ dataForm.field_floor }}</span>
               <!--<el-input v-model="dataForm.field_floor" style="width: auto" readonly />-->
             </el-form-item>
           </el-col>
+          <!-- 房间号 -->
           <el-col :span="6">
             <el-form-item label="房间号" label-width="100px">
               <span>{{ dataForm.field_room }}</span>
               <!--<el-input v-model="dataForm.field_room" style="width: auto" readonly />-->
             </el-form-item>
           </el-col>
+          <!-- 场地负责人 -->
           <el-col :span="6">
             <el-form-item label="场地负责人" label-width="100px">
               <span>{{ dataForm.field_manager }}</span>
@@ -70,24 +84,28 @@
           </el-col>
         </el-row>
         <el-row>
+          <!-- 可容纳人数 -->
           <el-col :span="6">
             <el-form-item label="可容纳人数" label-width="100px">
               <span>{{ dataForm.field_volumn }}</span>
               <!--<el-input v-model="dataForm.field_volumn" style="width: auto" readonly />-->
             </el-form-item>
           </el-col>
+          <!-- 场地长度 -->
           <el-col :span="6">
             <el-form-item label="场地长度" label-width="100px">
               <span>{{ dataForm.field_long }}</span>
               <!--<el-input v-model="dataForm.field_long" style="width: auto" readonly />-->
             </el-form-item>
           </el-col>
+          <!-- 场地宽度 -->
           <el-col :span="6">
             <el-form-item label="场地宽度" label-width="100px">
               <span>{{ dataForm.field_width }}</span>
               <!--<el-input v-model="dataForm.field_width" style="width: auto" readonly />-->
             </el-form-item>
           </el-col>
+          <!-- 场地高度 -->
           <el-col :span="6">
             <el-form-item label="场地高度" label-width="100px">
               <span>{{ dataForm.field_height }}</span>
@@ -96,6 +114,7 @@
           </el-col>
         </el-row>
         <el-row>
+          <!-- 室内or室外 -->
           <el-col :span="6">
             <el-form-item label="室内/室外" label-width="100px" prop="infoValidation">
               <span>{{ dataForm.field_isIndoor }}</span>
@@ -104,6 +123,7 @@
           </el-col>
         </el-row>
       </el-form>
+      <!-- 编辑按钮 -->
       <el-collapse-transition>
         <div v-show="showSaveBtn" style="text-align: center">
           <el-button type="success" size="medium" @click="submitEdit('dataForm')">保存</el-button>
@@ -111,7 +131,7 @@
         </div>
       </el-collapse-transition>
     </div>
-    <!-- 实验室分类dialog -->
+    <!-- 实验室分类radio组合框 -->
     <dictionary-for-select
       title="实验室分类"
       listName="labCategoryList"
@@ -126,7 +146,7 @@
       @handleSelect="handleSelect"
     >
     </dictionary-for-select>
-    <!-- 场地dialog -->
+    <!-- 场地分类radio组合框 -->
     <dictionary-for-select
       title="场地"
       listName="fieldList"
@@ -145,12 +165,12 @@
 </template>
 
 <script>
-// 假数据 start
+// 实验室详情信息假数据
 const fakeData = {
   id: 1,
   college_id: '1',
   college_name: '学校名称',
-  english_name: 'testen',
+  english_name: 'test-en',
   name: '实验室',
   lab_category_id: 1,
   lab_category_name: '实验室类别1',
@@ -169,6 +189,7 @@ const fakeData = {
   field_long: '长度',
   field_volumn: '最大容纳人数'
 }
+// radio组合框假数据
 const fakeList = [
   { id: 1, pre_name: 'c1', name: 'radio内容1', phone: '13512341234' },
   { id: 2, pre_name: 'c1', name: 'radio内容2', phone: '16812341234' },
@@ -193,12 +214,12 @@ const fakeList = [
   { id: 21, pre_name: 'c3', name: 'radio内容21', phone: '13812341234' },
   { id: 22, pre_name: 'c3', name: 'radio内容22', phone: '13812341234' }
 ]
-// 假数据 end
-
+// 指向对应对话框
 const allListName = [
   { key: 'labCategoryList', dialogVisibleName: 'labCategoryDialogVisible', option: 'getLabCategoryList' },
   { key: 'fieldList', dialogVisibleName: 'fieldDialogVisible', option: 'getFieldList' }
 ]
+// 指向根据id获取的方法
 const key2option = [
   {key: 'labCategory', option: 'fetchLabCategoryById'},
   {key: 'field', option: 'fetchFieldById'}
@@ -209,7 +230,7 @@ import { isChinese, isEnglish } from '@/utils/fieldValidate'
 import DictionaryForSelect from '@/components/DictionaryForSelect'
 
 export default {
-  name: 'FieldDetail',
+  name: 'field-detail',
   components: {
     DictionaryForSelect
   },
@@ -231,6 +252,7 @@ export default {
     return {
       dataForm: null,
       tempData: null,
+      // 校验信息规则
       rules: {
         name: [
           { required: true, trigger: 'blur', validator: validateIsChinese }
@@ -260,11 +282,12 @@ export default {
       fieldList: []
     }
   },
+  // 渲染页面时加载
   created() {
     this.getOriginalData()
   },
   methods: {
-    /* 根据ID获取数据 */
+    /* 根据实验室id获取数据 */
     getOriginalData() {
       // 暂用假数据
       this.dataForm = fakeData
@@ -275,7 +298,7 @@ export default {
     handleReturn() {
       this.$router.go(-1)
     },
-    /* 编辑前 */
+    /* 点击编辑按钮，保存修改前的数据，打开input框，显示保存取消按钮 */
     beforeEdit() {
       this.showSaveBtn = !this.showSaveBtn
       // 保存修改前数据
@@ -287,16 +310,14 @@ export default {
       // 设为不可用,防止暂存数据出错
       this.isAble = true
     },
-    /* 编辑后 */
+    /* 编辑后，还原修改前所有状态 */
     afterEdit() {
-      // 还原修改前所有状态
       this.tempData = null
       this.isRead = true
       this.showSaveBtn = false
       this.isAble = false
-
     },
-    /* 提交编辑的内容 */
+    /* 提交编辑的内容，显示提示信息 */
     submitEdit(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
@@ -305,7 +326,7 @@ export default {
             type: 'success'
           })
           // 根据返回信息重新复制dataForm
-          console.log('success submit!!')
+          console.log('submit')
           // 修改成功后操作
           this.afterEdit()
         } else {
@@ -313,18 +334,18 @@ export default {
             message: '修改的内容存在错误，请修改后再保存，否则请取消编辑',
             type: 'error'
           })
-          console.log('error submit!!')
+          console.log('error')
           return false
         }
       })
     },
-    /* 取消编辑操作 */
+    /* 取消编辑，调用afterEdit方法 */
     cancelEdit(formName) {
       this.dataForm = { ...this.tempData }
       this.$refs[formName].clearValidate()
       this.afterEdit()
     },
-    /* 取消 */
+    /* 取消编辑，显示提示信息 */
     beforeCancelEdit(formName) {
       this.$confirm('修改信息还没保存, 是否继续?', '提示', {
         confirmButtonText: '确定',
@@ -340,7 +361,7 @@ export default {
         console.log('已取消退出')
       })
     },
-    /* 删除 */
+    /* 删除操作，根据实验室id调用接口 */
     handleDelete() {
       if (this.dataForm.id) {
         console.log(this.dataForm.id)
@@ -349,7 +370,7 @@ export default {
         return false
       }
     },
-    /* 删除 确认弹窗 */
+    /* 点击删除按钮的提示信息 */
     beforeHandleDelete() {
       this.$confirm('此操作将删除该信息, 是否继续?', '提示', {
         confirmButtonText: '确定',
@@ -375,11 +396,11 @@ export default {
         })
       })
     },
-    /* 导出 */
+    /* 导出信息 */
     handleDownload() {
       console.log('导出')
     },
-    /* 跳转到设施详情 */
+    /* 根据实验室id获取实验室的设施清单 */
     handleFacilityDetail(id) {
       console.log('facility-components-modules id =' + id)
       this.$router.push({
@@ -389,7 +410,7 @@ export default {
         }
       })
     },
-    /* 跳转到器材详情 */
+    /* 根据实验室id获取实验的器材清单 */
     handleEquipmentDetail(id) {
       console.log('components-modules id =' + id)
       this.$router.push({
@@ -399,22 +420,7 @@ export default {
         }
       })
     },
-    /* 获取实验室分类列表信息 */
-    getLabCategoryList(keyword) {
-      console.log('调用获取实验室分类列表信息接口')
-      if (!keyword) {
-        this.labCategoryList = fakeList
-        return false
-      }
-      // 调用接口
-      // 暂用假数据 作为筛选， 实际通过后台进行筛选
-      this.labCategoryList = fakeList.filter(m => m.pre_name === keyword).map(m => ({
-        id: m.id,
-        pre_name: m.pre_name,
-        name: m.name
-      }))
-    },
-    /* 获取场地列表信息 */
+    /* 获取场地列表信息，可模糊查询 */
     getFieldList(keyword) {
       console.log('调用获取场地列表信息接口')
       if (!keyword) {
@@ -429,13 +435,13 @@ export default {
         name: m.name
       }))
     },
-    /* 获取软件分类信息 id */
+    /* 根据id获取实验室分类信息 */
     fetchLabCategoryById(id) {
       return {
         lab_category_name: 'test'
       }
     },
-    /* 获取场地信息 id */
+    /* 获取根据场地id获取场地信息 */
     fetchFieldById(id) {
       return   {
         field_name: '场地1名称',
@@ -449,6 +455,21 @@ export default {
         field_long: '长度',
         field_volumn: '最大容纳人数'
       }
+    },
+    /* 获取实验室分类信息（radio组合框），可模糊查询 */
+    getLabCategoryList(keyword) {
+      console.log('调用获取实验室分类列表信息接口')
+      if (!keyword) {
+        this.labCategoryList = fakeList
+        return false
+      }
+      // 调用接口
+      // 暂用假数据 作为筛选， 实际通过后台进行筛选
+      this.labCategoryList = fakeList.filter(m => m.pre_name === keyword).map(m => ({
+        id: m.id,
+        pre_name: m.pre_name,
+        name: m.name
+      }))
     },
     /* 根据关键词打开dialog */
     handleOpenDialog(dialogVisible) {
@@ -481,6 +502,7 @@ export default {
       console.log('data.dialogVisibleKey = ' + data.dialogVisibleKey)
       this[data.dialogVisibleKey] = false
     },
+    /* radio组合框中的模糊查询 */
     handleQuery(data) {
       console.log('data=>' + data.listName + ',' + data.queryKeyword)
       let keyword = data.queryKeyword

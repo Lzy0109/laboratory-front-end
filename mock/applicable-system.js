@@ -14,7 +14,6 @@ module.exports = [
     url: '/api/applicableSystem/infos',
     type: 'get',
     response: config => {
-      console.log('config query = ', config.query.keyword)
       let temp_keyword = config.query.keyword
       if (!temp_keyword){
         return {
@@ -40,8 +39,7 @@ module.exports = [
     type: 'get',
     response: config => {
       const {id} = config.query
-      let tempData = List.filter(m => m.id === id * 1)
-        .map(m => ({applicable_system_id:m.id,applicable_system_name: m.name})).pop()
+      let tempData = List.filter(m => m.id === id * 1).pop()
       // console.log({...tempData})
       return {
         code: 20000,

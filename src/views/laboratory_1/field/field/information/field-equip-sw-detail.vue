@@ -1,3 +1,9 @@
+<!--
+    @Author: 刘梓伊
+    @Description: 实验室器材内置软件详情界面
+    @Date: 2020-06-20 16:31
+    @Version: 1.0
+-->
 <template>
   <div class="app-container">
     <!-- 功能按钮 -->
@@ -6,6 +12,7 @@
       <el-button type="primary" :disabled="isAble" @click="beforeEdit" size="medium">编辑信息</el-button>
       <el-button type="danger" @click="beforeHandleDelete" size="medium">删除</el-button>
       <el-button type="success" @click="handleDownload" size="medium">导出信息</el-button>
+      <!-- 考虑打开窗口显示附件列表（如果包含多个附件的话），或者点击下载附件 -->
       <el-button type="primary" @click="handleAttachment" size="medium">查看使用说明</el-button>
     </div>
     <!-- 详细信息展示 -->
@@ -116,6 +123,7 @@
       return {
         dataForm: null,
         tempData: null,
+        // 校验规则
         rules: {
           number: [
             { type: 'number', message: '请输入数字', trigger: 'blur' }

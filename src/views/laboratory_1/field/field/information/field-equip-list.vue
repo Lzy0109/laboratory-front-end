@@ -1,3 +1,9 @@
+<!--
+    @Author: 刘梓伊
+    @Description: 实验室器材列表清单
+    @Date: 2020-06-13 16:40
+    @Version: 1.0
+-->
 <template>
   <div class="app-container">
     <!-- 功能区域 -->
@@ -226,6 +232,7 @@
 <script>
 import Pagination from '@/components/Pagination'
 
+// 状态列表
 const statusList = [
   { id: 0, name: '在库' },
   { id: 1, name: '使用中' },
@@ -307,8 +314,11 @@ export default {
       },
       /* 是否显示高级搜索 */
       showDetailSearchBtn: false,
+      /* 器材分类列表 */
       equCategoryList: [],
+      /* 状态列表 */
       statusList: [],
+      /* 场地列表 */
       fieldList: []
     }
   },
@@ -318,6 +328,7 @@ export default {
     this.getEquCategoryList()
   },
   methods: {
+    /* 获取实验室器材清单列表信息 */
     getTableList() {
       /* fake data */
       this.tableData = fakeDataList
@@ -326,7 +337,7 @@ export default {
       /* 根据传过来的实验室id获取对应的器材 */
       console.log('实验室id获取对应的器材. lab id')
     },
-    /* 获取器材负责人（人员）信息 */
+    /* 获取器材负责人信息 */
     getEquOwnerList() {
       console.log('equ owner list')
     },
@@ -334,10 +345,11 @@ export default {
     getEquCategoryList() {
       console.log('equ category list')
     },
+    /* 返回上一页 */
     handleReturn() {
       this.$router.go(-1)
     },
-    /* 详情 */
+    /* 器材详情 */
     handleDetail(row) {
       console.log('handleDetail id=' + row.id)
       this.$router.push({
@@ -355,7 +367,7 @@ export default {
     handleDownload() {
 
     },
-    /* 添加器材 */
+    /* 跳转添加器材 */
     handleCreate() {
       console.log('handleCreate')
       this.$router.push({

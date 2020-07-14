@@ -1,4 +1,9 @@
-// 实验室人员管理
+/**
+ * @Author: 刘梓伊
+ * @Date: 2020-06-26
+ * @Description: 实验室人员管理路由
+ * @Version: 1.0
+ **/
 import personnelListRouter from '@/router/modules/personnel/modules/information/personnel-list'
 import personnelDetailRouter from '@/router/modules/personnel/modules/information/personnel-detail'
 import personnelDispatchRouter from '@/router/modules/personnel/modules/dispatch/personnel-dispatch'

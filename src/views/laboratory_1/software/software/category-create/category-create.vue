@@ -1,3 +1,9 @@
+<!--
+    @Author 李国烨
+    @Date 2020/6/27 23:00
+    @Description: 软件分类信息创建页面
+    @Version 1.0
+-->
 <template>
   <div class="app-container">
     <!-- 功能按钮 -->
@@ -36,6 +42,7 @@
 <script>
 
 import { isChinese, isEnglish } from '@/utils/fieldValidate'
+import { createSoftwareCategoryInfo } from '@/api/laboratory_1/software-category'
 export default {
   name: 'category-create',
   data() {
@@ -74,16 +81,30 @@ export default {
     }
   },
   methods: {
+    /**
+      * @method：submitCreate
+      * @desc：提交表单
+      * @params: formName 表单名称
+      * @create date： 2020/6/27
+      * @update date： 2020/7/13
+      * @author：李国烨
+     */
     submitCreate(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
           // 调用接口
-          this.$message({
-            message: '添加成功!',
-            type: 'success'
+          createSoftwareCategoryInfo(this.dataForm).then(res => {
+            this.$message({
+              message: '添加成功!',
+              type: 'success'
+            })
+            this.$router.go(-1)
+          }).catch(err => {
+            this.$message({
+              message: '添加失败!' + err,
+              type: 'error'
+            })
           })
-          console.log('success submit!!')
-          this.$router.go(-1)
         } else {
           this.$message({
             message: '添加失败!请注意您输入的内容',
@@ -94,7 +115,14 @@ export default {
         }
       })
     },
-    /* 返回上一页 */
+    /**
+      * @method：handleReturn
+      * @desc：返回上一页
+      * @params:
+      * @create date： 2020/6/27
+      * @update date： 2020/7/13
+      * @author：李国烨
+     */
     handleReturn() {
       this.$router.go(-1)
     }

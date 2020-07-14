@@ -1,3 +1,9 @@
+<!--
+    @Author 李国烨
+    @Date 2020/7/6 21:17
+    @Description: 耗材分类详细信息页面
+    @Version 1.0
+-->
 <template>
   <div class="app-container">
     <!-- 功能按钮 -->
@@ -47,14 +53,8 @@
 </template>
 
 <script>
-const fake_data =
-  {
-    id: 1,
-    name: '分类名称',
-    english_name: 'test_category',
-    description: '耗材分类描述'
-  }
 import { isChinese, isEnglish } from '@/utils/fieldValidate'
+import { createConsumableCategoryInfo, fetchConsumableCategoryInfoById }from '@/api/laboratory_1/consumable-category'
 export default {
   name: 'ConsumableCategoryDetail',
   data() {
@@ -96,51 +96,90 @@ export default {
     this.getOriginalData()
   },
   methods: {
-    /* 根据ID获取数据 */
+    /**
+     * @method：getOriginalData
+     * @desc：根据ID获取数据
+     * @params: id
+     * @create date： 2020/6/30
+     * @update date： 2020/7/13
+     * @author：李国烨
+     */
     getOriginalData() {
-      // 暂用假数据
-      this.dataForm = fake_data
       const id = this.$route.query.id
       console.log(id)
       // 调用获取信息接口
+      fetchConsumableCategoryInfoById(id).then(res => {
+        this.dataForm = res.data.item
+      }).catch(err => {
+        this.$message({
+          message: '获取信息失败！',
+          type: 'error'
+        })
+      })
     },
-    /* 返回上一页 */
+    /**
+     * @method：handleReturn
+     * @desc：返回上一页
+     * @params:
+     * @create date： 2020/6/30
+     * @update date： 2020/7/13
+     * @author：李国烨
+     */
     handleReturn() {
       this.$router.go(-1)
     },
-    /* 编辑前 */
+    /**
+     * @method：beforeEdit
+     * @desc：编辑前的准备
+     * @params:
+     * @create date： 2020/6/30
+     * @update date： 2020/7/13
+     * @author：李国烨
+     */
     beforeEdit() {
-      this.showSaveBtn = !this.showSaveBtn
-      // 保存修改前数据
-      this.tempData = { ...this.dataForm }
-      // 使input为非readonly
-      this.isRead = false
-      // 显示保存信息按钮
-      this.showSaveBtn = true
-      // 设为不可用,防止暂存数据出错
-      this.isAble = true
+      this.showSaveBtn = !this.showSaveBtn;
+      this.tempData = { ...this.dataForm }; // 保存修改前数据
+      this.isRead = false;  // 使input为非readonly
+      this.showSaveBtn = true;  // 显示保存信息按钮
+      this.isAble = true; // 设为不可用,防止暂存数据出错
     },
-    /* 编辑后 */
+    /**
+     * @method：afterEdit
+     * @desc：编辑成功后 回复修改前的页面状态
+     * @params:
+     * @create date： 2020/6/30
+     * @update date： 2020/7/13
+     * @author：李国烨
+     */
     afterEdit() {
-      // 还原修改前所有状态
       this.tempData = null
       this.isRead = true
       this.showSaveBtn = false
       this.isAble = false
     },
-    /* 提交编辑的内容 */
+    /**
+     * @method：submitEdit
+     * @desc：调用编辑信息接口 提交编辑的内容 修改成功后调用afterEdit
+     * @params: dataForm 表单内容
+     * @create date： 2020/6/30
+     * @update date： 2020/7/13
+     * @author：李国烨
+     */
     submitEdit(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          // 调用编辑信息接口
-          this.$message({
-            message: '修改成功',
-            type: 'success'
+          createConsumableCategoryInfo(this.dataForm).then(res => {
+            this.$message({
+              message: '修改成功',
+              type: 'success'
+            })
+            this.afterEdit()
+          }).catch(err => {
+            this.$message({
+              message: '修改失败' + err,
+              type: 'error'
+            })
           })
-          // 修改后操作
-          this.afterEdit()
-          // 根据返回信息重新复制dataForm
-          console.log('success submit!!')
         } else {
           this.$message({
             message: '修改失败！请注意输入内容',
@@ -151,13 +190,27 @@ export default {
         }
       })
     },
-    /* 取消编辑操作 */
+    /**
+     * @method：cancelEdit
+     * @desc：取消编辑操作，将编辑前保存的数据返回，还原初始状态
+     * @params: formName 表单名称
+     * @create date： 2020/6/30
+     * @update date： 2020/7/13
+     * @author：李国烨
+     */
     cancelEdit(formName) {
       this.dataForm = { ...this.tempData }
       this.$refs[formName].clearValidate()
       this.afterEdit()
     },
-    /* 取消 确认弹窗 */
+    /**
+     * @method：beforeCancelEdit
+     * @desc：取消编辑前的确认弹窗，确认取消则调用cancelEdit
+     * @params: formName 表单名称
+     * @create date： 2020/6/30
+     * @update date： 2020/7/13
+     * @author：李国烨
+     */
     beforeCancelEdit(formName) {
       this.$confirm('修改信息还没保存, 是否继续?', '提示', {
         confirmButtonText: '确定',
@@ -174,7 +227,14 @@ export default {
         console.log('已取消退出')
       })
     },
-    /* 删除 */
+    /**
+     * @method：handleDelete
+     * @desc：根据ID删除信息
+     * @params:
+     * @create date： 2020/6/30
+     * @update date： 2020/7/13
+     * @author：李国烨
+     */
     handleDelete() {
       if (this.dataForm.id) {
         // 调用删除信息接口
@@ -184,7 +244,14 @@ export default {
         return false
       }
     },
-    /* 删除 确认弹窗 */
+    /**
+     * @method：beforeHandleDelete
+     * @desc：删除前弹出确认弹窗， 确认则调用handleDelete进行删除
+     * @params:
+     * @create date： 2020/6/30
+     * @update date： 2020/7/13
+     * @author：李国烨
+     */
     beforeHandleDelete() {
       this.$confirm('此操作将删除该信息, 是否继续?', '提示', {
         confirmButtonText: '确定',
@@ -210,7 +277,14 @@ export default {
         })
       })
     },
-    /* 导出 */
+    /**
+     * @method：handleDownload
+     * @desc：导出
+     * @params:
+     * @create date： 2020/6/30
+     * @update date： 2020/7/13
+     * @author：李国烨
+     */
     handleDownload() {
       console.log('导出')
     }

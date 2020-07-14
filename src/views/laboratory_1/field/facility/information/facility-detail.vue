@@ -1,3 +1,9 @@
+<!--
+    @Author: 刘梓伊
+    @Description: 设施详情界面
+    @Date: 2020-06-19 16:52
+    @Version: 1.0
+-->
 <template>
   <div class="app-container">
     <!-- 功能按钮 -->

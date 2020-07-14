@@ -1,3 +1,9 @@
+<!--
+    @Author: 刘梓伊
+    @Description: 添加设施分类信息界面
+    @Date: 2020-06-19 16:50
+    @Version: 1.0
+-->
 <template>
   <div class="app-container">
     <!-- 功能按钮 -->

@@ -1,4 +1,9 @@
-// 实验室资产管理
+/**
+ * @Author: 刘梓伊
+ * @Date: 2020-06-26
+ * @Description: 实验室资产管理路由
+ * @Version: 1.0
+ **/
 import propertyListRouter from '@/router/modules/property/modules/information/property-list'
 import propertyDetailRouter from '@/router/modules/property/modules/information/property-detail'
 import propertyLendRouter from '@/router/modules/property/modules/lend/property-lend'

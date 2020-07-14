@@ -1,3 +1,9 @@
+<!--
+    @Author: 刘梓伊
+    @Description: 添加实验室信息界面
+    @Date: 2020-06-15 16:14
+    @Version: 1.0
+-->
 <template>
   <div class="app-container">
     <!-- 功能按钮 -->
@@ -145,7 +151,8 @@
 </template>
 
 <script>
-const fake_fieldList = [
+  // 场地列表信息 假数据
+  const fake_fieldList = [
   {
     id: 1,
     name: '场地1名称',
@@ -186,7 +193,8 @@ const fake_fieldList = [
     volumn: '最大容纳人数'
   }
 ]
-const fakeList = [
+  // 假数据radio列表
+  const fakeList = [
   { id: 1, pre_name: 'c1', name: 'radio内容1', phone: '13512341234' },
   { id: 2, pre_name: 'c1', name: 'radio内容2', phone: '16812341234' },
   { id: 3, pre_name: 'c1', name: 'radio内容3', phone: '13812341234' },
@@ -211,21 +219,22 @@ const fakeList = [
   { id: 22, pre_name: 'c3', name: 'radio内容22', phone: '13812341234' }
 ]
 
-const allListName = [
-  { key: 'labCategoryList', dialogVisibleName: 'labCategoryDialogVisible', option: 'getLabCategoryList' },
-  { key: 'fieldList', dialogVisibleName: 'fieldDialogVisible', option: 'getFieldList' }
-]
-const key2option = [
-  {key: 'labCategory', option: 'fetchLabCategoryById'},
-  {key: 'field', option: 'fetchFieldById'}
-]
+  const allListName = [
+    { key: 'labCategoryList', dialogVisibleName: 'labCategoryDialogVisible', option: 'getLabCategoryList' },
+    { key: 'fieldList', dialogVisibleName: 'fieldDialogVisible', option: 'getFieldList' }
+  ]
+
+  const key2option = [
+    {key: 'labCategory', option: 'fetchLabCategoryById'},
+    {key: 'field', option: 'fetchFieldById'}
+  ]
 
 import { getSelectValue } from '@/utils/get-select-value'
 import { isChinese, isEnglish } from '@/utils/fieldValidate'
 import DictionaryForSelect from '@/components/DictionaryForSelect'
 
 export default {
-  name: 'FieldCreate',
+  name: 'field-create',
   components: {
     DictionaryForSelect
   },
@@ -245,6 +254,7 @@ export default {
       }
     }
     return {
+      // 校验规则
       rules: {
         name: [
           { required: true, trigger: 'blur', validator: validateIsChinese }
@@ -289,6 +299,7 @@ export default {
 
   },
   methods: {
+    /* 提交表单信息 */
     submitCreate(formName) {
       // 验证输入合法性
       this.$refs[formName].validate((valid) => {
@@ -298,10 +309,10 @@ export default {
             message: '添加成功!',
             type: 'success'
           })
-          console.log('success submit!!')
+          console.log('submit')
           console.log(this.dataForm)
         } else {
-          console.log('error submit!!')
+          console.log('error')
           return false
         }
       })
@@ -340,13 +351,13 @@ export default {
         name: m.name
       }))
     },
-    /* 获取软件分类信息 id */
+    /* 根据id获取软件分类信息 */
     fetchLabCategoryById(id) {
       return {
        lab_category_name: 'test'
       }
     },
-    /* 获取场地信息 id */
+    /* 根据id获取场地信息 */
     fetchFieldById(id) {
       return {
         field_name: '场地1名称'
@@ -383,6 +394,7 @@ export default {
       console.log('data.dialogVisibleKey = ' + data.dialogVisibleKey)
       this[data.dialogVisibleKey] = false
     },
+    /* 模糊查询 */
     handleQuery(data) {
       console.log('data=>' + data.listName + ',' + data.queryKeyword)
       let keyword = data.queryKeyword
