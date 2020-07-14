@@ -5,7 +5,16 @@ const List = []
 for (let i = 1; i <= count; i++){
   List.push({
     id: i,
-    name: 'field-' + i
+    name: 'field-' + i,
+    manager_id: i,
+    manager: 'manager' + i,
+    floor: 'f' + i,
+    room: 'room' + i,
+    isIndoor: '室内',
+    height: 'h'+i,
+    width: 'w' + i,
+    long: 'l' + i,
+    volumn: i * 10
   })
 }
 

@@ -36,7 +36,7 @@
           </el-col>
           <!-- 实验室分类 -->
           <el-col :span="6">
-            <el-form-item label="实验室分类" label-width="100px" prop="lab_category_name">
+            <el-form-item label="实验室分类" label-width="100px" prop="lab_category_id">
               <span v-show="isRead">{{ dataForm.lab_category_name }}</span>
               <el-button v-show="!isRead" type="info" plain style="width: 165px" @click="handleOpenDialog('labCategoryDialogVisible')">
                 {{ dataForm.lab_category_name === null ? '请选择' : dataForm.lab_category_name }}
@@ -131,6 +131,7 @@
         </div>
       </el-collapse-transition>
     </div>
+    <div v-if="this.dataForm.id">
     <!-- 实验室分类radio组合框 -->
     <dictionary-for-select
       title="实验室分类"
@@ -161,59 +162,13 @@
       @handleSelect="handleSelect"
     >
     </dictionary-for-select>
+    </div>
   </div>
 </template>
 
 <script>
 // 实验室详情信息假数据
-const fakeData = {
-  id: 1,
-  college_id: '1',
-  college_name: '学校名称',
-  english_name: 'test-en',
-  name: '实验室',
-  lab_category_id: 1,
-  lab_category_name: '实验室类别1',
-  lab_equipment_id: 1, // 实验室器材
-  max_seat: 100,
-  lab_facility_id: 1,
-  field_id: 1,
-  field_name: '场地1名称',
-  field_manager_id: 1,
-  field_manager: '负责人1',
-  field_floor: '楼层',
-  field_room: '房间号',
-  field_isIndoor: '室内/室外',
-  field_height: '高度',
-  field_width: '宽度',
-  field_long: '长度',
-  field_volumn: '最大容纳人数'
-}
-// radio组合框假数据
-const fakeList = [
-  { id: 1, pre_name: 'c1', name: 'radio内容1', phone: '13512341234' },
-  { id: 2, pre_name: 'c1', name: 'radio内容2', phone: '16812341234' },
-  { id: 3, pre_name: 'c1', name: 'radio内容3', phone: '13812341234' },
-  { id: 4, pre_name: 'c1', name: 'radio内容4', phone: '13812341234' },
-  { id: 5, pre_name: 'c1', name: 'radio内容5', phone: '13812341234' },
-  { id: 6, pre_name: 'c1', name: 'radio内容6', phone: '13812341234' },
-  { id: 7, pre_name: 'c1', name: 'radio内容7', phone: '13812341234' },
-  { id: 8, pre_name: 'c1', name: 'radio内容8', phone: '13812341234' },
-  { id: 9, pre_name: 'c1', name: 'radio内容9', phone: '13812341234' },
-  { id: 10, pre_name: 'c1', name: 'radio内容10', phone: '13812341234' },
-  { id: 11, pre_name: 'c1', name: 'radio内容11', phone: '13812341234' },
-  { id: 12, pre_name: 'c2', name: 'radio内容12', phone: '13812341234' },
-  { id: 13, pre_name: 'c2', name: 'radio内容13', phone: '13812341234' },
-  { id: 14, pre_name: 'c2', name: 'radio内容14', phone: '13812341234' },
-  { id: 15, pre_name: 'c2', name: 'radio内容15', phone: '13812341234' },
-  { id: 16, pre_name: 'c2', name: 'radio内容16', phone: '13812341234' },
-  { id: 17, pre_name: 'c3', name: 'radio内容17', phone: '13812341234' },
-  { id: 18, pre_name: 'c3', name: 'radio内容18', phone: '13812341234' },
-  { id: 19, pre_name: 'c3', name: 'radio内容19', phone: '13812341234' },
-  { id: 20, pre_name: 'c3', name: 'radio内容20', phone: '13812341234' },
-  { id: 21, pre_name: 'c3', name: 'radio内容21', phone: '13812341234' },
-  { id: 22, pre_name: 'c3', name: 'radio内容22', phone: '13812341234' }
-]
+
 // 指向对应对话框
 const allListName = [
   { key: 'labCategoryList', dialogVisibleName: 'labCategoryDialogVisible', option: 'getLabCategoryList' },
@@ -228,6 +183,9 @@ const key2option = [
 import { getSelectValue } from '@/utils/get-select-value'
 import { isChinese, isEnglish } from '@/utils/fieldValidate'
 import DictionaryForSelect from '@/components/DictionaryForSelect'
+import { deleteLaboratoryInfoById, fetchLaboratoryInfoById, modifyLaboratoryInfo } from '@/api/laboratory_1/laboratory'
+import { fetchFieldInfoById, fetchFieldInfos } from '@/api/laboratory_1/field'
+import { fetchLaboratoryCategoryInfoById, fetchLaboratoryCategoryInfos } from '@/api/laboratory_1/laboratory-category'
 
 export default {
   name: 'field-detail',
@@ -250,8 +208,31 @@ export default {
       }
     }
     return {
-      dataForm: null,
+      dataForm: {
+        id: null,
+        college_id: null,
+        college_name: null,
+        english_name: null,
+        name: null,
+        lab_category_id: null,
+        lab_category_name: null,
+        lab_equipment_id: null, // 实验室器材
+        max_seat: null,
+        lab_facility_id: null,
+        field_id: null,
+        field_name: null,
+        field_manager_id: null,
+        field_manager: null,
+        field_floor: null,
+        field_room: null,
+        field_isIndoor: null,
+        field_height: null,
+        field_width: null,
+        field_long: null,
+        field_volumn: null
+      },
       tempData: null,
+      tempDataByID: null,
       // 校验信息规则
       rules: {
         name: [
@@ -288,11 +269,15 @@ export default {
   },
   methods: {
     /* 根据实验室id获取数据 */
-    getOriginalData() {
-      // 暂用假数据
-      this.dataForm = fakeData
+    async getOriginalData() {
       const id = this.$route.query.id
-      console.log(id)
+      console.log('id=' + id)
+      await fetchLaboratoryInfoById(id)
+        .then(res => {
+          this.dataForm = res.data.item;
+        }).catch(err => {
+          alert('获取信息失败' + err)
+        })
     },
     /* 返回上一页 */
     handleReturn() {
@@ -321,14 +306,18 @@ export default {
     submitEdit(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          this.$message({
-            message: '修改成功',
-            type: 'success'
+          modifyLaboratoryInfo(this.dataForm).then(res => {
+            this.$message({
+              message: '修改成功',
+              type: 'success'
+            })
+            this.afterEdit()
+          }).catch(err => {
+            this.$message({
+              message: '修改失败' + err,
+              type: 'error'
+            })
           })
-          // 根据返回信息重新复制dataForm
-          console.log('submit')
-          // 修改成功后操作
-          this.afterEdit()
         } else {
           this.$message({
             message: '修改的内容存在错误，请修改后再保存，否则请取消编辑',
@@ -362,13 +351,12 @@ export default {
       })
     },
     /* 删除操作，根据实验室id调用接口 */
-    handleDelete() {
-      if (this.dataForm.id) {
-        console.log(this.dataForm.id)
+    async handleDelete() {
+      await deleteLaboratoryInfoById(this.dataForm.id).then(() => {
         return true
-      } else {
+      }).catch(() => {
         return false
-      }
+      })
     },
     /* 点击删除按钮的提示信息 */
     beforeHandleDelete() {
@@ -406,7 +394,7 @@ export default {
       this.$router.push({
         name: 'Field_Fac_List',
         query: {
-          id: id
+          id: this.dataForm.id
         }
       })
     },
@@ -416,69 +404,68 @@ export default {
       this.$router.push({
         name: 'Field_Equip_List',
         query: {
-          id: id
+          id: this.dataForm.id
         }
       })
     },
+    /* 获取实验室分类信息（radio组合框），可模糊查询 */
+    async getLabCategoryList(keyword) {
+      await fetchLaboratoryCategoryInfos(keyword).then(res => {
+        this.labCategoryList = res.data.list;
+      }).catch(err => {
+        alert('获取实验室分类信息失败！' + err)
+      })
+    },
     /* 获取场地列表信息，可模糊查询 */
-    getFieldList(keyword) {
+    async getFieldList(keyword) {
       console.log('调用获取场地列表信息接口')
-      if (!keyword) {
-        this.fieldList = fakeList
-        return false
-      }
-      // 调用接口
-      // 暂用假数据 作为筛选， 实际通过后台进行筛选
-      this.fieldList = fakeList.filter(m => m.pre_name === keyword).map(m => ({
-        id: m.id,
-        pre_name: m.pre_name,
-        name: m.name
-      }))
+      await fetchFieldInfos(keyword).then(res => {
+        this.fieldList = res.data.list;
+      }).catch(err => {
+        alert('获取场地信息失败！' + err)
+      })
     },
     /* 根据id获取实验室分类信息 */
-    fetchLabCategoryById(id) {
-      return {
-        lab_category_name: 'test'
-      }
+    async fetchLabCategoryById(id) {
+      await fetchLaboratoryCategoryInfoById(id).then(res => {
+        this.tempDataByID = {
+          lab_category_id: res.data.item.id,
+          lab_category_name: res.data.item.name
+        }
+      }).catch(err => {
+        alert('获取实验室分类信息内容失败！' + err)
+        return null
+      })
     },
     /* 获取根据场地id获取场地信息 */
-    fetchFieldById(id) {
-      return   {
-        field_name: '场地1名称',
-        field_manager_id: 1,
-        field_manager: '负责人1',
-        field_floor: '楼层',
-        field_room: '房间号',
-        field_isIndoor: '室内/室外',
-        field_height: '高度',
-        field_width: '宽度',
-        field_long: '长度',
-        field_volumn: '最大容纳人数'
-      }
+    async fetchFieldById(id) {
+      await fetchFieldInfoById(id).then(res => {
+        this.tempDataByID = {
+          field_id: res.data.item.id,
+          field_name: res.data.item.name,
+          field_manager_id: res.data.item.manager_id,
+          field_manager: res.data.item.manager,
+          field_floor: res.data.item.floor,
+          field_room: res.data.item.room,
+          field_isIndoor: res.data.item.isIndoor,
+          field_height: res.data.item.height,
+          field_width: res.data.item.width,
+          field_long: res.data.item.long,
+          field_volumn: res.data.item.volumn
+        }
+      }).catch(err => {
+        alert('获取场地信息内容失败！' + err)
+        return null
+      })
     },
-    /* 获取实验室分类信息（radio组合框），可模糊查询 */
-    getLabCategoryList(keyword) {
-      console.log('调用获取实验室分类列表信息接口')
-      if (!keyword) {
-        this.labCategoryList = fakeList
-        return false
-      }
-      // 调用接口
-      // 暂用假数据 作为筛选， 实际通过后台进行筛选
-      this.labCategoryList = fakeList.filter(m => m.pre_name === keyword).map(m => ({
-        id: m.id,
-        pre_name: m.pre_name,
-        name: m.name
-      }))
-    },
+
     /* 根据关键词打开dialog */
-    handleOpenDialog(dialogVisible) {
+    async handleOpenDialog(dialogVisible) {
       this[dialogVisible] = true // 打开对应的dialog
-      // 调用获取方法，用于生成radio
       const option = allListName.filter(m => m.dialogVisibleName === dialogVisible).map(m => m.option).pop()
       console.log('option===' + option)
       if (option) {
-        this[option]()
+        await this[option](); // 生成默认radio数据
       } else {
         this.$message({
           message: 'dialog null error!',
@@ -487,29 +474,26 @@ export default {
       }
     },
     /* 测试 根据关键字获取对应方法 并返回查询出的数据 */
-    getMethodByKey(key, id) {
+    async getMethodByKey(key, id) {
       let option = key2option.filter(m => m.key === key).map(m => m.option).pop()
-      return this[option](id)
+      await this[option](id)
     },
     /* 抽取方法 将信息同步 */
-    handleSelect(data) {
-      // 查询选择的id相关的数据
-      let tempData = this.getMethodByKey(data.methodKey, data.select_id_value)
+    async handleSelect(data) {
+      // 查询 选择的id的相关的数据
+      await this.getMethodByKey(data.methodKey, data.select_id_value)
+      let tempData = this.tempDataByID
+      this.tempDataByID = null
       getSelectValue(data, this.dataForm, tempData)
-      // 表单数据验证规则
-      this.$refs['dataForm'].validateField(data.select_id_key)
-      // 关闭对话框
-      console.log('data.dialogVisibleKey = ' + data.dialogVisibleKey)
-      this[data.dialogVisibleKey] = false
+      this.$refs['dataForm'].validateField(data.select_id_key) // 表单数据验证规则
+      this[data.dialogVisibleKey] = false // 关闭对话框
     },
     /* radio组合框中的模糊查询 */
     handleQuery(data) {
-      console.log('data=>' + data.listName + ',' + data.queryKeyword)
       let keyword = data.queryKeyword
       let listName = data.listName
       const option = allListName.filter(m => m.key === listName).map(m => m.option).pop()
-      console.log('option=' + option)
-      console.log('keyword=' + keyword)
+      // 根据option找出对应筛选方法
       if (option) {
         this[option](keyword)
       } else {
@@ -540,26 +524,6 @@ export default {
     box-shadow: 0 1px 4px rgba(0,21,41,.1);
     padding:20px;
     margin-bottom: 20px;
-  }
-  .check_message_success{
-    display: inline-block;
-    color: #67C23A;
-    font-size: 12px;
-    line-height: 1;
-    padding-top: 4px;
-    position: absolute;
-    top: 100%;
-    left:0
-  }
-  .check_message_error{
-    display: inline-block;
-    color: #F56C6C;
-    font-size: 12px;
-    line-height: 1;
-    padding-top: 4px;
-    position: absolute;
-    top: 100%;
-    left:0
   }
 </style>
 

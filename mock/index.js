@@ -15,6 +15,8 @@ const consumableCategory = require('./consumable-category')
 const consumable = require('./consumable')
 const field = require('./field')
 const model = require('./model')
+const laboratory = require('./laboratory')
+const laboratoryCategory = require('./laboratory-category')
 
 const mocks = [
   ...user,
@@ -30,7 +32,9 @@ const mocks = [
   ...consumableCategory,
   ...consumable,
   ...field,
-  ...model
+  ...model,
+  ...laboratory,
+  ...laboratoryCategory
 ]
 
 // for front mock
