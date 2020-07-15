@@ -1,3 +1,9 @@
+<!--
+    @Author 李国烨
+    @Date 2020/6/22 10:32
+    @Description:  零部件分类信息详情页面
+    @Version 1.0
+-->
 <template>
   <div class="app-container">
     <!-- 功能按钮 -->
@@ -188,196 +194,133 @@
         </div>
       </el-collapse-transition>
     </div>
-    <!-- 器材分类dialog -->
-    <dictionary-for-select
-      title="器材零部件分类"
-      listName="labEquipmentPartsCategoryList"
-      idKey="lab_equipment_parts_category_id"
-      methodKey="labEquipmentPartsCategory"
-      dialogVisibleKey="labEquipmentPartsCategoryDialogVisible"
-      :currentDialogVisible = "labEquipmentPartsCategoryDialogVisible"
-      :currentList = "labEquipmentPartsCategoryList"
-      :currentSelectedItem = "dataForm.lab_equipment_parts_category_id"
-      @handleCancel="labEquipmentPartsCategoryDialogVisible = !labEquipmentPartsCategoryDialogVisible"
-      @handleQuery="handleQuery"
-      @handleSelect="handleSelect"
-    >
-    </dictionary-for-select>
-    <!-- 品牌dialog -->
-    <dictionary-for-select
-      title="品牌筛选"
-      listName="brandList"
-      idKey="lab_brand_id"
-      methodKey="brand"
-      dialogVisibleKey="brandDialogVisible"
-      :currentDialogVisible = "brandDialogVisible"
-      :currentList = "brandList"
-      :currentSelectedItem = "dataForm.lab_brand_id"
-      @handleCancel="brandDialogVisible = !brandDialogVisible"
-      @handleQuery="handleQuery"
-      @handleSelect="handleSelect"
-    >
-    </dictionary-for-select>
-    <!-- 型号dialog -->
-    <dictionary-for-select
-      title="型号筛选"
-      listName="equipmentModelList"
-      idKey="lab_model_id"
-      methodKey="equipmentModel"
-      dialogVisibleKey="equipmentModelDialogVisible"
-      :currentDialogVisible = "equipmentModelDialogVisible"
-      :currentList = "equipmentModelList"
-      :currentSelectedItem = "dataForm.lab_model_id"
-      @handleCancel="equipmentModelDialogVisible = !equipmentModelDialogVisible"
-      @handleQuery="handleQuery"
-      @handleSelect="handleSelect"
-    >
-    </dictionary-for-select>
-    <!-- 计量单位dialog -->
-    <dictionary-for-select
-      title="计量单位筛选"
-      listName="unitList"
-      idKey="lab_unit_id"
-      methodKey="unit"
-      dialogVisibleKey="unitDialogVisible"
-      :currentDialogVisible = "unitDialogVisible"
-      :currentList = "unitList"
-      :currentSelectedItem = "dataForm.lab_unit_id"
-      @handleCancel="unitDialogVisible = !unitDialogVisible"
-      @handleQuery="handleQuery"
-      @handleSelect="handleSelect"
-    >
-    </dictionary-for-select>
-    <!-- 生产商dialog -->
-    <dictionary-for-select
-      title="生产商筛选"
-      listName="manufacturerList"
-      idKey="lab_manufacturer_id"
-      methodKey="manufacturer"
-      dialogVisibleKey="manufacturerDialogVisible"
-      :currentDialogVisible = "manufacturerDialogVisible"
-      :currentList = "manufacturerList"
-      :currentSelectedItem = "dataForm.lab_manufacturer_id"
-      @handleCancel="manufacturerDialogVisible = !manufacturerDialogVisible"
-      @handleQuery="handleQuery"
-      @handleSelect="handleSelect"
-    >
-    </dictionary-for-select>
-    <!-- 供货商dialog -->
-    <dictionary-for-select
-      title="供货商筛选"
-      listName="supplierList"
-      idKey="lab_supplier_id"
-      methodKey="supplier"
-      dialogVisibleKey="supplierDialogVisible"
-      :currentDialogVisible = "supplierDialogVisible"
-      :currentList = "supplierList"
-      :currentSelectedItem = "dataForm.lab_supplier_id"
-      @handleCancel="supplierDialogVisible = !supplierDialogVisible"
-      @handleQuery="handleQuery"
-      @handleSelect="handleSelect"
-    >
-    </dictionary-for-select>
-    <!-- 国码dialog -->
-    <dictionary-for-select
-      title="国码"
-      listName="countryCodeList"
-      idKey="country_code_id"
-      methodKey="countryCode"
-      dialogVisibleKey="countryCodeDialogVisible"
-      :currentDialogVisible = "countryCodeDialogVisible"
-      :currentList = "countryCodeList"
-      :currentSelectedItem = "dataForm.country_code_id"
-      @handleCancel="countryCodeDialogVisible = !countryCodeDialogVisible"
-      @handleQuery="handleQuery"
-      @handleSelect="handleSelect"
-    >
-    </dictionary-for-select>
-    <!-- 场地dialog -->
-    <dictionary-for-select
-      title="场地"
-      listName="fieldList"
-      idKey="field_id"
-      methodKey="field"
-      dialogVisibleKey="fieldDialogVisible"
-      :currentDialogVisible = "fieldDialogVisible"
-      :currentList = "fieldList"
-      :currentSelectedItem = "dataForm.field_id"
-      @handleCancel="fieldDialogVisible = !fieldDialogVisible"
-      @handleQuery="handleQuery"
-      @handleSelect="handleSelect"
-    >
-    </dictionary-for-select>
+    <div v-if="dataForm.id">
+      <!-- 器材分类dialog -->
+      <dictionary-for-select
+        title="器材零部件分类"
+        listName="labEquipmentPartsCategoryList"
+        idKey="lab_equipment_parts_category_id"
+        methodKey="labEquipmentPartsCategory"
+        dialogVisibleKey="labEquipmentPartsCategoryDialogVisible"
+        :currentDialogVisible = "labEquipmentPartsCategoryDialogVisible"
+        :currentList = "labEquipmentPartsCategoryList"
+        :currentSelectedItem = "dataForm.lab_equipment_parts_category_id"
+        @handleCancel="labEquipmentPartsCategoryDialogVisible = !labEquipmentPartsCategoryDialogVisible"
+        @handleQuery="handleQuery"
+        @handleSelect="handleSelect"
+      >
+      </dictionary-for-select>
+      <!-- 品牌dialog -->
+      <dictionary-for-select
+        title="品牌筛选"
+        listName="brandList"
+        idKey="lab_brand_id"
+        methodKey="brand"
+        dialogVisibleKey="brandDialogVisible"
+        :currentDialogVisible = "brandDialogVisible"
+        :currentList = "brandList"
+        :currentSelectedItem = "dataForm.lab_brand_id"
+        @handleCancel="brandDialogVisible = !brandDialogVisible"
+        @handleQuery="handleQuery"
+        @handleSelect="handleSelect"
+      >
+      </dictionary-for-select>
+      <!-- 型号dialog -->
+      <dictionary-for-select
+        title="型号筛选"
+        listName="equipmentModelList"
+        idKey="lab_model_id"
+        methodKey="equipmentModel"
+        dialogVisibleKey="equipmentModelDialogVisible"
+        :currentDialogVisible = "equipmentModelDialogVisible"
+        :currentList = "equipmentModelList"
+        :currentSelectedItem = "dataForm.lab_model_id"
+        @handleCancel="equipmentModelDialogVisible = !equipmentModelDialogVisible"
+        @handleQuery="handleQuery"
+        @handleSelect="handleSelect"
+      >
+      </dictionary-for-select>
+      <!-- 计量单位dialog -->
+      <dictionary-for-select
+        title="计量单位筛选"
+        listName="unitList"
+        idKey="lab_unit_id"
+        methodKey="unit"
+        dialogVisibleKey="unitDialogVisible"
+        :currentDialogVisible = "unitDialogVisible"
+        :currentList = "unitList"
+        :currentSelectedItem = "dataForm.lab_unit_id"
+        @handleCancel="unitDialogVisible = !unitDialogVisible"
+        @handleQuery="handleQuery"
+        @handleSelect="handleSelect"
+      >
+      </dictionary-for-select>
+      <!-- 生产商dialog -->
+      <dictionary-for-select
+        title="生产商筛选"
+        listName="manufacturerList"
+        idKey="lab_manufacturer_id"
+        methodKey="manufacturer"
+        dialogVisibleKey="manufacturerDialogVisible"
+        :currentDialogVisible = "manufacturerDialogVisible"
+        :currentList = "manufacturerList"
+        :currentSelectedItem = "dataForm.lab_manufacturer_id"
+        @handleCancel="manufacturerDialogVisible = !manufacturerDialogVisible"
+        @handleQuery="handleQuery"
+        @handleSelect="handleSelect"
+      >
+      </dictionary-for-select>
+      <!-- 供货商dialog -->
+      <dictionary-for-select
+        title="供货商筛选"
+        listName="supplierList"
+        idKey="lab_supplier_id"
+        methodKey="supplier"
+        dialogVisibleKey="supplierDialogVisible"
+        :currentDialogVisible = "supplierDialogVisible"
+        :currentList = "supplierList"
+        :currentSelectedItem = "dataForm.lab_supplier_id"
+        @handleCancel="supplierDialogVisible = !supplierDialogVisible"
+        @handleQuery="handleQuery"
+        @handleSelect="handleSelect"
+      >
+      </dictionary-for-select>
+      <!-- 国码dialog -->
+      <dictionary-for-select
+        title="国码"
+        listName="countryCodeList"
+        idKey="country_code_id"
+        methodKey="countryCode"
+        dialogVisibleKey="countryCodeDialogVisible"
+        :currentDialogVisible = "countryCodeDialogVisible"
+        :currentList = "countryCodeList"
+        :currentSelectedItem = "dataForm.country_code_id"
+        @handleCancel="countryCodeDialogVisible = !countryCodeDialogVisible"
+        @handleQuery="handleQuery"
+        @handleSelect="handleSelect"
+      >
+      </dictionary-for-select>
+      <!-- 场地dialog -->
+      <dictionary-for-select
+        title="场地"
+        listName="fieldList"
+        idKey="field_id"
+        methodKey="field"
+        dialogVisibleKey="fieldDialogVisible"
+        :currentDialogVisible = "fieldDialogVisible"
+        :currentList = "fieldList"
+        :currentSelectedItem = "dataForm.field_id"
+        @handleCancel="fieldDialogVisible = !fieldDialogVisible"
+        @handleQuery="handleQuery"
+        @handleSelect="handleSelect"
+      >
+      </dictionary-for-select>
+    </div>
   </div>
 </template>
 
 <script>
-// 假数据
-const fakeData = {
-  id: 1,
-  number: '器材零部件编号',
-  name: '器材零部件名称',
-  english_name: 'english_name',
-  lab_equipment_parts_category_id: 1,
-  lab_equipment_parts_category_name: '器材零部件种类',
-  lab_brand_id: 1,
-  brand_name: '品牌',
-  lab_model_id: 1,
-  model_name: '型号',
-  lab_unit_id: 1,
-  lab_unit_name: '单位111',
-  lab_manufacturer_id: 1,
-  manufacturer_name: '生产商111',
-  manufacturer_telephone: '12345678911',
-  lab_supplier_id: 1,
-  supplier_name: '供货商111',
-  supplier_telephone: '12345678922',
-
-  specification: '规格',
-  quantity: '数量',
-  unit_price: '单价',
-  total_price: '总价',
-
-  // 适用器材（applicative_equipment）
-
-  country_code_id: 1,
-  country_code_name: '国码',
-  production_date: '2020-07-01',
-
-  bills_number: '单据号',
-  purchase_date: '2016-01-01',
-  field_id: 1,
-  field_name: '存放场所',
-  expenditure: '经费来源',
-  purchase_method: '购买方式',
-  warranty: '保修期',
-
-}
-const fakeList = [
-  { id: 1, pre_name: 'c1', name: 'radio内容1', phone: '13512341234' },
-  { id: 2, pre_name: 'c1', name: 'radio内容2', phone: '16812341234' },
-  { id: 3, pre_name: 'c1', name: 'radio内容3', phone: '13812341234' },
-  { id: 4, pre_name: 'c1', name: 'radio内容4', phone: '13812341234' },
-  { id: 5, pre_name: 'c1', name: 'radio内容5', phone: '13812341234' },
-  { id: 6, pre_name: 'c1', name: 'radio内容6', phone: '13812341234' },
-  { id: 7, pre_name: 'c1', name: 'radio内容7', phone: '13812341234' },
-  { id: 8, pre_name: 'c1', name: 'radio内容8', phone: '13812341234' },
-  { id: 9, pre_name: 'c1', name: 'radio内容9', phone: '13812341234' },
-  { id: 10, pre_name: 'c1', name: 'radio内容10', phone: '13812341234' },
-  { id: 11, pre_name: 'c1', name: 'radio内容11', phone: '13812341234' },
-  { id: 12, pre_name: 'c2', name: 'radio内容12', phone: '13812341234' },
-  { id: 13, pre_name: 'c2', name: 'radio内容13', phone: '13812341234' },
-  { id: 14, pre_name: 'c2', name: 'radio内容14', phone: '13812341234' },
-  { id: 15, pre_name: 'c2', name: 'radio内容15', phone: '13812341234' },
-  { id: 16, pre_name: 'c2', name: 'radio内容16', phone: '13812341234' },
-  { id: 17, pre_name: 'c3', name: 'radio内容17', phone: '13812341234' },
-  { id: 18, pre_name: 'c3', name: 'radio内容18', phone: '13812341234' },
-  { id: 19, pre_name: 'c3', name: 'radio内容19', phone: '13812341234' },
-  { id: 20, pre_name: 'c3', name: 'radio内容20', phone: '13812341234' },
-  { id: 21, pre_name: 'c3', name: 'radio内容21', phone: '13812341234' },
-  { id: 22, pre_name: 'c3', name: 'radio内容22', phone: '13812341234' }
-]
-// 字典
+// 字典1
 const allListName = [
   { key: 'labEquipmentPartsCategoryList', dialogVisibleName: 'labEquipmentPartsCategoryDialogVisible', option: 'getLabEquipmentPartsCategoryList' },
   { key: 'brandList', dialogVisibleName: 'brandDialogVisible', option: 'getBrandList' },
@@ -388,6 +331,7 @@ const allListName = [
   { key: 'countryCodeList', dialogVisibleName: 'countryCodeDialogVisible', option: 'getCountryCodeList' },
   { key: 'fieldList', dialogVisibleName: 'fieldDialogVisible', option: 'getFieldList' }
 ]
+// 字典2
 const key2option = [
   {key: 'labEquipmentPartsCategory', option: 'fetchEquPartsCategoryById'},
   {key: 'equipmentModel', option: 'fetchEquipmentModelById'},
@@ -403,6 +347,22 @@ const key2option = [
 import { getSelectValue } from '@/utils/get-select-value'
 import { isChinese, isEnglish } from '@/utils/fieldValidate'
 import DictionaryForSelect from '@/components/DictionaryForSelect'
+import {
+  fetchComponentsCategoryInfoById,
+  fetchComponentsCategoryInfos
+} from '../../../../../api/laboratory_1/equ-components-category'
+import { fetchFieldInfoById, fetchFieldInfos } from '../../../../../api/laboratory_1/field'
+import { fetchCountryCodeInfoById, fetchCountryCodeInfos } from '../../../../../api/laboratory_1/country-code'
+import { fetchManufacturerInfoById, fetchManufacturerInfos } from '../../../../../api/laboratory_1/manufacturer'
+import { fetchSupplierInfoById, fetchSupplierInfos } from '../../../../../api/laboratory_1/supplier'
+import { fetchUnitPriceInfoById, fetchUnitPriceInfos } from '../../../../../api/laboratory_1/unit-price'
+import { fetchModelInfoById, fetchModelInfos } from '../../../../../api/laboratory_1/model'
+import { fetchBrandInfoById, fetchBrandInfos } from '../../../../../api/laboratory_1/brand'
+import {
+  deleteComponentsById,
+  fetchComponentsInfoById,
+  modifyComponentsInfo
+} from '../../../../../api/laboratory_1/equ-components'
 export default {
   name: 'components-information-detail',
   components: {
@@ -424,8 +384,37 @@ export default {
       }
     }
     return {
-      dataForm: null,
+      dataForm: {
+        number: null,
+        name: null,
+        english_name: null,
+        lab_equipment_parts_category_name: null,
+        lab_equipment_parts_category_id: null,
+        lab_brand_id: null,
+        brand_name: null,
+        lab_model_id: null,
+        model_name: null,
+        lab_unit_id: null,
+        lab_unit_name: null,
+        lab_manufacturer_id: null,
+        manufacturer_name: null,
+        manufacturer_telephone: null,
+        lab_supplier_id: null,
+        supplier_name: null,
+        supplier_telephone: null,
+        country_code_name: null,
+        field_id: null,
+        field_name: null,
+        production_date: null,
+        purchase_date: null,
+        warranty: null,
+        specification: null,
+        quantity: null,
+        unit_price: null,
+        total_price: null,
+      },
       tempData: null,
+      tempDataByID: null,
       rules: {
         number: [
           { required: true, type: 'string', message: '请输入数字', trigger: 'blur' }
@@ -519,206 +508,190 @@ export default {
     this.getOriginalData()
   },
   methods: {
-    /* 根据ID获取数据 */
-    getOriginalData() {
-      // 暂用假数据
-      this.dataForm = fakeData
+    /** 根据ID获取数据 **/
+   async  getOriginalData() {
       const id = this.$route.query.id
-      console.log(id)
+      await fetchComponentsInfoById(id).then(res => {
+        this.dataForm = res.data.item;
+      }).catch(err => {
+        alert('获取信息失败')
+      })
     },
-    /* 获取器材零部件分类信息 */
-    getLabEquipmentPartsCategoryList(keyword) {
+    /** 获取器材零部件分类信息 **/
+    async getLabEquipmentPartsCategoryList(keyword) {
+      await fetchComponentsCategoryInfos(keyword).then(res => {
+        this.labEquipmentPartsCategoryList = res.data.list;
+      }).catch(err => {
+        alert('获取零部件分类信息失败')
+      })
+    },
+    /** 获取场地列表信息 **/
+    async getFieldList(keyword) {
       console.log('调用获取场地列表信息接口')
-      if (!keyword) {
-        this.labEquipmentPartsCategoryList = fakeList
-        return false
-      }
-      // 调用接口
-      // 暂用假数据 作为筛选， 实际通过后台进行筛选
-      this.labEquipmentPartsCategoryList = fakeList.filter(m => m.pre_name === keyword).map(m => ({
-        id: m.id,
-        pre_name: m.pre_name,
-        name: m.name
-      }))
+      await fetchFieldInfos(keyword).then(res => {
+        this.fieldList = res.data.list;
+      }).catch(err => {
+        alert('获取场地信息失败！' + err)
+      })
     },
-    /* 获取场地列表信息 */
-    getFieldList(keyword) {
-      console.log('调用获取场地列表信息接口')
-      if (!keyword) {
-        this.fieldList = fakeList
-        return false
-      }
-      // 调用接口
-      // 暂用假数据 作为筛选， 实际通过后台进行筛选
-      this.fieldList = fakeList.filter(m => m.pre_name === keyword).map(m => ({
-        id: m.id,
-        pre_name: m.pre_name,
-        name: m.name
-      }))
+    /** 获取品牌列表信息 **/
+    async getBrandList(keyword) {
+      await fetchBrandInfos(keyword).then(res => {
+        this.brandList = res.data.list;
+      }).catch(err => {
+        alert('获取品牌列表失败！' + err)
+      })
     },
-    /* 获取品牌列表信息 */
-    getBrandList(keyword) {
-      if (!keyword) {
-        this.brandList = fakeList
-        return false
-      }
-      // 调用接口
-      // 暂用假数据 作为筛选， 实际通过后台进行筛选
-      this.brandList = fakeList.filter(m => m.pre_name === keyword).map(m => ({
-        id: m.id,
-        pre_name: m.pre_name,
-        name: m.name
-      }))
+    /** 获取型号列表信息 **/
+    async getEquipmentModelList(keyword) {
+      await fetchModelInfos(keyword).then(res => {
+        this.equipmentModelList = res.data.list;
+      }).catch(err => {
+        alert('获取型号列表失败！' + err)
+      })
     },
-    /* 获取型号列表信息 */
-    getEquipmentModelList(keyword) {
-      if (!keyword) {
-        this.equipmentModelList = fakeList
-        return false
-      }
-      // 调用接口
-      // 暂用假数据 作为筛选， 实际通过后台进行筛选
-      this.equipmentModelList = fakeList.filter(m => m.pre_name === keyword).map(m => ({
-        id: m.id,
-        pre_name: m.pre_name,
-        name: m.name
-      }))
+    /** 获取计量单位列表信息 **/
+    async getUnitList(keyword) {
+      await fetchUnitPriceInfos(keyword).then(res => {
+        this.unitList = res.data.list;
+      }).catch(err => {
+        alert('获取计量单位列表信息失败！' + err)
+      })
     },
-    /* 获取计量单位列表信息 */
-    getUnitList(keyword) {
-      if (!keyword) {
-        this.unitList = fakeList
-        return false
-      }
-      // 调用接口
-      // 暂用假数据 作为筛选， 实际通过后台进行筛选
-      this.unitList = fakeList.filter(m => m.pre_name === keyword).map(m => ({
-        id: m.id,
-        pre_name: m.pre_name,
-        name: m.name
-      }))
+    /** 获取供货商列表信息 **/
+    async getSupplierList(keyword) {
+      await fetchSupplierInfos(keyword).then(res => {
+        this.supplierList = res.data.list;
+      }).catch(err => {
+        alert('获取供货商列表信息失败！' + err)
+      })
     },
-    /* 获取供货商列表信息 */
-    getSupplierList(keyword) {
-      if (!keyword) {
-        this.supplierList = fakeList
-        return false
-      }
-      // 调用接口
-      // 暂用假数据 作为筛选， 实际通过后台进行筛选
-      this.supplierList = fakeList.filter(m => m.pre_name === keyword).map(m => ({
-        id: m.id,
-        pre_name: m.pre_name,
-        name: m.name
-      }))
+    /** 获取生产商列表信息 **/
+    async getManufacturerList(keyword) {
+      await fetchManufacturerInfos(keyword).then(res => {
+        this.manufacturerList = res.data.list;
+      }).catch(err => {
+        alert('获取生产商列表信息失败！' + err)
+      })
     },
-    /* 获取生产商列表信息 */
-    getManufacturerList(keyword) {
-      if (!keyword) {
-        this.manufacturerList = fakeList
-        return false
-      }
-      // 调用接口
-      // 暂用假数据 作为筛选， 实际通过后台进行筛选
-      this.manufacturerList = fakeList.filter(m => m.pre_name === keyword).map(m => ({
-        id: m.id,
-        pre_name: m.pre_name,
-        name: m.name
-      }))
-    },
-    /* 获取国码列表信息 */
-    getCountryCodeList(keyword) {
-      if (!keyword) {
-        console.log('keyword is null')
-        this.countryCodeList = fakeList
-        console.log('this.countryCodeList = ' + this.countryCodeList)
-        return false
-      }
-      // 调用接口
-      // 暂用假数据 作为筛选， 实际通过调用接口，在后台进行模糊筛选再返回数据
-      console.log('keyword is not null')
-      this.countryCodeList = fakeList.filter(m => m.pre_name === keyword).map(m => ({
-        id: m.id,
-        pre_name: m.pre_name,
-        name: m.name
-      }))
-      console.log('this.courseList = ' + this.countryCodeList)
+    /** 获取国码列表信息 **/
+    async getCountryCodeList(keyword) {
+      await fetchCountryCodeInfos(keyword).then(res => {
+        this.countryCodeList = res.data.list;
+      }).catch(err => {
+        alert('获取生产商列表信息失败！' + err)
+      })
     },
 
-    /* 获取器材零部件类别信息 id */
-    fetchEquPartsCategoryById(id) {
+    /** 根据ID获取器材零部件类别信息 id **/
+    async fetchEquPartsCategoryById(id) {
+      await fetchComponentsCategoryInfoById(id).then(res => {
+        this.tempDataByID = {
+          lab_equipment_parts_category_id: res.data.item.id,
+          lab_equipment_parts_category_name: res.data.item.name
+        }
+      }).catch(err => {
+        alert('获取零部件分类信息失败')
+        return null
+      })
+    },
+    /** 根据ID获取品牌信息 id **/
+    async fetchBrandById(id) {
+      await fetchBrandInfoById(id).then(res => {
+        this.tempDataByID = {
+          lab_brand_id: res.data.item.id,
+          brand_name: res.data.item.name
+        };
+      }).catch(err => {
+        alert('获取品牌信息信息内容失败！' + err)
+        return null
+      })
+    },
+    /** 根据ID获取型号信息  **/
+    async fetchEquipmentModelById(id) {
+      await fetchModelInfoById(id).then(res => {
+        this.tempDataByID = {
+          lab_model_id: res.data.item.id,
+          model_name: res.data.item.name
+        }
+      }).catch(err => {
+        alert('获取型号信息内容失败！' + err)
+        return null
+      })
+    },
+    /** 根据ID获取计量单位信息 id **/
+    async fetchUnitById(id) {
       // 根据select id key查询出的数据 各字段经过包装
-      return null
-      // return {
-      // }
+      await fetchUnitPriceInfoById(id).then(res => {
+        this.tempDataByID = {
+          lab_unit_id: res.data.item.id,
+          lab_unit_name: res.data.item.name
+        };
+      }).catch(err => {
+        alert('获取计量单位信息内容失败！' + err)
+        return null
+      })
     },
-    /* 获取品牌信息 id */
-    fetchBrandById(id) {
+    /** 根据ID获取供货商信息 id **/
+    async fetchSupplierById(id) {
       // 根据select id key查询出的数据 各字段经过包装
-      return null
-      // return {
-      //   brand_name: '测试name',
-      // }
+      await fetchSupplierInfoById(id).then(res => {
+        this.tempDataByID = {
+          lab_supplier_id: res.data.item.id,
+          supplier_name: res.data.item.name,
+          supplier_telephone: res.data.item.telephone
+        }
+      }).catch(err => {
+        alert('获取供货商信息内容失败！' + err)
+        return null
+      })
     },
-    /* 获取型号信息 id */
-    fetchEquipmentModelById(id) {
+    /** 根据ID获取生产商信息 id **/
+    async fetchManufacturerById(id) {
       // 根据select id key查询出的数据 各字段经过包装
-      return null
-      // return {
-      // }
+      await fetchManufacturerInfoById(id).then(res => {
+        this.tempDataByID = {
+          lab_manufacturer_id: res.data.item.id,
+          manufacturer_name: res.data.item.name,
+          manufacturer_telephone: res.data.item.telephone
+        };
+      }).catch(err => {
+        alert('获取生产商信息内容失败！' + err)
+        return null
+      })
     },
-    /* 获取计量单位信息 id */
-    fetchUnitById(id) {
+    /** 根据ID获取国码信息 id **/
+    async fetchCountryCodeById(id) {
       // 根据select id key查询出的数据 各字段经过包装
-      // if (找不到)
-      return null
-      // return {
-      //   lab_unit_name: '测试name',
-      // }
+      await fetchCountryCodeInfoById(id).then(res => {
+        this.tempDataByID = {
+          country_code_id: res.data.item.id,
+          country_code_name: res.data.item.name
+        };
+      }).catch(err => {
+        alert('获取国码信息内容失败！' + err)
+        return null
+      })
     },
-    /* 获取供货商信息 id */
-    fetchSupplierById(id) {
-      // 根据select id key查询出的数据 各字段经过包装
-      // if (找不到)
-      return null
-      // return {
-      //   supplier_name: '测试name',
-      //   supplier_telephone: '13532142121'
-      // }
+    /** 根据ID获取场地信息 id **/
+    async fetchFieldById(id) {
+      await fetchFieldInfoById(id).then(res => {
+        this.tempDataByID = {
+          field_id: res.data.item.id,
+          field_name: res.data.item.name
+        };
+      }).catch(err => {
+        alert('获取场地信息内容失败！' + err)
+        return null
+      })
     },
-    /* 获取生产商信息 id */
-    fetchManufacturerById(id) {
-      // 根据select id key查询出的数据 各字段经过包装
-      // if (找不到)
-      // return null
-      return {
-        manufacturer_name: '测试name',
-        manufacturer_telephone: '13532142121'
-      }
-    },
-    /* 获取国码信息 id */
-    fetchCountryCodeById(id) {
-      // 根据select id key查询出的数据 各字段经过包装
-      // if (找不到)
-      //  return null
-      return {
-        country_code_name: '国码咯'
-      }
-    },
-    /* 获取场地信息 id */
-    fetchFieldById(id) {
-      return {
-        field_name: '场地1名称'
-      }
-    },
-    /* 根据关键词打开dialog */
-    handleOpenDialog(dialogVisible) {
+    /** 根据关键词打开dialog **/
+    async handleOpenDialog(dialogVisible) {
       this[dialogVisible] = true // 打开对应的dialog
-      // 生成默认radio数据
       const option = allListName.filter(m => m.dialogVisibleName === dialogVisible).map(m => m.option).pop()
       console.log('option===' + option)
       if (option) {
-        this[option]()
+        await this[option](); // 生成默认radio数据
       } else {
         this.$message({
           message: 'dialog null error!',
@@ -726,41 +699,37 @@ export default {
         })
       }
     },
-    /* 测试 根据关键字获取对应方法 并返回查询出的数据 */
-    getMethodByKey(key, id) {
+    /** 测试 根据关键字获取对应方法 并返回查询出的数据 **/
+    async getMethodByKey(key, id) {
       let option = key2option.filter(m => m.key === key).map(m => m.option).pop()
-      return this[option](id)
+      await this[option](id)
     },
-    /* 抽取方法 将信息同步 */
-    handleSelect(data) {
-      // 查询选择的id相关的数据
-      let tempData = this.getMethodByKey(data.methodKey, data.select_id_value)
+    /** 抽取方法 将信息同步 **/
+    async handleSelect(data) {
+      // 查询 选择的id的相关的数据
+      await this.getMethodByKey(data.methodKey, data.select_id_value)
+      let tempData = this.tempDataByID
+      this.tempDataByID = null
       getSelectValue(data, this.dataForm, tempData)
-      // 表单数据验证规则
-      this.$refs['dataForm'].validateField(data.select_id_key)
-      // 关闭对话框
-      console.log('data.dialogVisibleKey = ' + data.dialogVisibleKey)
-      this[data.dialogVisibleKey] = false
+      this.$refs['dataForm'].validateField(data.select_id_key) // 表单数据验证规则
+      this[data.dialogVisibleKey] = false // 关闭对话框
     },
 
     handleQuery(data) {
-      console.log('data=>' + data.listName + ',' + data.queryKeyword)
       let keyword = data.queryKeyword
       let listName = data.listName
       const option = allListName.filter(m => m.key === listName).map(m => m.option).pop()
-      console.log('option=' + option)
-      console.log('keyword=' + keyword)
       if (option) {
-        this[option](keyword)
+        this[option](keyword); // 根据option找出对应筛选方法
       } else {
         return false
       }
     },
-    /* 返回上一页 */
+    /** 返回上一页 **/
     handleReturn() {
       this.$router.go(-1)
     },
-    /* 编辑前 */
+    /** 编辑前 **/
     beforeEdit() {
       // 保存修改前数据
       this.tempData = { ...this.dataForm }
@@ -771,7 +740,7 @@ export default {
       // 设为不可用,防止暂存数据出错
       this.isAble = true
     },
-    /* 编辑后 */
+    /** 编辑后 **/
     afterEdit() {
       // 还原修改前所有状态
       this.tempData = null
@@ -779,22 +748,26 @@ export default {
       this.showSaveBtn = false
       this.isAble = false
     },
-    /* 提交编辑的内容 */
+    /** 提交编辑的内容 **/
     submitEdit(formName) {
       // 检验输入数据是否合法
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          this.$message({
-            message: '修改成功',
-            type: 'success'
+          modifyComponentsInfo(this.dataForm).then(res => {
+            this.$message({
+              message: '修改成功',
+              type: 'success'
+            })
+            this.afterEdit()
+          }).catch(err => {
+            this.$message({
+              message: '修改失败',
+              type: 'error'
+            })
           })
-          // 根据返回信息重新复制dataForm
-          console.log('success submit!!')
-          // 修改成功后操作
-          this.afterEdit()
         } else {
           this.$message({
-            message: '修改失败',
+            message: '修改失败！请注意输入内容',
             type: 'error'
           })
           console.log('error submit!!')
@@ -802,13 +775,13 @@ export default {
         }
       })
     },
-    /* 取消编辑操作 */
+    /** 取消编辑操作 **/
     cancelEdit(formName) {
       this.dataForm = { ...this.tempData }
       this.$refs[formName].clearValidate()
       this.afterEdit()
     },
-    /* 取消 确认弹窗 */
+    /** 取消 确认弹窗 **/
     beforeCancelEdit(formName) {
       this.$confirm('修改信息还没保存, 是否继续?', '提示', {
         confirmButtonText: '确定',
@@ -825,16 +798,15 @@ export default {
         console.log('已取消')
       })
     },
-    /* 删除 */
-    handleDelete() {
-      if (this.dataForm.id) {
-        console.log('delete')
+    /** 删除 **/
+    async handleDelete() {
+      await deleteComponentsById(this.dataForm.id).then(res => {
         return true
-      } else {
+      }).catch(err => {
         return false
-      }
+      })
     },
-    /* 删除 确认弹窗 */
+    /** 删除 确认弹窗 **/
     beforeHandleDelete() {
       this.$confirm('此操作将删除该信息, 是否继续?', '提示', {
         confirmButtonText: '确定',
@@ -860,7 +832,7 @@ export default {
         })
       })
     },
-    /* 导出 */
+    /** 导出 **/
     handleDownload() {
       console.log('导出')
     }
@@ -869,5 +841,17 @@ export default {
 </script>
 
 <style scoped>
-
+  .form-style{
+    color: #5a5e66;
+    background: #fff;
+    box-shadow: 0 1px 4px rgba(0,21,41,.1);
+    padding: 10px 20px;
+  }
+  .detail-button{
+    color: #5a5e66;
+    background: #fff;
+    box-shadow: 0 1px 4px rgba(0,21,41,.1);
+    padding:20px;
+    margin-bottom: 20px;
+  }
 </style>

@@ -1,6 +1,6 @@
 <!--
     @Author 李国烨
-    @Date 2020/7/6 22:04
+    @Date 2020/6/21 14:35
     @Description: 耗材信息详情页面
     @Version 1.0
 -->
@@ -145,7 +145,6 @@
           <el-col :span="6">
             <el-form-item label="购置日期" label-width="100px" prop="purchase_date">
               <span v-show="isRead">{{ dataForm.purchase_date }}</span>
-              <!--<el-input v-show="isRead" v-model="dataForm.purchase_date" style="width: auto" :readonly="isRead" />-->
               <el-date-picker v-show="!isRead" v-model="dataForm.purchase_date" style="width: 165px" type="date" value-format="yyyy-MM-dd" clearable />
             </el-form-item>
           </el-col>
@@ -203,126 +202,128 @@
         </div>
       </el-collapse-transition>
     </div>
-    <!-- 耗材分类dialog -->
-    <dictionary-for-select
-      title="耗材分类"
-      listName="consumableCategoryList"
-      idKey="lab_consumable_category_id"
-      methodKey="consumableCategory"
-      dialogVisibleKey="consumableCategoryDialogVisible"
-      :currentDialogVisible = "consumableCategoryDialogVisible"
-      :currentList = "consumableCategoryList"
-      :currentSelectedItem = "dataForm.consumableCategoryDialogVisible"
-      @handleCancel="consumableCategoryDialogVisible = !consumableCategoryDialogVisible"
-      @handleQuery="handleQuery"
-      @handleSelect="handleSelect"
-    >
-    </dictionary-for-select>
-    <!-- 品牌dialog -->
-    <dictionary-for-select
-      title="品牌筛选"
-      listName="brandList"
-      idKey="lab_brand_id"
-      methodKey="brand"
-      dialogVisibleKey="brandDialogVisible"
-      :currentDialogVisible = "brandDialogVisible"
-      :currentList = "brandList"
-      :currentSelectedItem = "dataForm.lab_brand_id"
-      @handleCancel="brandDialogVisible = !brandDialogVisible"
-      @handleQuery="handleQuery"
-      @handleSelect="handleSelect"
-    >
-    </dictionary-for-select>
-    <!-- 型号dialog -->
-    <dictionary-for-select
-      title="型号筛选"
-      listName="equipmentModelList"
-      idKey="lab_model_id"
-      methodKey="equipmentModel"
-      dialogVisibleKey="equipmentModelDialogVisible"
-      :currentDialogVisible = "equipmentModelDialogVisible"
-      :currentList = "equipmentModelList"
-      :currentSelectedItem = "dataForm.lab_model_id"
-      @handleCancel="equipmentModelDialogVisible = !equipmentModelDialogVisible"
-      @handleQuery="handleQuery"
-      @handleSelect="handleSelect"
-    >
-    </dictionary-for-select>
-    <!-- 计量单位dialog -->
-    <dictionary-for-select
-      title="计量单位筛选"
-      listName="unitList"
-      idKey="lab_unit_id"
-      methodKey="unit"
-      dialogVisibleKey="unitDialogVisible"
-      :currentDialogVisible = "unitDialogVisible"
-      :currentList = "unitList"
-      :currentSelectedItem = "dataForm.lab_unit_id"
-      @handleCancel="unitDialogVisible = !unitDialogVisible"
-      @handleQuery="handleQuery"
-      @handleSelect="handleSelect"
-    >
-    </dictionary-for-select>
-    <!-- 生产商dialog -->
-    <dictionary-for-select
-      title="生产商筛选"
-      listName="manufacturerList"
-      idKey="lab_manufacturer_id"
-      methodKey="manufacturer"
-      dialogVisibleKey="manufacturerDialogVisible"
-      :currentDialogVisible = "manufacturerDialogVisible"
-      :currentList = "manufacturerList"
-      :currentSelectedItem = "dataForm.lab_manufacturer_id"
-      @handleCancel="manufacturerDialogVisible = !manufacturerDialogVisible"
-      @handleQuery="handleQuery"
-      @handleSelect="handleSelect"
-    >
-    </dictionary-for-select>
-    <!-- 供货商dialog -->
-    <dictionary-for-select
-      title="供货商筛选"
-      listName="supplierList"
-      idKey="lab_supplier_id"
-      methodKey="supplier"
-      dialogVisibleKey="supplierDialogVisible"
-      :currentDialogVisible = "supplierDialogVisible"
-      :currentList = "supplierList"
-      :currentSelectedItem = "dataForm.lab_supplier_id"
-      @handleCancel="supplierDialogVisible = !supplierDialogVisible"
-      @handleQuery="handleQuery"
-      @handleSelect="handleSelect"
-    >
-    </dictionary-for-select>
-    <!-- 国码dialog -->
-    <dictionary-for-select
-      title="国码"
-      listName="countryCodeList"
-      idKey="country_code_id"
-      methodKey="countryCode"
-      dialogVisibleKey="countryCodeDialogVisible"
-      :currentDialogVisible = "countryCodeDialogVisible"
-      :currentList = "countryCodeList"
-      :currentSelectedItem = "dataForm.country_code_id"
-      @handleCancel="countryCodeDialogVisible = !countryCodeDialogVisible"
-      @handleQuery="handleQuery"
-      @handleSelect="handleSelect"
-    >
-    </dictionary-for-select>
-    <!-- 场地dialog -->
-    <dictionary-for-select
-      title="场地"
-      listName="fieldList"
-      idKey="field_id"
-      methodKey="field"
-      dialogVisibleKey="fieldDialogVisible"
-      :currentDialogVisible = "fieldDialogVisible"
-      :currentList = "fieldList"
-      :currentSelectedItem = "dataForm.field_id"
-      @handleCancel="fieldDialogVisible = !fieldDialogVisible"
-      @handleQuery="handleQuery"
-      @handleSelect="handleSelect"
-    >
-    </dictionary-for-select>
+    <div v-if="this.dataForm.id">
+      <!-- 耗材分类dialog -->
+      <dictionary-for-select
+        title="耗材分类"
+        listName="consumableCategoryList"
+        idKey="lab_consumable_category_id"
+        methodKey="consumableCategory"
+        dialogVisibleKey="consumableCategoryDialogVisible"
+        :currentDialogVisible = "consumableCategoryDialogVisible"
+        :currentList = "consumableCategoryList"
+        :currentSelectedItem = "dataForm.consumableCategoryDialogVisible"
+        @handleCancel="consumableCategoryDialogVisible = !consumableCategoryDialogVisible"
+        @handleQuery="handleQuery"
+        @handleSelect="handleSelect"
+      >
+      </dictionary-for-select>
+      <!-- 品牌dialog -->
+      <dictionary-for-select
+        title="品牌筛选"
+        listName="brandList"
+        idKey="lab_brand_id"
+        methodKey="brand"
+        dialogVisibleKey="brandDialogVisible"
+        :currentDialogVisible = "brandDialogVisible"
+        :currentList = "brandList"
+        :currentSelectedItem = "dataForm.lab_brand_id"
+        @handleCancel="brandDialogVisible = !brandDialogVisible"
+        @handleQuery="handleQuery"
+        @handleSelect="handleSelect"
+      >
+      </dictionary-for-select>
+      <!-- 型号dialog -->
+      <dictionary-for-select
+        title="型号筛选"
+        listName="equipmentModelList"
+        idKey="lab_model_id"
+        methodKey="equipmentModel"
+        dialogVisibleKey="equipmentModelDialogVisible"
+        :currentDialogVisible = "equipmentModelDialogVisible"
+        :currentList = "equipmentModelList"
+        :currentSelectedItem = "dataForm.lab_model_id"
+        @handleCancel="equipmentModelDialogVisible = !equipmentModelDialogVisible"
+        @handleQuery="handleQuery"
+        @handleSelect="handleSelect"
+      >
+      </dictionary-for-select>
+      <!-- 计量单位dialog -->
+      <dictionary-for-select
+        title="计量单位筛选"
+        listName="unitList"
+        idKey="lab_unit_id"
+        methodKey="unit"
+        dialogVisibleKey="unitDialogVisible"
+        :currentDialogVisible = "unitDialogVisible"
+        :currentList = "unitList"
+        :currentSelectedItem = "dataForm.lab_unit_id"
+        @handleCancel="unitDialogVisible = !unitDialogVisible"
+        @handleQuery="handleQuery"
+        @handleSelect="handleSelect"
+      >
+      </dictionary-for-select>
+      <!-- 生产商dialog -->
+      <dictionary-for-select
+        title="生产商筛选"
+        listName="manufacturerList"
+        idKey="lab_manufacturer_id"
+        methodKey="manufacturer"
+        dialogVisibleKey="manufacturerDialogVisible"
+        :currentDialogVisible = "manufacturerDialogVisible"
+        :currentList = "manufacturerList"
+        :currentSelectedItem = "dataForm.lab_manufacturer_id"
+        @handleCancel="manufacturerDialogVisible = !manufacturerDialogVisible"
+        @handleQuery="handleQuery"
+        @handleSelect="handleSelect"
+      >
+      </dictionary-for-select>
+      <!-- 供货商dialog -->
+      <dictionary-for-select
+        title="供货商筛选"
+        listName="supplierList"
+        idKey="lab_supplier_id"
+        methodKey="supplier"
+        dialogVisibleKey="supplierDialogVisible"
+        :currentDialogVisible = "supplierDialogVisible"
+        :currentList = "supplierList"
+        :currentSelectedItem = "dataForm.lab_supplier_id"
+        @handleCancel="supplierDialogVisible = !supplierDialogVisible"
+        @handleQuery="handleQuery"
+        @handleSelect="handleSelect"
+      >
+      </dictionary-for-select>
+      <!-- 国码dialog -->
+      <dictionary-for-select
+        title="国码"
+        listName="countryCodeList"
+        idKey="country_code_id"
+        methodKey="countryCode"
+        dialogVisibleKey="countryCodeDialogVisible"
+        :currentDialogVisible = "countryCodeDialogVisible"
+        :currentList = "countryCodeList"
+        :currentSelectedItem = "dataForm.country_code_id"
+        @handleCancel="countryCodeDialogVisible = !countryCodeDialogVisible"
+        @handleQuery="handleQuery"
+        @handleSelect="handleSelect"
+      >
+      </dictionary-for-select>
+      <!-- 场地dialog -->
+      <dictionary-for-select
+        title="场地"
+        listName="fieldList"
+        idKey="field_id"
+        methodKey="field"
+        dialogVisibleKey="fieldDialogVisible"
+        :currentDialogVisible = "fieldDialogVisible"
+        :currentList = "fieldList"
+        :currentSelectedItem = "dataForm.field_id"
+        @handleCancel="fieldDialogVisible = !fieldDialogVisible"
+        @handleQuery="handleQuery"
+        @handleSelect="handleSelect"
+      >
+      </dictionary-for-select>
+    </div>
   </div>
 </template>
 
@@ -355,6 +356,7 @@ import { getSelectValue } from '@/utils/get-select-value'
 import { isChinese, isEnglish } from '@/utils/fieldValidate'
 import DictionaryForSelect from '@/components/DictionaryForSelect'
 import { fetchConsumableInfoById } from '@/api/laboratory_1/consumable'
+import { deleteConsumableById, modifyConsumableInfo } from '@/api/laboratory_1/consumable'
 import { fetchConsumableCategoryInfoById, fetchConsumableCategoryInfos } from '@/api/laboratory_1/consumable-category'
 import { fetchFieldInfoById, fetchFieldInfos } from '@/api/laboratory_1/field'
 import { fetchBrandInfoById, fetchBrandInfos } from '@/api/laboratory_1/brand'
@@ -384,12 +386,47 @@ export default {
       }
     }
     return {
-      dataForm: null,
+      dataForm: {
+        id: null,
+        number: null,
+        name: null,
+        english_name: null,
+        lab_consumable_category_id: null,
+        lab_consumable_category_name: null,
+        lab_brand_id: null,
+        brand_name: null,
+        lab_model_id: null,
+        model_name: null,
+        lab_unit_id: null,
+        lab_unit_name: null,
+        specification: null,
+        specialized: null,
+        lab_manufacturer_id: null,
+        manufacturer_name: null,
+        manufacturer_telephone: null,
+        lab_supplier_id: null,
+        supplier_name: null,
+        supplier_telephone: null,
+        // 适用器材（applicative_equipment）
+        bills_number: null,
+        purchase_date: null,
+        field_id: null,
+        field_name: null,
+        expenditure: null,
+        purchase_method: null,
+        warranty: null,
+        quantity: null,
+        unit_price: null,
+        total_price: null,
+        country_code_id: null,
+        country_code_name: null,
+        production_date: null,
+      },
       tempData: null,
       tempDataByID: null,
       rules: {
         number: [
-          { required: true, type: 'string', message: '请输入数字', trigger: 'blur' }
+          { required: true, type: 'string', message: '请输入', trigger: 'blur' }
         ],
         name: [
           { required: true, trigger: 'blur', validator: validateIsChinese }
@@ -487,12 +524,13 @@ export default {
      * @method：getOriginalData
      * @desc：根据ID获取数据
      * @params: null
-     * @create date： 2020/7/8
+     * @create date： 2020/6/21
      * @update date： 2020/7/13
      * @author：李国烨
      */
    async getOriginalData() {
       const id = this.$route.query.id
+      console.log('id=' + id)
       await fetchConsumableInfoById(id).then(res => {
         this.dataForm = res.data.item;
       }).catch(err => {
@@ -503,7 +541,7 @@ export default {
       * @method：getConsumableCategoryList
       * @desc： 获取耗材种类列表信息
       * @params:
-      * @create date： 2020/7/8
+      * @create date： 2020/6/21
       * @update date： 2020/7/13
       * @author：李国烨
      */
@@ -518,7 +556,7 @@ export default {
       * @method：getFieldList
       * @desc：获取场地列表信息
       * @params:
-      * @create date： 2020/7/8
+      * @create date： 2020/6/21
       * @update date： 2020/7/13
       * @author：李国烨
      */
@@ -534,7 +572,7 @@ export default {
      * @method：getBrandList
      * @desc：获取品牌列表信息
      * @params: keyword 查询条件，可为null
-     * @create date： 2020/7/8
+     * @create date： 2020/6/21
      * @update date： 2020/7/13
      * @author：李国烨
      */
@@ -549,7 +587,7 @@ export default {
       * @method：getEquipmentModelList
       * @desc：获取型号列表信息
       * @params:
-      * @create date： 2020/7/8
+      * @create date： 2020/6/21
       * @update date： 2020/7/13
       * @author：李国烨
      */
@@ -564,7 +602,7 @@ export default {
      * @method：getUnitList
      * @desc：获取计量单位列表信息
      * @params: keyword 查询条件，可为null
-     * * @create date： 2020/7/8
+     * @create date： 2020/6/21
      * @update date： 2020/7/13
      * @author：李国烨
      */
@@ -579,7 +617,7 @@ export default {
      * @method：getSupplierList
      * @desc：获取供货商列表信息
      * @params: keyword 查询条件，可为null
-     * @create date： 2020/7/8
+     * @create date： 2020/6/21
      * @update date： 2020/7/13
      * @author：李国烨
      */
@@ -594,7 +632,7 @@ export default {
      * @method：getManufacturerList
      * @desc：获取生产商列表信息
      * @params: keyword 查询条件，可为null
-     * * @create date： 2020/7/8
+     * @create date： 2020/6/21
      * @update date： 2020/7/13
      * @author：李国烨
      */
@@ -609,7 +647,7 @@ export default {
      * @method：getCountryCodeList
      * @desc：获取国码列表信息
      * @params: keyword 查询条件，可为null
-     * * @create date： 2020/7/8
+     * @create date： 2020/6/21
      * @update date： 2020/7/13
      * @author：李国烨
      */
@@ -623,8 +661,8 @@ export default {
     /**
      * @method：fetchConsumableCategoryById
      * @desc：根据ID获获取耗材种类信息
-     * @params: id
-     * @create date： 2020/7/8
+     * @params: nulld
+     * @create date： 2020/6/21
      * @update date： 2020/7/13
      * @author：李国烨
      */
@@ -642,8 +680,8 @@ export default {
     /**
      * @method：fetchBrandById
      * @desc：获根据ID取品牌信息
-     * @params: id
-     * @create date： 2020/7/8
+     * @params: nulld
+     * @create date： 2020/6/21
      * @update date： 2020/7/13
      * @author：李国烨
      */
@@ -663,7 +701,7 @@ export default {
       * @method：fetchEquipmentModelById
       * @desc：根据ID获取型号信息
       * @params:
-      * @create date： 2020/7/8
+      * @create date： 2020/6/21
       * @update date： 2020/7/13
       * @author：李国烨
      */
@@ -671,7 +709,7 @@ export default {
       await fetchModelInfoById(id).then(res => {
         this.tempDataByID = {
           lab_model_id: res.data.item.id,
-          equipment_model_name: res.data.item.name
+          model_name: res.data.item.name
         }
       }).catch(err => {
         alert('获取型号信息内容失败！' + err)
@@ -681,8 +719,8 @@ export default {
     /**
      * @method：fetchUnitById
      * @desc：根据ID获取计量单位信息
-     * @params: id
-     * * @create date： 2020/7/8
+     * @params: nulld
+     * @create date： 2020/6/21
      * @update date： 2020/7/13
      * @author：李国烨
      */
@@ -701,8 +739,8 @@ export default {
     /**
      * @method：fetchSupplierById
      * @desc：根据ID获取供货商信息
-     * @params: id
-     * * @create date： 2020/7/8
+     * @params: nulld
+     * @create date： 2020/6/21
      * @update date： 2020/7/13
      * @author：李国烨
      */
@@ -722,8 +760,8 @@ export default {
     /**
      * @method：fetchManufacturerById
      * @desc：根据ID获取生产商信息
-     * @params: id
-     * * @create date： 2020/7/8
+     * @params: nulld
+     * @create date： 2020/6/21
      * @update date： 2020/7/13
      * @author：李国烨
      */
@@ -743,8 +781,8 @@ export default {
     /**
      * @method：fetchCountryCodeById
      * @desc：根据ID获取国码信息
-     * @params: id
-     * * @create date： 2020/7/8
+     * @params: nulld
+     * @create date： 2020/6/21
      * @update date： 2020/7/13
      * @author：李国烨
      */
@@ -764,7 +802,7 @@ export default {
       * @method：fetchFieldById
       * @desc：根据ID获取场地信息
       * @params:
-      * @create date： 2020/7/8
+      * @create date： 2020/6/21
       * @update date： 2020/7/13
       * @author：李国烨
      */
@@ -783,7 +821,7 @@ export default {
      * @method：handleOpenDialog
      * @desc：利用字典1 根据关键词打开dialog
      * @params: dialogVisible
-     * @create date： 2020/7/8
+     * @create date： 2020/6/21
      * @update date： 2020/7/13
      * @author：李国烨
      */
@@ -804,7 +842,7 @@ export default {
      * @method：getMethodByKey
      * @desc：利用字典2 根据关键字获取对应方法 并返回查询出的数据
      * @params: key：找出方法对关键字，id：被找出方法需要要参数值
-     * @create date： 2020/7/8
+     * @create date： 2020/6/21
      * @update date： 2020/7/13
      * @author：李国烨
      */
@@ -816,7 +854,7 @@ export default {
      * @method：handleSelect
      * @desc：抽取方法 将信息同步
      * @params:
-     * * @create date： 2020/7/8
+     * @create date： 2020/6/21
      * @update date： 2020/7/13
      * @author：李国烨
      */
@@ -833,7 +871,7 @@ export default {
      * @method：handleQuery
      * @desc：筛选radio
      * @params: data：自定义组件传的数据
-     * * @create date： 2020/7/8
+     * @create date： 2020/6/21
      * @update date： 2020/7/13
      * @author：李国烨
      */
@@ -855,7 +893,7 @@ export default {
      * @method：beforeEdit
      * @desc：为页面显示为编辑页面做准备
      * @params:
-     * * @create date： 2020/7/8
+     * @create date： 2020/6/21
      * @update date： 2020/7/13
      * @author：李国烨
      */
@@ -874,7 +912,7 @@ export default {
      * @method：afterEdit
      * @desc：编辑成功后的操作，还原修改前所有状态
      * @params:
-     * * @create date： 2020/7/8
+     * @create date： 2020/6/21
      * @update date： 2020/7/13
      * @author：李国烨
      */
@@ -889,24 +927,28 @@ export default {
      * @method：submitEdit
      * @desc：提交编辑的内容
      * @params: formName:表单的名称
-     * * @create date： 2020/7/8
+     * @create date： 2020/6/21
      * @update date： 2020/7/13
      * @author：李国烨
      */
     submitEdit(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          this.$message({
-            message: '修改成功',
-            type: 'success'
+          modifyConsumableInfo(this.dataForm).then(res => {
+            this.$message({
+              message: '修改成功',
+              type: 'success'
+            })
+            this.afterEdit()
+          }).catch(err => {
+            this.$message({
+              message: '修改失败',
+              type: 'error'
+            })
           })
-          // 修改后操作
-          this.afterEdit()
-          // 根据返回信息重新复制dataForm
-          console.log('success submit!!')
         } else {
           this.$message({
-            message: '修改失败',
+            message: '修改失败！请注意输入内容',
             type: 'error'
           })
           console.log('error submit!!')
@@ -918,7 +960,7 @@ export default {
      * @method：cancelEdit
      * @desc：取消编辑
      * @params: formName 表单名称
-     * * @create date： 2020/7/8
+     * @create date： 2020/6/21
      * @update date： 2020/7/13
      * @author：李国烨
      */
@@ -931,7 +973,7 @@ export default {
      * @method：beforeCancelEdit
      * @desc：取消编辑，确认弹窗，确认后调用cancelEdit方法
      * @params: formName 表单名称
-     * * @create date： 2020/7/8
+     * @create date： 2020/6/21
      * @update date： 2020/7/13
      * @author：李国烨
      */
@@ -955,23 +997,22 @@ export default {
      * @method：handleDelete
      * @desc：根据ID删除信息
      * @params:
-     * * @create date： 2020/7/8
+     * @create date： 2020/6/21
      * @update date： 2020/7/13
      * @author：李国烨
      */
-    handleDelete() {
-      if (this.dataForm.id) {
-        console.log(this.dataForm.id)
+    async handleDelete() {
+      await deleteConsumableById(this.dataForm.id).then(res => {
         return true
-      } else {
+      }).catch(err => {
         return false
-      }
+      })
     },
     /**
      * @method：beforeHandleDelete
      * @desc：删除前 确认弹窗，确认后调用handleDelete方法
      * @params:
-     * * @create date： 2020/7/8
+     * @create date： 2020/6/21
      * @update date： 2020/7/13
      * @author：李国烨
      */
@@ -1004,7 +1045,7 @@ export default {
      * @method：handleDownload
      * @desc：导出表单信息
      * @params:
-     * * @create date： 2020/7/8
+     * @create date： 2020/6/21
      * @update date： 2020/7/13
      * @author：李国烨
      */

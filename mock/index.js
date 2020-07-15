@@ -13,6 +13,14 @@ const manufacturer = require('./manufacturer')
 const supplier = require('./supplier')
 const consumableCategory = require('./consumable-category')
 const consumable = require('./consumable')
+const field = require('./field')
+const model = require('./model')
+const laboratory = require('./laboratory')
+const laboratoryCategory = require('./laboratory-category')
+const equipment = require('./equipment')
+const equipmentCategory = require('./equipment-category')
+const equComponents = require('./equ-components')
+const equComponentsCategory = require('./equ-components-category')
 
 const mocks = [
   ...user,
@@ -26,7 +34,15 @@ const mocks = [
   ...manufacturer,
   ...supplier,
   ...consumableCategory,
-  ...consumable
+  ...consumable,
+  ...field,
+  ...model,
+  ...laboratory,
+  ...laboratoryCategory,
+  ...equipment,
+  ...equipmentCategory,
+  ...equComponents,
+  ...equComponentsCategory
 ]
 
 // for front mock

@@ -1,6 +1,6 @@
 <!--
     @Author 李国烨
-    @Date 2020/7/5 21:30
+    @Date 2020/6/21 14:30
     @Description: 耗材分类信息创建页面
     @Version 1.0
 -->
@@ -86,7 +86,7 @@ export default {
       * @method：submitCreate
       * @desc：调用接口 提交表单信息
       * @params: formName 表单名称
-      * @create date： 2020/7/6
+      * @create date： 2020/6/21
       * @update date： 2020/7/13
       * @author：李国烨
      */
@@ -119,7 +119,7 @@ export default {
       * @method：handleReturn
       * @desc：返回上一页
       * @params:
-      * @create date： 2020/7/6
+      * @create date： 2020/6/21
       * @update date： 2020/7/6
       * @author：李国烨
      */

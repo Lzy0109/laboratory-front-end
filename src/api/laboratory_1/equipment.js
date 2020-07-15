@@ -1,8 +1,8 @@
 /**
- * @Author：李国烨
- * @Create： 2020/7/13
- * @Desc：耗材接口
- * @version: v1.0
+  * @Author：李国烨
+  * @Create： 2020/7/14
+  * @Desc：器材信息接口
+  * @version: v1.0
  */
 import request from '@/utils/request'
 
@@ -11,13 +11,11 @@ import request from '@/utils/request'
  * @param keyword
  * @returns {*}
  */
-export function fetchConsumableInfos(keyword) {
+export function fetchEquipmentInfos(keyword) {
   return request({
-    url: '/api/consumable/infos',
+    url: '/api/equipment/infos',
     method: 'GET',
-    params:{
-      keyword: keyword
-    }
+    params:keyword
   })
 }
 
@@ -26,9 +24,9 @@ export function fetchConsumableInfos(keyword) {
  * @param id
  * @returns {}
  */
-export function fetchConsumableInfoById(id) {
+export function fetchEquipmentInfoById(id) {
   return request({
-    url: '/api/consumable/detail',
+    url: '/api/equipment/detail',
     method: 'GET',
     params: {
       id: id
@@ -42,9 +40,9 @@ export function fetchConsumableInfoById(id) {
  * @param data
  * @returns {}
  */
-export function createConsumableInfo(data) {
+export function createEquipmentInfo(data) {
   return request({
-    url: '/api/consumable/create',
+    url: '/api/equipment/create',
     method: 'POST',
     data: data
   })
@@ -55,10 +53,10 @@ export function createConsumableInfo(data) {
  * @param id
  * @returns {}
  */
-export function deleteConsumableById(id) {
+export function deleteEquipmentById(id) {
   return request({
-    url: '/api/consumable/delete',
-    // url: '/api/consumable/' + id,
+    url: '/api/equipment/delete',
+    // url: '/api/equipment/' + id,
     method: 'DELETE'
   })
 }
@@ -68,9 +66,9 @@ export function deleteConsumableById(id) {
  * @param data
  * @returns {}
  */
-export function modifyConsumableInfo(data) {
+export function modifyEquipmentInfo(data) {
   return request({
-    url: '/api/consumable/modify',
+    url: '/api/equipment/modify',
     method: 'PUT',
     data: data
   })

@@ -1,6 +1,6 @@
 <!--
     @Author 李国烨
-    @Date 2020/7/6 21:17
+    @Date 2020/6/21 14:17
     @Description: 耗材分类详细信息页面
     @Version 1.0
 -->
@@ -54,7 +54,7 @@
 
 <script>
 import { isChinese, isEnglish } from '@/utils/fieldValidate'
-import { createConsumableCategoryInfo, fetchConsumableCategoryInfoById }from '@/api/laboratory_1/consumable-category'
+import { deleteConsumableCategoryById, createConsumableCategoryInfo, fetchConsumableCategoryInfoById }from '@/api/laboratory_1/consumable-category'
 export default {
   name: 'ConsumableCategoryDetail',
   data() {
@@ -100,7 +100,7 @@ export default {
      * @method：getOriginalData
      * @desc：根据ID获取数据
      * @params: id
-     * @create date： 2020/6/30
+     * @create date： 2020/6/21
      * @update date： 2020/7/13
      * @author：李国烨
      */
@@ -121,7 +121,7 @@ export default {
      * @method：handleReturn
      * @desc：返回上一页
      * @params:
-     * @create date： 2020/6/30
+     * @create date： 2020/6/21
      * @update date： 2020/7/13
      * @author：李国烨
      */
@@ -132,7 +132,7 @@ export default {
      * @method：beforeEdit
      * @desc：编辑前的准备
      * @params:
-     * @create date： 2020/6/30
+     * @create date： 2020/6/21
      * @update date： 2020/7/13
      * @author：李国烨
      */
@@ -147,7 +147,7 @@ export default {
      * @method：afterEdit
      * @desc：编辑成功后 回复修改前的页面状态
      * @params:
-     * @create date： 2020/6/30
+     * @create date： 2020/6/21
      * @update date： 2020/7/13
      * @author：李国烨
      */
@@ -161,7 +161,7 @@ export default {
      * @method：submitEdit
      * @desc：调用编辑信息接口 提交编辑的内容 修改成功后调用afterEdit
      * @params: dataForm 表单内容
-     * @create date： 2020/6/30
+     * @create date： 2020/6/21
      * @update date： 2020/7/13
      * @author：李国烨
      */
@@ -194,7 +194,7 @@ export default {
      * @method：cancelEdit
      * @desc：取消编辑操作，将编辑前保存的数据返回，还原初始状态
      * @params: formName 表单名称
-     * @create date： 2020/6/30
+     * @create date： 2020/6/21
      * @update date： 2020/7/13
      * @author：李国烨
      */
@@ -207,7 +207,7 @@ export default {
      * @method：beforeCancelEdit
      * @desc：取消编辑前的确认弹窗，确认取消则调用cancelEdit
      * @params: formName 表单名称
-     * @create date： 2020/6/30
+     * @create date： 2020/6/21
      * @update date： 2020/7/13
      * @author：李国烨
      */
@@ -231,24 +231,22 @@ export default {
      * @method：handleDelete
      * @desc：根据ID删除信息
      * @params:
-     * @create date： 2020/6/30
+     * @create date： 2020/6/21
      * @update date： 2020/7/13
      * @author：李国烨
      */
-    handleDelete() {
-      if (this.dataForm.id) {
-        // 调用删除信息接口
-        console.log(this.dataForm.id)
+    async handleDelete() {
+      await deleteConsumableCategoryById(this.dataForm.id).then(res => {
         return true
-      } else {
+      }).catch(err => {
         return false
-      }
+      })
     },
     /**
      * @method：beforeHandleDelete
      * @desc：删除前弹出确认弹窗， 确认则调用handleDelete进行删除
      * @params:
-     * @create date： 2020/6/30
+     * @create date： 2020/6/21
      * @update date： 2020/7/13
      * @author：李国烨
      */
@@ -281,7 +279,7 @@ export default {
      * @method：handleDownload
      * @desc：导出
      * @params:
-     * @create date： 2020/6/30
+     * @create date： 2020/6/21
      * @update date： 2020/7/13
      * @author：李国烨
      */

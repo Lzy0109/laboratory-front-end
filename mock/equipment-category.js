@@ -1,7 +1,7 @@
 /**
   * @Author：李国烨
-  * @Create： 2020/7/13
-  * @Desc：耗材分类信息假数据
+  * @Create： 2020/7/14
+  * @Desc：器材分类信息假数据
   * @version: v1.0
  */
 const count = 20;
@@ -10,15 +10,15 @@ const List = []
 for (let i = 1; i <= count; i++){
   List.push({
     id: i,
-    name: '耗材分类' + i,
-    english_name: 'eng-cc' + i,
-    description: 'desc-cc'
+    name: '器材分类' + i,
+    english_name: 'eng-equ' + i,
+    description: 'desc-equ'
   })
 }
 
 module.exports = [
   {
-    url: '/api/consumableCategory/infos',
+    url: '/api/equipmentCategory/infos',
     type: 'get',
     response: config => {
       console.log('config query = ', config.query)
@@ -43,7 +43,7 @@ module.exports = [
     }
   },
   {
-    url: '/api/consumableCategory/detail',
+    url: '/api/equipmentCategory/detail',
     type: 'get',
     response: config => {
       const {id} = config.query
@@ -58,7 +58,7 @@ module.exports = [
     }
   },
   {
-    url: '/api/consumableCategory/create',
+    url: '/api/equipmentCategory/create',
     type: 'post',
     response: config => {
       return {
@@ -70,7 +70,7 @@ module.exports = [
     }
   },
   {
-    url: '/api/consumableCategory/delete',
+    url: '/api/equipmentCategory/delete',
     type: 'delete',
     response: config => {
       return {
@@ -82,7 +82,7 @@ module.exports = [
     }
   },
   {
-    url:'/api/consumableCategory/modify',
+    url:'/api/equipmentCategory/modify',
     type: 'put',
     response: config => {
       return {

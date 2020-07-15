@@ -53,16 +53,13 @@
 </template>
 
 <script>
-  // 假数据
-  const fake_data =
-    {
-      id: 1,
-      name: '实验室分类名称',
-      english_name: 'test_category',
-      description: '实验室分类描述'
-    }
 
   import { isChinese, isEnglish } from '@/utils/fieldValidate'
+  import {
+    fetchLaboratoryCategoryInfoById,
+    deleteLaboratoryCategoryById,
+    modifyLaboratoryCategoryInfo
+  } from '@/api/laboratory_1/laboratory-category'
   export default {
     name: 'category-detail',
     data() {
@@ -81,7 +78,12 @@
         }
       }
       return {
-        dataForm: null,
+        dataForm: {
+          id: null,
+          name: null,
+          english_name: null,
+          description: null
+        },
         tempData: null,
         // 校验规则
         rules: {
@@ -108,11 +110,13 @@
     methods: {
       /* 根据id获取数据 */
       getOriginalData() {
-        // 暂用假数据
-        this.dataForm = fake_data
         const id = this.$route.query.id
-        console.log(id)
         // 调用获取信息接口
+        fetchLaboratoryCategoryInfoById(id).then(res => {
+          this.dataForm = res.data.item;
+        }).catch(er => {
+          alert('获取信息失败')
+        })
       },
       /* 返回上一页 */
       handleReturn() {
@@ -143,14 +147,18 @@
         this.$refs[formName].validate((valid) => {
           if (valid) {
             // 调用编辑信息接口
-            this.$message({
-              message: '修改成功',
-              type: 'success'
+            modifyLaboratoryCategoryInfo(this.dataForm).then(res => {
+              this.$message({
+                message: '修改成功',
+                type: 'success'
+              })
+              this.afterEdit()
+            }).catch(err => {
+              this.$message({
+                message: '失败',
+                type: 'error'
+              })
             })
-            // 修改后操作
-            this.afterEdit()
-            // 根据返回信息重新复制dataForm
-            console.log('submit')
           } else {
             this.$message({
               message: '修改失败！请注意输入内容',
@@ -186,14 +194,13 @@
         })
       },
       /* 删除 */
-      handleDelete() {
-        if (this.dataForm.id) {
-          // 调用删除信息接口
-          console.log(this.dataForm.id)
+      async handleDelete() {
+        await deleteLaboratoryCategoryById(this.dataForm.id).then(res => {
+          console.log(res)
           return true
-        } else {
+        }).catch(err => {
           return false
-        }
+        })
       },
       /* 删除 确认弹窗 */
       beforeHandleDelete() {

@@ -1,19 +1,19 @@
 /**
  * @Author：李国烨
- * @Create： 2020/7/13
- * @Desc：耗材分类接口
+ * @Create： 2020/7/14
+ * @Desc：器材零部件接口
  * @version: v1.0
  */
 import request from '@/utils/request'
 
 /**
- * 获取分类信息
+ * 获取信息
  * @param keyword
  * @returns {*}
  */
-export function fetchConsumableCategoryInfos(keyword) {
+export function fetchComponentsInfos(keyword) {
   return request({
-    url: '/api/consumableCategory/infos',
+    url: '/api/components/infos',
     method: 'GET',
     params:{
       keyword: keyword
@@ -22,13 +22,13 @@ export function fetchConsumableCategoryInfos(keyword) {
 }
 
 /**
- * 根据ID获取分类信息
+ * 根据ID获取信息
  * @param id
  * @returns {}
  */
-export function fetchConsumableCategoryInfoById(id) {
+export function fetchComponentsInfoById(id) {
   return request({
-    url: '/api/consumableCategory/detail',
+    url: '/api/components/detail',
     method: 'GET',
     params: {
       id: id
@@ -42,9 +42,9 @@ export function fetchConsumableCategoryInfoById(id) {
  * @param data
  * @returns {}
  */
-export function createConsumableCategoryInfo(data) {
+export function createComponentsInfo(data) {
   return request({
-    url: '/api/consumableCategory/create',
+    url: '/api/components/create',
     method: 'POST',
     data: data
   })
@@ -55,10 +55,10 @@ export function createConsumableCategoryInfo(data) {
  * @param id
  * @returns {}
  */
-export function deleteConsumableCategoryById(id) {
+export function deleteComponentsById(id) {
   return request({
-    url: '/api/consumableCategory/delete',
-    // url: '/api/consumableCategory/' + id,
+    url: '/api/components/delete',
+    // url: '/api/components/' + id,
     method: 'DELETE'
   })
 }
@@ -68,9 +68,9 @@ export function deleteConsumableCategoryById(id) {
  * @param data
  * @returns {}
  */
-export function modifyConsumableCategoryInfo(data) {
+export function modifyComponentsInfo(data) {
   return request({
-    url: '/api/consumableCategory/modify',
+    url: '/api/components/modify',
     method: 'PUT',
     data: data
   })

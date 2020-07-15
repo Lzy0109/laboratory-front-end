@@ -1,8 +1,8 @@
 /**
- * @Author：李国烨
- * @Create： 2020/7/13
- * @Desc：耗材分类接口
- * @version: v1.0
+  * @Author：李国烨
+  * @Create： 2020/7/14
+  * @Desc：器材分类接口
+  * @version: v1.0
  */
 import request from '@/utils/request'
 
@@ -11,9 +11,9 @@ import request from '@/utils/request'
  * @param keyword
  * @returns {*}
  */
-export function fetchConsumableCategoryInfos(keyword) {
+export function fetchEquipmentCategoryInfos(keyword) {
   return request({
-    url: '/api/consumableCategory/infos',
+    url: '/api/equipmentCategory/infos',
     method: 'GET',
     params:{
       keyword: keyword
@@ -26,9 +26,9 @@ export function fetchConsumableCategoryInfos(keyword) {
  * @param id
  * @returns {}
  */
-export function fetchConsumableCategoryInfoById(id) {
+export function fetchEquipmentCategoryInfoById(id) {
   return request({
-    url: '/api/consumableCategory/detail',
+    url: '/api/equipmentCategory/detail',
     method: 'GET',
     params: {
       id: id
@@ -42,9 +42,9 @@ export function fetchConsumableCategoryInfoById(id) {
  * @param data
  * @returns {}
  */
-export function createConsumableCategoryInfo(data) {
+export function createEquipmentCategoryInfo(data) {
   return request({
-    url: '/api/consumableCategory/create',
+    url: '/api/equipmentCategory/create',
     method: 'POST',
     data: data
   })
@@ -55,10 +55,10 @@ export function createConsumableCategoryInfo(data) {
  * @param id
  * @returns {}
  */
-export function deleteConsumableCategoryById(id) {
+export function deleteEquipmentCategoryById(id) {
   return request({
-    url: '/api/consumableCategory/delete',
-    // url: '/api/consumableCategory/' + id,
+    url: '/api/equipmentCategory/delete',
+    // url: '/api/equipmentCategory/' + id,
     method: 'DELETE'
   })
 }
@@ -68,9 +68,9 @@ export function deleteConsumableCategoryById(id) {
  * @param data
  * @returns {}
  */
-export function modifyConsumableCategoryInfo(data) {
+export function modifyEquipmentCategoryInfo(data) {
   return request({
-    url: '/api/consumableCategory/modify',
+    url: '/api/equipmentCategory/modify',
     method: 'PUT',
     data: data
   })
