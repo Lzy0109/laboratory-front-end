@@ -69,3 +69,28 @@ npm run lint -- --fix
 [MIT](https://github.com/PanJiaChen/vue-admin-template/blob/master/LICENSE) license.
 
 Copyright (c) 2017-present PanJiaChen
+
+## 实验室部分前端完成的工作
+
+### vue页面部分
+
+页面主要文件：`src/views/laboratory_1` 该目录下所有文件
+
+抽离的子组件：`src/components/DictionaryForSelect/index.vue`
+
+抽离的子组件：`src/components/DictionaryRadios/index.vue`
+
+### js部分
+
+前端路由文件：`src/router/modules` 该目录下所有文件
+
+前端接口文件：`src/api/laboratory_1`  该目录下所有文件
+
+自定义的中英文验证规则：`src/utils/fieldValidate.js`
+
+抽离的方法：`src/utils/get-select-value.js`
+
+### mock假数据部分
+
+mock 该目录下全部文件（除了原本存在的文件：utils.js	user.js	table.js	index.js）
+
