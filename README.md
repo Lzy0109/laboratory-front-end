@@ -74,7 +74,7 @@ Copyright (c) 2017-present PanJiaChen
 
 ### vue页面部分
 
-实验室页面主要文件：`src/views/laboratory_1` 该目录下所有文件
+页面主要文件：`src/views/laboratory_1` 该目录下所有文件
 
 抽离的子组件：`src/components/DictionaryForSelect/index.vue`
 
@@ -84,7 +84,7 @@ Copyright (c) 2017-present PanJiaChen
 
 前端路由文件：`src/router/modules` 该目录下所有文件
 
-前端接口文件：`src/api/laboratory_1`  该目录下所有文件，
+前端接口文件：`src/api/laboratory_1`  该目录下所有文件
 
 自定义的中英文验证规则：`src/utils/fieldValidate.js`
 
