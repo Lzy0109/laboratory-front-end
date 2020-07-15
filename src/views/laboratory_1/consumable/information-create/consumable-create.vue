@@ -328,7 +328,7 @@ import {
   fetchConsumableCategoryInfoById,
   fetchConsumableCategoryInfos
 } from '../../../../api/laboratory_1/consumable-category'
-import { fetchFieldInfos } from '../../../../api/laboratory_1/field'
+import { fetchFieldInfoById, fetchFieldInfos } from '../../../../api/laboratory_1/field'
 import { fetchBrandInfoById, fetchBrandInfos } from '../../../../api/laboratory_1/brand'
 import { fetchCountryCodeInfoById, fetchCountryCodeInfos } from '../../../../api/laboratory_1/country-code'
 import { fetchManufacturerInfoById, fetchManufacturerInfos } from '../../../../api/laboratory_1/manufacturer'
