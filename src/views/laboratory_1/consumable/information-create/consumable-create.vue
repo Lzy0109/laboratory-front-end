@@ -694,7 +694,7 @@ export default {
       await fetchModelInfoById(id).then(res => {
         this.tempDataByID = {
           lab_model_id: res.data.item.id,
-          equipment_model_name: res.data.item.name
+          model_name: res.data.item.name
         }
       }).catch(err => {
         alert('获取型号信息内容失败！' + err)
