@@ -322,6 +322,7 @@
   import { fetchSupplierInfoById, fetchSupplierInfos } from '../../../../../api/laboratory_1/supplier'
   import { fetchManufacturerInfoById, fetchManufacturerInfos } from '../../../../../api/laboratory_1/manufacturer'
   import { fetchCountryCodeInfoById, fetchCountryCodeInfos } from '../../../../../api/laboratory_1/country-code'
+  import { createComponentsInfo } from '../../../../../api/laboratory_1/equ-components'
   export default {
     name: 'components-information-create',
     components: {
@@ -363,6 +364,7 @@
           lab_supplier_id: null,
           supplier_name: null,
           supplier_telephone: null,
+          country_code_id: null,
           country_code_name: null,
           field_id: null,
           field_name: null,
@@ -681,12 +683,18 @@
         this.$refs[formName].validate((valid) => {
           if (valid) {
             // 调用接口
-            this.$message({
-              message: '添加成功!',
-              type: 'success'
+            createComponentsInfo(this.dataForm).then(res => {
+              this.$message({
+                message: '添加成功!',
+                type: 'success'
+              })
+              this.$router.go(-1)
+            }).catch(err => {
+              this.$message({
+                message: '添加失败!',
+                type: 'error'
+              })
             })
-            console.log('success submit!!')
-            // this.$router.go(-1)
           } else {
             this.$message({
               message: '添加失败!请注意输入内容',

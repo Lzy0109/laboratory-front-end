@@ -149,7 +149,7 @@
             </el-form-item>
           </el-col>
           <el-col :span="6">
-            <el-form-item label="状态" label-width="100px" prop="status_name">
+            <el-form-item label="状态" label-width="100px" prop="status">
               <!--<el-input v-show="isRead" v-model="dataForm.status_name" style="width: auto" />-->
               <el-select v-model="dataForm.status" style="width: 165px;" placeholder="状态">
                 <!--获取数据库信息动态生成option-->
@@ -445,7 +445,7 @@ export default {
           { required: true, type: 'string', message: '请输入', trigger: 'blur' }
         ],
         status: [
-          { required: true, type: 'string', message: '请输入', trigger: 'blur' }
+          { required: true, type: 'number', message: '请输入', trigger: 'change' }
         ],
         status_name: [
           { required: true, type: 'string', message: '请输入', trigger: 'blur' }
